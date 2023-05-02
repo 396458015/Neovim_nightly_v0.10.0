@@ -70,7 +70,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'windwp/nvim-autopairs'
 Plug 'karb94/neoscroll.nvim'
-Plug 'Xuyuanp/scrollbar.nvim'
+Plug 'petertriho/nvim-scrollbar'
 Plug 'folke/which-key.nvim'
 Plug 'b3nj5m1n/kommentary'
 Plug 'ellisonleao/weather.nvim'
@@ -1561,15 +1561,24 @@ hi IncSearch guibg=#d73a4a
 hi IncSearch guifg=black
 " }}}
 
-" {{{ Scrollbar << nvim-scrollbar >>
-augroup ScrollbarInit
-    autocmd!
-    autocmd WinScrolled,VimResized,QuitPre * silent! lua require('scrollbar').show()
-    autocmd WinEnter,FocusGained           * silent! lua require('scrollbar').show()
-    autocmd WinLeave,BufLeave,BufWinLeave,FocusLost            * silent! lua require('scrollbar').clear()
-augroup END
+" {{{ scrollbar << nvim-scrollbar >>
+lua << EOF
+require("scrollbar").setup({
+    handle = {
+        color = '#abb2bf',
+    },
+    marks = {
+        Cursor = {
+            text = "•",
+            color = 'black',
+        },
+    },
+})
+require("scrollbar.handlers.search").setup({
+    override_lens = function() end,
+})
+EOF
 " }}}
-
 
 " {{{ treesitter
 lua << EOF
@@ -1748,14 +1757,6 @@ cmp.setup({
   })
 })
 
-cmp.setup.filetype('gitcommit', {
-  sources = cmp.config.sources({
-    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-  }, {
-    { name = 'buffer' },
-  })
-})
-
 local search_config = {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
@@ -1768,9 +1769,8 @@ cmp.setup.cmdline('?', search_config)
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-    { name = 'path' }
-    }, {
-    { name = 'cmdline' }
+    { name = 'path' },
+    { name = 'cmdline' },
     })
 })
 
@@ -1805,6 +1805,23 @@ tabnine:setup({
 	},
 	show_prediction_strength = false
 })
+
+-- 'org' and 'markdown' exclude source 'cmp_tabnine'
+cmp.setup.filetype({'org','markdown'}, {
+    sources = {
+      { name = 'nvim_lsp' },
+      { name = 'path' },
+      { name = 'luasnip' },
+      { name = 'buffer' },
+      { name = 'calc' },
+      { name = 'emoji' },
+      { name = 'cmp_matlab' },
+      { name = "dictionary", keyword_length = 2 },
+      { name = "treesitter" },
+      { name = "orgmode" },
+      --{ name = "cmp_tabnine" },
+    }
+  })
 
 -- lsp-kind (change icons)
 require('lspkind').presets['default']['Constructor']   =''
