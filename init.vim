@@ -166,7 +166,7 @@ endif
 " 解决vim编辑matlab文件保存后, matlab中文为乱码的问题
 augroup matlab_filetype
     autocmd!
-    autocmd FileType matlab set fileencoding=cp936       "GB2312=cp936
+    autocmd FileType matlab set fileencoding=cp936       " GB2312=cp936
 augroup END
 " }}}
 
@@ -1574,9 +1574,7 @@ require("scrollbar").setup({
         },
     },
 })
-require("scrollbar.handlers.search").setup({
-    override_lens = function() end,
-})
+require("scrollbar.handlers.search").setup({})
 EOF
 " }}}
 
@@ -2180,7 +2178,7 @@ nnoremap <silent> <localleader>we :Weather<CR>
 nnoremap <silent> <localleader>wd :Weather3day<CR>
 " }}}
 
-" {{{ Org
+" {{{ << Org >>
 lua << EOF
 local orgmode = require('orgmode')
 orgmode.setup_ts_grammar()
