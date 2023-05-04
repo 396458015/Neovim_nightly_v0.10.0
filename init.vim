@@ -174,7 +174,7 @@ augroup END
 if exists('g:neovide')
     " English font
     " set guifont=Delugia\ Mono:h15.5                   " Nerd Font (Cascadia Code)
-    set guifont=Delugia\ Mono:h12.5                   " Nerd Font (Cascadia Code)
+    set guifont=Delugia\ Mono:h11.6                   " Nerd Font (Cascadia Code)
     " set guifont=CodeNewRoman\ NFM:h12                " Nerd Font
     " set guifont=OperatorMono\ NF:h12                 " Nerd Font
     " set guifont=ComicMono\ NF:h12                    " Nerd Font
@@ -361,7 +361,7 @@ augroup END
 " augroup END
 " }}}
 
-" {{{ 中英输入法切换
+" {{{ 中/英输入法切换
 augroup input_switching
     autocmd!
     autocmd VimEnter * :silent :!D:/Progra~1/Neovim/share/nvim/Mine/im-select.exe 1033
@@ -1998,7 +1998,6 @@ vim.api.nvim_set_keymap('n', '<F5>', '<cmd>lua vim.diagnostic.open_float()<CR>',
 vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
 EOF
 " }}}
-
 
 " {{{ commnet << kommentary >>
 lua << EOF
