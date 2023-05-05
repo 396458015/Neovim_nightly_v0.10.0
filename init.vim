@@ -36,7 +36,6 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown' ] }
 Plug 'mhinz/vim-startify'
 Plug 'zef/vim-cycle'
-Plug 'machakann/vim-sandwich'
 Plug 'wellle/targets.vim'
 Plug 'chrisbra/csv.vim'
 
@@ -75,6 +74,7 @@ Plug 'folke/which-key.nvim'
 Plug 'b3nj5m1n/kommentary'
 Plug 'ellisonleao/weather.nvim'
 Plug 'Vonr/align.nvim'
+Plug 'kylechui/nvim-surround'
 
 " motion
 Plug 'ggandor/leap.nvim'
@@ -1108,14 +1108,6 @@ augroup vim_cycle
 augroup END
 " }}}
 
-" {{{ 选中文字加括号 << Plugin - sandwich >>
-" use vim-sandwich with vim-surround keymappings
-runtime macros/sandwich/keymap/surround.vim
-" S        -对选中部分的两侧加符号
-" dss      -删除两侧符号
-" css      -改变两侧符号
-" }}}
-
 " {{{ 作者信息 << Plugin - header >>
 let g:header_field_author = 'Max'
 let g:header_field_author_email = 'ismaxiaolong@gmail.com'
@@ -1261,6 +1253,15 @@ nnoremap <silent> <F12> :StartupTime<CR>
 
 " ==============================================================
 " ===================== NEOVIM lua Plugins =====================
+
+" {{{ surround << Plugin -  nvim-surround>>
+lua << EOF
+require("nvim-surround").setup()
+EOF
+" S        -对选中部分的两侧加符号
+" dss      -删除两侧符号
+" css      -改变两侧符号
+" }}}
 
 " {{{ screach << Telescope >>
 "" Find files using Telescope command-line sugar.
@@ -2558,7 +2559,6 @@ vim.keymap.set("n", "<leader>rg", ":e $HOME/.goneovim/settings.toml<CR>", { sile
 EOF
 endif
 " }}}
-
 
 
 
