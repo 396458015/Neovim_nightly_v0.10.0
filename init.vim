@@ -46,7 +46,7 @@ require("lazy").setup({
      keys = {  "<Plug>(crunch-operator-line)","<Plug>(visual-crunch-operator)" },
   },
   { "terryma/vim-expand-region", keys = {  "v", "<C-v>" } },
-  { "AndrewRadev/linediff.vim", cmd = "Linediff" },
+  { "AndrewRadev/linediff.vim", cmd = {"Linediff", "LinediffAdd"} },
   { "alpertuna/vim-header", cmd = "AddHeader" },
   { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
   { "Yggdroot/LeaderF", cmd = { "LeaderfFile", "Leaderf", "LeaderfLine" } },
@@ -327,7 +327,12 @@ require("lazy").setup({
      end,
     },
   --Snippets,
-  { "L3MON4D3/LuaSnip", event = "InsertEnter" },
+  { "L3MON4D3/LuaSnip",
+     event = "InsertEnter",
+     config = function()
+     require("luasnip/loaders/from_vscode").lazy_load({ paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"}})
+     end,
+  },
   { "saadparwaiz1/cmp_luasnip" },
   --Local plugins
   { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = {"markdown", "org"} }, --modified
@@ -1691,13 +1696,7 @@ parser_config.matlab = {
 EOF
 " }}}
 " {{{ luasnip & snippets
-lua << EOF
--- Snippets
--- require("luasnip/loaders/from_vscode").lazy_load()
-require("luasnip/loaders/from_vscode").lazy_load({paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"} })
-EOF
-nnoremap <silent> <leader>rm :<C-U>e C:\Users\ThinkPad\AppData\Local\nvim-data\Maxl\friendly-snippets\snippets\add_snippets\matlab.json<CR>
-
+nnoremap <silent> <leader>rm :<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>
 " }}}
 " {{{ cmp
 lua << EOF
