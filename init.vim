@@ -59,10 +59,10 @@ require("lazy").setup({
   { "wellle/targets.vim", keys = { "c", "d", "y", "v"} },
   { "chrisbra/csv.vim", ft = "csv" },
   { "ntpeters/vim-better-whitespace",event = "InsertEnter" },
-  { "lfv89/vim-interestingwords" },
+  { "lfv89/vim-interestingwords", event = "VeryLazy" },
   { "markonm/traces.vim", event = "CmdlineEnter" },
-  { "triglav/vim-visual-increment" },
-  { "itchyny/vim-cursorword", event = "VeryLazy" },
+  { "triglav/vim-visual-increment", event = "VeryLazy" },
+  { "itchyny/vim-cursorword", event = { "BufEnter", "BufNewFile", "VeryLazy" } },
   { "bronson/vim-visual-star-search" },
   --lua
   { "alvarosevilla95/luatab.nvim" },
@@ -116,7 +116,13 @@ require("lazy").setup({
   { "karb94/neoscroll.nvim" },
   { "petertriho/nvim-scrollbar", event = "VimEnter" },
   { "folke/which-key.nvim", lazy = true },
-  { "b3nj5m1n/kommentary" },
+  {
+    "b3nj5m1n/kommentary",
+     event = "InsertEnter",
+     config = function()
+     require("kommentary")
+     end,
+  },
   {
     "kyazdani42/nvim-tree.lua",
     branch = "master",
@@ -180,11 +186,52 @@ require("lazy").setup({
   --Telescope
   {
     "nvim-telescope/telescope.nvim",
-     event = { "VimEnter" },
+     cmd = { "Telescope" },
      dependencies = {
-     "nvim-telescope/telescope-file-browser.nvim",
-     "nvim-lua/plenary.nvim",
+     {
+       "nvim-telescope/telescope-file-browser.nvim",
+       config =function()
+       require("telescope").load_extension "file_browser"
+       end,
     },
+     { "nvim-lua/plenary.nvim" },
+    },
+     config = function()
+     require("telescope").setup {
+       defaults = {
+         initial_mode = 'normal',
+         prompt_prefix = " ",
+         selection_caret = " ",
+         path_display = { "smart" },
+         dynamic_preview_title = true,
+       },
+       pickers = {
+         find_files = {
+           hidden = true,
+           --find_command = { "fd", "f" },
+           find_command = { "rg", "--files" },
+           mappings = {
+             n = {
+               ["cd"] = function(prompt_bufnr)
+                 local selection = require("telescope.actions.state").get_selected_entry()
+                 local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+                 require("telescope.actions").close(prompt_bufnr)
+                 -- Depending on what you want put `cd`, `lcd`, `tcd`
+                 vim.cmd(string.format("silent lcd %s", dir))
+               end
+             }
+           }
+         },
+       },
+       extensions = {
+         file_browser = {
+           theme = "ivy",
+           -- disables netrw and use telescope-file-browser in its place
+           hijack_netrw = true,
+         },
+       },
+     }
+     end,
   },
   --notes
   {
@@ -1378,53 +1425,11 @@ set nrformats=alpha,octal,hex
 " ==============================================================
 " ===================== NEOVIM lua Plugins =====================
 " {{{ screach << Telescope >>
-" Initialize telescope
-lua << EOF
-require("telescope").setup {
-  defaults = {
-    initial_mode = 'normal',
-    prompt_prefix = " ",
-    selection_caret = " ",
-    path_display = { "smart" },
-    dynamic_preview_title = true,
-  },
-  pickers = {
-    find_files = {
-      hidden = true,
-      --find_command = { "fd", "f" },
-      find_command = { "rg", "--files" },
-      mappings = {
-        n = {
-          ["cd"] = function(prompt_bufnr)
-            local selection = require("telescope.actions.state").get_selected_entry()
-            local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-            require("telescope.actions").close(prompt_bufnr)
-            -- Depending on what you want put `cd`, `lcd`, `tcd`
-            vim.cmd(string.format("silent lcd %s", dir))
-          end
-        }
-      }
-    },
-  },
-  extensions = {
-    file_browser = {
-      theme = "ivy",
-      -- disables netrw and use telescope-file-browser in its place
-      hijack_netrw = true,
-    },
-  },
-}
-
-require("telescope").load_extension "file_browser"
-EOF
-
 " nnoremap <leader>fp :Telescope file_browser<cr>
 nnoremap <leader>ff :Telescope file_browser path=:/<left><left>
-
 " cd dir
 " nnoremap <leader>fb :Telescope find_files<cr>
 nnoremap <silent> <leader>fb :lua require("telescope.builtin").find_files({layout_strategy="vertical"})<cr>
-" nnoremap <leader>fb :lua require("telescope.builtin").find_files({cwd = "e:/", layout_strategy="vertical"})<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 
 nnoremap <silent> <leader>fp :Telescope current_buffer_fuzzy_find<cr>
 nnoremap <silent> <leader>fl :Telescope live_grep<cr>
