@@ -1,10 +1,5 @@
-" ======================================================
-" File              : init.vim
-" License           : 0.0.2
-" Author            : Max <ismaxiaolong@gmail.com>
-" Date              : 2022.06.24
 " Last Modified Date: 2023.04.24
-" Desc              : NEOVIM 0.7.2(support Python, Lua)
+" Desc              : NEOVIM 0.10.0(support Python, Lua)
 "                          __
 "  __  ____   __   __  __ /\_\    ___ ___     ____   ____
 " |  \/  \ \ / /  /\ \/\ \\/\ \ /'' __` _`\  |  _ \ / ___|
@@ -13,145 +8,291 @@
 " |_|  |_| |_|      \/__/    \/_/\/_/\/_/\/_/|_| \_\\____|
 " ========================================================
 
-" {{{ << Plugin - vimplug >>
-call plug#begin('D:/Program Files/Neovim/share/nvim/Mine/Plugged')
-" -------------lazy load-------------
-Plug 'mg979/vim-visual-multi', { 'branch': 'master', 'on': [] }
-augroup load_multi
-    autocmd!
-    autocmd InsertEnter * call plug#load('vim-visual-multi') | autocmd! load_multi
-augroup END
-
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'dstein64/vim-startuptime', { 'on': 'StartupTime' }
-Plug 'arecarn/vim-crunch', { 'on': [ '<Plug>(crunch-operator-line)', '<Plug>(visual-crunch-operator)'] }
-Plug 'terryma/vim-expand-region', { 'on': [ '<Plug>(expand_region_expand)', '<Plug>(expand_region_shrink)'] }
-Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
-Plug 'alpertuna/vim-header', { 'on': 'AddHeader' }
-Plug 'iqxd/vim-mine-sweeping', { 'on': [ 'MineSweep' ]}
-Plug 'Yggdroot/LeaderF', { 'on': [ 'LeaderfFile', 'Leaderf', 'LeaderfLine'] }
-Plug 'voldikss/vim-floaterm', { 'on': [ 'FloatermNew', 'FloatermSend'] }
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': [ 'markdown' ]}
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'dhruvasagar/vim-table-mode', { 'for': [ 'markdown' ] }
-Plug 'mhinz/vim-startify'
-Plug 'zef/vim-cycle'
-Plug 'wellle/targets.vim'
-Plug 'chrisbra/csv.vim'
-
-"------------------- lazy load vim plug -------------------
-Plug 'ntpeters/vim-better-whitespace', { 'on': []}
-Plug 'lfv89/vim-interestingwords', { 'on': []}
-Plug 'markonm/traces.vim', { 'on': []}
-Plug 'triglav/vim-visual-increment', { 'on': []}
-Plug 'itchyny/vim-cursorword', { 'on': []}
-Plug 'bronson/vim-visual-star-search', { 'on': []}  " Start a * or # search from a visual block
-
-call timer_start(700, 'LoadPlug_Vim')
-function! LoadPlug_Vim(timer) abort
-    call plug#load('vim-better-whitespace')
-    call plug#load('vim-interestingwords')
-    call plug#load('traces.vim')
-    call plug#load('vim-visual-increment')
-    call plug#load('vim-cursorword')
-    call plug#load('vim-visual-star-search')
-endfunction
-" Plug g:plug_home. '/vimtex-master', { 'for': 'tex' }
-
-" ===================================================================
-" --------------------------- lua plugins ---------------------------
-Plug 'lewis6991/impatient.nvim'
-Plug 'alvarosevilla95/luatab.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'kevinhwang91/nvim-hlslens'
-Plug 'chentoast/marks.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'windwp/nvim-autopairs'
-Plug 'karb94/neoscroll.nvim'
-Plug 'petertriho/nvim-scrollbar'
-Plug 'folke/which-key.nvim'
-Plug 'b3nj5m1n/kommentary'
-Plug 'ellisonleao/weather.nvim'
-Plug 'Vonr/align.nvim'
-Plug 'kylechui/nvim-surround'
-
-" motion
-Plug 'ggandor/leap.nvim'
-Plug 'ggandor/flit.nvim'
-
-" colorscheme
-Plug 'EdenEast/nightfox.nvim'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-
-" Telescope
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'nvim-telescope/telescope-file-browser.nvim'
-Plug 'nvim-lua/plenary.nvim'
-
-" notes
-Plug 'nvim-orgmode/orgmode'
-Plug 'akinsho/org-bullets.nvim'
-
-" treesitter
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate'}
-Plug 'HiPhish/nvim-ts-rainbow2'
-
-" cmp
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/cmp-emoji'
-Plug 'hrsh7th/cmp-calc'
-Plug 'mstanciu552/cmp-matlab'
-Plug 'lukas-reineke/cmp-under-comparator'
-Plug 'uga-rosa/cmp-dictionary'
-Plug 'ray-x/cmp-treesitter'
-Plug 'tzachar/cmp-tabnine', { 'do': 'powershell ./install.ps1' }
-Plug 'onsails/lspkind.nvim'
-" Plug 'kdheepak/cmp-latex-symbols'
-
-" lsp
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'ray-x/lsp_signature.nvim'
-
-" Snippets
-Plug 'L3MON4D3/LuaSnip'
-Plug 'saadparwaiz1/cmp_luasnip'
-" Plug 'rafamadriz/friendly-snippets'  " 下载后转移至Mine文件夹,增加了matlab snippet等等
-
-"------------------------------------------------------------------------
-"--------------------------- Modified plugins ---------------------------
-" Modified plugins (viml)
-" 1. add SpeedDatingFormat
-Plug g:plug_home. '/vim-speeddating-master', { 'for': [ 'org', 'norg', 'markdown' ] }
-
-" --------------------------
-" Modified plugins (lua)
-" 1. theme = 'max_lualine_theme_dark' | theme = 'max_lualine_theme_light'
-Plug g:plug_home. '/lualine.nvim-master'
-
-" 2. weather report for 3 days
-Plug g:plug_home. '/weather3day.nvim-main'
-
-call plug#end()
-
+" {{{ Lazy.nvim
 lua << EOF
-_G.__luacache_config = {
-  chunks = {
-    enable = true,
-    path = vim.fn.stdpath('cache')..'/luacache_chunks',
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+--vim
+  {
+    "mg979/vim-visual-multi",
+    lazy = true,
+    keys = {
+      { "<C-n>", mode = { "n", "x" }, desc = "visual multi" },
+    },
   },
-  modpaths = {
-    enable = true,
-    path = vim.fn.stdpath('cache')..'/luacache_modpaths',
-  }
-}
-require('impatient')
+  { "mbbill/undotree", cmd = "UndotreeToggle" },
+  {
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime",
+    init = function()
+      vim.g.startuptime_tries = 10
+      vim.keymap.set("n", "<F12>", ":StartupTime<CR>", { silent = true })
+    end,
+  },
+  {
+    "arecarn/vim-crunch",
+     keys = {  "<Plug>(crunch-operator-line)","<Plug>(visual-crunch-operator)" },
+  },
+  { "terryma/vim-expand-region", keys = {  "v", "<C-v>" } },
+  { "AndrewRadev/linediff.vim", cmd = "Linediff" },
+  { "alpertuna/vim-header", cmd = "AddHeader" },
+  { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
+  { "Yggdroot/LeaderF", cmd = { "LeaderfFile", "Leaderf", "LeaderfLine" } },
+  { "voldikss/vim-floaterm", cmd = { "FloatermNew", "FloatermSend" } },
+  { "iamcco/markdown-preview.nvim", ft = "markdown" },
+  { "plasticboy/vim-markdown", ft = "markdown" },
+  { "dhruvasagar/vim-table-mode", ft = {"markdown", "org"} },
+  { "mhinz/vim-startify" },
+  { "zef/vim-cycle" },
+  { "wellle/targets.vim", keys = { "c", "d", "y", "v"} },
+  { "chrisbra/csv.vim", ft = "csv" },
+  { "ntpeters/vim-better-whitespace",event = "InsertEnter" },
+  { "lfv89/vim-interestingwords" },
+  { "markonm/traces.vim", event = "CmdlineEnter" },
+  { "triglav/vim-visual-increment" },
+  { "itchyny/vim-cursorword", event = "VeryLazy" },
+  { "bronson/vim-visual-star-search" },
+  --lua
+  { "alvarosevilla95/luatab.nvim" },
+  { "lukas-reineke/indent-blankline.nvim", event = "BufRead" },
+  { "kevinhwang91/nvim-hlslens" },
+  {
+    "chentoast/marks.nvim",
+     keys = "m" ,
+     config = function()
+     require'marks'.setup {
+       default_mappings = false,
+       builtin_marks = { ".", "<", ">", "^" },
+       cyclic = true,
+       force_write_shada = false,
+       refresh_interval = 250,
+       sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+       excluded_filetypes = {},
+       bookmark_0 = {
+         sign = "⚑",
+         virt_text = "hello world"
+       },
+       mappings = {
+         delete_buf = "mc",
+         toggle = "mm",
+         prev = false -- pass false to disable only this default mapping
+       }
+     }
+     end,
+  },
+  {
+    "windwp/nvim-autopairs",
+     event = "InsertEnter",
+     config = function()
+     require("nvim-autopairs").setup {}
+     local disable_filetype = { "TelescopePrompt" }
+     local disable_in_macro = false  -- disable when recording or executing a macro
+     local disable_in_visualblock = false -- disable when insert after visual block mode
+     local ignored_next_char = [=[[%w%%%'%[%"%.]]=]
+     local enable_moveright = true
+     local enable_afterquote = true  -- add bracket pairs after quote
+     local enable_check_bracket_line = true  --- check bracket in same line
+     local enable_bracket_in_quote = true --
+     local break_undo = true -- switch for basic rule break undo sequence
+     local check_ts = false
+     local map_cr = true
+     local map_bs = true  -- map the <BS> key
+     local map_c_h = false  -- Map the <C-h> key to delete a pair
+     local map_c_w = false -- map <c-w> to delete a pair if possible
+     end,
+  },
+  { "karb94/neoscroll.nvim" },
+  { "petertriho/nvim-scrollbar", event = "VimEnter" },
+  { "folke/which-key.nvim", lazy = true },
+  { "b3nj5m1n/kommentary" },
+  {
+    "kyazdani42/nvim-tree.lua",
+    branch = "master",
+    commit = "9914780",
+  	dependencies = {
+        "kyazdani42/nvim-web-devicons",
+        branch = "master",
+        commit = "9697285",
+        },
+  },
+  {
+    "ellisonleao/weather.nvim",
+     cmd = "Weather",
+     config = function()
+     require("weather").setup({
+        city = "Xi'an",
+        win_height = 10,
+        win_width = 50,
+     })
+     end,
+  },
+  { "Vonr/align.nvim", event = "VeryLazy" },
+  { "kylechui/nvim-surround",
+     keys = {
+            { mode = "n", "ys" },
+            { mode = "n", "cs" },
+            { mode = "n", "ds" },
+            { mode = "i", "<C-g>" },
+            { mode = "x", "S" },
+        }, --S, dss, css
+     config = function()
+     require("nvim-surround").setup()
+     end,
+  },
+  --motion
+  {
+    "ggandor/leap.nvim",
+     keys = {"r", "R", "gr"},
+     config = function()
+     require('leap').opts.highlight_unlabeled_phase_one_targets = true
+     vim.keymap.set({'x', 'o', 'n'}, 'r', '<Plug>(leap-forward-to)')
+     vim.keymap.set({'x', 'o', 'n'}, 'R', '<Plug>(leap-backward-to)')
+     vim.keymap.set({'x', 'o', 'n'}, 'gr', '<Plug>(leap-cross-window)')
+     end,
+  },
+  {
+    "ggandor/flit.nvim",
+     keys = {"f", "F", "t", "T"},
+     config = function()
+     require('flit').setup {
+       keys = { f = 'f', F = 'F', t = 't', T = 'T' },
+       labeled_modes = "v",
+       multiline = true,
+       opts = {}
+     }
+     end,
+  },
+  --colorscheme
+  { "EdenEast/nightfox.nvim" },
+  { "folke/tokyonight.nvim", event = "CursorHold" },
+  --Telescope
+  {
+    "nvim-telescope/telescope.nvim",
+     event = { "VimEnter" },
+     dependencies = {
+     "nvim-telescope/telescope-file-browser.nvim",
+     "nvim-lua/plenary.nvim",
+    },
+  },
+  --notes
+  {
+    "nvim-orgmode/orgmode",
+     ft = "org",
+     config = function()
+     local orgmode = require('orgmode')
+     orgmode.setup_ts_grammar()
+     orgmode.setup({
+       org_agenda_files = {'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/**'},
+       org_default_notes_file = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/index.org',
+       org_hide_leading_stars = true,
+       org_hide_emphasis_markers = true,
+       org_todo_keywords = { 'TODO(t)', 'WAITING', 'IN-PROGRESS', '|', 'DONE(d)', 'CANCELLED' },
+       org_todo_keyword_faces = {
+         ['TODO'] = ':background cyan :foreground black',
+         ['WAITING'] = ':background darkyellow :foreground black',
+         ['IN-PROGRESS'] = ':background coral :foreground black',
+         ['DONE'] = ':background chartreuse :foreground black',
+         ['CANCELLED'] = ':background red :foreground black',
+         }
+     })
+     end,
+  },
+  {
+    "akinsho/org-bullets.nvim",
+     ft = "org",
+     config = function()
+     require('org-bullets').setup({
+       show_current_line = false,
+       concealcursor = true,
+       indent = true,
+       symbols = {
+         list = "•",
+         headlines = {"◉", "◎", "○", "✺", "▶", "⤷" }, --neorg level1:◉⦿
+         --headlines = { "◉", "○", "✸", "✿" },        --orgmode
+         --headlines = {"🌸","🌱","💧","✨","💗" },   --others
+         checkboxes = {
+           cancelled = { '', 'OrgCancelled' },
+           half = { '', 'OrgTSCheckboxHalfChecked' },
+           done = { '', 'OrgDone' },--✓
+           todo = { '', 'OrgTODO' },--×
+         },
+       },
+     })
+     end,
+    },
+  --treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+     build = ":TSUpdate",
+     event = "BufRead",
+  },
+  { "HiPhish/nvim-ts-rainbow2" },
+  --cmp
+  { "hrsh7th/nvim-cmp" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/cmp-cmdline" },
+  { "hrsh7th/cmp-emoji" },
+  { "hrsh7th/cmp-calc" },
+  { "mstanciu552/cmp-matlab" },
+  { "lukas-reineke/cmp-under-comparator" },
+  {
+    "uga-rosa/cmp-dictionary",
+     branch = "main",
+     commit = "93f3e2c",
+  },
+  { "ray-x/cmp-treesitter" },
+  {
+    "tzachar/cmp-tabnine",
+    build = "powershell ./install.ps1",
+  },
+  { "onsails/lspkind.nvim",
+     branch = "master",
+     commit = "c68b3a0",
+  },
+  --lsp,
+  {
+    "williamboman/mason.nvim", build = ":MasonUpdate",
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",
+    },
+  },
+  { "neovim/nvim-lspconfig", event = "BufRead" },
+  { "hrsh7th/cmp-nvim-lsp" },
+  {
+    "ray-x/lsp_signature.nvim",
+     event = "InsertEnter",
+     config = function()
+     require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
+     require'lsp_signature'.on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
+     end,
+    },
+  --Snippets,
+  { "L3MON4D3/LuaSnip", event = "InsertEnter" },
+  { "saadparwaiz1/cmp_luasnip" },
+  --Local plugins
+  { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = {"markdown", "org"} }, --modified
+  { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/lualine.nvim-master", event = "VimEnter" }, --modified
+  {
+    dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/weather3day.nvim-main", --modified
+    cmd = "Weather3day",
+    init = function()
+      vim.g.weather_city = "Xi'an"--weather3day plug
+    end,
+  },
+})
 EOF
 " }}}
 
@@ -346,28 +487,15 @@ augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="HighlightedyankRegion", timeout=120}
 augroup END
-
-" ------------------- 行/列高亮 ----------------------
-" augroup BgHighlight
-"     autocmd!
-"     autocmd WinEnter * set cul       " 进入窗口 高亮当前行
-"     autocmd WinEnter * set cuc       " 进入窗口 高亮当前列
-"     autocmd WinLeave * set nocul     " 离开窗口 取消 高亮当前行
-"     autocmd WinLeave * set nocuc     " 离开窗口 取消 高亮当前列
-"     autocmd InsertEnter * set nocul  " 插入模式 取消 高亮当前行
-"     autocmd InsertEnter * set nocuc  " 插入模式 取消 高亮当前列
-"     autocmd InsertLeave * set cul    " 离开插入模式 恢复 高亮当前行
-"     autocmd InsertLeave * set cuc    " 离开插入模式 恢复 高亮当前列
-" augroup END
 " }}}
 
 " {{{ 中/英输入法切换
 augroup input_switching
     autocmd!
-    autocmd VimEnter * :silent :!D:/Progra~1/Neovim/share/nvim/Mine/im-select.exe 1033
-    " autocmd InsertEnter * :silent :!D:/Progra~1/Neovim/share/nvim/Mine/im-select.exe 2052
-    autocmd InsertLeave * :silent :!D:/Progra~1/Neovim/share/nvim/Mine/im-select.exe 1033
-    autocmd VimLeave * :silent :!D:/Progra~1/Neovim/share/nvim/Mine/im-select.exe 1033
+    autocmd VimEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
+    " autocmd InsertEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 2052
+    autocmd InsertLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
+    autocmd VimLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
 augroup END
 " }}}
 
@@ -455,8 +583,6 @@ inoremap <C-l> <C-Right>
 
 " ----------------- find and replace --------------
 nnoremap <leader>z :%s/\<<C-R>=expand("<cword>")<CR>\>/<C-R>=expand("<cword>")<CR>/g<left><left>
-" nnoremap <leader>z :%s/\<<C-R>=expand("<cword>")<CR>\>//g<left><left>
-" noremap \s :%s///g<left><left><left>
 vnoremap <leader>z :s///g<left><left><left>
 
 " ----------------- make a list --------------
@@ -667,7 +793,7 @@ require('nightfox').setup({
 --                             (2) fg1:     #cdcecf -> #abb2bf  ps:白色变浅,同上
 --                             (3) comment: #738091 -> #5c6370  ps:注释颜色变浅
 --                             (4) sel0:    #2b3b51 -> #3e4452  ps:V模式框选颜色变深
---                             file: "D:\Program Files\Neovim\share\nvim\Mine\Plugged\nightfox.nvim-main\lua\nightfox\palette\nightfox.lua"
+--                             file: "C:\Users\ThinkPad\AppData\Local\nvim-data\lazy\nightfox.nvim\lua\nightfox\palette\nightfox.lua"
 local palettes = {
   nightfox  = {
     white   = "#abb2bf",
@@ -945,9 +1071,11 @@ let g:better_whitespace_filetypes_blacklist=['startify', 'diff', 'gitcommit', 'u
 " {{{ << Plugin - Undotree >>
 let g:undotree_DiffAutoOpen = 1
 nnoremap <silent> <leader>u :UndotreeToggle<cr>
-set undodir=$VIM/vimfiles/undodir
+set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/undodir
+
 set undofile
 " }}}
+
 
 " {{{ << Plugin - expand-region >>
 vmap v <Plug>(expand_region_expand)
@@ -986,9 +1114,9 @@ augroup markdown_preview
 augroup END
 
 " 设置预览代码高亮(绝对路径)
-" let g:mkdp_highlight_css = 'D:\Program Files\VIM\vimfiles\bundle\iamcco markdown-preview.nvim\markdown_highlight_solarized_dark.css'
-let g:mkdp_highlight_css = 'D:\Program Files\Neovim\share\nvim\Mine\Plugged\iamcco markdown-preview.nvim\markdown.css'
-let g:mkdp_markdown_css = 'D:\Program Files\Neovim\share\nvim\Mine\Plugged\iamcco markdown-preview.nvim\github-markdown.css'
+" let g:mkdp_highlight_css = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown_highlight_solarized_dark.css'
+let g:mkdp_highlight_css = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown.css'
+let g:mkdp_markdown_css = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/github-markdown.css'
 " }}}
 
 " {{{ MarkDown Plugins - << plasticboyvim-markdown >> << markdown-toc >> << table-mode >> << Plugin - icebreaker gustav >> << Pangu >>
@@ -1120,7 +1248,7 @@ nnoremap <F2> :AddHeader<CR>
 " {{{ increment date << vim-speeddating-master >>
 " 修改该插件默认的日期格式，原始格式太奇葩
 " 查看日期格式':SpeedDatingFormat'
-" 在'D:\Program Files\Neovim\share\nvim\Mine\Plugged\vim-speeddating-master\plugin\speeddating.vim'增加新格式
+" 在'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master/plugin/speeddating.vim'增加新格式
 " SpeedDatingFormat %Y-%m-%d %a %H:%M               " define 1
 " SpeedDatingFormat %Y-%m-%d (%a)%*                 " define 2
 " SpeedDatingFormat %Y-%m-%d %a                     " define 3
@@ -1149,12 +1277,18 @@ autocmd User targets#mappings#user call targets#mappings#extend({
 " --b:block   q:quote    a:argument
 " }}}
 
+" {{{ lfv89/vim-interestingwords
+nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
+vnoremap <silent> <leader>k :call InterestingWords('v')<cr>
+nnoremap <silent> <leader>K :call UncolorAllWords()<cr>
+" }}}
+
 " ------------------------------- 需要Python支持的Plugins --------------------------------
 " {{{ << Plugin - LeaderF >>
 " 安装 C extension, 速度提高10倍
 " :LeaderfInstallCExtension
-let g:Lf_Ctags = "D:/Progra~1/Neovim/share/nvim/Mine/ctags.exe"
-let g:Lf_Rg = 'D:/Progra~1/Neovim/share/nvim/Mine/rg.exe'
+let g:Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
+let g:Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
 
 let g:Lf_ShowDevIcons = 1
 let g:Lf_DevIconsFont = "Delugia Mono"
@@ -1246,36 +1380,9 @@ set nrformats=alpha,octal,hex
 " 1         3     a         c     1         1+2n
 " }}}
 
-" {{{ StartupTime << StartupTime >>
-let g:startuptime_tries = 10
-nnoremap <silent> <F12> :StartupTime<CR>
-" }}}
-
 " ==============================================================
 " ===================== NEOVIM lua Plugins =====================
-
-" {{{ surround << Plugin -  nvim-surround>>
-lua << EOF
-require("nvim-surround").setup()
-EOF
-" S        -对选中部分的两侧加符号
-" dss      -删除两侧符号
-" css      -改变两侧符号
-" }}}
-
 " {{{ screach << Telescope >>
-"" Find files using Telescope command-line sugar.
-" nnoremap <leader>ff <cmd>Telescope find_files<cr>
-" nnoremap <leader>fl <cmd>Telescope live_grep<cr>
-" nnoremap <leader>fb <cmd>Telescope buffers<cr>
-" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-"" Using Lua functions
-" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-" nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-" nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-" nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-
 " Initialize telescope
 lua << EOF
 require("telescope").setup {
@@ -1309,14 +1416,6 @@ require("telescope").setup {
       theme = "ivy",
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
-      mappings = {
-        ["i"] = {
-          -- your custom insert mode mappings
-        },
-        ["n"] = {
-          -- your custom normal mode mappings
-        },
-      },
     },
   },
 }
@@ -1471,49 +1570,26 @@ nnoremap <leader>. :NvimTreeOpen  :\<left><left>
 nnoremap <silent> <F7> :NvimTreeOpen c:\Users\ThinkPad\Desktop\<CR>
 " }}}
 
-" {{{ pair << nvim-autopairs >>
-lua << EOF
-require("nvim-autopairs").setup {}
-local disable_filetype = { "TelescopePrompt" }
-local disable_in_macro = false  -- disable when recording or executing a macro
-local disable_in_visualblock = false -- disable when insert after visual block mode
-local ignored_next_char = [=[[%w%%%'%[%"%.]]=]
-local enable_moveright = true
-local enable_afterquote = true  -- add bracket pairs after quote
-local enable_check_bracket_line = true  --- check bracket in same line
-local enable_bracket_in_quote = true --
-local break_undo = true -- switch for basic rule break undo sequence
-local check_ts = false
-local map_cr = true
-local map_bs = true  -- map the <BS> key
-local map_c_h = false  -- Map the <C-h> key to delete a pair
-local map_c_w = false -- map <c-w> to delete a pair if possible
-EOF
-" }}}
-
 " {{{ marks << nvim-marks >>
-lua << EOF
-require'marks'.setup {
-  default_mappings = false,
-  builtin_marks = { ".", "<", ">", "^" },
-  cyclic = true,
-  force_write_shada = false,
-  refresh_interval = 250,
-  sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
-  excluded_filetypes = {},
-  bookmark_0 = {
-    sign = "⚑",
-    virt_text = "hello world"
-  },
-  mappings = {
-    delete_buf = "mc",
-    toggle = "mm",
-    prev = false -- pass false to disable only this default mapping
-  }
-}
-EOF
 nnoremap <C-m> <Plug>(Marks-next)
 nnoremap <S-m> <Plug>(Marks-prev)
+" }}}
+
+" {{{ scrollbar << nvim-scrollbar >>
+lua << EOF
+require("scrollbar").setup({
+    handle = {
+        color = '#abb2bf',
+    },
+    marks = {
+        Cursor = {
+            text = "•",
+            color = 'black',
+        },
+    },
+})
+require("scrollbar.handlers.search").setup({})
+EOF
 " }}}
 
 " {{{ search number << hlslens >>
@@ -1545,6 +1621,9 @@ require('hlslens').setup({
             chunks = {{' ', 'Ignore'}, {text, 'HlSearchLens'}}
         end
         render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
+    end,
+    build_position_cb = function(plist, _, _, _)
+        require("scrollbar.handlers.search").handler.show(plist.start_pos)
     end
 })
 EOF
@@ -1562,27 +1641,10 @@ hi IncSearch guibg=#d73a4a
 hi IncSearch guifg=black
 " }}}
 
-" {{{ scrollbar << nvim-scrollbar >>
-lua << EOF
-require("scrollbar").setup({
-    handle = {
-        color = '#abb2bf',
-    },
-    marks = {
-        Cursor = {
-            text = "•",
-            color = 'black',
-        },
-    },
-})
-require("scrollbar.handlers.search").setup({})
-EOF
-" }}}
-
 " {{{ treesitter
 lua << EOF
 local rainbow = require 'ts-rainbow'
-local treesitter_list = { "python", "fortran", "c", "vim", "lua", "latex", "markdown", "norg", "org", "matlab" }
+local treesitter_list = { "python", "fortran", "c", "vim", "lua", "latex", "markdown", "org", "matlab" }
 require 'nvim-treesitter.install'.compilers = { "clang" }
 require'nvim-treesitter.configs'.setup {
   ensure_installed = treesitter_list,
@@ -1632,9 +1694,10 @@ EOF
 lua << EOF
 -- Snippets
 -- require("luasnip/loaders/from_vscode").lazy_load()
-require("luasnip/loaders/from_vscode").lazy_load({paths = {"D:/Program Files/Neovim/share/nvim/Mine/friendly-snippets"} })
+require("luasnip/loaders/from_vscode").lazy_load({paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"} })
 EOF
-nnoremap <silent> <leader>rm :<C-U>e D:\Program Files\Neovim\share\nvim\Mine\friendly-snippets\snippets\add_snippets\matlab.json<CR>
+nnoremap <silent> <leader>rm :<C-U>e C:\Users\ThinkPad\AppData\Local\nvim-data\Maxl\friendly-snippets\snippets\add_snippets\matlab.json<CR>
+
 " }}}
 " {{{ cmp
 lua << EOF
@@ -1776,8 +1839,8 @@ cmp.setup.cmdline(':', {
 -- uga-rosa/cmp-dictionary
 require("cmp_dictionary").setup({
 	dic = {
-		--["*"] = { "D:/Program Files/Neovim/share/nvim/Mine/Directionary-8813.dic" },
-		["*"] = { "D:/Program Files/Neovim/share/nvim/Mine/Directionary-69903.dic" },
+		--["*"] = { "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Directionary-8813.dic" },
+		["*"] = { "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Directionary-69903.dic" },
 	},
 	exact = 2,
 	first_case_insensitive = true,
@@ -1962,8 +2025,8 @@ cfg = {
  move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
 }
 vim.keymap.set("n", "<leader>h", vim.lsp.buf.signature_help, bufopts)
-require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
-require'lsp_signature'.on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
+--require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
+--require'lsp_signature'.on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
 
 -- diagnostic
 vim.diagnostic.config({
@@ -2152,71 +2215,18 @@ require("indent_blankline").setup {
 EOF
 " }}}
 
-" {{{ easymotion << leap.nvim >> << flit.nvim >>
-lua << EOF
--- leap.nvim
-require('leap').opts.highlight_unlabeled_phase_one_targets = true
-vim.keymap.set({'x', 'o', 'n'}, 'r', '<Plug>(leap-forward-to)')
-vim.keymap.set({'x', 'o', 'n'}, 'R', '<Plug>(leap-backward-to)')
-vim.keymap.set({'x', 'o', 'n'}, 'gr', '<Plug>(leap-cross-window)')
-
--- flit.nvim
-require('flit').setup {
-  keys = { f = 'f', F = 'F', t = 't', T = 'T' },
-  labeled_modes = "v",
-  multiline = true,
-  opts = {}
-}
-EOF
-" }}}
-
 " {{{ weather << nvim-weather >> << nvim-weather3day >>
 lua << EOF
-vim.g.weather_city = "Xi'an"
+vim.keymap.set("n", "<localleader>we", ":Weather<CR>", { silent = true })
+vim.keymap.set("n", "<localleader>wd", ":Weather3day<CR>", { silent = true })
 EOF
-nnoremap <silent> <localleader>we :Weather<CR>
-nnoremap <silent> <localleader>wd :Weather3day<CR>
 " }}}
 
 " {{{ << Org >>
 lua << EOF
-local orgmode = require('orgmode')
-orgmode.setup_ts_grammar()
-orgmode.setup({
-  org_agenda_files = {'D:/Program Files/Neovim/share/nvim/Mine/Org/**'},
-  org_default_notes_file = 'D:/Program Files/Neovim/share/nvim/Mine/Org/index.org',
-  org_hide_leading_stars = true,
-  org_hide_emphasis_markers = true,
-  org_todo_keywords = { 'TODO(t)', 'WAITING', 'IN-PROGRESS', '|', 'DONE(d)', 'CANCELLED' },
-  org_todo_keyword_faces = {
-    ['TODO'] = ':background cyan :foreground black',
-    ['WAITING'] = ':background darkyellow :foreground black',
-    ['IN-PROGRESS'] = ':background coral :foreground black',
-    ['DONE'] = ':background chartreuse :foreground black',
-    ['CANCELLED'] = ':background red :foreground black',
-    }
-})
-
-require('org-bullets').setup({
-  show_current_line = false,
-  concealcursor = true,
-  indent = true,
-  symbols = {
-    list = "•",
-    headlines = {"◉", "◎", "○", "✺", "▶", "⤷" }, --neorg level1:◉⦿
-    --headlines = { "◉", "○", "✸", "✿" },        --orgmode
-    --headlines = {"🌸","🌱","💧","✨","💗" },   --others
-    checkboxes = {
-      cancelled = { '', 'OrgCancelled' },
-      half = { '', 'OrgTSCheckboxHalfChecked' },
-      done = { '', 'OrgDone' },--✓
-      todo = { '', 'OrgTODO' },--×
-    },
-  },
-})
+vim.keymap.set("n", "<leader>ss", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/index.org<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { silent = true })
 EOF
-nnoremap <silent> <leader>ss :<C-U>e D:\Program Files\Neovim\share\nvim\Mine\Org\index.org<CR>
-nnoremap <silent> <leader>ro :<C-U>e D:\Program Files\Neovim\share\nvim\Mine\friendly-snippets\snippets\org.json<CR>
 " , , , , , , , , , , 﫠
 " }}}
 
