@@ -307,20 +307,17 @@ endif
 " 解决vim编辑matlab文件保存后, matlab中文为乱码的问题
 augroup matlab_filetype
     autocmd!
-    autocmd FileType matlab set fileencoding=cp936       " GB2312=cp936
+    autocmd FileType matlab set fileencoding=cp936
 augroup END
 " }}}
 
 " {{{ 字体/字号
 if exists('g:neovide')
-    " English font
     " set guifont=Delugia\ Mono:h15.5                   " Nerd Font (Cascadia Code)
     set guifont=Delugia\ Mono:h11.6                   " Nerd Font (Cascadia Code)
     " set guifont=CodeNewRoman\ NFM:h12                " Nerd Font
     " set guifont=OperatorMono\ NF:h12                 " Nerd Font
     " set guifont=ComicMono\ NF:h12                    " Nerd Font
-
-    " Chinese font
     set guifontwide=inconsolatago\ qihei\ nf:h12.5      " 中文 Nerd Font
 else
     set guifont=Delugia\ Mono:h12.1                    " Nerd Font (Cascadia Code)
@@ -910,7 +907,7 @@ let g:traces_num_range_preview = 1
 " }}}
 
 " {{{ Compiler code & Python & REPL & Matlab & Fortran << floaterm && REPL >>
-hi FloatermBorder guibg=#3e4452 guifg=#c94f6d
+hi FloatermBorder guibg=#3e4452 guifg=#5c6370
 let g:floaterm_autoclose=0
 let g:floaterm_keymap_kill = '<C-q>'
 let g:floaterm_keymap_next = '<leader>tn'
@@ -1075,7 +1072,6 @@ set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/undodir
 
 set undofile
 " }}}
-
 
 " {{{ << Plugin - expand-region >>
 vmap v <Plug>(expand_region_expand)
@@ -1246,7 +1242,6 @@ nnoremap <F2> :AddHeader<CR>
 " }}}
 
 " {{{ increment date << vim-speeddating-master >>
-" 修改该插件默认的日期格式，原始格式太奇葩
 " 查看日期格式':SpeedDatingFormat'
 " 在'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master/plugin/speeddating.vim'增加新格式
 " SpeedDatingFormat %Y-%m-%d %a %H:%M               " define 1
