@@ -288,6 +288,7 @@ require("lazy").setup({
   { "HiPhish/nvim-ts-rainbow2" },
   --cmp
   { "hrsh7th/nvim-cmp" },
+  { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-buffer" },
   { "hrsh7th/cmp-path" },
   { "hrsh7th/cmp-cmdline" },
@@ -317,7 +318,6 @@ require("lazy").setup({
     },
   },
   { "neovim/nvim-lspconfig", event = "BufRead" },
-  { "hrsh7th/cmp-nvim-lsp" },
   {
     "ray-x/lsp_signature.nvim",
      event = "InsertEnter",
@@ -1860,29 +1860,11 @@ tabnine:setup({
 	run_on_every_keystroke = true,
 	snippet_placeholder = '..',
 	ignored_file_types = {
-		-- default is not to ignore
-		-- uncomment to ignore in lua:
-		-- lua = true
+		org = true,
+		markdown = true,
 	},
 	show_prediction_strength = false
 })
-
--- 'org' and 'markdown' exclude source 'cmp_tabnine'
-cmp.setup.filetype({'org','markdown'}, {
-    sources = {
-      { name = 'nvim_lsp' },
-      { name = 'path' },
-      { name = 'luasnip' },
-      { name = 'buffer' },
-      { name = 'calc' },
-      { name = 'emoji' },
-      { name = 'cmp_matlab' },
-      { name = "dictionary", keyword_length = 2 },
-      { name = "treesitter" },
-      { name = "orgmode" },
-      --{ name = "cmp_tabnine" },
-    }
-  })
 
 -- lsp-kind (change icons)
 require('lspkind').presets['default']['Constructor']   =''
