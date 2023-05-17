@@ -111,7 +111,7 @@ require("lazy").setup({
     }
     end,
   },
-  { 
+  {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
     config = function()
@@ -815,22 +815,94 @@ require("lazy").setup({
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         { 'hrsh7th/cmp-nvim-lsp' },
-    },
-  },
-  {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate",
-    lazy = true,
-    dependencies = {
+        {
+          "williamboman/mason.nvim",
+          build = ":MasonUpdate",
+          config = function()
+          require("mason").setup()
+          end,
+        },
         { "williamboman/mason-lspconfig.nvim" },
     },
     config = function()
-    require("mason").setup()
+    local lsp_list = { "pylsp", "vimls" }
+    require("mason-lspconfig").setup({
+        ensure_installed = lsp_list
+    })
+    for _, lsp in pairs(lsp_list) do
+      if lsp == 'diagnosticls' then
+        require('lspconfig')[lsp].setup {
+          on_attach = on_attach,
+          capabilities = capabilities,
+          flags = {
+            debounce_text_changes = 150,
+          }
+        }
+      else
+        require('lspconfig')[lsp].setup {
+          on_attach = on_attach,
+          capabilities = capabilities,
+          flags = {
+            debounce_text_changes = 150,
+          }
+        }
+      end
+    end
+    require('lspconfig').pylsp.setup {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        settings = {
+            pylsp = {
+                plugins = {
+                    jedi_completion = {
+                        enabled = true,
+                        fuzzy = true,
+                        include_params = true, -- this line enables snippets
+                        cache_for = { 'numpy','matplotlib' },
+                    },
+                    pycodestyle = {
+                        maxLineLength = 150,
+                    },
+                },
+            },
+        },
+    }
+    end,
+    opts = function()
+    -- diagnostic
+    vim.diagnostic.config({
+        underline = true,
+        signs = true,
+        virtual_text = false, -- default is true
+        float = {
+            show_header = true,
+            source = 'if_many',
+            border = 'rounded',
+            focusable = false,
+        },
+        update_in_insert = false, -- default is false
+        severity_sort = false, -- default is false
+    })
+    local diagnostics_active = true
+    local toggle_diagnostics = function()
+      diagnostics_active = not diagnostics_active
+      if diagnostics_active then
+        vim.diagnostic.show()
+      else
+        vim.diagnostic.hide()
+      end
+    end
+    vim.keymap.set('n', '<F6>', toggle_diagnostics)
+    vim.api.nvim_set_keymap('n', '<F5>', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+    --vim.api.nvim_set_keymap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
+    --vim.api.nvim_set_keymap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
+    --vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
     end,
   },
   {
     "ray-x/lsp_signature.nvim",
     event = "InsertEnter",
+    dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
     require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
     require'lsp_signature'.on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
@@ -841,52 +913,53 @@ require("lazy").setup({
      log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
      -- default is  ~/.cache/nvim/lsp_signature.log
      verbose = false, -- show debug line number
-    
+
      bind = true, -- This is mandatory, otherwise border config won't get registered.
                   -- If you want to hook lspsaga or other signature handler, pls set to false
      doc_lines = 10, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
                     -- set to 0 if you DO NOT want any API comments be shown
                     -- This setting only take effect in insert mode, it does not affect signature help in normal
                     -- mode, 10 by default
-    
+
      max_height = 12, -- max height of signature floating_window
      max_width = 80, -- max_width of signature floating_window
      noice = false, -- set to true if you using noice to render markdown
      wrap = true, -- allow doc/signature text wrap inside floating_window, useful if your lsp return doc/sig is too long
-    
+
      floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
      floating_window_above_cur_line = true, -- try to place the floating above the current line when possible Note:
      -- will set to true when fully tested, set to false will use whichever side has more space
      -- this setting will be helpful if you do not want the PUM and floating win overlap
-    
+
      floating_window_off_x = 1, -- adjust float windows x position.
      floating_window_off_y = 0, -- adjust float windows y position. e.g -2 move window up 2 lines; 2 move down 2 lines
-    
+
      close_timeout = 4000, -- close floating window after ms when laster parameter is entered
      fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
      hint_enable = true, -- virtual hint enable
      --hint_prefix = "🐼 ",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
-     hint_prefix = " ",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
+     --hint_prefix = " ",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
+     hint_prefix = "🤔 ",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
      hint_scheme = "String",
      hi_parameter = "lsp_signature_highlight",  -- "Cursor" "IncSearch" "Visual" "Search"
      handler_opts = {
        border = "rounded"   -- double, rounded, single, shadow, none, or a table of borders
      },
-    
+
      always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
-    
+
      auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
      extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
      zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
-    
+
      padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
-    
+
      transparency = nil, -- disabled by default, allow floating win transparent value 1~100
      shadow_blend = 36, -- if you using shadow as border use this set the opacity
      shadow_guibg = 'Black', -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
      timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
      toggle_key = nil, -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
-    
+
      select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
      move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
     }
@@ -2228,56 +2301,60 @@ set nrformats=alpha,octal,hex
 
 " ==============================================================
 " ===================== NEOVIM lua Plugins =====================
-" {{{ screach << Telescope >>
-" nnoremap <leader>fp :Telescope file_browser<cr>
-nnoremap <leader>ff :Telescope file_browser path=:/<left><left>
-" cd dir
-" nnoremap <leader>fb :Telescope find_files<cr>
-nnoremap <silent> <leader>fb :lua require("telescope.builtin").find_files({layout_strategy="vertical"})<cr>
 
-nnoremap <silent> <leader>fp :Telescope current_buffer_fuzzy_find<cr>
-nnoremap <silent> <leader>fl :Telescope live_grep<cr>
-
-nnoremap <silent> <leader>fc :Telescope command_history<cr>
-nnoremap <silent> <leader>fs :Telescope search_history<cr>
-
-" mappings
-" <A-c>/c   create
-" <A-r>/r	rename	        Rename multi-selected files/folders
-" <A-y>/y	copy	        Copy (multi-)selected files/folders to current path
-" <A-d>/d	delete	        Delete (multi-)selected files/folders
-" <A-m>/m	move	        Move multi-selected files/folders to current path
-" <C-o>/o	open	        Open file/folder with default system application
-
-" <C-g>/g	goto_parent_dir	Go to parent directory
-" <C-e>/e	goto_home_dir	Go to home directory
-" <C-w>/w	goto_cwd	    Go to current working directory (cwd)
-" <C-t>/t	change_cwd	    Change nvim's cwd to selected folder/file(parent)
-" <C-f>/f	toggle_browser	Toggle between file and folder browser
-" <C-h>/h	toggle_hidden	Toggle hidden files/folders
-" <C-s>/s	toggle_all	    Toggle all entries ignoring ./ and ../
-
-" 多选      <Tab>
-" }}}
-
-" {{{ tree << nvim-tree >>
+" {{{ lua plugins mapping
 lua << EOF
---mapping
+--{{{ hlslens
+vim.cmd[[nnoremap <leader>/ /\<<C-R>=expand("<cword>")<CR>\><left><left>]]
+-- }}}
+
+--{{{ screach << Telescope >>
+--vim.keymap.set("n", "<leader>fp", ":Telescope file_browser<cr>", { silent = true })
+vim.keymap.set("n", "<leader>ff", ":Telescope file_browser path=:/<left><left>", { silent = true })
+vim.cmd[[nnoremap <silent> <leader>fb :lua require("telescope.builtin").find_files({layout_strategy="vertical"})<cr>]]
+vim.keymap.set("n", "<leader>fp", ":Telescope current_buffer_fuzzy_find<cr>", { silent = true })
+vim.keymap.set("n", "<leader>fl", ":Telescope live_grep<cr>", { silent = true })
+vim.keymap.set("n", "<leader>fc", ":Telescope command_history<cr>", { silent = true })
+vim.keymap.set("n", "<leader>fs", ":Telescope search_history<cr>", { silent = true })
+--}}}
+
+--{{{ tree << nvim-tree >>
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 vim.keymap.set("n", "<leader>.", ":NvimTreeOpen  :<left>", { silent = true })
 vim.keymap.set("n", "<F7>", ":NvimTreeOpen c:/Users/ThinkPad/Desktop/<CR>", { silent = true })
+--}}}
+
+--{{{ marks << nvim-marks >>
+vim.keymap.set("n", "<C-m>", "<Plug>(Marks-next)", { silent = true })
+vim.keymap.set("n", "<S-m>", "<Plug>(Marks-prev)", { silent = true })
+--}}}
+
+--{{{ luasnip & snippets
+vim.keymap.set("n", "<leader>rm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", { silent = true })
+--}}}
+
+--{{{ weather << nvim-weather >> << nvim-weather3day >>
+vim.keymap.set("n", "<localleader>we", ":Weather<CR>", { silent = true })
+vim.keymap.set("n", "<localleader>wd", ":Weather3day<CR>", { silent = true })
+--}}}
+
+--{{{ << Org >>
+vim.keymap.set("n", "<leader>ss", ":NvimTreeOpen C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { silent = true })
+--}}}
+
+--{{{ << Plugin - Vonr/align.nvim >>
+local NS = { noremap = true, silent = true }
+--vim.keymap.set('x','<leader>aa',function()require'align'.align_to_char(1,true)end,NS)--Alignsto1character,lookingleft
+--vim.keymap.set('x','<leader>as',function()require'align'.align_to_char(2,true,true)end,NS)--Alignsto2characters,lookingleftandwithpreviews
+vim.keymap.set('x','<leader>a',function()require'align'.align_to_string(false,true,true)end,NS)--Alignstoastring,lookingleftandwithpreviews
+--vim.keymap.set('x','<leader>ar',function()require'align'.align_to_string(true,true,true)end,NS)--AlignstoaLuapattern,lookingleftandwithpreviews
+--}}}
 EOF
 " }}}
 
-" {{{ marks << nvim-marks >>
-nnoremap <C-m> <Plug>(Marks-next)
-nnoremap <S-m> <Plug>(Marks-prev)
-" }}}
-
-" {{{ search number << hlslens >>
-" mapping
-nnoremap <leader>/ /\<<C-R>=expand("<cword>")<CR>\><left><left>
-" color
+" {{{ lua plugins color
+" {{{  hlslens clolr
 hi default link HlSearchNear IncSearch
 hi default link HlSearchLens WildMenu
 hi default link HlSearchLensNear IncSearch
@@ -2285,15 +2362,8 @@ hi default link HlSearchFloat IncSearch
 hi IncSearch guibg=#d73a4a
 hi IncSearch guifg=black
 " }}}
-
-" {{{ luasnip & snippets
 lua << EOF
-vim.keymap.set("n", "<leader>rm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", { silent = true })
-EOF
-" }}}
-" {{{ cmp
-lua << EOF
---change cmp color
+--{{{ cmp color
 vim.api.nvim_command("highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
 vim.api.nvim_command("highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6") --Abbr
 vim.api.nvim_command("highlight! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch")
@@ -2306,122 +2376,16 @@ vim.api.nvim_command("highlight! CmpItemKindKeyword guibg=NONE guifg=#63cdcf") -
 vim.api.nvim_command("highlight! link CmpItemKindProperty CmpItemKindKeyword")
 vim.api.nvim_command("highlight! link CmpItemKindUnit CmpItemKindKeyword")
 vim.api.nvim_command("highlight! CmpItemKindSnippet guibg=NONE guifg=#d64f44") --Snippet
-EOF
-" }}}
-" {{{ lsp
-lua << EOF
-local lsp_list = { "pylsp", "vimls" }
-require("mason-lspconfig").setup({
-    ensure_installed = lsp_list
-})
-for _, lsp in pairs(lsp_list) do
-  if lsp == 'diagnosticls' then
-    require('lspconfig')[lsp].setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-      }
-    }
-  else
-    require('lspconfig')[lsp].setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-      }
-    }
-  end
-end
+--}}}
 
-require('lspconfig').pylsp.setup {
-    capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-    settings = {
-        pylsp = {
-            plugins = {
-                jedi_completion = {
-                    enabled = true,
-                    fuzzy = true,
-                    include_params = true, -- this line enables snippets
-                    cache_for = { 'numpy','matplotlib' },
-                },
-                pycodestyle = {
-                    maxLineLength = 150,
-                },
-            },
-        },
-    },
-}
-
--- lsp hint <lsp_signature.nvim>
+--{{{ lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
-vim.keymap.set("n", "<leader>h", vim.lsp.buf.signature_help, bufopts)
+--}}}
 
--- diagnostic
-vim.diagnostic.config({
-    underline = true,
-    signs = true,
-    virtual_text = false, -- default is true
-    float = {
-        show_header = true,
-        source = 'if_many',
-        border = 'rounded',
-        focusable = false,
-    },
-    update_in_insert = false, -- default is false
-    severity_sort = false, -- default is false
-})
-
-local diagnostics_active = true
-local toggle_diagnostics = function()
-  diagnostics_active = not diagnostics_active
-  if diagnostics_active then
-    vim.diagnostic.show()
-  else
-    vim.diagnostic.hide()
-  end
-end
-vim.keymap.set('n', '<F6>', toggle_diagnostics)
-
-vim.api.nvim_set_keymap('n', '<F5>', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
---vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
-EOF
-" }}}
-
-" {{{ weather << nvim-weather >> << nvim-weather3day >>
-lua << EOF
-vim.keymap.set("n", "<localleader>we", ":Weather<CR>", { silent = true })
-vim.keymap.set("n", "<localleader>wd", ":Weather3day<CR>", { silent = true })
-EOF
-" }}}
-
-" {{{ << Org >>
-lua << EOF
-vim.keymap.set("n", "<leader>ss", ":NvimTreeOpen C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", { silent = true })
-vim.keymap.set("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { silent = true })
-EOF
-" , , , , , , , , , , 﫠
-" }}}
-
-" {{{ << Plugin - Vonr/align.nvim >>
-lua << EOF
-local NS = { noremap = true, silent = true }
---vim.keymap.set('x','<leader>aa',function()require'align'.align_to_char(1,true)end,NS)--Alignsto1character,lookingleft
---vim.keymap.set('x','<leader>as',function()require'align'.align_to_char(2,true,true)end,NS)--Alignsto2characters,lookingleftandwithpreviews
-vim.keymap.set('x','<leader>a',function()require'align'.align_to_string(false,true,true)end,NS)--Alignstoastring,lookingleftandwithpreviews
---vim.keymap.set('x','<leader>ar',function()require'align'.align_to_string(true,true,true)end,NS)--AlignstoaLuapattern,lookingleftandwithpreviews
-EOF
-" }}}
-
-" {{{ << Plugin - which-key.nvim >>
-lua << EOF
--- change whichkey background color (transparency)
+--{{{ which-key background color (transparency)
 vim.api.nvim_set_hl(0, "WhichKeyFloat", { ctermbg = 'black', ctermfg = 'black' })
 vim.api.nvim_set_hl(0, "WhichKeyBorder", { ctermbg = 'black', ctermfg = 'black' })
+--}}}
 EOF
 " }}}
 
