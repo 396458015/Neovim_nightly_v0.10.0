@@ -27,7 +27,6 @@ require("lazy").setup({
 --vim
   {
     "mg979/vim-visual-multi",
-    lazy = true,
     keys = {
         {"<C-j>"},
         {"<C-k>"},
@@ -48,29 +47,133 @@ require("lazy").setup({
     "arecarn/vim-crunch",
     keys = {  "<Plug>(crunch-operator-line)","<Plug>(visual-crunch-operator)" },
   },
-  { "terryma/vim-expand-region", keys = { "v", "<C-v>" } },
+  {
+    "terryma/vim-expand-region",
+    keys = { "v", "<C-v>" },
+    config = function()
+    vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { silent = true })
+    vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { silent = true })
+    end,
+  },
   { "AndrewRadev/linediff.vim", cmd = {"Linediff", "LinediffAdd"} },
-  { "alpertuna/vim-header", cmd = "AddHeader" },
+  {
+    "alpertuna/vim-header",
+    cmd = "AddHeader",
+    config = function()
+    vim.cmd[[
+    let g:header_field_author = 'Max'
+    let g:header_field_author_email = 'ismaxiaolong@gmail.com'
+    let g:header_field_timestamp_format = '%Y.%m.%d'
+    let g:header_field_modified_by = 0
+    let g:header_field_license_id = ' '
+    ]]
+    end,
+  },
   { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
-  { "Yggdroot/LeaderF", cmd = { "LeaderfFile", "Leaderf", "LeaderfLine" } },
+  {
+    "Yggdroot/LeaderF",
+    cmd = { "LeaderfFile", "Leaderf", "LeaderfLine" },
+    config = function()
+    vim.cmd[[
+    let g:Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
+    let g:Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
+
+    let g:Lf_ShowDevIcons = 1
+    let g:Lf_DevIconsFont = "Delugia Mono"
+
+    let g:Lf_ReverseOrder = 1
+
+    " don't show the help in normal mode
+    let g:Lf_HideHelp = 1
+    let g:Lf_UseCache = 0
+    let g:Lf_UseVersionControlTool = 0
+    let g:Lf_IgnoreCurrentBufferName = 1
+
+    " popup mode
+    let g:Lf_WindowPosition = 'popup'
+    let g:Lf_PopupColorscheme = "leaderf_colorscheme_nightfox"
+    " let g:Lf_PopupColorscheme = "Consistent with the current color scheme"
+
+    " change color
+    let g:Lf_PopupPalette = {
+        \  'dark': {
+        \      'Lf_hl_cursorline': {
+        \                'guibg': '#364a82',
+        \              },
+        \      },
+        \  }
+
+    let g:Lf_WindowHeight = 0.9
+    let g:Lf_PopupHeight = 0.7
+    let g:Lf_PopupWidth = 0.4
+    let g:Lf_PopupPosition = [7, 84]
+    let g:Lf_PopupPreviewPosition = 'left'
+    let g:Lf_PreviewCode = 1
+    let g:Lf_PreviewInPopup = 1
+    let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "Delugia Mono" }
+
+    " BufTag和Function不自动预览,通过<C-p>预览.BufTag和Function默认是1.
+    let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+    let g:Lf_ShowRelativePath = 0
+    " 使用:LeaderfRg 路径不全, 搜索该录下经的文件.
+    command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>
+
+    let g:Lf_WildIgnore = {
+            \ 'dir': ['.svn','.git','.hg'],
+            \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+            \}
+    ]]
+    end,
+   },
   { "voldikss/vim-floaterm", cmd = { "FloatermNew", "FloatermSend" } },
   { "iamcco/markdown-preview.nvim", ft = "markdown" },
   { "plasticboy/vim-markdown", ft = "markdown" },
   { "dhruvasagar/vim-table-mode", ft = {"markdown", "org"} },
-  { "mhinz/vim-startify" },
-  { "zef/vim-cycle" },
+  {
+    "mhinz/vim-startify",
+    event = "BufWinEnter",
+  },
   { "wellle/targets.vim", keys = { "c", "d", "y", "v"} },
   { "chrisbra/csv.vim", ft = "csv" },
-  { "ntpeters/vim-better-whitespace",event = "InsertEnter" },
-  { "lfv89/vim-interestingwords", event = "VeryLazy" },
-  { "markonm/traces.vim", event = "CmdlineEnter" },
-  { "triglav/vim-visual-increment", event = "VeryLazy" },
-  { "itchyny/vim-cursorword", event = { "BufEnter", "BufNewFile", "VeryLazy" } },
-  { "bronson/vim-visual-star-search" },
+  {
+    "ntpeters/vim-better-whitespace",
+    event = "InsertEnter",
+    config = function()
+    vim.cmd[[
+    let g:better_whitespace_guicolor='red'
+    let g:strip_whitespace_on_save=0
+    let g:better_whitespace_filetypes_blacklist=['startify', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+    nnoremap <leader>si :StripWhitespace<CR>
+    ]]
+    end,
+  },
+  { "lfv89/vim-interestingwords", event = "BufReadPre" },
+  {
+    "markonm/traces.vim",
+    event = "BufReadPre",
+    config = function()
+    vim.cmd[[
+    let g:traces_normal_preview = 1
+    let g:traces_num_range_preview = 1
+    ]]
+    end,
+  },
+  {
+    "triglav/vim-visual-increment",
+    event = "BufReadPre",
+    config = function()
+    vim.cmd[[
+    set nrformats=alpha,octal,hex
+    ]]
+    end,
+  },
+  { "itchyny/vim-cursorword", event = "BufReadPre" },
+  { "bronson/vim-visual-star-search", event = "BufReadPre" },
   --lua
   {
     "alvarosevilla95/luatab.nvim",
-    event = "VimEnter",
+    event = "BufReadPre",
     config = function()
     require('luatab').setup{
     	separator = function()
@@ -140,44 +243,6 @@ require("lazy").setup({
     end,
   },
   {
-    "kevinhwang91/nvim-hlslens",
-    lazy = true,
-    config = function()
-    require('hlslens').setup({
-        override_lens = function(render, posList, nearest, idx, relIdx)
-            local sfw = vim.v.searchforward == 1
-            local indicator, text, chunks
-            local absRelIdx = math.abs(relIdx)
-            if absRelIdx > 1 then
-                indicator = ('%d%s'):format(absRelIdx, sfw ~= (relIdx > 1) and '▲' or '▼')
-            elseif absRelIdx == 1 then
-                indicator = sfw ~= (relIdx == 1) and '▲' or '▼'
-            else
-                indicator = ''
-            end
-
-            local lnum, col = unpack(posList[idx])
-            if nearest then
-                local cnt = #posList
-                if indicator ~= '' then
-                    text = ('[%s %d/%d]'):format(indicator, idx, cnt)
-                else
-                    text = ('[%d/%d]'):format(idx, cnt)
-                end
-                chunks = {{' ', 'Ignore'}, {text, 'HlSearchLensNear'}}
-            else
-                text = ('[%s %d]'):format(indicator, idx)
-                chunks = {{' ', 'Ignore'}, {text, 'HlSearchLens'}}
-            end
-            render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
-        end,
-        build_position_cb = function(plist, _, _, _)
-            require("scrollbar.handlers.search").handler.show(plist.start_pos)
-        end
-    })
-    end,
-  },
-  {
     "chentoast/marks.nvim",
     keys = "m" ,
     config = function()
@@ -224,7 +289,7 @@ require("lazy").setup({
   },
   {
     "karb94/neoscroll.nvim",
-    event = "VimEnter",
+    event = "BufReadPre",
     config = function()
     require('neoscroll').setup({
         mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
@@ -254,7 +319,47 @@ require("lazy").setup({
   },
   {
     "petertriho/nvim-scrollbar",
-    event = "VimEnter",
+    event = "BufReadPre",
+  	dependencies = {
+        {
+          "kevinhwang91/nvim-hlslens",
+          event = "InsertEnter",
+          config = function()
+          require('hlslens').setup({
+              override_lens = function(render, posList, nearest, idx, relIdx)
+                  local sfw = vim.v.searchforward == 1
+                  local indicator, text, chunks
+                  local absRelIdx = math.abs(relIdx)
+                  if absRelIdx > 1 then
+                      indicator = ('%d%s'):format(absRelIdx, sfw ~= (relIdx > 1) and '▲' or '▼')
+                  elseif absRelIdx == 1 then
+                      indicator = sfw ~= (relIdx == 1) and '▲' or '▼'
+                  else
+                      indicator = ''
+                  end
+
+                  local lnum, col = unpack(posList[idx])
+                  if nearest then
+                      local cnt = #posList
+                      if indicator ~= '' then
+                          text = ('[%s %d/%d]'):format(indicator, idx, cnt)
+                      else
+                          text = ('[%d/%d]'):format(idx, cnt)
+                      end
+                      chunks = {{' ', 'Ignore'}, {text, 'HlSearchLensNear'}}
+                  else
+                      text = ('[%s %d]'):format(indicator, idx)
+                      chunks = {{' ', 'Ignore'}, {text, 'HlSearchLens'}}
+                  end
+                  render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
+              end,
+              build_position_cb = function(plist, _, _, _)
+                  require("scrollbar.handlers.search").handler.show(plist.start_pos)
+              end
+          })
+          end,
+        },
+    },
     config = function()
     require("scrollbar").setup({
         handle = {
@@ -272,7 +377,7 @@ require("lazy").setup({
   },
   {
     "b3nj5m1n/kommentary",
-    event = "VimEnter",
+    event = "BufReadPre",
     config = function()
     require("kommentary")
     vim.g.kommentary_create_default_mappings = false
@@ -406,7 +511,7 @@ require("lazy").setup({
     })
     end,
   },
-  { "Vonr/align.nvim", event = "VeryLazy" },
+  { "Vonr/align.nvim", event = "BufReadPre" },
   { "kylechui/nvim-surround",
     keys = {
            { mode = "n", "ys" },
@@ -443,8 +548,129 @@ require("lazy").setup({
     end,
   },
   --colorscheme
-  { "EdenEast/nightfox.nvim" },
-  { "folke/tokyonight.nvim", event = "CursorHold" },
+  {
+    "EdenEast/nightfox.nvim",
+    event = "BufReadPre",
+    config = function()
+    require('nightfox').setup({
+      options = {
+        compile_path = vim.fn.stdpath("cache") .. "/nightfox",
+        compile_file_suffix = "_compiled", -- Compiled file suffix
+        transparent = false,    -- Disable setting background
+        terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+        dim_inactive = false,   -- Non focused panes set to alternative background
+        styles = {              -- Style to be applied to different syntax groups
+          comments = "NONE",    -- Value is any valid attr-list value `:help attr-list`
+          conditionals = "italic",
+          constants = "NONE",
+          operators = "NONE",
+          strings = "NONE",
+          types = "italic,bold",
+          variables = "NONE",
+
+          functions = "italic",
+          keywords = "bold",
+          numbers = "italic",
+        },
+        inverse = {
+          match_paren = true,
+          visual = false,       --default is true
+          search = false,
+        },
+        modules = {
+          nvimtree = true,
+          cmp = true,
+          telescope = true,
+          treesitter = true,
+          whichkey = true,
+        },
+        },
+      groups = {
+        all = {
+          NormalFloat = { bg = "bg1" },
+          NormalNC = { bg = "NONE" },
+        },
+      },
+    })
+    end,
+    opts = function()
+    local palettes = {
+      nightfox  = {
+        white   = "#abb2bf",
+        fg1     = "#b2b2b2",
+        comment = "#5c6370",
+        sel0    = "#364a82", --visual
+        sel1    = "#228b22", --visual Selected
+      },
+      duskfox   = {
+        white   = "#abb2bf",
+        fg1     = "#b2b2b2",
+        comment = "#5c6370",
+        sel0    = "#364a82", --visual
+        sel1    = "#228b22", --visual Selected
+      },
+      terafox   = {
+        white   = "#abb2bf",
+        fg1     = "#b2b2b2",
+        comment = "#5c6370",
+        sel0    = "#364a82", --visual
+        sel1    = "#228b22", --visual Selected
+      },
+      nordfox   = {
+        white   = "#abb2bf",
+        fg1     = "#b2b2b2",
+        comment = "#5c6370",
+        sel0    = "#364a82", --visual
+        sel1    = "#228b22", --visual Selected
+      },
+      carbonfox = {
+        white   = "#abb2bf",
+        fg1     = "#b2b2b2",
+        comment = "#5c6370",
+        sel0    = "#364a82", --visual
+        sel1    = "#228b22", --visual Selected
+      },
+      dayfox    = {
+        bg1     = "#e1e2e7",
+        fg1     = "#4d688e",
+        fg3     = "#a8aecb", --line number
+        sel0    = "#99a7df", --visual
+        orange  = "#b15c00", --number
+      },
+    }
+    require("nightfox").setup({ palettes = palettes })
+    end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    event = "BufReadPre",
+    config = function()
+    require("tokyonight").setup({
+      style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+      light_style = "day", -- The theme is used when the background is set to light
+      transparent = false, -- Enable this to disable setting the background color
+      terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+      styles = {
+        comments = { italic = false },
+        keywords = { bold = true },
+        functions = { italic = true },
+        variables = { },
+        -- Background styles. Can be "dark", "transparent" or "normal"
+        sidebars = "dark", -- style for sidebars, see below
+        floats = "dark", -- style for floating windows
+      },
+      sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+      day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+      hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+      dim_inactive = false, -- dims inactive windows
+      lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
+
+      on_colors = function(colors) end,
+
+      on_highlights = function(highlights, colors) end,
+    })
+    end,
+  },
   --Telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -498,7 +724,32 @@ require("lazy").setup({
   {
     "nvim-orgmode/orgmode",
     ft = "org",
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+        {"nvim-treesitter/nvim-treesitter"},
+        {
+          "akinsho/org-bullets.nvim",
+          ft = "org",
+          config = function()
+          require('org-bullets').setup({
+              show_current_line = false,
+              concealcursor = true,
+              indent = true,
+              symbols = {
+                  list = "•",
+                  headlines = {"◉", "◎", "○", "✺", "▶", "⤷" }, --neorg level1:◉⦿
+                  --headlines = { "◉", "○", "✸", "✿" },        --orgmode
+                  --headlines = {"🌸","🌱","💧","✨","💗" },   --others
+                  checkboxes = {
+                      cancelled = { '', 'OrgCancelled' },
+                      half = { '', 'OrgTSCheckboxHalfChecked' },
+                      done = { '', 'OrgDone' },--✓
+                      todo = { '', 'OrgTODO' },--×
+                  },
+              },
+          })
+          end,
+        },
+    },
     config = function()
     local orgmode = require('orgmode')
     orgmode.setup_ts_grammar()
@@ -518,34 +769,10 @@ require("lazy").setup({
     })
     end,
   },
-  {
-    "akinsho/org-bullets.nvim",
-    ft = "org",
-    config = function()
-    require('org-bullets').setup({
-        show_current_line = false,
-        concealcursor = true,
-        indent = true,
-        symbols = {
-            list = "•",
-            headlines = {"◉", "◎", "○", "✺", "▶", "⤷" }, --neorg level1:◉⦿
-            --headlines = { "◉", "○", "✸", "✿" },        --orgmode
-            --headlines = {"🌸","🌱","💧","✨","💗" },   --others
-            checkboxes = {
-                cancelled = { '', 'OrgCancelled' },
-                half = { '', 'OrgTSCheckboxHalfChecked' },
-                done = { '', 'OrgDone' },--✓
-                todo = { '', 'OrgTODO' },--×
-            },
-        },
-    })
-    end,
-  },
   --treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = "BufRead",
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
     { "HiPhish/nvim-ts-rainbow2" },
@@ -762,6 +989,7 @@ require("lazy").setup({
   },
   {
     "hrsh7th/cmp-cmdline",
+    --event = "BufReadPre",
     --event = "CmdlineEnter",
     event = "InsertEnter",
     dependencies = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-path", "hrsh7th/cmp-buffer" },
@@ -976,7 +1204,7 @@ require("lazy").setup({
   { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = {"markdown", "org"} }, --modified
   {
     dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/lualine.nvim-master",
-    event = "VimEnter",
+    event = "VeryLazy",
     config = function()
     require "lualine".setup {
         globalstatus = true,
@@ -996,10 +1224,7 @@ require("lazy").setup({
                 mode = 0,
                 max_length = vim.o.columns * 2 / 3,
                 symbols = {
-                    modified = ' [𝓐 ]',
-                    --modified = ' -->🈚',
-                    --modified = ' [+]',
-                    --modified = ' ',
+                    modified = ' [𝓐 ]',-- 🈚,[+],
                     alternate_file = ' o',
                     directory = ' z',
                 },
@@ -1025,7 +1250,6 @@ require("lazy").setup({
             },
             lualine_c = { '% [ %F -  %p%% ]' },
             lualine_x = { 'os.date("%H:%M %a")', 'filetype' },
-            --lualine_y = { '%c -  %B' },
             lualine_y = { '%c' },
             lualine_z = { '%l - %L' },
         },
@@ -1055,71 +1279,59 @@ require("lazy").setup({
   },
   {
     "folke/which-key.nvim",
+    event = { "VeryLazy" },--166.4
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
       require("which-key").setup({
           {
       plugins = {
-        marks = true, -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+        marks = true,
+        registers = true,
         spelling = {
-          enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-          suggestions = 20, -- how many suggestions should be shown in the list?
+          enabled = false,
+          suggestions = 20,
         },
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
         presets = {
-          operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-          motions = true, -- adds help for motions
-          text_objects = true, -- help for text objects triggered after entering an operator
-          windows = true, -- default bindings on <c-w>
-          nav = true, -- misc bindings to work with windows
-          z = true, -- bindings for folds, spelling and others prefixed with z
-          g = true, -- bindings for prefixed with g
+          operators = true,
+          motions = true,
+          text_objects = true,
+          windows = true,
+          nav = true,
+          z = true,
+          g = true,
         },
       },
-      -- add operators that will trigger motion and text object completion
-      -- to enable all native operators, set the preset / operators plugin above
       operators = { gc = "Comments" },
       key_labels = {
-        -- override the label used to display some keys. It doesn't effect WK in any other way.
-        -- For example:
-        -- ["<space>"] = "SPC",
-        -- ["<cr>"] = "RET",
-        -- ["<tab>"] = "TAB",
       },
       icons = {
-        breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-        separator = "➜", -- symbol used between a key and it's label
-        group = "+", -- symbol prepended to a group
+        breadcrumb = "»",
+        separator = "➜",
+        group = "+",
       },
       popup_mappings = {
-        scroll_down = '<c-d>', -- binding to scroll down inside the popup
-        scroll_up = '<c-u>', -- binding to scroll up inside the popup
+        scroll_down = '<c-d>',
+        scroll_up = '<c-u>',
       },
       window = {
-        border = "none", -- none, single, double, shadow
-        position = "bottom", -- bottom, top
-        margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-        padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+        border = "none",
+        position = "bottom",
+        margin = { 1, 0, 1, 0 },
+        padding = { 2, 2, 2, 2 },
         winblend = 0
       },
       layout = {
-        height = { min = 4, max = 25 }, -- min and max height of the columns
-        width = { min = 20, max = 50 }, -- min and max width of the columns
-        spacing = 3, -- spacing between columns
-        align = "left", -- align columns left, center or right
+        height = { min = 4, max = 25 },
+        width = { min = 20, max = 50 },
+        spacing = 3,
+        align = "left",
       },
-      ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
-      show_help = true, -- show help message on the command line when the popup is visible
-      triggers = "auto", -- automatically setup triggers
-      -- triggers = {"<leader>"} -- or specify a list manually
+      ignore_missing = false,
+      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "},
+      show_help = true,
+      triggers = "auto",
       triggers_blacklist = {
-        -- list of mode / prefixes that should never be hooked by WhichKey
-        -- this is mostly relevant for key maps that start with a native binding
-        -- most people should not need to change this
         i = { "j", "k" },
         v = { "j", "k" },
       },
@@ -1236,7 +1448,7 @@ augroup END
 " }}}
 
 " {{{ 字体/字号
-if exists('g:neovide')
+if exists('g:neovide') || exists('g:nvy')
     " set guifont=Delugia\ Mono:h15.5                   " Nerd Font (Cascadia Code)
     set guifont=Delugia\ Mono:h11.6                   " Nerd Font (Cascadia Code)
     " set guifont=CodeNewRoman\ NFM:h12                " Nerd Font
@@ -1668,136 +1880,7 @@ function! DeleteTillSlash()
 endfunc
 " }}}
 
-" {{{ Colorscheme << nightfox >>
-lua << EOF
-require('nightfox').setup({
-  options = {
-    compile_path = vim.fn.stdpath("cache") .. "/nightfox",
-    compile_file_suffix = "_compiled", -- Compiled file suffix
-    transparent = false,    -- Disable setting background
-    terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-    dim_inactive = false,   -- Non focused panes set to alternative background
-    styles = {              -- Style to be applied to different syntax groups
-      comments = "NONE",    -- Value is any valid attr-list value `:help attr-list`
-      conditionals = "italic",
-      constants = "NONE",
-      operators = "NONE",
-      strings = "NONE",
-      types = "italic,bold",
-      variables = "NONE",
-
-      functions = "italic",
-      keywords = "bold",
-      numbers = "italic",
-    },
-    inverse = {
-      match_paren = true,
-      visual = false,       --default is true
-      search = false,
-    },
-    modules = {
-      nvimtree = true,
-      cmp = true,
-      telescope = true,
-      treesitter = true,
-      whichkey = true,
-    },
-    },
-  groups = {
-    all = {
-      NormalFloat = { bg = "bg1" },
-      NormalNC = { bg = "NONE" },
-    },
-  },
-})
---note: nightfox color change: (1) white:   #dfdfe0 -> #abb2bf  ps:白色变浅
---                             (2) fg1:     #cdcecf -> #abb2bf  ps:白色变浅,同上
---                             (3) comment: #738091 -> #5c6370  ps:注释颜色变浅
---                             (4) sel0:    #2b3b51 -> #3e4452  ps:V模式框选颜色变深
---                             file: "C:\Users\ThinkPad\AppData\Local\nvim-data\lazy\nightfox.nvim\lua\nightfox\palette\nightfox.lua"
-local palettes = {
-  nightfox  = {
-    white   = "#abb2bf",
-    fg1     = "#b2b2b2",
-    comment = "#5c6370",
-    sel0    = "#364a82", --visual
-    sel1    = "#228b22", --visual Selected
-  },
-  duskfox   = {
-    white   = "#abb2bf",
-    fg1     = "#b2b2b2",
-    comment = "#5c6370",
-    sel0    = "#364a82", --visual
-    sel1    = "#228b22", --visual Selected
-  },
-  terafox   = {
-    white   = "#abb2bf",
-    fg1     = "#b2b2b2",
-    comment = "#5c6370",
-    sel0    = "#364a82", --visual
-    sel1    = "#228b22", --visual Selected
-  },
-  nordfox   = {
-    white   = "#abb2bf",
-    fg1     = "#b2b2b2",
-    comment = "#5c6370",
-    sel0    = "#364a82", --visual
-    sel1    = "#228b22", --visual Selected
-  },
-  carbonfox = {
-    white   = "#abb2bf",
-    fg1     = "#b2b2b2",
-    comment = "#5c6370",
-    sel0    = "#364a82", --visual
-    sel1    = "#228b22", --visual Selected
-  },
-  dayfox    = {
-    bg1     = "#e1e2e7",
-    fg1     = "#4d688e",
-    fg3     = "#a8aecb", --line number
-    sel0    = "#99a7df", --visual
-    orange  = "#b15c00", --number
-  },
-}
-
-require("nightfox").setup({ palettes = palettes })
---Dark:  nightfox duskfox terafox nordfox Carbonfox
---Light: dayfox dawnfox
-
---vim.cmd("colorscheme nightfox")
---vim.cmd("colorscheme dayfox")
-EOF
-" }}}
-" {{{ Colorscheme << tokyonight >>
-lua << EOF
-require("tokyonight").setup({
-  style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-  light_style = "day", -- The theme is used when the background is set to light
-  transparent = false, -- Enable this to disable setting the background color
-  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-  styles = {
-    comments = { italic = false },
-    keywords = { bold = true },
-    functions = { italic = true },
-    variables = { },
-    -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = "dark", -- style for sidebars, see below
-    floats = "dark", -- style for floating windows
-  },
-  sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-  day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-  hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-  dim_inactive = false, -- dims inactive windows
-  lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
-
-  on_colors = function(colors) end,
-
-  on_highlights = function(highlights, colors) end,
-})
-EOF
-" colorscheme tokyonight-night tokyonight-storm tokyonight-moon
-" }}}
-" {{{ Random colorscheme
+" {{{ random colorscheme
 lua << EOF
 random_color = {
 --    'tokyonight-day',
@@ -1824,10 +1907,58 @@ highlight DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#8
 highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e " 变化的文字
 " }}}
 
-" ------------------------------- Plugins Config --------------------------------
-" {{{ << Plugin - markonm/traces.vim >>
-let g:traces_normal_preview = 1
-let g:traces_num_range_preview = 1
+" ----------------------- Plugins Config -----------------------
+" {{{ << Plugin - Undotree >>
+let g:undotree_DiffAutoOpen = 1
+nnoremap <silent> <leader>u :UndotreeToggle<cr>
+set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/undodir
+set undofile
+" }}}
+
+" {{{ << vim-visual-multi >>
+augroup visual_multi_yank
+    autocmd!
+    autocmd User visual_multi_mappings nmap <buffer> <leader>y "+y
+augroup END
+
+let g:VM_theme                      = 'iceblue'
+let g:VM_highlight_matches          = 'underline'
+let g:VM_maps                       = {}
+let g:VM_maps['Find Under']         = '<C-n>'
+let g:VM_maps['Find Subword Under'] = '<C-n>'
+let g:VM_maps['Select All']         = '<C-z>'
+" let g:VM_maps['Select h']           = '<C-Left>'
+" let g:VM_maps['Select l']           = '<C-Right>'
+
+let g:VM_maps['Add Cursor Up']      = '<C-k>'
+let g:VM_maps['Add Cursor Down']    = '<C-j>'
+
+" let g:VM_maps['Add Cursor At Pos']  = '<C-x>'
+" let g:VM_maps['Add Cursor At Word'] = '<C-w>'
+" let g:VM_maps['Remove Region']      = 'q'
+" }}}
+
+" {{{ text objects  << targets.vim >>
+" add '<>' in block
+autocmd User targets#mappings#user call targets#mappings#extend({
+    \ 'b': {
+        \'pair': [
+            \{'o':'(', 'c':')'},
+            \{'o':'[', 'c':']'},
+            \{'o':'{', 'c':'}'},
+            \{'o':'<', 'c':'>'},
+        \ ]
+    \},
+\})
+" d/c/y  +  i/I/a/A  +  b               (默认为n向右搜索)
+" d/c/y  +  i/I/a/A  +  a               (默认为n向右搜索)
+" d/c/y  +  i/I/a/A  +  q               (默认为n向右搜索)
+" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  b
+" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  a
+" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  q
+" d/c/y  +  i/I/a/A  +  (/[/,/...
+" d/c/y  +  i/I/a/A  +  "/'/`/...
+" --b:block   q:quote    a:argument
 " }}}
 
 " {{{ Compiler code & Python & REPL & Matlab & Fortran << floaterm && REPL >>
@@ -1882,29 +2013,6 @@ nnoremap  <leader>ta  :FloatermNew<CR>runas /user:ThinkPad\Administrator cmd<CR>
 " 开启管理员账号: net user administrator /active:yes
 " 关闭管理员账号: net user administrator /active:no
 " 设置管理员密码(1234): net user administrator 1234
-" }}}
-
-" {{{ << vim-visual-multi >>
-augroup visual_multi_yank
-    autocmd!
-    autocmd User visual_multi_mappings nmap <buffer> <leader>y "+y
-augroup END
-
-let g:VM_theme                      = 'iceblue'
-let g:VM_highlight_matches          = 'underline'
-let g:VM_maps                       = {}
-let g:VM_maps['Find Under']         = '<C-n>'
-let g:VM_maps['Find Subword Under'] = '<C-n>'
-let g:VM_maps['Select All']         = '<C-z>'
-" let g:VM_maps['Select h']           = '<C-Left>'
-" let g:VM_maps['Select l']           = '<C-Right>'
-
-let g:VM_maps['Add Cursor Up']      = '<C-k>'
-let g:VM_maps['Add Cursor Down']    = '<C-j>'
-
-" let g:VM_maps['Add Cursor At Pos']  = '<C-x>'
-" let g:VM_maps['Add Cursor At Word'] = '<C-w>'
-" let g:VM_maps['Remove Region']      = 'q'
 " }}}
 
 " {{{ << Plugin - startify >>
@@ -1979,27 +2087,6 @@ EOF
 function! StartifyEntryFormat() abort
   return 'v:lua.webDevIcons(absolute_path) . " " . entry_path'
 endfunction
-" }}}
-
-" {{{ << Plugin - vim-better-whitespace >>
-" 行尾空格红色显示.使用:StripWhitespace去除行尾空格.
-nnoremap <leader>si :StripWhitespace<CR>
-let g:better_whitespace_guicolor='red'
-let g:strip_whitespace_on_save=0
-let g:better_whitespace_filetypes_blacklist=['startify', 'diff', 'gitcommit', 'unite', 'qf', 'help']
-" }}}
-
-" {{{ << Plugin - Undotree >>
-let g:undotree_DiffAutoOpen = 1
-nnoremap <silent> <leader>u :UndotreeToggle<cr>
-set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/undodir
-
-set undofile
-" }}}
-
-" {{{ << Plugin - expand-region >>
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
 " }}}
 
 " {{{ MarkDown Preview - << Plugin - iamcco/markdown-preview.nvim >> (需安装:nodejs 和 yarn)
@@ -2093,107 +2180,13 @@ augroup markdown_table
 augroup END
 " }}}
 
-" {{{ LATEX插件 << Plugin - lervag/vimtex >>
-let g:tex_flavor='latex'
-let g:vimtex_quickfix_mode=0
-
-" 阅读器相关的配置 包含正反向查找功能 仅供参考
-let g:vimtex_view_general_viewer = 'SumatraPDF'
-let g:vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
-let g:vimtex_view_general_options_latexmk = '-reuse-instance'
-" let g:tex_conceal='abdmg'
-
-" To prevent conceal in LaTeX files
-let g:vimtex_syntax_conceal_default = 0
-
-augroup latex_set
-    autocmd!
-    autocmd FileType tex nnoremap <localleader>li <plug>(vimtex-info)
-    autocmd FileType tex nnoremap <localleader>lt <plug>(vimtex-toc-open)
-    autocmd FileType tex nnoremap <localleader>lT <plug>(vimtex-toc-toggle)
-    autocmd FileType tex nnoremap <localleader>lv <plug>(vimtex-view)
-    autocmd FileType tex nnoremap <localleader>ll <plug>(vimtex-compile)
-    autocmd FileType tex nnoremap <localleader>lo <plug>(vimtex-compile-output)
-    autocmd FileType tex nnoremap <localleader>lg <plug>(vimtex-status)
-    autocmd FileType tex nnoremap <localleader>lG <plug>(vimtex-status-all)
-    autocmd FileType tex nnoremap <localleader>lc <plug>(vimtex-clean)
-    autocmd FileType tex nnoremap <localleader>lC <plug>(vimtex-clean-full)
-augroup END
-" }}}
-
 " {{{ 计算器 << Plugin - arecarn/crunch >>
 nmap <leader>, <Plug>(crunch-operator-line)
 xmap <leader>, <Plug>(visual-crunch-operator)
 " }}}
 
-" {{{ 循环 C-a C-x << Plugin -zef/vim-cycle >>
-augroup vim_cycle
-    autocmd!
-    au VimEnter * call AddCycleGroup(['set', 'get'])
-    au VimEnter * call AddCycleGroup(['form', 'to'])
-    au VimEnter * call AddCycleGroup(['push', 'pop'])
-    au VimEnter * call AddCycleGroup(['mas', 'menos'])
-    au VimEnter * call AddCycleGroup(['prev', 'next'])
-    au VimEnter * call AddCycleGroup(['start', 'end'])
-    au VimEnter * call AddCycleGroup(['light', 'dark'])
-    au VimEnter * call AddCycleGroup(['open', 'close'])
-    au VimEnter * call AddCycleGroup(['read', 'write'])
-    au VimEnter * call AddCycleGroup(['truthy', 'falsy'])
-    au VimEnter * call AddCycleGroup(['filter', 'reject'])
-    au VimEnter * call AddCycleGroup(['internal', 'external'])
-    au VimEnter * call AddCycleGroup(['short', 'normal', 'long'])
-    au VimEnter * call AddCycleGroup(['subscribe', 'unsubscribe'])
-    au VimEnter * call AddCycleGroup(['header', 'body', 'footer'])
-    au VimEnter * call AddCycleGroup(['protected', 'private', 'public'])
-    au VimEnter * call AddCycleGroup(['red', 'blue', 'green', 'yellow'])
-    au VimEnter * call AddCycleGroup(['tiny', 'small', 'medium', 'big', 'huge'])
-    au VimEnter * call AddCycleGroup(['pico', 'nano', 'micro', 'mili', 'kilo', 'mega', 'giga', 'tera', 'peta'])
-    au VimEnter * call AddCycleGroup(['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'])
-    au VimEnter * call AddCycleGroup(['Sunday', 'Monday', 'Tuesday', 'Wensday', 'Thursday', 'Friday', 'Saturday'])
-    au VimEnter * call AddCycleGroup(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
-
-    au VimEnter * call AddCycleGroup(['TODO', 'DONE', 'WAITING', 'INPROGRESS', 'CANCELED', 'NOTE'])
-augroup END
-" }}}
-
 " {{{ 作者信息 << Plugin - header >>
-let g:header_field_author = 'Max'
-let g:header_field_author_email = 'ismaxiaolong@gmail.com'
-let g:header_field_timestamp_format = '%Y.%m.%d'
-let g:header_field_modified_by = 0
-let g:header_field_license_id = ' '
 nnoremap <F2> :AddHeader<CR>
-" }}}
-
-" {{{ increment date << vim-speeddating-master >>
-" 查看日期格式':SpeedDatingFormat'
-" 在'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master/plugin/speeddating.vim'增加新格式
-" SpeedDatingFormat %Y-%m-%d %a %H:%M               " define 1
-" SpeedDatingFormat %Y-%m-%d (%a)%*                 " define 2
-" SpeedDatingFormat %Y-%m-%d %a                     " define 3
-" }}}
-
-" {{{ text objects  << targets.vim >>
-" add '<>' in block
-autocmd User targets#mappings#user call targets#mappings#extend({
-    \ 'b': {
-        \'pair': [
-            \{'o':'(', 'c':')'},
-            \{'o':'[', 'c':']'},
-            \{'o':'{', 'c':'}'},
-            \{'o':'<', 'c':'>'},
-        \ ]
-    \},
-\})
-" d/c/y  +  i/I/a/A  +  b               (默认为n向右搜索)
-" d/c/y  +  i/I/a/A  +  a               (默认为n向右搜索)
-" d/c/y  +  i/I/a/A  +  q               (默认为n向右搜索)
-" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  b
-" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  a
-" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  q
-" d/c/y  +  i/I/a/A  +  (/[/,/...
-" d/c/y  +  i/I/a/A  +  "/'/`/...
-" --b:block   q:quote    a:argument
 " }}}
 
 " {{{ lfv89/vim-interestingwords
@@ -2202,108 +2195,30 @@ vnoremap <silent> <leader>k :call InterestingWords('v')<cr>
 nnoremap <silent> <leader>K :call UncolorAllWords()<cr>
 " }}}
 
-" ------------------------------- 需要Python支持的Plugins --------------------------------
+" ------------- require Python support vim Plugins -------------
 " {{{ << Plugin - LeaderF >>
 " 安装 C extension, 速度提高10倍
 " :LeaderfInstallCExtension
-let g:Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
-let g:Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
-
-let g:Lf_ShowDevIcons = 1
-let g:Lf_DevIconsFont = "Delugia Mono"
-
-let g:Lf_ReverseOrder = 1
-
-" don't show the help in normal mode
-let g:Lf_HideHelp = 1
-let g:Lf_UseCache = 0
-let g:Lf_UseVersionControlTool = 0
-let g:Lf_IgnoreCurrentBufferName = 1
-
-" popup mode
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_PopupColorscheme = "leaderf_colorscheme_nightfox"
-" let g:Lf_PopupColorscheme = "Consistent with the current color scheme"
-
-" change color
-let g:Lf_PopupPalette = {
-    \  'dark': {
-    \      'Lf_hl_cursorline': {
-    \                'guibg': '#364a82',
-    \              },
-    \      },
-    \  }
-
-let g:Lf_WindowHeight = 0.9
-let g:Lf_PopupHeight = 0.7
-let g:Lf_PopupWidth = 0.4
-let g:Lf_PopupPosition = [7, 84]
-let g:Lf_PopupPreviewPosition = 'left'
-let g:Lf_PreviewCode = 1
-let g:Lf_PreviewInPopup = 1
-let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "Delugia Mono" }
-
-" BufTag和Function不自动预览,通过<C-p>预览.BufTag和Function默认是1.
-let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
 " 文件搜索
 nnoremap <silent> <localleader>fb :LeaderfFile :/<left><left>
-
 " 模糊搜索,很强大的功能,迅速秒搜
 nnoremap <silent> <localleader>fp :Leaderf rg<CR>
-
 " 关键字搜索(仅当前文件里)
 nnoremap <silent> <localleader>fl :LeaderfLine<CR>
-
 " 变量搜索(仅当前文件里)
 nnoremap <silent> <localleader>t :Leaderf bufTag<CR>
-
 " 函数搜索(仅当前文件里)
 nnoremap <silent> <localleader>ff :Leaderf function<CR>
-
 " 配色搜索
 nnoremap <silent> <localleader>fc :Leaderf colorscheme<CR>
-
-" buffer
-" let g:Lf_ShortcutB = '<localleader>fb'
-
-let g:Lf_ShowRelativePath = 0
-let g:Lf_NormalMap = {
-            \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>'],
-            \            ["u", ':LeaderfFile ..<CR>']
-            \           ],
-            \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
-            \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
-            \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
-            \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
-            \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
-            \ }
-" 使用:LeaderfRg 路径不全, 搜索该录下经的文件.
-command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>
-
-let g:Lf_WildIgnore = {
-        \ 'dir': ['.svn','.git','.hg'],
-        \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-        \}
 " }}}
 
-" {{{ 数列递增递减，字母序列递增递减 << Plugin - vim-visual-increment-master >>
-set nrformats=alpha,octal,hex
-" 用法
-" <C-a>增加(差值1) <C-x>减小(差值1)
-" n<C-a>增加(差值n) n<C-x>减小(差值n)
-
-" <C-a>增加       <C-a>增加       n<C-a>增加
-" 1         1     a         a     1         1
-" 1   ----> 2     a   ----> b     1   ----> 1+n
-" 1         3     a         c     1         1+2n
-" }}}
-
-" ==============================================================
 " ===================== NEOVIM lua Plugins =====================
 
-" {{{ lua plugins mapping
+" {{{ lua-Plugins mapping & color
 lua << EOF
+-- mapping
 --{{{ hlslens
 vim.cmd[[nnoremap <leader>/ /\<<C-R>=expand("<cword>")<CR>\><left><left>]]
 -- }}}
@@ -2350,19 +2265,19 @@ local NS = { noremap = true, silent = true }
 vim.keymap.set('x','<leader>a',function()require'align'.align_to_string(false,true,true)end,NS)--Alignstoastring,lookingleftandwithpreviews
 --vim.keymap.set('x','<leader>ar',function()require'align'.align_to_string(true,true,true)end,NS)--AlignstoaLuapattern,lookingleftandwithpreviews
 --}}}
-EOF
-" }}}
 
-" {{{ lua plugins color
-" {{{  hlslens clolr
+-- color
+--{{{  hlslens clolr
+vim.cmd[[
 hi default link HlSearchNear IncSearch
 hi default link HlSearchLens WildMenu
 hi default link HlSearchLensNear IncSearch
 hi default link HlSearchFloat IncSearch
 hi IncSearch guibg=#d73a4a
 hi IncSearch guifg=black
-" }}}
-lua << EOF
+]]
+--}}}
+
 --{{{ cmp color
 vim.api.nvim_command("highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
 vim.api.nvim_command("highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6") --Abbr
@@ -2434,7 +2349,7 @@ if exists('g:neovide') || exists('g:nvy')
 
 " Adjust fontsize
     let s:guifontsize=12
-    let s:guifont="Delugia_Mono"
+    let s:guifont="Delugia\\ Mono"
     function! AdjustFontSize(amount)
         let s:guifontsize = s:guifontsize + a:amount
         execute "set guifont=" .. s:guifont .. ":h" .. s:guifontsize
@@ -2442,7 +2357,7 @@ if exists('g:neovide') || exists('g:nvy')
     " keyboard
     nnoremap <m--> :call AdjustFontSize(-1)<CR>
     nnoremap <m-=> :call AdjustFontSize(1)<CR>
-    nnoremap <m-BS> :set guifont=Delugia_Mono:h12.01<CR>
+    nnoremap <m-BS> :set guifont=Delugia\ Mono:h12.01<CR>
     inoremap <m--> <C-o>:call AdjustFontSize(-1)<CR>
     inoremap <m-=> <C-o>:call AdjustFontSize(1)<CR>
     inoremap <m-BS> <C-o>:set guifont=Delugia_Mono:h12.01<CR>
