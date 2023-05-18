@@ -8,6 +8,254 @@
 " |_|  |_| |_|      \/__/    \/_/\/_/\/_/\/_/|_| \_\\____|
 " ========================================================
 
+" {{{ Mapping
+map ; :
+
+noremap s <nop>
+xmap s <nop>
+
+nnoremap <Space> <nop>
+nnoremap , <nop>
+let g:mapleader = "\<Space>"
+let g:maplocalleader = ","
+
+" 显示list 用.表示空格
+nnoremap <F3> :set list!<CR>
+inoremap <F3> <C-o>:set list!<CR>
+cnoremap <F3> <C-c>:set list!<CR>
+
+" 高亮光标行列
+nnoremap <silent> <F4> :set cuc! cul!<CR>
+
+" x,c仅复制,不更改寄存器.(ps: d为剪切)
+nnoremap          x          "_x
+vnoremap          x          "_x
+nnoremap          c          "_c
+vnoremap          c          "_c
+nnoremap          Y           y$
+vnoremap          p          pgvy
+vnoremap          P          Pgvy
+
+" 单词的 选/改/删
+nnoremap <silent> vi viw
+nnoremap <silent> ci ciw
+nnoremap <silent> di diw
+
+" IDE like delete
+inoremap <C-BS> <Esc>b"_dei
+
+" 取消高亮
+nnoremap <silent> <BS> :nohl<CR>
+
+" Open Startify
+nnoremap <silent> <leader>st :Startify<CR>
+
+" 比较line
+nnoremap <leader>dt :Linediff<CR>
+
+" 插入时间
+iab xtime <c-r>=strftime("20%y-%m-%d %a %H:%M")<CR>
+iab xdate <c-r>=strftime("20%y-%m-%d (%a)")<CR>
+
+" 代码折叠
+nnoremap <silent> <Tab> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+" zf                        --创建折叠,仅在manual/marker中有效(eg:v{motion}zf v{motion}指Shift+v)
+" zd                        --删除折叠,仅在manual/marker中有效
+" zD                        --删除嵌套折叠,仅在manual/marker中有效
+" za                        --打开/关闭当前折叠
+" zM                        --关闭所有折叠
+" zR                        --打开所有折叠
+
+" vimrc
+nnoremap <silent> <leader>rc :edit $MYVIMRC<cr>
+nnoremap <silent> <leader>rr :source $MYVIMRC<CR>
+
+" spell checking
+nnoremap <Leader>sc :set spell!<CR>
+
+nnoremap <leader>sn ]s
+nnoremap <leader>sp [s
+nnoremap <leader>sa zg
+
+" 显示单词拼写建议
+nnoremap <leader>s? z=
+
+" 光标移动
+inoremap <m-h> <Left>
+inoremap <m-j> <Down>
+inoremap <m-k> <Up>
+inoremap <m-l> <Right>
+
+" INSERT Mode下使用光标移动一个单词
+inoremap <C-h> <C-Left>
+inoremap <C-l> <C-Right>
+
+" ----------------- find and replace --------------
+nnoremap <leader>z :%s/\<<C-R>=expand("<cword>")<CR>\>/<C-R>=expand("<cword>")<CR>/g<left><left>
+vnoremap <leader>z :s///g<left><left><left>
+
+" ----------------- make a list --------------
+nnoremap <leader>b :put =range(,,1)<left><left><left><left>
+
+" ----------------- Indentation -------------------
+nnoremap < <<
+nnoremap > >>
+
+"---------------- 分屏快捷键设置 ----------------
+nnoremap <silent> sh :set splitright<CR>:vsplit<CR>
+nnoremap <silent> sj :set splitbelow<CR>:split<CR>
+nnoremap <silent> st :set splitright<CR>:vsplit<CR>:Startify<CR>
+
+" 互换分割窗口.Rotate screens
+nnoremap <S-h> <C-w>b<C-w>H
+" nnoremap srh <C-w>b<C-w>K
+
+" 光标移动
+nnoremap <C-l> <C-W><C-L>
+nnoremap <C-h> <C-W><C-H>
+"nnoremap <C-j> <C-W><C-J>
+"nnoremap <C-k> <C-W><C-K>
+
+" terminal 分屏窗口移动,split navigations,smart way to move between windows
+tnoremap <C-h> <C-w><C-h>
+tnoremap <C-j> <C-w><C-j>
+tnoremap <C-k> <C-w><C-k>
+tnoremap <C-l> <C-w><C-l>
+
+"---------------- 调整分屏尺寸 ----------------
+nnoremap <silent>   <C-up>  :resize -3<CR>
+nnoremap <silent>   <C-down>  :resize +3<CR>
+nnoremap <silent>   <C-left>  :vertical resize +3<CR>
+nnoremap <silent>   <C-right>  :vertical resize -3<CR>
+
+" ----------- 支持Alt+n切换标签页 -----------
+:nn <M-1> 1gt
+:nn <M-2> 2gt
+:nn <M-3> 3gt
+:nn <M-4> 4gt
+:nn <M-5> 5gt
+:nn <M-6> 6gt
+:nn <M-7> 7gt
+:nn <M-8> 8gt
+:nn <M-9> 9gt
+:nn <M-0> :tablast<CR>
+
+" Alt+左右键来移动标签顺序
+nn <silent> <M-left> :if tabpagenr() == 1\|exe "tabm ".tabpagenr("$")\|el\|exe "tabm ".(tabpagenr()-2)\|en<CR>
+nn <silent> <M-right> :if tabpagenr() == tabpagenr("$")\|tabm 0\|el\|exe "tabm ".tabpagenr()\|en<CR>
+
+" 修改标签页的标题
+set guitablabel=%{GuiTabLabel()}
+function! GuiTabLabel()
+    let label = ''
+    let bufnrlist = tabpagebuflist(v:lnum)
+    for bufnr in bufnrlist
+        if getbufvar(bufnr, "&modified")
+            let label = '+'
+            break
+        endif
+    endfor
+    let label .= v:lnum.': '
+    let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
+    if name == ''
+        if &buftype=='quickfix'
+            let name = '[Quickfix List]'
+        else
+            let name = '[No Name]'
+        endif
+    else
+        let name = fnamemodify(name,":t")
+    endif
+    let label .= name
+    let wincount = tabpagewinnr(v:lnum, '$')
+    return label
+endfunction
+
+" -------------------- Buffer ---------------------
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
+
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
+
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
+
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
+endfunction
+
+function! CmdLine(str)
+    call feedkeys(":" . a:str)
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+"------------- Command Mode related ---------------
+" Bash like keys for the command line
+cnoremap <C-a>      <Home>
+cnoremap <C-e>      <End>
+" cnoremap <C-K>      <C-U>
+cnoremap <C-h>      <C-Left>
+cnoremap <C-l>      <C-Right>
+
+cnoremap <m-h>      <left>
+cnoremap <m-l>      <right>
+cnoremap <m-j>      <down>
+cnoremap <m-k>      <up>
+
+cnoremap <C-j>      <down>
+cnoremap <C-k>      <up>
+
+" 在命令行粘贴的快捷键
+cnoremap <C-V> <C-R>+
+
+" $q is super useful when browsing on the command line
+" it deletes everything until the last slash
+" NORMAL Mode, Q                             --进入到Ex命令行模式
+cno $q <C-\>eDeleteTillSlash()<CR>
+
+function! DeleteTillSlash()
+    let g:cmd = getcmdline()
+    if has("win16") || has("win32")
+        let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
+    else
+        let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
+    endif
+    if g:cmd == g:cmd_edited
+        if has("win16") || has("win32")
+            let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
+        else
+            let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
+        endif
+    endif
+    return g:cmd_edited
+endfunc
+" }}}
+
 " {{{ Lazy.nvim
 lua << EOF
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -72,7 +320,7 @@ require("lazy").setup({
   { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
   {
     "Yggdroot/LeaderF",
-    cmd = { "LeaderfFile", "Leaderf", "LeaderfLine" },
+    cmd = { "LeaderfFile", "Leaderf", "LeaderfLine", "LeaderfMru" },
     config = function()
     vim.cmd[[
     let g:Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
@@ -132,7 +380,78 @@ require("lazy").setup({
   { "dhruvasagar/vim-table-mode", ft = {"markdown", "org"} },
   {
     "mhinz/vim-startify",
-    event = "BufWinEnter",
+    cmd = "Startify",
+  },
+  {
+    dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/dashboard-nvim",
+    event = 'BufWinEnter',
+    config = function()
+      require('dashboard').setup({
+      theme = 'hyper',
+      shortcut_type = 'number',
+      config = {
+        disable_move = false,
+        week_header = { enable = true },
+        packages = { enable = true },
+        project = {
+          enable = false,
+        },
+        shortcut = {
+            {
+              icon = ' ',
+              desc = 'Recently files',
+              group = 'Label',
+              key= 'f',
+              action = 'LeaderfMru'
+            },
+            {
+              icon = ' ',
+              desc = 'dotfiles',
+              group = 'Number',
+              action = "tabnew $MYVIMRC | tcd %:p:h",--tabnew;edit
+              key = 'd',
+            },
+            {
+              icon = ' ',
+              desc = 'New File',
+              group = 'Number',
+              action = 'enew',
+              key = 'i',
+            },
+            {
+              icon = " ",
+              desc = "Quit",
+              group = 'Number',
+              action = "qa",
+              key = "q",
+            },
+        },
+        mru = { limit = 15, icon = '📑 ', label = 'Recently Files' },
+        --header ={
+        --},
+        --footer = {
+        --  '',
+        --  string.format('💘 %s', os.date('%H:%M %A %d %B %Y', relationship_start_time)),
+        --  string.format('💞 %d days ago', os.difftime(os.time(), relationship_start_time) / (3600 * 24)),
+        --  '',
+        --},
+        footer = {
+            '',
+            '',
+            '',
+        	  [[. ,-"-.   ,-"-. ,-"-.   ,-"-. ,-"-.   ,]],
+        	  [[ X | | \ / | | X | | \ / | | X | | \ / ]],
+        	  [[/ \| | |X| | |/ \| | |X| | |/ \| | |X| ]],
+        	  [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
+        },
+      },
+  	hide = {
+  		statusline = true,
+  		tabline = true,
+  		winbar = true,
+  	},
+      })
+    end,
   },
   { "wellle/targets.vim", keys = { "c", "d", "y", "v"} },
   { "chrisbra/csv.vim", ft = "csv" },
@@ -143,7 +462,7 @@ require("lazy").setup({
     vim.cmd[[
     let g:better_whitespace_guicolor='red'
     let g:strip_whitespace_on_save=0
-    let g:better_whitespace_filetypes_blacklist=['startify', 'diff', 'gitcommit', 'unite', 'qf', 'help']
+    let g:better_whitespace_filetypes_blacklist=['startify', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'dashboard']
     nnoremap <leader>si :StripWhitespace<CR>
     ]]
     end,
@@ -235,6 +554,7 @@ require("lazy").setup({
         "help",
         "startify",
         "lspinfo",
+        "dashboard",
         --"packer",
         --"neogitstatus",
         "NvimTree",
@@ -388,116 +708,73 @@ require("lazy").setup({
     end,
   },
   {
-    "kyazdani42/nvim-tree.lua",
-    branch = "master",
-    commit = "9914780",
-    cmd = { "NvimTreeOpen", "NvimTreeToggle" },
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    cmd = { "Neotree" },
+	keys = {
+		{
+			'<Leader>e',
+			'<cmd>Neotree filesystem left toggle dir=./<CR>',
+			desc = 'Explorer NeoTree Toggle',
+		},
+		{
+			'<F7>',
+			'<cmd>Neotree filesystem left toggle dir=c:/Users/ThinkPad/Desktop/<CR>',
+			desc = 'Desktop',
+		},
+	},
   	dependencies = {
-        "kyazdani42/nvim-web-devicons",
-        branch = "master",
-        commit = "9697285",
+        {
+            "nvim-lua/plenary.nvim",
+            lazy = true,
+        },
+        {
+            "MunifTanjim/nui.nvim",
+            lazy = true,
+        },
+        {
+            "kyazdani42/nvim-web-devicons",
+            branch = "master",
+            commit = "9697285",
+            event = "VeryLazy",
+        },
     },
-    config = function()
-    local tree = require'nvim-tree'
-    local lib = require'nvim-tree.lib'
-    local function cd_dot_cb(node)
-      tree.change_dir(vim.fn.getcwd(-1))
-      if node.name ~= ".." then
-        lib.set_index_and_redraw(node.absolute_path)
+    init = function()
+      vim.g.neo_tree_remove_legacy_commands = 1
+      if vim.fn.argc() == 1 then
+        local stat = vim.loop.fs_stat(vim.fn.argv(0))
+        if stat and stat.type == "directory" then
+          require("neo-tree")
+        end
       end
-    end
-    local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-    require'nvim-tree'.setup {
-        sort_by = "case_sensitive",
-        disable_netrw = true, -- disables netrw completely
-        hijack_netrw = true, -- hijack netrw window on startup
-        open_on_setup = true, -- open the tree when running this setup function
-        ignore_ft_on_setup = { "startify", "dashboard", "alpha", }, -- will not open on setup if the filetype is in this list
-        open_on_tab = false, -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
-        hijack_cursor = true, --- hijack the cursor in the tree to put it at the start of the filename
-        update_focused_file = {enable = true, update_cwd = true, ignore_list = {}},
-        view = {
-            adaptive_size = true,
-            number = true,
-            relativenumber = false,
-            signcolumn = "yes",
-            mappings = {
-                custom_only = true,
-                list = {
-                    { key = {"<cr>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
-                    { key = {"<Tab>"},                      cb = tree_cb("next_sibling") },
-                    --{ key = {"<2-RightMouse>", "<C-]>"},    cb = tree_cb("cd") },
-                    { key = "<C-v>",                        cb = tree_cb("vsplit") },
-                    { key = "<C-x>",                        cb = tree_cb("split") },
-                    { key = "<C-t>",                        cb = tree_cb("tabnew") },
-                    --{ key = "<",                            cb = tree_cb("prev_sibling") },
-                    --{ key = ">",                            cb = tree_cb("next_sibling") },
-                    --{ key = {"P"},                          cb = tree_cb("parent_node") },
-                    --{ key = "<BS>",                         cb = tree_cb("close_node") },
-                    --{ key = "<S-CR>",                       cb = tree_cb("close_node") },
-                    --{ key = "<Tab>",                        cb = tree_cb("preview") },
-                    --{ key = "K",                            cb = tree_cb("first_sibling") },
-                    --{ key = "J",                            cb = tree_cb("last_sibling") },
-                    --{ key = "I",                            cb = tree_cb("toggle_ignored") },
-                    --{ key = {"H","<BS>"},                   cb = tree_cb("toggle_dotfiles") },
-                    { key = "R",                            cb = tree_cb("refresh") },
-                    { key = "c",                            cb = tree_cb("create") },
-                    { key = "d",                            cb = tree_cb("remove") },
-                    { key = "r",                            cb = tree_cb("rename") },
-                    --{ key = "<C-r>",                        cb = tree_cb("full_rename") },
-                    { key = "x",                            cb = tree_cb("cut") },
-                    { key = "y",                            cb = tree_cb("copy") },
-                    { key = "p",                            cb = tree_cb("paste") },
-                    { key = "Y",                            cb = tree_cb("copy_name") },
-                    --{ key = "Y",                            cb = tree_cb("copy_path") },
-                    --{ key = "Y",                            cb = tree_cb("copy_absolute_path") },
-                    --{ key = "gy",                           cb = tree_cb("copy_absolute_path") },
-                    --{ key = "[c",                           cb = tree_cb("prev_git_item") },
-                    --{ key = "]c",                           cb = tree_cb("next_git_item") },
-                    { key = {"-","h"},                      cb = tree_cb("dir_up") },
-                    --{ key = "s",                            cb = tree_cb("system_open") },
-                    --{ key = "s",                            cb = tree_cb("close") },
-                    { key = {"q"},                          cb = tree_cb("close") },
-                    --{ key = "g?",                           cb = tree_cb("toggle_help") },
-                    { key = "<BS>",                            action = "cd_dot",		action_cb = cd_dot_cb, }, -- run_file_command
-                },
-            },
+    end,
+    opts = function()
+    require("neo-tree").setup({
+        close_if_last_window = true,
+        popup_border_style = "rounded",
+        filesystem = {
+            follow_current_file = true,
+            use_libuv_file_watcher = true,
+            hijack_netrw_behavior = "open_current",
         },
-        renderer = {
-            group_empty = true,
-            indent_markers = { enable = true, icons = { corner = '└ ', edge = '│ ', none = '  ' } },
-            icons = {
-                glyphs = {
-                    folder = {
-                        arrow_closed = "", -- arrow when folder is closed
-                        arrow_open = "", -- arrow when folder is open
-                    },
-                },
-            },
-            highlight_opened_files = "all", --"none"`, `"icon"`, `"name"` or `"all"`
-            root_folder_modifier = ":~",
+        default_component_configs = {
+          indent = {
+            with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+            expander_collapsed = "",
+            expander_expanded = "",
+            expander_highlight = "NeoTreeExpander",
+          },
         },
-        actions = {
-            use_system_clipboard = true,
-            change_dir = {
-                enable = false,
-                global = true,
-                restrict_above_cwd = false,
-            },
-        },
-        filters = {
-            dotfiles = true,
-        },
-    }
-    -- change nvim-tree background color (transparency)
-    vim.api.nvim_command("hi NvimTreeNormal guibg=none ctermbg=none guifg=none")
-    vim.api.nvim_command("hi NvimTreeStatusLine guibg=none ctermbg=none guifg=none")
-    vim.api.nvim_command("hi NvimTreeStatusLineNC guibg=none ctermbg=none guifg=none")
-    vim.api.nvim_command("hi NvimTreeNormalNC guibg=none ctermbg=none guifg=none")
-    --vim.api.nvim_command("hi NvimTreeVertSplit guibg=none ctermbg=none guifg=none")
+    })
+    -- change neo-tree background color (transparency)
+    vim.api.nvim_command("hi NeoTreeNormal guibg=none ctermbg=none guifg=none")
+    vim.api.nvim_command("hi NeoTreeStatusLine guibg=none ctermbg=none guifg=none")
+    vim.api.nvim_command("hi NeoTreeStatusLineNC guibg=none ctermbg=none guifg=none")
+    vim.api.nvim_command("hi NeoTreeNormalNC guibg=none ctermbg=none guifg=none")
+    vim.api.nvim_command("hi NeoTreeVertSplit guibg=none ctermbg=none guifg=none")
 
-    -- change color for arrows in tree to light blue
-    vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
+    -- change color for NeoTreeIndent to light blue
+    vim.api.nvim_command("hi NeoTreeIndentMarker guifg=#3FC5FF")
     end,
   },
   {
@@ -1279,7 +1556,7 @@ require("lazy").setup({
   },
   {
     "folke/which-key.nvim",
-    event = { "VeryLazy" },--166.4
+    event = { "VeryLazy" },
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -1626,261 +1903,13 @@ augroup END
 augroup input_switching
     autocmd!
     autocmd VimEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
-    " autocmd InsertEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 2052
     autocmd InsertLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
     autocmd VimLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
+    " autocmd InsertEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 2052
 augroup END
 " }}}
 
-" {{{ mapping
-map ; :
-
-noremap s <nop>
-xmap s <nop>
-
-nnoremap <Space> <nop>
-nnoremap , <nop>
-let g:mapleader = "\<Space>"
-let g:maplocalleader = ","
-
-" 显示list 用.表示空格
-nnoremap <F3> :set list!<CR>
-inoremap <F3> <C-o>:set list!<CR>
-cnoremap <F3> <C-c>:set list!<CR>
-
-" 高亮光标行列
-nnoremap <silent> <F4> :set cuc! cul!<CR>
-
-" x,c仅复制,不更改寄存器.(ps: d为剪切)
-nnoremap          x          "_x
-vnoremap          x          "_x
-nnoremap          c          "_c
-vnoremap          c          "_c
-nnoremap          Y           y$
-vnoremap          p          pgvy
-vnoremap          P          Pgvy
-
-" 单词的 选/改/删
-nnoremap <silent> vi viw
-nnoremap <silent> ci ciw
-nnoremap <silent> di diw
-
-" IDE like delete
-inoremap <C-BS> <Esc>b"_dei
-
-" 取消高亮
-nnoremap <silent> <BS> :nohl<CR>
-
-" Open Startify
-nnoremap <silent> <leader>st :Startify<CR>
-
-" 比较line
-nnoremap <leader>dt :Linediff<CR>
-
-" 插入时间
-iab xtime <c-r>=strftime("20%y-%m-%d %a %H:%M")<CR>
-iab xdate <c-r>=strftime("20%y-%m-%d (%a)")<CR>
-
-" 代码折叠
-nnoremap <silent> <Tab> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
-" zf                        --创建折叠,仅在manual/marker中有效(eg:v{motion}zf v{motion}指Shift+v)
-" zd                        --删除折叠,仅在manual/marker中有效
-" zD                        --删除嵌套折叠,仅在manual/marker中有效
-" za                        --打开/关闭当前折叠
-" zM                        --关闭所有折叠
-" zR                        --打开所有折叠
-
-" vimrc
-nnoremap <silent> <leader>rc :edit $MYVIMRC<cr>
-nnoremap <silent> <leader>rr :source $MYVIMRC<CR>
-
-" spell checking
-nnoremap <Leader>sc :set spell!<CR>
-
-nnoremap <leader>sn ]s
-nnoremap <leader>sp [s
-nnoremap <leader>sa zg
-
-" 显示单词拼写建议
-nnoremap <leader>s? z=
-
-" 光标移动
-inoremap <m-h> <Left>
-inoremap <m-j> <Down>
-inoremap <m-k> <Up>
-inoremap <m-l> <Right>
-
-" INSERT Mode下使用光标移动一个单词
-inoremap <C-h> <C-Left>
-inoremap <C-l> <C-Right>
-
-" ----------------- find and replace --------------
-nnoremap <leader>z :%s/\<<C-R>=expand("<cword>")<CR>\>/<C-R>=expand("<cword>")<CR>/g<left><left>
-vnoremap <leader>z :s///g<left><left><left>
-
-" ----------------- make a list --------------
-nnoremap <leader>b :put =range(,,1)<left><left><left><left>
-
-" ----------------- Indentation -------------------
-nnoremap < <<
-nnoremap > >>
-
-"---------------- 分屏快捷键设置 ----------------
-nnoremap <silent> sh :set splitright<CR>:vsplit<CR>
-nnoremap <silent> sj :set splitbelow<CR>:split<CR>
-nnoremap <silent> st :set splitright<CR>:vsplit<CR>:Startify<CR>
-
-" 互换分割窗口.Rotate screens
-nnoremap <S-h> <C-w>b<C-w>H
-" nnoremap srh <C-w>b<C-w>K
-
-" 光标移动
-nnoremap <C-l> <C-W><C-L>
-nnoremap <C-h> <C-W><C-H>
-"nnoremap <C-j> <C-W><C-J>
-"nnoremap <C-k> <C-W><C-K>
-
-" terminal 分屏窗口移动,split navigations,smart way to move between windows
-tnoremap <C-h> <C-w><C-h>
-tnoremap <C-j> <C-w><C-j>
-tnoremap <C-k> <C-w><C-k>
-tnoremap <C-l> <C-w><C-l>
-
-"---------------- 调整分屏尺寸 ----------------
-nnoremap <silent>   <C-up>  :resize -3<CR>
-nnoremap <silent>   <C-down>  :resize +3<CR>
-nnoremap <silent>   <C-left>  :vertical resize +3<CR>
-nnoremap <silent>   <C-right>  :vertical resize -3<CR>
-
-" ----------- 支持Alt+n切换标签页 -----------
-:nn <M-1> 1gt
-:nn <M-2> 2gt
-:nn <M-3> 3gt
-:nn <M-4> 4gt
-:nn <M-5> 5gt
-:nn <M-6> 6gt
-:nn <M-7> 7gt
-:nn <M-8> 8gt
-:nn <M-9> 9gt
-:nn <M-0> :tablast<CR>
-
-" Alt+左右键来移动标签顺序
-nn <silent> <M-left> :if tabpagenr() == 1\|exe "tabm ".tabpagenr("$")\|el\|exe "tabm ".(tabpagenr()-2)\|en<CR>
-nn <silent> <M-right> :if tabpagenr() == tabpagenr("$")\|tabm 0\|el\|exe "tabm ".tabpagenr()\|en<CR>
-
-" 修改标签页的标题
-set guitablabel=%{GuiTabLabel()}
-function! GuiTabLabel()
-    let label = ''
-    let bufnrlist = tabpagebuflist(v:lnum)
-    for bufnr in bufnrlist
-        if getbufvar(bufnr, "&modified")
-            let label = '+'
-            break
-        endif
-    endfor
-    let label .= v:lnum.': '
-    let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
-    if name == ''
-        if &buftype=='quickfix'
-            let name = '[Quickfix List]'
-        else
-            let name = '[No Name]'
-        endif
-    else
-        let name = fnamemodify(name,":t")
-    endif
-    let label .= name
-    let wincount = tabpagewinnr(v:lnum, '$')
-    return label
-endfunction
-
-" -------------------- Buffer ---------------------
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
-
-    if buflisted(l:alternateBufNum)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == l:currentBufNum
-        new
-    endif
-
-    if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
-    endif
-endfunction
-
-function! CmdLine(str)
-    call feedkeys(":" . a:str)
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-"------------- Command Mode related ---------------
-" Bash like keys for the command line
-cnoremap <C-a>      <Home>
-cnoremap <C-e>      <End>
-" cnoremap <C-K>      <C-U>
-cnoremap <C-h>      <C-Left>
-cnoremap <C-l>      <C-Right>
-
-cnoremap <m-h>      <left>
-cnoremap <m-l>      <right>
-cnoremap <m-j>      <down>
-cnoremap <m-k>      <up>
-
-cnoremap <C-j>      <down>
-cnoremap <C-k>      <up>
-
-" 在命令行粘贴的快捷键
-cnoremap <C-V> <C-R>+
-
-" $q is super useful when browsing on the command line
-" it deletes everything until the last slash
-" NORMAL Mode, Q                             --进入到Ex命令行模式
-cno $q <C-\>eDeleteTillSlash()<CR>
-
-function! DeleteTillSlash()
-    let g:cmd = getcmdline()
-    if has("win16") || has("win32")
-        let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
-    else
-        let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
-    endif
-    if g:cmd == g:cmd_edited
-        if has("win16") || has("win32")
-            let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
-        else
-            let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
-        endif
-    endif
-    return g:cmd_edited
-endfunc
-" }}}
-
-" {{{ random colorscheme
+" {{{ Random colorscheme
 lua << EOF
 random_color = {
 --    'tokyonight-day',
@@ -2233,10 +2262,8 @@ vim.keymap.set("n", "<leader>fc", ":Telescope command_history<cr>", { silent = t
 vim.keymap.set("n", "<leader>fs", ":Telescope search_history<cr>", { silent = true })
 --}}}
 
---{{{ tree << nvim-tree >>
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
-vim.keymap.set("n", "<leader>.", ":NvimTreeOpen  :<left>", { silent = true })
-vim.keymap.set("n", "<F7>", ":NvimTreeOpen c:/Users/ThinkPad/Desktop/<CR>", { silent = true })
+--{{{ tree << neo-tree >>
+vim.keymap.set("n", "<leader>.", ":Neotree dir=:/<left><left>", { silent = true })
 --}}}
 
 --{{{ marks << nvim-marks >>
