@@ -557,7 +557,7 @@ require("lazy").setup({
         "dashboard",
         --"packer",
         --"neogitstatus",
-        "NvimTree",
+        --"NvimTree",
         "checkhealth",
     }
     end,
@@ -748,7 +748,7 @@ require("lazy").setup({
         end
       end
     end,
-    opts = function()
+    config = function()
     require("neo-tree").setup({
         close_if_last_window = true,
         popup_border_style = "rounded",
@@ -855,11 +855,15 @@ require("lazy").setup({
           search = false,
         },
         modules = {
-          nvimtree = true,
+          neotree = true,
           cmp = true,
           telescope = true,
           treesitter = true,
           whichkey = true,
+          tsrainbow2 = true,
+          leap = true,
+          indent_blanklines = true,
+          dashboard = true,
         },
         },
       groups = {
@@ -1442,9 +1446,7 @@ require("lazy").setup({
      close_timeout = 4000, -- close floating window after ms when laster parameter is entered
      fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
      hint_enable = true, -- virtual hint enable
-     --hint_prefix = "🐼 ",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
-     --hint_prefix = " ",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
-     hint_prefix = "🤔 ",  -- Panda for parameter, NOTE: for the terminal not support emoji, might crash
+     hint_prefix = "🤔 ",--🐼,
      hint_scheme = "String",
      hi_parameter = "lsp_signature_highlight",  -- "Cursor" "IncSearch" "Visual" "Search"
      handler_opts = {
@@ -1490,7 +1492,7 @@ require("lazy").setup({
             theme = 'auto',
             component_separators = { left = '', right = '\\' },
             section_separators = { left = '', right = ''},
-            disabled_filetypes = {'NvimTree'},
+            disabled_filetypes = {'neotree'},
             always_divide_middle = true,
             globalstatus = false,
         },
@@ -1507,7 +1509,7 @@ require("lazy").setup({
                 },
                 filetype_names = {
                     startify = 'Startify',
-                    --dashboard = 'Dashboard',
+                    dashboard = 'Dashboard',
                 },
             }},
             lualine_b = { 'branch', 'diff', {
@@ -2281,7 +2283,7 @@ vim.keymap.set("n", "<localleader>wd", ":Weather3day<CR>", { silent = true })
 --}}}
 
 --{{{ << Org >>
-vim.keymap.set("n", "<leader>ss", ":NvimTreeOpen C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { silent = true })
 --}}}
 
