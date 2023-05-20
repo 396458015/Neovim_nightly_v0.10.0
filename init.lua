@@ -8,7 +8,7 @@
 -- |_|  |_| |_|      \/__/    \/_/\/_/\/_/\/_/|_| \_\\____|
 -- ========================================================
 
--- {{{ Mapping - original system
+-- {{{ Mapping - original neovim
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
@@ -193,7 +193,26 @@ require("lazy").setup({
       }
     end,
   },
-  { "mbbill/undotree", cmd = "UndotreeToggle" },
+  {
+    "mbbill/undotree",
+    cmd = "UndotreeToggle",
+    init = function()
+    if vim.fn.has('persistent_undo') then
+      vim.cmd('set undofile')
+      vim.cmd('set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/undodir')
+    end
+    vim.g.undotree_DiffAutoOpen = 1
+    vim.g.undotree_HelpLine = 1
+    vim.g.undotree_SetFocusWhenToggle = 1
+    vim.g.undotree_ShortIndicators = 1
+    vim.g.undotree_TreeNodeShape = "├"
+    vim.g.undotree_TreeVertShape = "│"
+    vim.g.undotree_TreeSplitShape = "─┘"
+    vim.g.undotree_TreeReturnShape = "─┐"
+    vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { silent = true })
+    end,
+    -- 增加系统环境变量Path"D:\Program Files\Git\usr\bin",解决打开插件报错的问题.
+   },
   {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
@@ -223,13 +242,11 @@ require("lazy").setup({
     "alpertuna/vim-header",
     cmd = "AddHeader",
     config = function()
-    vim.cmd[[
-    let g:header_field_author = 'Max'
-    let g:header_field_author_email = 'ismaxiaolong@gmail.com'
-    let g:header_field_timestamp_format = '%Y.%m.%d'
-    let g:header_field_modified_by = 0
-    let g:header_field_license_id = ' '
-    ]]
+    vim.g.header_field_author           = 'Max'
+    vim.g.header_field_author_email     = 'ismaxiaolong@gmail.com'
+    vim.g.header_field_timestamp_format = '%Y.%m.%d'
+    vim.g.header_field_modified_by      = 0
+    vim.g.header_field_license_id       = ''
     end,
     init = function()
     vim.keymap.set("n", "<F2>", ":AddHeader<CR>", { silent = true })
@@ -240,55 +257,41 @@ require("lazy").setup({
     "Yggdroot/LeaderF",
     cmd = { "LeaderfFile", "Leaderf", "LeaderfLine", "LeaderfMru" },
     config = function()
-    vim.cmd[[
-    let g:Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
-    let g:Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
-
-    let g:Lf_ShowDevIcons = 1
-    let g:Lf_DevIconsFont = "Delugia Mono"
-
-    let g:Lf_ReverseOrder = 1
-
-    " don't show the help in normal mode
-    let g:Lf_HideHelp = 1
-    let g:Lf_UseCache = 0
-    let g:Lf_UseVersionControlTool = 0
-    let g:Lf_IgnoreCurrentBufferName = 1
-
-    " popup mode
-    let g:Lf_WindowPosition = 'popup'
-    let g:Lf_PopupColorscheme = "onedark"
-
-    " change color
-    let g:Lf_PopupPalette = {
-        \  'dark': {
-        \      'Lf_hl_cursorline': {
-        \                'guibg': '#364a82',
-        \              },
-        \      },
-        \  }
-
-    let g:Lf_WindowHeight = 0.9
-    let g:Lf_PopupHeight = 0.7
-    let g:Lf_PopupWidth = 0.4
-    let g:Lf_PopupPosition = [7, 84]
-    let g:Lf_PopupPreviewPosition = 'left'
-    let g:Lf_PreviewCode = 1
-    let g:Lf_PreviewInPopup = 1
-    let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "Delugia Mono" }
-
-    " BufTag和Function不自动预览,通过<C-p>预览.BufTag和Function默认是1.
-    let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
-
-    let g:Lf_ShowRelativePath = 0
-    " 使用:LeaderfRg 路径不全, 搜索该录下经的文件.
-    command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>
-
-    let g:Lf_WildIgnore = {
-            \ 'dir': ['.svn','.git','.hg'],
-            \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-            \}
-    ]]
+    vim.g.Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
+    vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
+	vim.g.Lf_CursorBlink  = 0
+    vim.g.Lf_ShowDevIcons = 1
+    vim.g.Lf_DevIconsFont = "Delugia Mono"
+    vim.g.Lf_ReverseOrder = 1
+    -- don't show the help in normal mode
+    vim.g.Lf_HideHelp = 1
+    vim.g.Lf_UseCache = 0
+    vim.g.Lf_UseVersionControlTool = 0
+    vim.g.Lf_IgnoreCurrentBufferName = 1
+    -- popup mode
+    vim.g.Lf_PopupColorscheme     = "onedark"
+    vim.g.Lf_WindowPosition       = 'popup'
+    vim.g.Lf_WindowHeight         = 0.9
+    vim.g.Lf_PopupHeight          = 0.7
+    vim.g.Lf_PopupWidth           = 0.4
+    vim.g.Lf_PopupPosition        = {0, 0}
+    vim.g.Lf_PopupPreviewPosition = 'left'
+	vim.g.Lf_PopupShowStatusline  = 0
+	vim.g.Lf_PopupShowBorder      = 1
+	vim.g.Lf_PopupBorders         = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+    vim.g.Lf_StlSeparator         = { left = '', right = '', font = '' }
+    -- BufTag和Function取消自动预览(<C-p>预览)
+    vim.g.Lf_PreviewCode    = 1
+    vim.g.Lf_PreviewInPopup = 1
+    vim.g.Lf_PreviewResult  = { Function = 0, BufTag = 0 }
+    -- 显示绝对路径
+    vim.g.Lf_ShowRelativePath = 0
+    vim.g.Lf_WildIgnore = {
+      dir = { ".svn", ".git", ".hg" },
+      file = { "*.sw?", "~$*", "*.bak", "*.exe", "*.o", "*.so", "*.py[co]" },
+    }
+    --使用:LeaderfRg 路径不全, 搜索该录下经的文件.
+    vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
     end,
     init = function()
     vim.keymap.set("n", "<localleader>fb", ":LeaderfFile :/<left><left>", {}) --文件搜索
@@ -349,12 +352,143 @@ require("lazy").setup({
 ]]
     end,
   },
-  { "iamcco/markdown-preview.nvim", ft = "markdown" },
-  { "plasticboy/vim-markdown", ft = "markdown" },
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = "markdown",
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+    init = function()
+    vim.g.mkdp_auto_start = 0
+    vim.g.mkdp_auto_close = 0
+    vim.g.mkdp_refresh_slow = 0
+    vim.g.mkdp_command_for_global = 0
+    vim.g.mkdp_open_to_the_world = 0
+    vim.g.mkdp_open_ip = ""
+    vim.g.mkdp_echo_preview_url = 0
+    vim.g.mkdp_browserfunc = ""
+    vim.g.mkdp_preview_options = {
+      mkit = {},
+      katex = {},
+      uml = {},
+      maid = {},
+      disable_sync_scroll = 0,
+      sync_scroll_type = "middle",
+      hide_yaml_meta = 1,
+      sequence_diagrams = {},
+      flowchart_diagrams = {},
+      content_editable = "v:false",
+      disable_filename = 0,
+    }
+    --设置预览代码高亮(绝对路径)
+    vim.g.mkdp_markdown_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/github-markdown.css"
+    vim.g.mkdp_highlight_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown.css"
+    --vim.g.mkdp_highlight_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown_highlight_solarized_dark.css"
+    vim.g.mkdp_port = ""
+    vim.g.mkdp_page_title = "「${name}」"
+    vim.cmd[[
+    augroup markdown_preview
+        autocmd!
+        autocmd FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
+    augroup END
+    ]]
+    end,
+  },
+  {
+    "plasticboy/vim-markdown",
+    ft = "markdown",
+    config = function()
+    vim.g.vim_markdown_toc_autofit = 1                 -- Enable TOC window auto-fit,调节合适的窗口尺寸
+
+    vim.g.vim_markdown_conceal = 0                     -- 取消隐藏 Markdown          语法符号
+    vim.g.vim_markdown_conceal_code_blocks = 0         -- 取消隐藏 代码块            符号 ```
+    vim.g.tex_conceal = ""                             -- 取消隐藏 LaTeX math syntax 符号
+
+    vim.g.vim_markdown_math = 1                        -- 高亮显示 LaTeX math
+    vim.g.vim_markdown_strikethrough = 1               -- 划线文本显示,由 ~~xx~~ 变为 划线~~xx~~划线
+
+    vim.g.vim_markdown_new_list_item_indent = 2        -- *item1 *item2 缩进距离为2(默认是4).
+    vim.g.vim_markdown_auto_insert_bullets = 0
+
+    vim.g.vim_markdown_folding_disabled = 1            -- 取消 markdown 折叠
+    --let g.vim_markdown_no_default_key_mappings = 1    -- 取消默认按键映射
+    vim.g.vim_markdown_fenced_languages = {
+        "c++=cpp",
+        "viml=vim",
+        "bash=sh",
+        "ini=dosini",
+        "js=javascript",
+        "json=javascript",
+        "jsx=javascriptreact",
+        "tsx=typescriptreact",
+        "docker=Dockerfile",
+        "makefile=make",
+        "py=python",
+    }
+    vim.g.vim_markdown_follow_anchor = 1
+    vim.g.vim_markdown_edit_url_in = 'vsplit'       -- tab  vsplit  hsplit  current
+    vim.g.vim_markdown_folding_disabled = 0         -- 开启折叠功能
+    vim.g.vim_markdown_folding_style_pythonic = 1   -- 折叠样式
+    vim.g.vim_markdown_folding_level = 1            -- n级不自动折叠
+    end,
+  },
   { "dhruvasagar/vim-table-mode", ft = {"markdown", "org"} },
   {
     "mhinz/vim-startify",
     cmd = "Startify",
+    config = function()
+    vim.g.startify_files_number = 16  -- 起始页显示的列表长度
+    vim.api.nvim_command("hi StartifyBracket ctermfg=10 guifg=#444B6A")
+    vim.api.nvim_command("hi StartifyNumber ctermfg=10 guifg=#FF9E64")
+    vim.api.nvim_command("hi StartifyPath ctermfg=10 guifg=#786591")
+    vim.api.nvim_command("hi StartifySlash ctermfg=10 guifg=#786591")
+    vim.api.nvim_command("hi StartifySection ctermfg=10 guifg=#7AA2F7")
+    vim.api.nvim_command("hi StartifyHeader ctermfg=10 guifg=#8687b0")
+    vim.api.nvim_command("hi StartifyFooter ctermfg=10 guifg=#F7768E")
+    vim.api.nvim_command("hi StartifySpecial ctermfg=10 guifg=#444B6A")
+    vim.g.ascii_neovim = {
+      '                                                                   ',
+      '                                                                   ',
+      '                                                                   ',
+      '                                                                   ',
+      '                                                                   ',
+      '                                                                   ',
+      '            ,                                                      ',
+      '           / ,,_  ."|                                              ',
+      '         [[| /]]]]/_."                                             ',
+      '       ]]]]` "[["  ".                                              ',
+      '     [[[[[    _   ;,                                               ',
+      '  ,]]]]]]    /o`  ` ;)                                             ',
+      ' [[[[[[   /           (                                            ',
+      ' ]]]]]]   |                      ___________________________       ',
+      '[[[[[[[[                        /                           |      ',
+      ']]]]]]]]]   ".__      _  |     /                            |      ',
+      '[[[[[[[[       /`._  (_ /     |     Still waters run deep!  |      ',
+      ' ]]]]]]"      |    //___/   --=:                            |      ',
+      ' `[[[[`       |     `--`       |                            |      ',
+      '  ]]]`                          ____________________________/      ',
+    }
+    vim.g.startify_custom_footer = 'startify#pad(g:ascii_neovim)'
+
+    -- show startify icon
+    function _G.webDevIcons(path)
+      local filename = vim.fn.fnamemodify(path, ':t')
+      local extension = vim.fn.fnamemodify(path, ':e')
+      return require'nvim-web-devicons'.get_icon(filename, extension, { default = true })
+    end
+
+    vim.cmd[[
+    function! StartifyEntryFormat() abort
+      return 'v:lua.webDevIcons(absolute_path) . " " . entry_path'
+    endfunction
+    ]]
+
+    if vim.o.background == 'dark' then
+        vim.cmd('hi StartifyFile ctermfg=10 guifg=#9ECE6A')
+    elseif vim.o.background == 'light' then
+        vim.cmd('hi StartifyFile ctermfg=10 guifg=#12970e')
+    end
+    end,
   },
   {
     dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/dashboard-nvim",
@@ -428,12 +562,13 @@ require("lazy").setup({
     "ntpeters/vim-better-whitespace",
     event = "InsertEnter",
     config = function()
-    vim.cmd[[
-    let g:better_whitespace_guicolor='red'
-    let g:strip_whitespace_on_save=0
-    let g:better_whitespace_filetypes_blacklist=['startify', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'dashboard']
-    nnoremap <leader>si :StripWhitespace<CR>
-    ]]
+    vim.g.better_whitespace_guicolor='red'
+    vim.g.strip_whitespace_on_save=0
+    vim.g.better_whitespace_filetypes_blacklist = {
+        'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'markdown',
+        'startify', 'dashboard'
+    }
+    vim.keymap.set("n", "<leader>si", ":StripWhitespace<CR>", { silent = true })
     end,
   },
   {
@@ -449,10 +584,8 @@ require("lazy").setup({
     "markonm/traces.vim",
     event = "CmdlineEnter",
     config = function()
-    vim.cmd[[
-    let g:traces_normal_preview = 1
-    let g:traces_num_range_preview = 1
-    ]]
+    vim.g.traces_normal_preview = 1
+    vim.g.traces_num_range_preview = 1
     end,
   },
   {
@@ -1349,7 +1482,7 @@ require("lazy").setup({
         { "williamboman/mason-lspconfig.nvim" },
     },
     config = function()
-    local lsp_list = { "pylsp", "vimls" }
+    local lsp_list = { "pylsp", "vimls", "lua_ls" }
     require("mason-lspconfig").setup({
         ensure_installed = lsp_list
     })
@@ -1728,20 +1861,6 @@ require("lazy").setup({
 })
 -- }}}
 
--- {{{ 编码格式
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
-vim.opt.fileencodings = "utf-8,gbk,gb18030,big5,ucs-bom,euc-jp,latin1"
-
---解决vim编辑matlab文件保存后, matlab中文为乱码的问题
-vim.cmd[[
-augroup matlab_filetype
-    autocmd!
-    autocmd FileType matlab set fileencoding=cp936
-augroup END
-]]
--- }}}
-
 -- {{{ Font
 vim.o.guifont = "Delugia Mono:h11.6"              -- Nerd Font (Cascadia Code)
 vim.o.guifontwide = "inconsolatago qihei nf:h12.5" -- 中文 Nerd Font
@@ -1773,6 +1892,11 @@ vim.keymap.set("i", "<m-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a",
 -- }}}
 
 -- {{{ 常规设置
+-- 编码格式
+vim.opt.encoding = 'utf-8'
+vim.opt.fileencoding = 'utf-8'
+vim.opt.fileencodings = "utf-8,gbk,gb18030,big5,ucs-bom,euc-jp,latin1"
+
 -- 高亮
 vim.cmd('syntax enable')  --打开语法高亮
 vim.cmd('syntax on')  --开启文件类型侦测
@@ -1863,11 +1987,18 @@ vim.cmd([[ let $PYTHONUNBUFFERED=1 ]]) -- 禁用python stdout缓冲 ]
 -- Return to last edit position when opening files (You want this!)
 vim.cmd([[ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]])
 -- }}}
+
 -- {{{ autocmd
 vim.cmd[[
+" 解决vim编辑matlab文件保存后, matlab中文为乱码的问题
+augroup matlab_filetype
+    autocmd!
+    autocmd FileType matlab set fileencoding=cp936
+augroup END
+
 augroup python_related
     autocmd!
-    autocmd BufNewFile,BufRead *.py set fileformat=unix     " 以unix格式存储文件,避免在推送到GITHUB或分享给其他用户时出现文件转换问题.
+    autocmd BufNewFile,BufRead *.py set fileformat=unix
     autocmd BufNewFile,BufRead *.rpy set syntax=python
 augroup END
 
@@ -1878,17 +2009,18 @@ augroup genconfiggroup
     autocmd VimEnter * set vb t_vb=
 augroup END
 
+" 文本超过一定长度时自动换行
 augroup tex_md_width
     autocmd!
-    autocmd FileType tex set textwidth=72         " 文本超过一定长度时自动换行
-    autocmd FileType markdown set textwidth=80    " 文本超过一定长度时自动换行
+    autocmd FileType tex set textwidth=72         
+    autocmd FileType markdown set textwidth=80
 augroup END
 
+" 高亮加下划线显示每行第80个字符
+" Fortran语言,高亮加下划线显示每行第72个字符(遵循Fortran77固定格式)
 augroup line_font
     autocmd!
-    " 高亮加下划线显示每行第80个字符
     au BufRead,BufNewFile *.asm,*.c,*.cpp,*.java,*.cs,*.sh,*.lua,*.pl,*.pm,*.py,*.rb,*.hs,*.vim,*.md 2match Underlined /.\%81v/
-    " Fortran语言,高亮加下划线显示每行第72个字符(遵循Fortran77固定格式)
     au BufRead,BufNewFile *.for 2match Underlined /.\%73v/
 augroup END
 
@@ -1914,10 +2046,26 @@ augroup input_switching
     autocmd VimLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
     " autocmd InsertEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 2052
 augroup END
+
+" << plasticboyvim-markdown >>
+augroup markdown_type
+    autocmd!
+    autocmd FileType markdown setl conceallevel=2
+augroup END
+
+" << Plugin - table-mode >>
+augroup markdown_table
+    autocmd!
+    au FileType markdown let g:table_mode_corner = '|'
+    au FileType markdown let g:table_mode_delimiter = ' '
+    au FileType markdown let g:table_mode_verbose = 0
+    au FileType markdown let g:table_mode_auto_align = 0
+    au FileType markdown TableModeEnable
+augroup END
 ]]
 -- }}}
 
--- {{{ Random colorscheme
+-- {{{ Colorscheme
 random_color = {
 --    'tokyonight-day',
 --    'dayfox',
@@ -1943,203 +2091,14 @@ end
 --vim.opt.cursorline = true
 -- }}}
 
--- {{{ Highlihgt Diff
+-- {{{ Highlihgt (origin neovim & plugins)
+-- diff color (original neovim)
 vim.api.nvim_command("hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#87af87") --新增的行
 vim.api.nvim_command("hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#86abdc") --删除的行
 vim.api.nvim_command("hi DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#8787af") --变化的行
 vim.api.nvim_command("hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e") --变化的文字
--- }}}
 
------------------------ Plugins Config -----------------------
--- {{{ << Plugin - Undotree >>
-vim.cmd[[
-let g:undotree_DiffAutoOpen = 1
-nnoremap <silent> <leader>u :UndotreeToggle<cr>
-set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/undodir
-set undofile
-]]
--- }}}
-
--- {{{ text objects  << targets.vim >>
-vim.cmd[[
-" add '<>' in block
-autocmd User targets#mappings#user call targets#mappings#extend({
-    \ 'b': {
-        \'pair': [
-            \{'o':'(', 'c':')'},
-            \{'o':'[', 'c':']'},
-            \{'o':'{', 'c':'}'},
-            \{'o':'<', 'c':'>'},
-        \ ]
-    \},
-\})
-" d/c/y  +  i/I/a/A  +  b               (默认为n向右搜索)
-" d/c/y  +  i/I/a/A  +  a               (默认为n向右搜索)
-" d/c/y  +  i/I/a/A  +  q               (默认为n向右搜索)
-" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  b
-" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  a
-" d/c/y  +  2/3/4/...(可省略)  +  i/I/a/A  +  n/l(可省略)  +  q
-" d/c/y  +  i/I/a/A  +  (/[/,/...
-" d/c/y  +  i/I/a/A  +  "/'/`/...
-" --b:block   q:quote    a:argument
-]]
--- }}}
-
--- {{{ << Plugin - startify >>
-vim.g.startify_files_number = 16  -- 起始页显示的列表长度
-vim.g.ascii_neovim = {
-  '                                                                   ',
-  '                                                                   ',
-  '                                                                   ',
-  '                                                                   ',
-  '                                                                   ',
-  '                                                                   ',
-  '            ,                                                      ',
-  '           / ,,_  ."|                                              ',
-  '         [[| /]]]]/_."                                             ',
-  '       ]]]]` "[["  ".                                              ',
-  '     [[[[[    _   ;,                                               ',
-  '  ,]]]]]]    /o`  ` ;)                                             ',
-  ' [[[[[[   /           (                                            ',
-  ' ]]]]]]   |                      ___________________________       ',
-  '[[[[[[[[                        /                           |      ',
-  ']]]]]]]]]   ".__      _  |     /                            |      ',
-  '[[[[[[[[       /`._  (_ /     |     Still waters run deep!  |      ',
-  ' ]]]]]]"      |    //___/   --=:                            |      ',
-  ' `[[[[`       |     `--`       |                            |      ',
-  '  ]]]`                          ____________________________/      ',
-}
-
-vim.g.startify_custom_footer = 'startify#pad(g:ascii_neovim)'
-
-if vim.o.background == 'dark' then
-    vim.cmd('hi StartifyFile ctermfg=10 guifg=#9ECE6A')
-elseif vim.o.background == 'light' then
-    vim.cmd('hi StartifyFile ctermfg=10 guifg=#12970e')
-end
-
-vim.api.nvim_command("hi StartifyBracket ctermfg=10 guifg=#444B6A")
-vim.api.nvim_command("hi StartifyNumber ctermfg=10 guifg=#FF9E64")
-vim.api.nvim_command("hi StartifyPath ctermfg=10 guifg=#786591")
-vim.api.nvim_command("hi StartifySlash ctermfg=10 guifg=#786591")
-vim.api.nvim_command("hi StartifySection ctermfg=10 guifg=#7AA2F7")
-vim.api.nvim_command("hi StartifyHeader ctermfg=10 guifg=#8687b0")
-vim.api.nvim_command("hi StartifyFooter ctermfg=10 guifg=#F7768E")
-vim.api.nvim_command("hi StartifySpecial ctermfg=10 guifg=#444B6A")
-
--- show startify icon
-function _G.webDevIcons(path)
-  local filename = vim.fn.fnamemodify(path, ':t')
-  local extension = vim.fn.fnamemodify(path, ':e')
-  return require'nvim-web-devicons'.get_icon(filename, extension, { default = true })
-end
-
-vim.cmd[[
-function! StartifyEntryFormat() abort
-  return 'v:lua.webDevIcons(absolute_path) . " " . entry_path'
-endfunction
-]]
--- }}}
-
--- {{{ MarkDown Preview - << Plugin - iamcco/markdown-preview.nvim >> (需安装:nodejs 和 yarn)
-vim.cmd[[
-" 安装nodejs 和 yarn. 若不能预览markdown(通过:mess查看,有vim-node-rpc error)
-" 解决途径:通过系统 CMD 到该插件 app 目录下(\Vim\vimfiles\bundle\iamcco markdown-preview.nvim\app)执行 yarn install 即可使用.
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 0
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-let g:mkdp_open_to_the_world = 0
-let g:mkdp_open_ip = ''
-let g:mkdp_echo_preview_url = 0
-let g:mkdp_browserfunc = ''
-let g:mkdp_preview_options = {
-            \ 'mkit': {},
-            \ 'katex': {},
-            \ 'uml': {},
-            \ 'maid': {},
-            \ 'disable_sync_scroll': 0,
-            \ 'sync_scroll_type': 'middle',
-            \ 'hide_yaml_meta': 1,
-            \ 'sequence_diagrams': {}
-            \ }
-let g:mkdp_markdown_css = ''
-let g:mkdp_highlight_css = ''
-let g:mkdp_port = ''
-let g:mkdp_page_title = '「${name}」'
-
-augroup markdown_preview
-    autocmd!
-    autocmd FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
-augroup END
-
-" 设置预览代码高亮(绝对路径)
-" let g:mkdp_highlight_css = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown_highlight_solarized_dark.css'
-let g:mkdp_highlight_css = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown.css'
-let g:mkdp_markdown_css = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/github-markdown.css'
-]]
--- }}}
-
--- {{{ MarkDown Plugins - << plasticboyvim-markdown >> << markdown-toc >> << table-mode >> << Plugin - icebreaker gustav >> << Pangu >>
--- << Plugin - plasticboyvim - markdown >>
-
-vim.cmd[[
-augroup markdown_type
-    autocmd!
-    " autocmd FileType markdown nnoremap <leader>to :Toc<CR>
-    autocmd FileType markdown setl conceallevel=2
-augroup END
-let g:vim_markdown_toc_autofit = 1                 " Enable TOC window auto-fit,调节合适的窗口尺寸
-
-let g:vim_markdown_conceal = 0                     " 取消隐藏 Markdown          语法符号
-let g:vim_markdown_conceal_code_blocks = 0         " 取消隐藏 代码块            符号 ```
-let g:tex_conceal = ""                             " 取消隐藏 LaTeX math syntax 符号
-
-let g:vim_markdown_math = 1                        " 高亮显示 LaTeX math
-let g:vim_markdown_strikethrough = 1               " 划线文本显示,由 ~~xx~~ 变为 划线~~xx~~划线
-
-let g:vim_markdown_new_list_item_indent = 2        " *item1 *item2 缩进距离为2(默认是4).
-let g:vim_markdown_auto_insert_bullets = 0
-
-let g:vim_markdown_folding_disabled = 1            " 取消 markdown 折叠
-"let g:vim_markdown_no_default_key_mappings = 1    " 取消默认按键映射
-
-let g:vim_markdown_fenced_languages = [
-            \ 'c++=cpp',
-            \ 'viml=vim',
-            \ 'bash=sh',
-            \ 'ini=dosini',
-            \ 'js=javascript',
-            \ 'json=javascript',
-            \ 'jsx=javascriptreact',
-            \ 'tsx=typescriptreact',
-            \ 'docker=Dockerfile',
-            \ 'makefile=make',
-            \ 'py=python'
-            \ ]
-let g:vim_markdown_follow_anchor = 1
-let g:vim_markdown_edit_url_in = 'vsplit'       " tab  vsplit  hsplit  current
-
-let g:vim_markdown_folding_disabled = 0         " 开启折叠功能
-let g:vim_markdown_folding_style_pythonic = 1   " 折叠样式
-let g:vim_markdown_folding_level = 1            " n级不自动折叠
-" let g:vim_markdown_override_foldtext = 0
-
-" << Plugin - table-mode >>
-augroup markdown_table
-    autocmd!
-    au FileType markdown let g:table_mode_corner = '|'
-    au FileType markdown let g:table_mode_delimiter = ' '
-    au FileType markdown let g:table_mode_verbose = 0
-    au FileType markdown let g:table_mode_auto_align = 0
-    autocmd FileType markdown TableModeEnable
-augroup END
-]]
--- }}}
-
--- ===================== NEOVIM lua Plugins =====================
--- {{{ lua-Plugins color
---{{{ cmp color
+-- cmp color
 vim.api.nvim_command("hi! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
 vim.api.nvim_command("hi! CmpItemAbbrMatch guibg=NONE guifg=#569CD6") --Abbr
 vim.api.nvim_command("hi! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch")
@@ -2152,16 +2111,14 @@ vim.api.nvim_command("hi! CmpItemKindKeyword guibg=NONE guifg=#63cdcf") --Keywor
 vim.api.nvim_command("hi! link CmpItemKindProperty CmpItemKindKeyword")
 vim.api.nvim_command("hi! link CmpItemKindUnit CmpItemKindKeyword")
 vim.api.nvim_command("hi! CmpItemKindSnippet guibg=NONE guifg=#d64f44") --Snippet
---}}}
 
---{{{ lsp_signature.nvim color
+-- lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
---}}}
 
---{{{ which-key background color (transparency)
+-- which-key background color (transparency)
 vim.api.nvim_set_hl(0, "WhichKeyFloat", { ctermbg = 'black', ctermfg = 'black' })
 vim.api.nvim_set_hl(0, "WhichKeyBorder", { ctermbg = 'black', ctermfg = 'black' })
---}}}
+
 -- }}}
 
 ------- GUI -------
