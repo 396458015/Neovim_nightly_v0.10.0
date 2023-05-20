@@ -144,8 +144,8 @@ vim.api.nvim_set_keymap('n', '<leader>dt', ':Linediff<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<leader>rc', ':edit $MYVIMRC<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>rr', ':source $MYVIMRC<CR>', {noremap = true, silent = true})
 -- 插入时间
-vim.api.nvim_set_keymap('i', 'xtime', '<c-r>=strftime("20%y-%m-%d %a %H:%M")<CR>', {noremap = true})
-vim.api.nvim_set_keymap('i', 'xdate', '<c-r>=strftime("20%y-%m-%d (%a)")<CR>', {noremap = true})
+vim.cmd([[iab xtime <c-r>=strftime("20%y-%m-%d %a %H:%M")<CR>]])
+vim.cmd([[iab xdate <c-r>=strftime("20%y-%m-%d (%a)")<CR>]])
 -- 取消高亮
 vim.api.nvim_set_keymap('n', '<BS>', ':nohl<CR>', {noremap = true, silent = true})
 -- 显示列表，使用`.`表示空格
@@ -316,26 +316,26 @@ require("lazy").setup({
             vim.api.nvim_set_keymap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
             vim.cmd[[
             augroup Compiler_code
-                autocmd!
-                autocmd FileType floaterm nnoremap <buffer> <Esc> :q<CR>
+                au!
+                au FileType floaterm nnoremap <buffer> <Esc> :q<CR>
                 " -- Python --
-                autocmd FileType python nnoremap <C-CR> :FloatermNew py "%:p"<CR>
-                autocmd FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
-                " autocmd FileType python tnoremap <C-CR>  <C-\><C-n>:FloatermToggle<CR>
+                au FileType python nnoremap <C-CR> :FloatermNew py "%:p"<CR>
+                au FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
+                " au FileType python tnoremap <C-CR>  <C-\><C-n>:FloatermToggle<CR>
                 " -- Python REPL --
                 nnoremap <leader>tp :FloatermNew --width=0.5 --wintype=vsplit --name=repl --position=rightbelow ipython<CR>
-                autocmd FileType python nnoremap <leader>w :FloatermSend<CR>
-                autocmd FileType python vnoremap <leader>w :FloatermSend<CR>
+                au FileType python nnoremap <leader>w :FloatermSend<CR>
+                au FileType python vnoremap <leader>w :FloatermSend<CR>
                 " -- Matlab --
-                autocmd FileType matlab nnoremap <silent><C-CR> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
+                au FileType matlab nnoremap <silent><C-CR> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
                 " TERMINAL运行matlab代码,以'test.m'代码为例 'matlab -nosplash -nodesktop -r test'
                 " -- Fortran --
-                autocmd FileType fortran nnoremap <C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
+                au FileType fortran nnoremap <C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
                 " -- Typst --
                 " highligth file 'D:\Program Files\Neovim\share\nvim\runtime\syntax\typst.vim'
-                autocmd BufRead,BufNewFile *.typ setlocal filetype=typst
-                autocmd FileType typst nnoremap <C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
-                autocmd FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
+                au BufRead,BufNewFile *.typ setlocal filetype=typst
+                au FileType typst nnoremap <C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
+                au FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
             augroup END
             " Git
             command! Push execute "FloatermNew!git add init.lua<CR>git commit --allow-empty-message -m \"\"<CR>git push<CR>"
@@ -388,8 +388,8 @@ require("lazy").setup({
     vim.g.mkdp_page_title = "「${name}」"
     vim.cmd[[
     augroup markdown_preview
-        autocmd!
-        autocmd FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
+        au!
+        au FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
     augroup END
     ]]
     end,
@@ -483,10 +483,11 @@ require("lazy").setup({
     endfunction
     ]]
 
+    -- dark & light colorscheme
     if vim.o.background == 'dark' then
-        vim.cmd('hi StartifyFile ctermfg=10 guifg=#9ECE6A')
+        vim.api.nvim_command("hi StartifyFile ctermfg=10 guifg=#9ECE6A")
     elseif vim.o.background == 'light' then
-        vim.cmd('hi StartifyFile ctermfg=10 guifg=#12970e')
+        vim.api.nvim_command("hi StartifyFile ctermfg=10 guifg=#12970e")
     end
     end,
   },
@@ -573,11 +574,21 @@ require("lazy").setup({
   },
   {
     "lfv89/vim-interestingwords",
-    event = "BufReadPre",
+    keys = {"<leader>k"},
     config = function()
     vim.keymap.set("n", "<leader>k", ":call InterestingWords('n')<cr>", { silent = true })
     vim.keymap.set("v", "<leader>k", ":call InterestingWords('v')<cr>", { silent = true })
     vim.keymap.set("n", "<leader>K", ":call UncolorAllWords()<cr>", { silent = true })
+    vim.g.interestingWordsGUIColors = {
+      '#72b5e4', '#f0c53f', '#ff8784', '#c5c7f1',
+      '#c2d735', '#78d3cc', '#ea8336', '#e43542',
+      '#ebab35', '#ebe735', '#aadd32', '#dcca6b',
+      '#219286', '#2f569c', '#ffb577', '#5282a4',
+      '#edfccf', '#67064c', '#f5bca7', '#95c474',
+      '#dece83', '#de9783', '#f2e700', '#e9e9e9',
+      '#69636d', '#626b98', '#f5f5a7', '#dcca6b',
+      '#b72a83', '#6f2b9d', '#69636d', '#5f569c',
+    }
     end,
     },
   {
@@ -590,11 +601,9 @@ require("lazy").setup({
   },
   {
     "triglav/vim-visual-increment",
-    event = "BufReadPre",
+    event = "InsertEnter",
     config = function()
-    vim.cmd[[
-    set nrformats=alpha,octal,hex
-    ]]
+    vim.cmd[[set nrformats=alpha,octal,hex]]
     end,
   },
   { "itchyny/vim-cursorword", event = "BufReadPre" },
@@ -817,7 +826,10 @@ require("lazy").setup({
   },
   {
     "b3nj5m1n/kommentary",
-    event = "BufReadPre",
+    keys = {
+            { "<leader>cc", mode = { "n", "v" } },
+            { "<leader>ci", mode = { "n", "v" } },
+        },
     config = function()
     require("kommentary")
     vim.g.kommentary_create_default_mappings = false
@@ -915,7 +927,7 @@ require("lazy").setup({
   },
   {
     "Vonr/align.nvim",
-    event = "BufReadPre",
+    keys = { "<leader>a", mode = { "x" } },
     init = function()
     local NS = { noremap = true, silent = true }
     --vim.keymap.set('x','<leader>aa',function()require'align'.align_to_char(1,true)end,NS)--Alignsto1character,lookingleft
@@ -1444,11 +1456,15 @@ require("lazy").setup({
     })
     end,
   },
-  { "saadparwaiz1/cmp_luasnip", event = "InsertEnter", dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" } },
+  { 
+    "saadparwaiz1/cmp_luasnip", 
+    event = "InsertEnter",
+    dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" },
+  },
   {
     "tzachar/cmp-tabnine",
     build = "powershell ./install.ps1",
-    lazy = true,
+    event = "InsertEnter",
     dependencies = "hrsh7th/nvim-cmp",
     config = function()
     local tabnine = require('cmp_tabnine.config')
@@ -1985,77 +2001,77 @@ vim.g.python3_host_prog = 'C:/Python/Python311/python.exe'
 vim.cmd([[ let $PYTHONUNBUFFERED=1 ]]) -- 禁用python stdout缓冲 ]
 
 -- Return to last edit position when opening files (You want this!)
-vim.cmd([[ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]])
+vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]])
 -- }}}
 
 -- {{{ autocmd
 vim.cmd[[
-" 解决vim编辑matlab文件保存后, matlab中文为乱码的问题
+" 中/英输入法切换
+augroup input_switching
+    au!
+    au VimEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
+    au InsertLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
+    au VimLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
+    " au InsertEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 2052
+augroup END
+
+" 解决matlab中文乱码的问题
 augroup matlab_filetype
-    autocmd!
-    autocmd FileType matlab set fileencoding=cp936
+    au!
+    au FileType matlab set fileencoding=cp936
 augroup END
 
 augroup python_related
-    autocmd!
-    autocmd BufNewFile,BufRead *.py set fileformat=unix
-    autocmd BufNewFile,BufRead *.rpy set syntax=python
+    au!
+    au BufNewFile,BufRead *.py set fileformat=unix
+    au BufNewFile,BufRead *.rpy set syntax=python
 augroup END
 
 " 禁止屏闪和铃声
 augroup genconfiggroup
-    autocmd!
-    autocmd GUIEnter * set vb t_vb=
-    autocmd VimEnter * set vb t_vb=
+    au!
+    au GUIEnter * set vb t_vb=
+    au VimEnter * set vb t_vb=
 augroup END
 
 " 文本超过一定长度时自动换行
 augroup tex_md_width
-    autocmd!
-    autocmd FileType tex set textwidth=72         
-    autocmd FileType markdown set textwidth=80
+    au!
+    au FileType tex set textwidth=72
+    au FileType markdown set textwidth=80
 augroup END
 
 " 高亮加下划线显示每行第80个字符
 " Fortran语言,高亮加下划线显示每行第72个字符(遵循Fortran77固定格式)
 augroup line_font
-    autocmd!
+    au!
     au BufRead,BufNewFile *.asm,*.c,*.cpp,*.java,*.cs,*.sh,*.lua,*.pl,*.pm,*.py,*.rb,*.hs,*.vim,*.md 2match Underlined /.\%81v/
     au BufRead,BufNewFile *.for 2match Underlined /.\%73v/
 augroup END
 
 " 当剩余的窗口都不是文件编辑窗口时,自动退出vim
 augroup Buffer_quit
-    autocmd!
-    autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
+    au!
+    au BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
 augroup END
 
 " Highlihgt yank
 set background=light " 放到这里的目的,为了tokyonight-day显示复制颜色(HighlightedyankRegion)
 highlight HighlightedyankRegion ctermbg=237 guibg=#c34043
 augroup highlight_yank
-    autocmd!
+    au!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="HighlightedyankRegion", timeout=120}
-augroup END
-
-" 中/英输入法切换
-augroup input_switching
-    autocmd!
-    autocmd VimEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
-    autocmd InsertLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
-    autocmd VimLeave * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 1033
-    " autocmd InsertEnter * :silent :!C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/im-select.exe 2052
 augroup END
 
 " << plasticboyvim-markdown >>
 augroup markdown_type
-    autocmd!
-    autocmd FileType markdown setl conceallevel=2
+    au!
+    au FileType markdown setl conceallevel=2
 augroup END
 
 " << Plugin - table-mode >>
 augroup markdown_table
-    autocmd!
+    au!
     au FileType markdown let g:table_mode_corner = '|'
     au FileType markdown let g:table_mode_delimiter = ' '
     au FileType markdown let g:table_mode_verbose = 0
@@ -2082,13 +2098,12 @@ math.randomseed(os.time())
 local mycolor = random_color[math.random(table.getn(random_color))]
 vim.cmd('colorscheme ' .. mycolor)
 
-
+-- dark & light colorscheme
 if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.cmd('hi CursorLine gui=NONE guibg=#3C4452')
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     vim.cmd('hi CursorLine gui=NONE guibg=#c6cbd9')
 end
---vim.opt.cursorline = true
 -- }}}
 
 -- {{{ Highlihgt (origin neovim & plugins)
@@ -2116,13 +2131,12 @@ vim.api.nvim_command("hi! CmpItemKindSnippet guibg=NONE guifg=#d64f44") --Snippe
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
 
 -- which-key background color (transparency)
-vim.api.nvim_set_hl(0, "WhichKeyFloat", { ctermbg = 'black', ctermfg = 'black' })
-vim.api.nvim_set_hl(0, "WhichKeyBorder", { ctermbg = 'black', ctermfg = 'black' })
-
+vim.api.nvim_command("hi WhichKeyFloat ctermbg=black ctermfg=black guibg=0")
+vim.api.nvim_command("hi WhichKeyBorder ctermbg=black ctermfg=black guibg=0")
 -- }}}
 
 ------- GUI -------
--- {{{ GUI << neovide >>
+-- {{{ << neovide >>
 if vim.g.neovide then
     vim.g.neovide_cursor_vfx_mode = "railgun"  --"torpedo", "pixiedust", "ripple"
     vim.g.neovide_cursor_vfx_particle_density = 7.0
@@ -2157,7 +2171,7 @@ if vim.g.neovide then
 end
 -- }}}
 
--- {{{ GUI << goneovim >>
+-- {{{ << goneovim >>
 if vim.g.goneovim then
     vim.keymap.set("n", "<m-CR>", ":GonvimMaximize<CR>", { silent = true })
     vim.keymap.set("n", "<leader>rg", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/.goneovim/settings.toml<CR>", { silent = true })
