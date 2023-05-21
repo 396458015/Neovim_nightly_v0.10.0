@@ -29,7 +29,7 @@ vim.api.nvim_set_keymap("i", "<m-h>", "<Left>", {})
 vim.api.nvim_set_keymap("i", "<m-j>", "<Down>", {})
 vim.api.nvim_set_keymap("i", "<m-k>", "<Up>", {})
 vim.api.nvim_set_keymap("i", "<m-l>", "<Right>", {})
---INSERT Mode下使用光标移动一个单词
+-- INSERT Mode下使用光标移动一个单词
 vim.api.nvim_set_keymap("i", "<C-h>", "<C-Left>", {})
 vim.api.nvim_set_keymap("i", "<C-l>", "<C-Right>", {})
 -- Indentation
@@ -68,8 +68,8 @@ vim.api.nvim_set_keymap('n', '<S-h>', '<C-w>b<C-w>H', {})
 -- 光标移动
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-W><C-L>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-W><C-H>', {})
---vim.api.nvim_set_keymap('n', '<C-j>', '<C-W><C-J>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
---vim.api.nvim_set_keymap('n', '<C-k>', '<C-W><C-K>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
+-- vim.api.nvim_set_keymap('n', '<C-j>', '<C-W><C-J>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
+-- vim.api.nvim_set_keymap('n', '<C-k>', '<C-W><C-K>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
 -- 终端分屏窗口移动，split navigations,smart way to move between windows
 vim.api.nvim_set_keymap('t', '<C-h>', '<C-w><C-h>', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-j>', '<C-w><C-j>', {noremap = true})
@@ -1866,9 +1866,9 @@ require("lazy").setup({
 -- }}}
 
 -- {{{ font
-vim.opt.guifont     = "Delugia Mono:h11.6"  --Cascadia Code, others: 'CodeNewRoman\ NFM', 'OperatorMono\ NF', 'ComicMono\ NF'
-vim.opt.guifontwide = "inconsolatago qihei nf:h12.5" -- 中文 Nerd Font
---Adjust fontsize
+vim.opt.guifont     = "Delugia Mono:h11.6"  -- Cascadia Code, others: 'CodeNewRoman\ NFM', 'OperatorMono\ NF', 'ComicMono\ NF'
+vim.opt.guifontwide = "inconsolatago qihei nf:h12.5"  -- 中文 Nerd Font
+-- Adjust fontsize
 vim.cmd[[
 let s:guifontsize=12
 let s:guifont="Delugia\\ Mono"
@@ -1879,14 +1879,14 @@ function! AdjustFontSize(amount)
     execute "set guifontwide=" .. s:guifontwide .. ":h" .. s:guifontsize
 endfunction
 ]]
---keyboard
+-- keyboard
 vim.keymap.set("n", "<m-->", ":call AdjustFontSize(-1)<CR>", { silent = true })
 vim.keymap.set("n", "<m-=>", ":call AdjustFontSize(1)<CR>", { silent = true })
 vim.keymap.set("n", "<m-BS>", ":set guifont=Delugia\\ Mono:h12.01<CR>", { silent = true })
 vim.keymap.set("i", "<m-->", "<C-o>:call AdjustFontSize(-1)<CR>", { silent = true })
 vim.keymap.set("i", "<m-=>", "<C-o>:call AdjustFontSize(1)<CR>", { silent = true })
 vim.keymap.set("i", "<m-BS>", "<C-o>:set guifont=Delugia\\ Mono:h12.01<CR>", { silent = true })
---mouse
+-- mouse
 vim.keymap.set("n", "<m-ScrollWheelUp>", ":call AdjustFontSize(1)<CR>", { silent = true })
 vim.keymap.set("n", "<m-ScrollWheelDown>", ":call AdjustFontSize(-1)<CR>", { silent = true })
 vim.keymap.set("i", "<m-ScrollWheelUp>", "<ESC>:call AdjustFontSize(1)<CR>a", { silent = true })
@@ -2075,8 +2075,8 @@ augroup END
 
 -- {{{ colorscheme
 random_color = {
---    'tokyonight-day',
---    'dayfox',
+    -- 'tokyonight-day',
+    -- 'dayfox',
     'duskfox',
     'terafox',
     'nordfox',
@@ -2100,23 +2100,23 @@ end
 
 -- {{{ highlihgt (origin neovim & plugins)
 -- diff color (original neovim)
-vim.api.nvim_command("hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#87af87") --新增的行
-vim.api.nvim_command("hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#86abdc") --删除的行
-vim.api.nvim_command("hi DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#8787af") --变化的行
-vim.api.nvim_command("hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e") --变化的文字
+vim.api.nvim_command("hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#87af87")  -- 新增的行
+vim.api.nvim_command("hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#86abdc")  -- 删除的行
+vim.api.nvim_command("hi DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#8787af")  -- 变化的行
+vim.api.nvim_command("hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e")  -- 变化的文字
 -- cmp color
 vim.api.nvim_command("hi! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
-vim.api.nvim_command("hi! CmpItemAbbrMatch guibg=NONE guifg=#569CD6") --Abbr
+vim.api.nvim_command("hi! CmpItemAbbrMatch guibg=NONE guifg=#569CD6")  -- Abbr
 vim.api.nvim_command("hi! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch")
-vim.api.nvim_command("hi! CmpItemKindVariable guibg=NONE guifg=#9CDCFE") --Variable
+vim.api.nvim_command("hi! CmpItemKindVariable guibg=NONE guifg=#9CDCFE")  -- Variable
 vim.api.nvim_command("hi! link CmpItemKindInterface CmpItemKindVariable")
 vim.api.nvim_command("hi! link CmpItemKindText CmpItemKindVariable")
-vim.api.nvim_command("hi! CmpItemKindFunction guibg=NONE guifg=#9d79d6") --Function
+vim.api.nvim_command("hi! CmpItemKindFunction guibg=NONE guifg=#9d79d6")  -- Function
 vim.api.nvim_command("hi! link CmpItemKindMethod CmpItemKindFunction")
-vim.api.nvim_command("hi! CmpItemKindKeyword guibg=NONE guifg=#63cdcf") --Keyword
+vim.api.nvim_command("hi! CmpItemKindKeyword guibg=NONE guifg=#63cdcf")  -- Keyword
 vim.api.nvim_command("hi! link CmpItemKindProperty CmpItemKindKeyword")
 vim.api.nvim_command("hi! link CmpItemKindUnit CmpItemKindKeyword")
-vim.api.nvim_command("hi! CmpItemKindSnippet guibg=NONE guifg=#d64f44") --Snippet
+vim.api.nvim_command("hi! CmpItemKindSnippet guibg=NONE guifg=#d64f44")  -- Snippet
 -- lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
 -- which-key background color (transparency)
@@ -2127,7 +2127,7 @@ vim.api.nvim_command("hi WhichKeyBorder ctermbg=black ctermfg=black guibg=0")
 ------- GUI -------
 -- {{{ << neovide >>
 if vim.g.neovide then
-    vim.g.neovide_cursor_vfx_mode = "railgun"  --"torpedo", "pixiedust", "ripple"
+    vim.g.neovide_cursor_vfx_mode = "railgun"  -- "torpedo", "pixiedust", "ripple"
     vim.g.neovide_cursor_vfx_particle_density = 7.0
     vim.g.neovide_cursor_trail_length = 0.05
     vim.g.neovide_refresh_rate = 60
@@ -2139,7 +2139,7 @@ if vim.g.neovide then
     vim.g.neovide_remember_window_position = true
     vim.g.neovide_confirm_quit = true              -- 修改文件后退出提示
     vim.g.neovide_hide_mouse_when_typing = true    -- 输入时隐藏鼠标
-    -- vim.g.neovide_profiler = true                -- 左上角显示帧数
+    -- vim.g.neovide_profiler = true               -- 左上角显示帧数
     vim.g.neovide_scroll_animation_length = 0.3
 -- Adjust transparency
     vim.api.nvim_set_keymap('n', '<M-,>', ':let g:neovide_transparency -= 0.02<CR>:let g:neovide_transparency<CR>', {})
