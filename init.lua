@@ -8,18 +8,14 @@
 -- |_|  |_| |_|      \/__/    \/_/\/_/\/_/\/_/|_| \_\\____|
 -- ========================================================
 
--- {{{ Mapping - original neovim
+-- {{{ mapping - original neovim
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
-
 vim.api.nvim_set_keymap("", ";", ":", { noremap = true })
-
 vim.api.nvim_set_keymap("n", "s", "<nop>", { noremap = true })
 vim.api.nvim_set_keymap("x", "s", "<nop>", { noremap = true })
-
 vim.api.nvim_set_keymap("n", "<Space>", "<nop>", { noremap = true })
 vim.api.nvim_set_keymap("n", ",", "<nop>", { noremap = true })
-
 -- x,c仅复制,不更改寄存器.(d为剪切)
 vim.api.nvim_set_keymap("n", "x", "\"_x", { noremap = true })
 vim.api.nvim_set_keymap("v", "x", "\"_x", { noremap = true })
@@ -28,39 +24,26 @@ vim.api.nvim_set_keymap("v", "c", "\"_c", { noremap = true })
 vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true })
 vim.api.nvim_set_keymap("v", "p", "pgvy", { noremap = true })
 vim.api.nvim_set_keymap("v", "P", "Pgvy", { noremap = true })
-
 -- 光标移动
 vim.api.nvim_set_keymap("i", "<m-h>", "<Left>", {})
 vim.api.nvim_set_keymap("i", "<m-j>", "<Down>", {})
 vim.api.nvim_set_keymap("i", "<m-k>", "<Up>", {})
 vim.api.nvim_set_keymap("i", "<m-l>", "<Right>", {})
-
-
 --INSERT Mode下使用光标移动一个单词
 vim.api.nvim_set_keymap("i", "<C-h>", "<C-Left>", {})
 vim.api.nvim_set_keymap("i", "<C-l>", "<C-Right>", {})
-
 -- Indentation
 vim.api.nvim_set_keymap("n", "<", "<<", { noremap = true })
 vim.api.nvim_set_keymap("n", ">", ">>", { noremap = true })
-
 -- 单词的 选/改/删
 vim.api.nvim_set_keymap("n", "vi", "viw", { silent = true })
 vim.api.nvim_set_keymap("n", "ci", "ciw", { silent = true })
 vim.api.nvim_set_keymap("n", "di", "diw", { silent = true })
-
 -- IDE like delete
 vim.api.nvim_set_keymap("i", "<C-BS>", "<Esc>b\"_dei", {})
-
 -- 代码折叠
 vim.api.nvim_set_keymap("n", "<Tab>", "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>", { noremap = true, silent = true })
--- zf  创建折叠,仅在manual/marker中有效(eg:v{motion}zf v{motion}指Shift+v)
--- zd  删除折叠,仅在manual/marker中有效
--- zD  删除嵌套折叠,仅在manual/marker中有效
--- za  打开/关闭当前折叠
--- zM  关闭所有折叠
--- zR  打开所有折叠
-
+-- zf:创建折叠;zd:删除折叠,仅在manual/marker中有效;zD:删除嵌套折叠,仅在manual/marker中有效;za:打开/关闭当前折叠;zM:关闭所有折叠;zR:打开所有折叠
 -------------------- spell checking --------------------
 -- 设置拼写检查开关
 vim.api.nvim_set_keymap('n', '<Leader>sc', ':set spell!<CR>', { silent = true })
@@ -75,7 +58,6 @@ vim.api.nvim_set_keymap('n', '<leader>z', [[:%s/\<<C-R>=expand("<cword>")<CR>\>/
 vim.api.nvim_set_keymap('v', '<leader>z', [[:s///g<left><left><left>]], {})
 -- 创建列表
 vim.api.nvim_set_keymap('n', '<leader>b', [[:put =range(,,1)<left><left><left><left>]], {})
-
 -------------------- 分屏 --------------------
 vim.api.nvim_set_keymap('n', 'sh', [[:set splitright<CR>:vsplit<CR>]], { silent = true })
 vim.api.nvim_set_keymap('n', 'sj', [[:set splitbelow<CR>:split<CR>]], { silent = true })
@@ -94,13 +76,11 @@ vim.api.nvim_set_keymap('t', '<C-j>', '<C-w><C-j>', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-k>', '<C-w><C-k>', {noremap = true})
 vim.api.nvim_set_keymap('t', '<C-l>', '<C-w><C-l>', {noremap = true})
 vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {})
-
 -- 调整分屏尺寸
 vim.api.nvim_set_keymap('n', '<C-up>', ':resize -3<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-down>', ':resize +3<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-left>', ':vertical resize +3<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-right>', ':vertical resize -3<CR>', {noremap = true})
-
 -------------------- 标签页 --------------------
 -- 支持Alt+n切换标签页
 vim.api.nvim_set_keymap('n', '<M-1>', '1gt', { noremap = true })
@@ -116,25 +96,21 @@ vim.api.nvim_set_keymap('n', '<M-0>', ':tablast<CR>', { noremap = true })
 -- Alt+左右键来移动标签顺序
 vim.api.nvim_set_keymap('n', '<M-left>', [[<Cmd>if tabpagenr() == 1 | execute "tabm " . tabpagenr("$") | else | execute "tabm " . (tabpagenr()-2) | endif<CR>]], {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<M-right>', [[<Cmd>if tabpagenr() == tabpagenr("$") | tabm 0 | else | execute "tabm " . tabpagenr() | endif<CR>]], {noremap = true, silent = true})
-
 ------------- Command Mode related ---------------
 vim.api.nvim_set_keymap('c', '<C-a>', '<Home>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<C-e>', '<End>', {noremap = true})
 -- vim.api.nvim_set_keymap('c', '<C-K>', '<C-U>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<C-h>', '<C-Left>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<C-l>', '<C-Right>', {noremap = true})
-
+-- cmdline move
 vim.api.nvim_set_keymap('c', '<M-h>', '<left>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<M-l>', '<right>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<M-j>', '<down>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<M-k>', '<up>', {noremap = true})
-
 vim.api.nvim_set_keymap('c', '<C-j>', '<down>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<C-k>', '<up>', {noremap = true})
-
 -- 在命令行粘贴的快捷键
 vim.api.nvim_set_keymap('c', '<C-V>', '<C-R>+', {noremap = true})
-
 -- -------------------- function --------------------
 -- open Startify
 vim.api.nvim_set_keymap('n', '<leader>st', ':Startify<CR>', {noremap = true, silent = true})
@@ -172,7 +148,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
---vim
   {
     "mg979/vim-visual-multi",
     keys = {
@@ -301,7 +276,7 @@ require("lazy").setup({
     vim.keymap.set("n", "<localleader>ff", ":Leaderf function<CR>", { silent = true }) --函数搜索(仅当前文件里)
     vim.keymap.set("n", "<localleader>fc", ":Leaderf colorscheme<CR>", { silent = true }) --配色搜索
     end,
-   },
+  },
   {
     "voldikss/vim-floaterm",
     cmd = { "FloatermNew", "FloatermSend" },
@@ -349,7 +324,7 @@ require("lazy").setup({
             " 开启管理员账号: net user administrator /active:yes
             " 关闭管理员账号: net user administrator /active:no
             " 设置管理员密码(1234): net user administrator 1234
-]]
+            ]]
     end,
   },
   {
@@ -501,7 +476,7 @@ require("lazy").setup({
       config = {
         disable_move = false,
         week_header = { enable = true },
-        packages = { enable = true },
+        packages = { enable = false },
         project = {
           enable = false,
         },
@@ -539,15 +514,19 @@ require("lazy").setup({
         mru = { limit = 15, icon = '📑 ', label = 'Recently Files' },
         --header ={
         --},
-        footer = {
-            '',
-            '',
-            '',
-        	  [[. ,-"-.   ,-"-. ,-"-.   ,-"-. ,-"-.   ,]],
-        	  [[ X | | \ / | | X | | \ / | | X | | \ / ]],
-        	  [[/ \| | |X| | |/ \| | |X| | |/ \| | |X| ]],
-        	  [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
-        },
+        footer = function()
+            return {
+                '',
+                '',
+                [[. ,-"-.   ,-"-. ,-"-.   ,-"-. ,-"-.   ,]],
+                [[ X | | \ / | | X | | \ / | | X | | \ / ]],
+                [[/ \| | |X| | |/ \| | |X| | |/ \| | |X| ]],
+                [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
+                '',
+                '',
+                "🎉 Neovim loaded " .. require("lazy").stats().count .. " plugins in " .. require"lazy".stats().startuptime .. " ms 🎉"
+            }
+        end
       },
   	hide = {
   		statusline = true,
@@ -590,10 +569,10 @@ require("lazy").setup({
       '#b72a83', '#6f2b9d', '#69636d', '#5f569c',
     }
     end,
-    },
+  },
   {
     "markonm/traces.vim",
-    event = "CmdlineEnter",
+    event = {"CursorMoved", "CmdlineEnter"},
     config = function()
     vim.g.traces_normal_preview = 1
     vim.g.traces_num_range_preview = 1
@@ -729,7 +708,7 @@ require("lazy").setup({
   },
   {
     "karb94/neoscroll.nvim",
-    event = "BufReadPre",
+    event = "BufReadPost",
     config = function()
     require('neoscroll').setup({
         mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
@@ -948,7 +927,6 @@ require("lazy").setup({
     require("nvim-surround").setup()
     end,
   },
-  --motion
   {
     "ggandor/leap.nvim",
     keys = {"r", "R", "gr"},
@@ -971,7 +949,6 @@ require("lazy").setup({
     }
     end,
   },
-  --colorscheme
   {
     "EdenEast/nightfox.nvim",
     event = "BufReadPre",
@@ -1099,7 +1076,6 @@ require("lazy").setup({
     })
     end,
   },
-  --Telescope
   {
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
@@ -1157,7 +1133,6 @@ require("lazy").setup({
     vim.keymap.set("n", "<leader>fs", ":Telescope search_history<cr>", { silent = true })
     end,
   },
-  --notes
   {
     "nvim-orgmode/orgmode",
     ft = "org",
@@ -1210,7 +1185,6 @@ require("lazy").setup({
     vim.keymap.set("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { silent = true })
     end,
   },
-  --treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -1256,7 +1230,6 @@ require("lazy").setup({
     }
     end,
   },
-  --cmp
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -1456,8 +1429,8 @@ require("lazy").setup({
     })
     end,
   },
-  { 
-    "saadparwaiz1/cmp_luasnip", 
+  {
+    "saadparwaiz1/cmp_luasnip",
     event = "InsertEnter",
     dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" },
   },
@@ -1482,7 +1455,6 @@ require("lazy").setup({
     })
     end,
   },
-  --lsp,
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -1536,6 +1508,23 @@ require("lazy").setup({
                         maxLineLength = 150,
                     },
                 },
+            },
+        },
+    }
+    require('lspconfig').lua_ls.setup {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { 'vim' }
+                },
+                workspace = {
+                    library = vim.api.nvim_get_runtime_file("", true),
+                    checkThirdParty = false,
+                },
+                telemetry = { enable = false },
+                format = { enable = false },
+                semantic = { enable = false },
             },
         },
     }
@@ -1636,7 +1625,6 @@ require("lazy").setup({
     }
     end,
   },
-  --Snippets,
   { "L3MON4D3/LuaSnip",
     event = "InsertEnter",
     config = function()
@@ -1877,11 +1865,9 @@ require("lazy").setup({
 })
 -- }}}
 
--- {{{ Font
-vim.o.guifont = "Delugia Mono:h11.6"              -- Nerd Font (Cascadia Code)
-vim.o.guifontwide = "inconsolatago qihei nf:h12.5" -- 中文 Nerd Font
---Nerd guifont:'CodeNewRoman\ NFM','OperatorMono\ NF','ComicMono\ NF'
-
+-- {{{ font
+vim.opt.guifont     = "Delugia Mono:h11.6"  --Cascadia Code, others: 'CodeNewRoman\ NFM', 'OperatorMono\ NF', 'ComicMono\ NF'
+vim.opt.guifontwide = "inconsolatago qihei nf:h12.5" -- 中文 Nerd Font
 --Adjust fontsize
 vim.cmd[[
 let s:guifontsize=12
@@ -1907,79 +1893,85 @@ vim.keymap.set("i", "<m-ScrollWheelUp>", "<ESC>:call AdjustFontSize(1)<CR>a", { 
 vim.keymap.set("i", "<m-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a", { silent = true })
 -- }}}
 
--- {{{ 常规设置
--- 编码格式
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
-vim.opt.fileencodings = "utf-8,gbk,gb18030,big5,ucs-bom,euc-jp,latin1"
+-- {{{ options
+local vim_opts = {
+    autochdir = true,  -- 设定文件浏览器目录为当前目录
+    autoindent = true,  -- 自动对齐
+    backspace = "indent,eol,start",
+    backup = false,
+    backupskip = "/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim",
+    clipboard = "unnamedplus",  -- Sync with system clipboard
+    cmdheight = 1,
+    confirm = true,
+    cursorline = false,
+    encoding = "utf-8",
+    errorbells = false,
+    expandtab = true,  -- 在输入tab后,vim用个空格来填充这个tab
+    fileencoding = "utf-8",
+    fileencodings = "utf-8,gbk,gb18030,big5,ucs-bom,euc-jp,latin1",
+    foldenable = true,
+    foldlevel = 33,
+    foldmethod = 'marker',  -- 折叠类型---对文中标志折叠
+    formatoptions = "1jcroql",
+    hidden = true,  -- 允许在有未保存的修改时切换缓冲区
+    hlsearch = true,
+    ignorecase = true,  -- 忽略大小写
+    incsearch = true,  -- 开启实时搜索功能
+    laststatus = 2,
+    linebreak = true,
+    list = false,
+    listchars = "trail:.,extends:>,precedes:<,space:.",
+    magic = true,
+    mouse = "a",
+    number = true,
+    relativenumber = true,
+    ruler = true,  -- 右下角显示光标位置的状态行
+    scrolloff = 5,  -- 设置目标行与顶部底部的距离(5行)
+    sessionoptions = "buffers,curdir,help,tabpages,winsize",
+    shiftround = true,
+    shiftwidth = 4,  -- Size of an indent
+    showcmd = true,
+    showmatch = true,  -- 显示括号配对情况
+    sidescroll = 5,
+    sidescrolloff = 15,
+    signcolumn = "yes",
+    smartcase = true,
+    smartindent = true,  -- Insert indents automatically
+    softtabstop = 4,  -- 退格键的长度
+    spelllang = "en_us",
+    splitbelow = true,
+    splitright = true,
+    startofline = false,
+    swapfile = false,
+    tabstop = 4,  -- 设置tab键的宽度
+    termguicolors = true,
+    ttimeoutlen = 0,
+    undofile = true,
+    updatetime = 200,
+    visualbell = true,
+    whichwrap = "h,l,<,>,[,],~",  -- 允许backspace和光标键跨越行边界
+    wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
+    wildignorecase = true,
+    wildmenu = true,
+    wildmode = "longest:full,full",  -- Command-line completion mode
+    wrap = false,
+    writebackup = false,
+}
+for k, v in pairs(vim_opts) do
+    vim.opt[k] = v
+end
 
--- 高亮
-vim.cmd('syntax enable')  --打开语法高亮
-vim.cmd('syntax on')  --开启文件类型侦测
+vim.cmd[[
+language en
+filetype indent on
+filetype plugin on
+set foldcolumn=2
+]]
 
-vim.cmd('language en')
-vim.cmd('language messages zh_CN.utf-8') -- 解决consle提示信息输出乱码
-vim.cmd('filetype on')  --侦测文件类型
-vim.cmd('filetype indent on')  --针对不同的文件类型采用不同的缩进格式
-vim.cmd('filetype plugin on')  --针对不同的文件类型加载对应的插件
-vim.cmd('filetype plugin indent on')
-
-vim.opt.autoindent = true  --自动对齐
-vim.opt.tabstop = 4  --设置tab键的宽度
-vim.opt.softtabstop = 4  --退格键的长度
-vim.opt.expandtab = true  --在输入tab后,vim用个空格来填充这个tab
-vim.opt.lazyredraw = true  --延时绘制(提升性能)
-vim.opt.shortmess:append "c"
-
-vim.opt.wildmode = "longest:full,full" -- Command-line completion mode
-vim.opt.wildmenu = true
-vim.opt.laststatus = 2
-vim.opt.cmdheight = 1
-vim.opt.linebreak = true
-
-vim.opt.shiftwidth = 4 -- Size of an indent
-vim.opt.smartindent = true
-vim.opt.smartindent = true -- Insert indents automatically
-vim.opt.number = true
-vim.opt.showmatch = true  --显示括号配对情况
-vim.opt.mouse = 'a'
-vim.opt.ruler = true  --右下角显示光标位置的状态行
-
-vim.opt.hlsearch = true
-vim.opt.incsearch = true --开启实时搜索功能
-vim.opt.ignorecase = true  --忽略大小写
-vim.opt.smartcase = true
-
-vim.opt.hidden = true  --允许在有未保存的修改时切换缓冲区
-
-
-vim.opt.scrolloff = 5  --设置目标行与顶部底部的距离(5行)
-vim.opt.sidescrolloff = 15
-vim.opt.sidescroll = 5
-
-vim.opt.writebackup = false
-vim.opt.relativenumber = true
-
-vim.opt.showcmd = true
-vim.cmd "set whichwrap+=<,>,[,],h,l"  --允许backspace和光标键跨越行边界
-
-vim.opt.autochdir = true  --设定文件浏览器目录为当前目录
-
-vim.opt.magic = true  --For regular expressions turn magic on
-
---Fold
-vim.opt.foldmethod = 'marker'  --" 折叠类型---对文中标志折叠
-vim.cmd('set foldcolumn=2')
-vim.opt.foldlevel = 33
-
---分屏设置
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
-vim.opt.listchars = 'trail:.,extends:>,precedes:<,space:.'
-
-vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
-
+if vim.fn.has("nvim-0.9.0") == 1 then
+  vim.opt.splitkeep = "screen"
+  vim.opt.shortmess:append({ C = true })
+end
 
 -- Windows or WSL2: Requires equalsraf/win32yank.  try: choco install win32yank
 vim.g.clipboard = {
@@ -2081,7 +2073,7 @@ augroup END
 ]]
 -- }}}
 
--- {{{ Colorscheme
+-- {{{ colorscheme
 random_color = {
 --    'tokyonight-day',
 --    'dayfox',
@@ -2106,13 +2098,12 @@ elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
 end
 -- }}}
 
--- {{{ Highlihgt (origin neovim & plugins)
+-- {{{ highlihgt (origin neovim & plugins)
 -- diff color (original neovim)
 vim.api.nvim_command("hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#87af87") --新增的行
 vim.api.nvim_command("hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#86abdc") --删除的行
 vim.api.nvim_command("hi DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#8787af") --变化的行
 vim.api.nvim_command("hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e") --变化的文字
-
 -- cmp color
 vim.api.nvim_command("hi! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
 vim.api.nvim_command("hi! CmpItemAbbrMatch guibg=NONE guifg=#569CD6") --Abbr
@@ -2126,10 +2117,8 @@ vim.api.nvim_command("hi! CmpItemKindKeyword guibg=NONE guifg=#63cdcf") --Keywor
 vim.api.nvim_command("hi! link CmpItemKindProperty CmpItemKindKeyword")
 vim.api.nvim_command("hi! link CmpItemKindUnit CmpItemKindKeyword")
 vim.api.nvim_command("hi! CmpItemKindSnippet guibg=NONE guifg=#d64f44") --Snippet
-
 -- lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
-
 -- which-key background color (transparency)
 vim.api.nvim_command("hi WhichKeyFloat ctermbg=black ctermfg=black guibg=0")
 vim.api.nvim_command("hi WhichKeyBorder ctermbg=black ctermfg=black guibg=0")
@@ -2141,29 +2130,22 @@ if vim.g.neovide then
     vim.g.neovide_cursor_vfx_mode = "railgun"  --"torpedo", "pixiedust", "ripple"
     vim.g.neovide_cursor_vfx_particle_density = 7.0
     vim.g.neovide_cursor_trail_length = 0.05
-
     vim.g.neovide_refresh_rate = 60
-
     vim.g.neovide_cursor_antialiasing = true
     vim.g.neovide_cursor_animation_length = 0.02
-
     vim.g.neovide_transparency = 0.97
     vim.g.neovide_fullscreen = false
     vim.g.neovide_remember_window_size = true
     vim.g.neovide_remember_window_position = true
-
     vim.g.neovide_confirm_quit = true              -- 修改文件后退出提示
     vim.g.neovide_hide_mouse_when_typing = true    -- 输入时隐藏鼠标
-    --vim.g.neovide_profiler = true                -- 左上角显示帧数
-
+    -- vim.g.neovide_profiler = true                -- 左上角显示帧数
     vim.g.neovide_scroll_animation_length = 0.3
-
 -- Adjust transparency
     vim.api.nvim_set_keymap('n', '<M-,>', ':let g:neovide_transparency -= 0.02<CR>:let g:neovide_transparency<CR>', {})
     vim.api.nvim_set_keymap('n', '<M-.>', ':let g:neovide_transparency += 0.02<CR>:let g:neovide_transparency<CR>', {})
     vim.api.nvim_set_keymap('i', '<M-,>', '<C-o>:let g:neovide_transparency -= 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
     vim.api.nvim_set_keymap('i', '<M-.>', '<C-o>:let g:neovide_transparency += 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
-
 -- Toggle fullscreen
     vim.keymap.set("n", "<m-CR>", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
