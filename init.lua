@@ -1975,7 +1975,7 @@ end
 
 -- Windows or WSL2: Requires equalsraf/win32yank.  try: choco install win32yank
 vim.g.clipboard = {
-    name = 'win32yank-wsl',
+    name = 'win32yank',
     copy = {
         ['+'] = 'win32yank.exe -i --crlf',
         ['*'] = 'win32yank.exe -i --crlf',
