@@ -133,6 +133,132 @@ vim.api.nvim_set_keymap('n', '<F4>', ':set cuc! cul!<CR>', {noremap = true, sile
 vim.api.nvim_set_keymap('i', '<F4>', '<C-o>:set cuc! cul!<CR>', {noremap = true, silent = true})
 -- }}}
 
+-- {{{ font
+vim.opt.guifont     = "Delugia Mono:h11.6"  -- Cascadia Code, others: 'CodeNewRoman\ NFM', 'OperatorMono\ NF', 'ComicMono\ NF'
+vim.opt.guifontwide = "inconsolatago qihei nf:h12.5"  -- 中文 Nerd Font
+-- Adjust fontsize
+vim.cmd[[
+let s:guifontsize=12
+let s:guifont="Delugia\\ Mono"
+let s:guifontwide="inconsolatago\\ qihei\\ nf"
+function! AdjustFontSize(amount)
+    let s:guifontsize = s:guifontsize + a:amount
+    execute "set guifont=" .. s:guifont .. ":h" .. s:guifontsize
+    execute "set guifontwide=" .. s:guifontwide .. ":h" .. s:guifontsize
+endfunction
+]]
+-- keyboard
+vim.keymap.set("n", "<m-->", ":call AdjustFontSize(-1)<CR>", { silent = true })
+vim.keymap.set("n", "<m-=>", ":call AdjustFontSize(1)<CR>", { silent = true })
+vim.keymap.set("n", "<m-BS>", ":set guifont=Delugia\\ Mono:h12.01<CR>", { silent = true })
+vim.keymap.set("i", "<m-->", "<C-o>:call AdjustFontSize(-1)<CR>", { silent = true })
+vim.keymap.set("i", "<m-=>", "<C-o>:call AdjustFontSize(1)<CR>", { silent = true })
+vim.keymap.set("i", "<m-BS>", "<C-o>:set guifont=Delugia\\ Mono:h12.01<CR>", { silent = true })
+-- mouse
+vim.keymap.set("n", "<m-ScrollWheelUp>", ":call AdjustFontSize(1)<CR>", { silent = true })
+vim.keymap.set("n", "<m-ScrollWheelDown>", ":call AdjustFontSize(-1)<CR>", { silent = true })
+vim.keymap.set("i", "<m-ScrollWheelUp>", "<ESC>:call AdjustFontSize(1)<CR>a", { silent = true })
+vim.keymap.set("i", "<m-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a", { silent = true })
+-- }}}
+
+-- {{{ options
+local vim_opts = {
+    autochdir = true,  -- 设定文件浏览器目录为当前目录
+    autoindent = true,  -- 自动对齐
+    backspace = "indent,eol,start",
+    backup = false,
+    backupskip = "/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim",
+    clipboard = "unnamedplus",  -- Sync with system clipboard
+    cmdheight = 1,
+    confirm = true,
+    cursorline = false,
+    encoding = "utf-8",
+    errorbells = false,
+    expandtab = true,  -- 在输入tab后,vim用个空格来填充这个tab
+    fileencoding = "utf-8",
+    fileencodings = "utf-8,gbk,gb18030,big5,ucs-bom,euc-jp,latin1",
+    foldenable = true,
+    foldlevel = 33,
+    foldmethod = 'marker',  -- 折叠类型---对文中标志折叠
+    formatoptions = "1jcroql",
+    hidden = true,  -- 允许在有未保存的修改时切换缓冲区
+    hlsearch = true,
+    ignorecase = true,  -- 忽略大小写
+    incsearch = true,  -- 开启实时搜索功能
+    laststatus = 2,
+    linebreak = true,
+    list = false,
+    listchars = "trail:.,extends:>,precedes:<,space:.",
+    magic = true,
+    mouse = "a",
+    number = true,
+    relativenumber = true,
+    ruler = true,  -- 右下角显示光标位置的状态行
+    scrolloff = 5,  -- 设置目标行与顶部底部的距离(5行)
+    sessionoptions = "buffers,curdir,help,tabpages,winsize",
+    shiftround = true,
+    shiftwidth = 4,  -- Size of an indent
+    showcmd = true,
+    showmatch = true,  -- 显示括号配对情况
+    sidescroll = 5,
+    sidescrolloff = 15,
+    signcolumn = "yes",
+    smartcase = true,
+    smartindent = true,  -- Insert indents automatically
+    softtabstop = 4,  -- 退格键的长度
+    spelllang = "en_us",
+    splitbelow = true,
+    splitright = true,
+    startofline = false,
+    swapfile = false,
+    tabstop = 4,  -- 设置tab键的宽度
+    termguicolors = true,
+    ttimeoutlen = 0,
+    undofile = true,
+    updatetime = 200,
+    visualbell = true,
+    whichwrap = "h,l,<,>,[,],~",  -- 允许backspace和光标键跨越行边界
+    wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
+    wildignorecase = true,
+    wildmenu = true,
+    wildmode = "longest:full,full",  -- Command-line completion mode
+    wrap = false,
+    writebackup = false,
+}
+for k, v in pairs(vim_opts) do
+    vim.opt[k] = v
+end
+vim.cmd[[
+language en
+filetype indent on
+filetype plugin on
+set foldcolumn=2
+]]
+if vim.fn.has("nvim-0.9.0") == 1 then
+  vim.opt.splitkeep = "screen"
+  vim.opt.shortmess:append({ C = true })
+end
+-- Windows or WSL2: Requires equalsraf/win32yank.  try: choco install win32yank
+vim.g.clipboard = {
+    name = 'win32yank',
+    copy = {
+        ['+'] = 'win32yank.exe -i --crlf',
+        ['*'] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+        ['+'] = 'win32yank.exe -o --lf',
+        ['*'] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = 0,
+}
+--ENV-Python
+vim.g.python_host_prog  = 'C:/Python/Python311/python.exe'
+vim.g.python3_host_prog = 'C:/Python/Python311/python.exe'
+vim.cmd([[ let $PYTHONUNBUFFERED=1 ]]) -- 禁用python stdout缓冲 ]
+-- Return to last edit position when opening files (You want this!)
+vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]])
+-- }}}
+
 -- {{{ Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -524,7 +650,9 @@ require("lazy").setup({
                 [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
                 '',
                 '',
-                "🎉 Neovim(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins in " .. require"lazy".stats().startuptime .. " ms 🎉",
+                --"🎉 Neovim(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins in " .. require"lazy".stats().startuptime .. " ms 🎉",
+                "🎉 Loaded " .. require("lazy").stats().count .. " plugins in " .. require"lazy".stats().startuptime .. " ms 🎉",
+                "Neovim v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch,
             }
         end
       },
@@ -1865,137 +1993,6 @@ require("lazy").setup({
 })
 -- }}}
 
--- {{{ font
-vim.opt.guifont     = "Delugia Mono:h11.6"  -- Cascadia Code, others: 'CodeNewRoman\ NFM', 'OperatorMono\ NF', 'ComicMono\ NF'
-vim.opt.guifontwide = "inconsolatago qihei nf:h12.5"  -- 中文 Nerd Font
--- Adjust fontsize
-vim.cmd[[
-let s:guifontsize=12
-let s:guifont="Delugia\\ Mono"
-let s:guifontwide="inconsolatago\\ qihei\\ nf"
-function! AdjustFontSize(amount)
-    let s:guifontsize = s:guifontsize + a:amount
-    execute "set guifont=" .. s:guifont .. ":h" .. s:guifontsize
-    execute "set guifontwide=" .. s:guifontwide .. ":h" .. s:guifontsize
-endfunction
-]]
--- keyboard
-vim.keymap.set("n", "<m-->", ":call AdjustFontSize(-1)<CR>", { silent = true })
-vim.keymap.set("n", "<m-=>", ":call AdjustFontSize(1)<CR>", { silent = true })
-vim.keymap.set("n", "<m-BS>", ":set guifont=Delugia\\ Mono:h12.01<CR>", { silent = true })
-vim.keymap.set("i", "<m-->", "<C-o>:call AdjustFontSize(-1)<CR>", { silent = true })
-vim.keymap.set("i", "<m-=>", "<C-o>:call AdjustFontSize(1)<CR>", { silent = true })
-vim.keymap.set("i", "<m-BS>", "<C-o>:set guifont=Delugia\\ Mono:h12.01<CR>", { silent = true })
--- mouse
-vim.keymap.set("n", "<m-ScrollWheelUp>", ":call AdjustFontSize(1)<CR>", { silent = true })
-vim.keymap.set("n", "<m-ScrollWheelDown>", ":call AdjustFontSize(-1)<CR>", { silent = true })
-vim.keymap.set("i", "<m-ScrollWheelUp>", "<ESC>:call AdjustFontSize(1)<CR>a", { silent = true })
-vim.keymap.set("i", "<m-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a", { silent = true })
--- }}}
-
--- {{{ options
-local vim_opts = {
-    autochdir = true,  -- 设定文件浏览器目录为当前目录
-    autoindent = true,  -- 自动对齐
-    backspace = "indent,eol,start",
-    backup = false,
-    backupskip = "/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim",
-    clipboard = "unnamedplus",  -- Sync with system clipboard
-    cmdheight = 1,
-    confirm = true,
-    cursorline = false,
-    encoding = "utf-8",
-    errorbells = false,
-    expandtab = true,  -- 在输入tab后,vim用个空格来填充这个tab
-    fileencoding = "utf-8",
-    fileencodings = "utf-8,gbk,gb18030,big5,ucs-bom,euc-jp,latin1",
-    foldenable = true,
-    foldlevel = 33,
-    foldmethod = 'marker',  -- 折叠类型---对文中标志折叠
-    formatoptions = "1jcroql",
-    hidden = true,  -- 允许在有未保存的修改时切换缓冲区
-    hlsearch = true,
-    ignorecase = true,  -- 忽略大小写
-    incsearch = true,  -- 开启实时搜索功能
-    laststatus = 2,
-    linebreak = true,
-    list = false,
-    listchars = "trail:.,extends:>,precedes:<,space:.",
-    magic = true,
-    mouse = "a",
-    number = true,
-    relativenumber = true,
-    ruler = true,  -- 右下角显示光标位置的状态行
-    scrolloff = 5,  -- 设置目标行与顶部底部的距离(5行)
-    sessionoptions = "buffers,curdir,help,tabpages,winsize",
-    shiftround = true,
-    shiftwidth = 4,  -- Size of an indent
-    showcmd = true,
-    showmatch = true,  -- 显示括号配对情况
-    sidescroll = 5,
-    sidescrolloff = 15,
-    signcolumn = "yes",
-    smartcase = true,
-    smartindent = true,  -- Insert indents automatically
-    softtabstop = 4,  -- 退格键的长度
-    spelllang = "en_us",
-    splitbelow = true,
-    splitright = true,
-    startofline = false,
-    swapfile = false,
-    tabstop = 4,  -- 设置tab键的宽度
-    termguicolors = true,
-    ttimeoutlen = 0,
-    undofile = true,
-    updatetime = 200,
-    visualbell = true,
-    whichwrap = "h,l,<,>,[,],~",  -- 允许backspace和光标键跨越行边界
-    wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
-    wildignorecase = true,
-    wildmenu = true,
-    wildmode = "longest:full,full",  -- Command-line completion mode
-    wrap = false,
-    writebackup = false,
-}
-for k, v in pairs(vim_opts) do
-    vim.opt[k] = v
-end
-
-vim.cmd[[
-language en
-filetype indent on
-filetype plugin on
-set foldcolumn=2
-]]
-
-if vim.fn.has("nvim-0.9.0") == 1 then
-  vim.opt.splitkeep = "screen"
-  vim.opt.shortmess:append({ C = true })
-end
-
--- Windows or WSL2: Requires equalsraf/win32yank.  try: choco install win32yank
-vim.g.clipboard = {
-    name = 'win32yank',
-    copy = {
-        ['+'] = 'win32yank.exe -i --crlf',
-        ['*'] = 'win32yank.exe -i --crlf',
-    },
-    paste = {
-        ['+'] = 'win32yank.exe -o --lf',
-        ['*'] = 'win32yank.exe -o --lf',
-    },
-    cache_enabled = 0,
-}
-
---ENV-Python
-vim.g.python_host_prog  = 'C:/Python/Python311/python.exe'
-vim.g.python3_host_prog = 'C:/Python/Python311/python.exe'
-vim.cmd([[ let $PYTHONUNBUFFERED=1 ]]) -- 禁用python stdout缓冲 ]
-
--- Return to last edit position when opening files (You want this!)
-vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]])
--- }}}
-
 -- {{{ autocmd
 vim.cmd[[
 " 中/英输入法切换
@@ -2017,13 +2014,6 @@ augroup python_related
     au!
     au BufNewFile,BufRead *.py set fileformat=unix
     au BufNewFile,BufRead *.rpy set syntax=python
-augroup END
-
-" 禁止屏闪和铃声
-augroup genconfiggroup
-    au!
-    au GUIEnter * set vb t_vb=
-    au VimEnter * set vb t_vb=
 augroup END
 
 " 文本超过一定长度时自动换行
