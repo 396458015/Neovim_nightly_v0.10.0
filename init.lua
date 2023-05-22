@@ -391,7 +391,7 @@ require("lazy").setup({
       dir = { ".svn", ".git", ".hg" },
       file = { "*.sw?", "~$*", "*.bak", "*.exe", "*.o", "*.so", "*.py[co]" },
     }
-    --使用:LeaderfRg 路径不全, 搜索该录下经的文件.
+    -- 使用:LeaderfRg 路径不全, 搜索该录下经的文件.
     vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
     end,
     init = function()
