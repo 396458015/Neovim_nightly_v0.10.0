@@ -637,7 +637,7 @@ require("lazy").setup({
               key = "q",
             },
         },
-        mru = { limit = 15, icon = '📑 ', label = 'Recently Files' },
+        mru = { limit = 15, icon = '📚 ', label = 'Recently Files' },
         --header ={
         --},
         footer = function()
