@@ -251,7 +251,7 @@ vim.g.clipboard = {
     },
     cache_enabled = 0,
 }
---ENV-Python
+-- ENV-Python
 vim.g.python_host_prog  = 'C:/Python/Python311/python.exe'
 vim.g.python3_host_prog = 'C:/Python/Python311/python.exe'
 vim.cmd([[ let $PYTHONUNBUFFERED=1 ]]) -- 禁用python stdout缓冲 ]
@@ -1263,7 +1263,6 @@ require("lazy").setup({
     "nvim-orgmode/orgmode",
     ft = "org",
     dependencies = {
-        {"nvim-treesitter/nvim-treesitter"},
         {
           "akinsho/org-bullets.nvim",
           ft = "org",
@@ -1315,8 +1314,17 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = { 'BufReadPost', 'BufNewFile' },
+    cmd = {
+            "TSInstall",
+            "TSUninstall",
+            "TSUpdate",
+            "TSUpdateSync",
+            "TSInstallInfo",
+            "TSInstallSync",
+            "TSInstallFromGrammar",
+    },
     dependencies = {
-    { "HiPhish/nvim-ts-rainbow2" },
+            { "HiPhish/nvim-ts-rainbow2" },
     },
     config = function()
     local rainbow = require 'ts-rainbow'
@@ -1334,7 +1342,7 @@ require("lazy").setup({
       indent = {
         enable = true,
       },
-      --yati = { enable = true },  -- treesitter indent plugin
+      -- yati = { enable = true },  -- treesitter indent plugin
       rainbow = {
           enable = true,
           query = {
@@ -1344,7 +1352,7 @@ require("lazy").setup({
           strategy = rainbow.strategy.global,
       },
     }
-    --matlab syntax highlighting
+    -- matlab syntax highlighting
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
     parser_config.matlab = {
         install_info = {
