@@ -524,16 +524,16 @@ require("lazy").setup({
                 [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
                 '',
                 '',
-                "🎉 Neovim loaded " .. require("lazy").stats().count .. " plugins in " .. require"lazy".stats().startuptime .. " ms 🎉"
+                "🎉 Neovim(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins in " .. require"lazy".stats().startuptime .. " ms 🎉",
             }
         end
       },
-  	hide = {
+  	  hide = {
   		statusline = true,
   		tabline = true,
   		winbar = true,
   	},
-      })
+    })
     end,
   },
   { "wellle/targets.vim", keys = { "c", "d", "y", "v"} },
