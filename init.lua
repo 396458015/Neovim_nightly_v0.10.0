@@ -650,9 +650,7 @@ require("lazy").setup({
                 [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
                 '',
                 '',
-                --"🎉 Neovim(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins in " .. require"lazy".stats().startuptime .. " ms 🎉",
-                "🎉 Loaded " .. require("lazy").stats().count .. " plugins in " .. require"lazy".stats().startuptime .. " ms 🎉",
-                "Neovim v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch,
+                "🎉 NVIM(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins  in " .. require"lazy".stats().startuptime .. " ms 🎉",
             }
         end
       },
@@ -836,7 +834,7 @@ require("lazy").setup({
   },
   {
     "karb94/neoscroll.nvim",
-    event = "BufReadPost",
+    event = "BufReadPre",
     config = function()
     require('neoscroll').setup({
         mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
