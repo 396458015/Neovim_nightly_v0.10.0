@@ -222,7 +222,7 @@ local vim_opts = {
     wildignorecase = true,
     wildmenu = true,
     wildmode = "longest:full,full",  -- Command-line completion mode
-    wrap = false,
+    wrap = true,
     writebackup = false,
 }
 for k, v in pairs(vim_opts) do
