@@ -9,128 +9,133 @@
 -- ========================================================
 
 -- {{{ mapping - original neovim
-vim.g.mapleader = " "
+vim.g.mapleader      = " "
 vim.g.maplocalleader = ","
-vim.api.nvim_set_keymap("", ";", ":", { noremap = true })
-vim.api.nvim_set_keymap("n", "s", "<nop>", { noremap = true })
-vim.api.nvim_set_keymap("x", "s", "<nop>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<Space>", "<nop>", { noremap = true })
-vim.api.nvim_set_keymap("n", ",", "<nop>", { noremap = true })
+
+local neomap        = vim.keymap.set  -- vim.api.nvim_set_keymap
+local key_opts_ns   = { noremap = true, silent = true }
+local key_opts_n    = { noremap = true }
+local key_opts_s    = { silent = true }
+neomap("", ";", ":", key_opts_n)
+neomap("n", "s", "<nop>", key_opts_ns)
+neomap("x", "s", "<nop>", key_opts_ns)
+neomap("n", "<Space>", "<nop>", key_opts_ns)
+neomap("n", ",", "<nop>", key_opts_ns)
 -- x,c仅复制,不更改寄存器.(d为剪切)
-vim.api.nvim_set_keymap("n", "x", "\"_x", { noremap = true })
-vim.api.nvim_set_keymap("v", "x", "\"_x", { noremap = true })
-vim.api.nvim_set_keymap("n", "c", "\"_c", { noremap = true })
-vim.api.nvim_set_keymap("v", "c", "\"_c", { noremap = true })
-vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true })
-vim.api.nvim_set_keymap("v", "p", "pgvy", { noremap = true })
-vim.api.nvim_set_keymap("v", "P", "Pgvy", { noremap = true })
+neomap("n", "x", "\"_x", key_opts_ns)
+neomap("v", "x", "\"_x", key_opts_ns)
+neomap("n", "c", "\"_c", key_opts_ns)
+neomap("v", "c", "\"_c", key_opts_ns)
+neomap("n", "Y", "y$", key_opts_ns)
+neomap("v", "p", "pgvy", key_opts_ns)
+neomap("v", "P", "Pgvy", key_opts_ns)
 -- 光标移动
-vim.api.nvim_set_keymap("i", "<m-h>", "<Left>", {})
-vim.api.nvim_set_keymap("i", "<m-j>", "<Down>", {})
-vim.api.nvim_set_keymap("i", "<m-k>", "<Up>", {})
-vim.api.nvim_set_keymap("i", "<m-l>", "<Right>", {})
+neomap("i", "<m-h>", "<Left>", key_opts_ns)
+neomap("i", "<m-j>", "<Down>", key_opts_ns)
+neomap("i", "<m-k>", "<Up>", key_opts_ns)
+neomap("i", "<m-l>", "<Right>", key_opts_ns)
 -- INSERT Mode下使用光标移动一个单词
-vim.api.nvim_set_keymap("i", "<C-h>", "<C-Left>", {})
-vim.api.nvim_set_keymap("i", "<C-l>", "<C-Right>", {})
+neomap("i", "<C-h>", "<C-Left>", key_opts_ns)
+neomap("i", "<C-l>", "<C-Right>", key_opts_ns)
 -- Indentation
-vim.api.nvim_set_keymap("n", "<", "<<", { noremap = true })
-vim.api.nvim_set_keymap("n", ">", ">>", { noremap = true })
+neomap("n", "<", "<<", key_opts_ns)
+neomap("n", ">", ">>", key_opts_ns)
 -- 单词的 选/改/删
-vim.api.nvim_set_keymap("n", "vi", "viw", { silent = true })
-vim.api.nvim_set_keymap("n", "ci", "ciw", { silent = true })
-vim.api.nvim_set_keymap("n", "di", "diw", { silent = true })
+neomap("n", "vi", "viw", key_opts_ns)
+neomap("n", "ci", "ciw", key_opts_ns)
+neomap("n", "di", "diw", key_opts_ns)
 -- IDE like delete
-vim.api.nvim_set_keymap("i", "<C-BS>", "<Esc>b\"_dei", {})
+neomap("i", "<C-BS>", "<Esc>b\"_dei", key_opts_ns)
 -- 代码折叠
-vim.api.nvim_set_keymap("n", "<Tab>", "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>", { noremap = true, silent = true })
+neomap("n", "<Tab>", "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>", key_opts_ns)
 -- zf:创建折叠;zd:删除折叠,仅在manual/marker中有效;zD:删除嵌套折叠,仅在manual/marker中有效;za:打开/关闭当前折叠;zM:关闭所有折叠;zR:打开所有折叠
 -------------------- spell checking --------------------
 -- 设置拼写检查开关
-vim.api.nvim_set_keymap('n', '<Leader>sc', ':set spell!<CR>', { silent = true })
+neomap('n', '<Leader>sc', ':set spell!<CR>', key_opts_ns)
 -- 拼写检查导航
-vim.api.nvim_set_keymap('n', '<leader>sn', ']s', { silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sp', '[s', { silent = true })
-vim.api.nvim_set_keymap('n', '<leader>sa', 'zg', { silent = true })
+neomap('n', '<leader>sn', ']s', key_opts_ns)
+neomap('n', '<leader>sp', '[s', key_opts_ns)
+neomap('n', '<leader>sa', 'zg', key_opts_ns)
 -- 显示单词拼写建议
-vim.api.nvim_set_keymap('n', '<leader>s?', 'z=', { silent = true })
+neomap('n', '<leader>s?', 'z=', key_opts_ns)
 -- 查找并替换
-vim.api.nvim_set_keymap('n', '<leader>z', [[:%s/\<<C-R>=expand("<cword>")<CR>\>/<C-R>=expand("<cword>")<CR>/g<left><left>]], {})
-vim.api.nvim_set_keymap('v', '<leader>z', [[:s///g<left><left><left>]], {})
+neomap('n', '<leader>z', [[:%s/\<<C-R>=expand("<cword>")<CR>\>/<C-R>=expand("<cword>")<CR>/g<left><left>]], key_opts_n)
+neomap('v', '<leader>z', [[:s///g<left><left><left>]], key_opts_n)
 -- 创建列表
-vim.api.nvim_set_keymap('n', '<leader>b', [[:put =range(,,1)<left><left><left><left>]], {})
+neomap('n', '<leader>b', [[:put =range(,,1)<left><left><left><left>]], key_opts_n)
 -------------------- 分屏 --------------------
-vim.api.nvim_set_keymap('n', 'sh', [[:set splitright<CR>:vsplit<CR>]], { silent = true })
-vim.api.nvim_set_keymap('n', 'sj', [[:set splitbelow<CR>:split<CR>]], { silent = true })
-vim.api.nvim_set_keymap('n', 'st', [[:set splitright<CR>:vsplit<CR>:Startify<CR>]], { silent = true })
+neomap('n', 'sh', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
+neomap('n', 'sj', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
+neomap('n', 'st', [[:set splitright<CR>:vsplit<CR>:Startify<CR>]], key_opts_ns)
 -- 互换分割窗口
-vim.api.nvim_set_keymap('n', '<S-h>', '<C-w>b<C-w>H', {})
--- vim.api.nvim_set_keymap('n', 'srh', '<C-w>b<C-w>K', {}) -- 注释掉，因为与 <S-h> 冲突
+neomap('n', '<S-h>', '<C-w>b<C-w>H', key_opts_ns)
+-- neomap('n', 'srh', '<C-w>b<C-w>K', {}) -- 注释掉，因为与 <S-h> 冲突
 -- 光标移动
-vim.api.nvim_set_keymap('n', '<C-l>', '<C-W><C-L>', {})
-vim.api.nvim_set_keymap('n', '<C-h>', '<C-W><C-H>', {})
--- vim.api.nvim_set_keymap('n', '<C-j>', '<C-W><C-J>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
--- vim.api.nvim_set_keymap('n', '<C-k>', '<C-W><C-K>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
+neomap('n', '<C-l>', '<C-W><C-L>', key_opts_ns)
+neomap('n', '<C-h>', '<C-W><C-H>', key_opts_ns)
+-- neomap('n', '<C-j>', '<C-W><C-J>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
+-- neomap('n', '<C-k>', '<C-W><C-K>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
 -- 终端分屏窗口移动，split navigations,smart way to move between windows
-vim.api.nvim_set_keymap('t', '<C-h>', '<C-w><C-h>', {noremap = true})
-vim.api.nvim_set_keymap('t', '<C-j>', '<C-w><C-j>', {noremap = true})
-vim.api.nvim_set_keymap('t', '<C-k>', '<C-w><C-k>', {noremap = true})
-vim.api.nvim_set_keymap('t', '<C-l>', '<C-w><C-l>', {noremap = true})
-vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', {})
+neomap('t', '<C-h>', '<C-w><C-h>', key_opts_s)
+neomap('t', '<C-j>', '<C-w><C-j>', key_opts_s)
+neomap('t', '<C-k>', '<C-w><C-k>', key_opts_s)
+neomap('t', '<C-l>', '<C-w><C-l>', key_opts_s)
+neomap('t', '<Esc>', '<C-\\><C-n>', key_opts_s)
 -- 调整分屏尺寸
-vim.api.nvim_set_keymap('n', '<C-up>', ':resize -3<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-down>', ':resize +3<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-left>', ':vertical resize +3<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-right>', ':vertical resize -3<CR>', {noremap = true})
+neomap('n', '<C-up>', ':resize -3<CR>', key_opts_ns)
+neomap('n', '<C-down>', ':resize +3<CR>', key_opts_ns)
+neomap('n', '<C-left>', ':vertical resize +3<CR>', key_opts_ns)
+neomap('n', '<C-right>', ':vertical resize -3<CR>', key_opts_ns)
 -------------------- 标签页 --------------------
 -- 支持Alt+n切换标签页
-vim.api.nvim_set_keymap('n', '<M-1>', '1gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-2>', '2gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-3>', '3gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-4>', '4gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-5>', '5gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-6>', '6gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-7>', '7gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-8>', '8gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-9>', '9gt', { noremap = true })
-vim.api.nvim_set_keymap('n', '<M-0>', ':tablast<CR>', { noremap = true })
+neomap('n', '<M-1>', '1gt', key_opts_ns)
+neomap('n', '<M-2>', '2gt', key_opts_ns)
+neomap('n', '<M-3>', '3gt', key_opts_ns)
+neomap('n', '<M-4>', '4gt', key_opts_ns)
+neomap('n', '<M-5>', '5gt', key_opts_ns)
+neomap('n', '<M-6>', '6gt', key_opts_ns)
+neomap('n', '<M-7>', '7gt', key_opts_ns)
+neomap('n', '<M-8>', '8gt', key_opts_ns)
+neomap('n', '<M-9>', '9gt', key_opts_ns)
+neomap('n', '<M-0>', ':tablast<CR>', key_opts_ns)
 -- Alt+左右键来移动标签顺序
-vim.api.nvim_set_keymap('n', '<M-left>', [[<Cmd>if tabpagenr() == 1 | execute "tabm " . tabpagenr("$") | else | execute "tabm " . (tabpagenr()-2) | endif<CR>]], {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<M-right>', [[<Cmd>if tabpagenr() == tabpagenr("$") | tabm 0 | else | execute "tabm " . tabpagenr() | endif<CR>]], {noremap = true, silent = true})
+neomap('n', '<M-left>', [[<Cmd>if tabpagenr() == 1 | execute "tabm " . tabpagenr("$") | else | execute "tabm " . (tabpagenr()-2) | endif<CR>]], key_opts_ns)
+neomap('n', '<M-right>', [[<Cmd>if tabpagenr() == tabpagenr("$") | tabm 0 | else | execute "tabm " . tabpagenr() | endif<CR>]], key_opts_ns)
 ------------- Command Mode related ---------------
-vim.api.nvim_set_keymap('c', '<C-a>', '<Home>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-e>', '<End>', {noremap = true})
--- vim.api.nvim_set_keymap('c', '<C-K>', '<C-U>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-h>', '<C-Left>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-l>', '<C-Right>', {noremap = true})
+neomap('c', '<C-a>', '<Home>', key_opts_n)
+neomap('c', '<C-e>', '<End>', key_opts_n)
+-- neomap('c', '<C-K>', '<C-U>', key_opts_n)
+neomap('c', '<C-h>', '<C-Left>', key_opts_n)
+neomap('c', '<C-l>', '<C-Right>', key_opts_n)
 -- cmdline move
-vim.api.nvim_set_keymap('c', '<M-h>', '<left>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<M-l>', '<right>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<M-j>', '<down>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<M-k>', '<up>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-j>', '<down>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-k>', '<up>', {noremap = true})
+neomap('c', '<M-h>', '<left>', key_opts_n)
+neomap('c', '<M-l>', '<right>', key_opts_n)
+neomap('c', '<M-j>', '<down>', key_opts_n)
+neomap('c', '<M-k>', '<up>', key_opts_n)
+neomap('c', '<C-j>', '<down>', key_opts_n)
+neomap('c', '<C-k>', '<up>', key_opts_n)
 -- 在命令行粘贴的快捷键
-vim.api.nvim_set_keymap('c', '<C-V>', '<C-R>+', {noremap = true})
+neomap('c', '<C-V>', '<C-R>+', key_opts_n)
 -- -------------------- function --------------------
 -- open Startify
-vim.api.nvim_set_keymap('n', '<leader>st', ':Startify<CR>', {noremap = true, silent = true})
+neomap('n', '<leader>st', ':Startify<CR>', key_opts_ns)
 -- diff line
-vim.api.nvim_set_keymap('n', '<leader>dt', ':Linediff<CR>', {noremap = true})
+neomap('n', '<leader>dt', ':Linediff<CR>', key_opts_n)
 -- vimrc
-vim.api.nvim_set_keymap('n', '<leader>rc', ':edit $MYVIMRC<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>rr', ':source $MYVIMRC<CR>', {noremap = true, silent = true})
+neomap('n', '<leader>rc', ':edit $MYVIMRC<CR>', key_opts_ns)
+neomap('n', '<leader>rr', ':source $MYVIMRC<CR>', key_opts_ns)
 -- 插入时间
 vim.cmd([[iab xtime <c-r>=strftime("20%y-%m-%d %a %H:%M")<CR>]])
 vim.cmd([[iab xdate <c-r>=strftime("20%y-%m-%d (%a)")<CR>]])
 -- 取消高亮
-vim.api.nvim_set_keymap('n', '<BS>', ':nohl<CR>', {noremap = true, silent = true})
+neomap('n', '<BS>', ':nohl<CR>', key_opts_ns)
 -- 显示列表，使用`.`表示空格
-vim.api.nvim_set_keymap('n', '<F3>', ':set list!<CR>', {noremap = true})
-vim.api.nvim_set_keymap('i', '<F3>', '<C-o>:set list!<CR>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<F3>', '<C-c>:set list!<CR>', {noremap = true})
+neomap('n', '<F3>', ':set list!<CR>', key_opts_ns)
+neomap('i', '<F3>', '<C-o>:set list!<CR>', key_opts_ns)
+neomap('c', '<F3>', '<C-c>:set list!<CR>', key_opts_ns)
 -- 高亮光标行列
-vim.api.nvim_set_keymap('n', '<F4>', ':set cuc! cul!<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('i', '<F4>', '<C-o>:set cuc! cul!<CR>', {noremap = true, silent = true})
+neomap('n', '<F4>', ':set cuc! cul!<CR>', key_opts_ns)
+neomap('i', '<F4>', '<C-o>:set cuc! cul!<CR>', key_opts_ns)
 -- }}}
 
 -- {{{ font
@@ -148,17 +153,17 @@ function! AdjustFontSize(amount)
 endfunction
 ]]
 -- keyboard
-vim.keymap.set("n", "<m-->", ":call AdjustFontSize(-1)<CR>", { silent = true })
-vim.keymap.set("n", "<m-=>", ":call AdjustFontSize(1)<CR>", { silent = true })
-vim.keymap.set("n", "<m-BS>", ":set guifont=Delugia\\ Mono:h12.01<CR>", { silent = true })
-vim.keymap.set("i", "<m-->", "<C-o>:call AdjustFontSize(-1)<CR>", { silent = true })
-vim.keymap.set("i", "<m-=>", "<C-o>:call AdjustFontSize(1)<CR>", { silent = true })
-vim.keymap.set("i", "<m-BS>", "<C-o>:set guifont=Delugia\\ Mono:h12.01<CR>", { silent = true })
+neomap("n", "<m-->", ":call AdjustFontSize(-1)<CR>", key_opts_ns)
+neomap("n", "<m-=>", ":call AdjustFontSize(1)<CR>", key_opts_ns)
+neomap("n", "<m-BS>", ":set guifont=Delugia\\ Mono:h12.01<CR>", key_opts_ns)
+neomap("i", "<m-->", "<C-o>:call AdjustFontSize(-1)<CR>", key_opts_ns)
+neomap("i", "<m-=>", "<C-o>:call AdjustFontSize(1)<CR>", key_opts_ns)
+neomap("i", "<m-BS>", "<C-o>:set guifont=Delugia\\ Mono:h12.01<CR>", key_opts_ns)
 -- mouse
-vim.keymap.set("n", "<m-ScrollWheelUp>", ":call AdjustFontSize(1)<CR>", { silent = true })
-vim.keymap.set("n", "<m-ScrollWheelDown>", ":call AdjustFontSize(-1)<CR>", { silent = true })
-vim.keymap.set("i", "<m-ScrollWheelUp>", "<ESC>:call AdjustFontSize(1)<CR>a", { silent = true })
-vim.keymap.set("i", "<m-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a", { silent = true })
+neomap("n", "<m-ScrollWheelUp>", ":call AdjustFontSize(1)<CR>", key_opts_ns)
+neomap("n", "<m-ScrollWheelDown>", ":call AdjustFontSize(-1)<CR>", key_opts_ns)
+neomap("i", "<m-ScrollWheelUp>", "<ESC>:call AdjustFontSize(1)<CR>a", key_opts_ns)
+neomap("i", "<m-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a", key_opts_ns)
 -- }}}
 
 -- {{{ options
@@ -310,7 +315,7 @@ require("lazy").setup({
     vim.g.undotree_TreeVertShape = "│"
     vim.g.undotree_TreeSplitShape = "─┘"
     vim.g.undotree_TreeReturnShape = "─┐"
-    vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle, { silent = true })
+    neomap('n', '<leader>u', vim.cmd.UndotreeToggle, key_opts_ns)
     end,
     -- 增加系统环境变量Path"D:\Program Files\Git\usr\bin",解决打开插件报错的问题.
    },
@@ -319,23 +324,26 @@ require("lazy").setup({
     cmd = "StartupTime",
     init = function()
     vim.g.startuptime_tries = 10
-    vim.keymap.set("n", "<F12>", ":StartupTime<CR>", { silent = true })
+    neomap("n", "<F12>", ":StartupTime<CR>", key_opts_ns)
     end,
   },
   {
     "arecarn/vim-crunch",
-    keys = {  "<Plug>(crunch-operator-line)","<Plug>(visual-crunch-operator)" },
+    keys = {
+            { "<Plug>(crunch-operator-line)", mode = {"n"} },
+            { "<Plug>(visual-crunch-operator)", mode = { "x" } },
+           },
     init =function()
-    vim.keymap.set("n", "<leader>,", "<Plug>(crunch-operator-line)", { silent = true })
-    vim.keymap.set("v", "<leader>,", "<Plug>(visual-crunch-operator)", { silent = true })
+    neomap("n", "<leader>,", "<Plug>(crunch-operator-line)", key_opts_ns)
+    neomap("x", "<leader>,", "<Plug>(visual-crunch-operator)<cr>", key_opts_ns)
     end,
   },
   {
     "terryma/vim-expand-region",
     keys = { "v", "<C-v>" },
     config = function()
-    vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", { silent = true })
-    vim.keymap.set("v", "<C-v>", "<Plug>(expand_region_shrink)", { silent = true })
+    neomap("v", "v", "<Plug>(expand_region_expand)", key_opts_ns)
+    neomap("v", "<C-v>", "<Plug>(expand_region_shrink)", key_opts_ns)
     end,
   },
   { "AndrewRadev/linediff.vim", cmd = {"Linediff", "LinediffAdd"} },
@@ -350,7 +358,7 @@ require("lazy").setup({
     vim.g.header_field_license_id       = ''
     end,
     init = function()
-    vim.keymap.set("n", "<F2>", ":AddHeader<CR>", { silent = true })
+    neomap("n", "<F2>", ":AddHeader<CR>", key_opts_ns)
     end,
   },
   { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
@@ -395,12 +403,12 @@ require("lazy").setup({
     vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
     end,
     init = function()
-    vim.keymap.set("n", "<localleader>fb", ":LeaderfFile :/<left><left>", {}) --文件搜索
-    vim.keymap.set("n", "<localleader>fp", ":Leaderf rg<CR>", { silent = true }) --模糊搜索,很强大的功能,迅速秒搜
-    vim.keymap.set("n", "<localleader>fl", ":LeaderfLine<CR>", { silent = true }) --关键字搜索(仅当前文件里)
-    vim.keymap.set("n", "<localleader>t", ":Leaderf bufTag<CR>", { silent = true }) --变量搜索(仅当前文件里)
-    vim.keymap.set("n", "<localleader>ff", ":Leaderf function<CR>", { silent = true }) --函数搜索(仅当前文件里)
-    vim.keymap.set("n", "<localleader>fc", ":Leaderf colorscheme<CR>", { silent = true }) --配色搜索
+    neomap("n", "<localleader>fb", ":LeaderfFile :/<left><left>", key_opts_n) --文件搜索
+    neomap("n", "<localleader>fp", ":Leaderf rg<CR>", key_opts_ns) --模糊搜索,很强大的功能,迅速秒搜
+    neomap("n", "<localleader>fl", ":LeaderfLine<CR>", key_opts_ns) --关键字搜索(仅当前文件里)
+    neomap("n", "<localleader>t", ":Leaderf bufTag<CR>", key_opts_ns) --变量搜索(仅当前文件里)
+    neomap("n", "<localleader>ff", ":Leaderf function<CR>", key_opts_ns) --函数搜索(仅当前文件里)
+    neomap("n", "<localleader>fc", ":Leaderf colorscheme<CR>", key_opts_ns) --配色搜索
     end,
   },
   {
@@ -411,10 +419,10 @@ require("lazy").setup({
             vim.g.floaterm_autoclose = 0
             vim.g.floaterm_keymap_kill = '<C-q>'
             vim.g.floaterm_keymap_next = '<leader>tn'
-            vim.keymap.set("n","<leader>to",":FloatermNew<CR>")
-            vim.keymap.set("n","<leader>tt",":FloatermToggle<CR>")
-            vim.keymap.set("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
-            vim.api.nvim_set_keymap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
+            neomap("n","<leader>to",":FloatermNew<CR>")
+            neomap("n","<leader>tt",":FloatermToggle<CR>")
+            neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
+            neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
             vim.cmd[[
             augroup Compiler_code
                 au!
@@ -674,16 +682,16 @@ require("lazy").setup({
         'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'markdown',
         'startify', 'dashboard'
     }
-    vim.keymap.set("n", "<leader>si", ":StripWhitespace<CR>", { silent = true })
+    neomap("n", "<leader>si", ":StripWhitespace<CR>", key_opts_ns)
     end,
   },
   {
     "lfv89/vim-interestingwords",
     keys = {"<leader>k"},
     config = function()
-    vim.keymap.set("n", "<leader>k", ":call InterestingWords('n')<cr>", { silent = true })
-    vim.keymap.set("v", "<leader>k", ":call InterestingWords('v')<cr>", { silent = true })
-    vim.keymap.set("n", "<leader>K", ":call UncolorAllWords()<cr>", { silent = true })
+    neomap("n", "<leader>k", ":call InterestingWords('n')<cr>", key_opts_ns)
+    neomap("v", "<leader>k", ":call InterestingWords('v')<cr>", key_opts_ns)
+    neomap("n", "<leader>K", ":call UncolorAllWords()<cr>", key_opts_ns)
     vim.g.interestingWordsGUIColors = {
       '#72b5e4', '#f0c53f', '#ff8784', '#c5c7f1',
       '#c2d735', '#78d3cc', '#ea8336', '#e43542',
@@ -807,8 +815,8 @@ require("lazy").setup({
             prev = false -- pass false to disable only this default mapping
         }
     }
-    vim.keymap.set("n", "<C-m>", "<Plug>(Marks-next)", { silent = true })
-    vim.keymap.set("n", "<S-m>", "<Plug>(Marks-prev)", { silent = true })
+    neomap("n", "<C-m>", "<Plug>(Marks-next)", key_opts_ns)
+    neomap("n", "<S-m>", "<Plug>(Marks-prev)", key_opts_ns)
     end,
   },
   {
@@ -938,10 +946,10 @@ require("lazy").setup({
     config = function()
     require("kommentary")
     vim.g.kommentary_create_default_mappings = false
-    vim.api.nvim_set_keymap("n", "<leader>cc", "<Plug>kommentary_line_increase", {})
-    vim.api.nvim_set_keymap("x", "<leader>cc", "<Plug>kommentary_visual_increase", {})
-    vim.api.nvim_set_keymap("n", "<leader>ci", "<Plug>kommentary_line_decrease", {})
-    vim.api.nvim_set_keymap("x", "<leader>ci", "<Plug>kommentary_visual_decrease", {})
+    neomap("n", "<leader>cc", "<Plug>kommentary_line_increase", {})
+    neomap("x", "<leader>cc", "<Plug>kommentary_visual_increase", {})
+    neomap("n", "<leader>ci", "<Plug>kommentary_line_decrease", {})
+    neomap("x", "<leader>ci", "<Plug>kommentary_visual_decrease", {})
     end,
   },
   {
@@ -984,7 +992,7 @@ require("lazy").setup({
           require("neo-tree")
         end
       end
-    vim.keymap.set("n", "<leader>.", ":Neotree dir=:/<left><left>", {})
+    neomap("n", "<leader>.", ":Neotree dir=:/<left><left>", {})
     end,
     config = function()
     require("neo-tree").setup({
@@ -1026,19 +1034,18 @@ require("lazy").setup({
     })
     end,
     init = function()
-    vim.keymap.set("n", "<localleader>we", ":Weather<CR>", { silent = true })
-    vim.keymap.set("n", "<localleader>wd", ":Weather3day<CR>", { silent = true })
+    neomap("n", "<localleader>we", ":Weather<CR>", key_opts_ns)
+    neomap("n", "<localleader>wd", ":Weather3day<CR>", key_opts_ns)
     end,
   },
   {
     "Vonr/align.nvim",
     keys = { "<leader>a", mode = { "x" } },
     init = function()
-    local NS = { noremap = true, silent = true }
-    --vim.keymap.set('x','<leader>aa',function()require'align'.align_to_char(1,true)end,NS)--Alignsto1character,lookingleft
-    --vim.keymap.set('x','<leader>as',function()require'align'.align_to_char(2,true,true)end,NS)--Alignsto2characters,lookingleftandwithpreviews
-    vim.keymap.set('x','<leader>a',function()require'align'.align_to_string(false,true,true)end,NS)--Alignstoastring,lookingleftandwithpreviews
-    --vim.keymap.set('x','<leader>ar',function()require'align'.align_to_string(true,true,true)end,NS)--AlignstoaLuapattern,lookingleftandwithpreviews
+    --neomap('x','<leader>aa',function()require'align'.align_to_char(1,true)end,key_opts_ns)--Alignsto1character,lookingleft
+    --neomap('x','<leader>as',function()require'align'.align_to_char(2,true,true)end,key_opts_ns)--Alignsto2characters,lookingleftandwithpreviews
+    neomap('x','<leader>a',function()require'align'.align_to_string(false,true,true)end,key_opts_ns)--Alignstoastring,lookingleftandwithpreviews
+    --neomap('x','<leader>ar',function()require'align'.align_to_string(true,true,true)end,key_opts_ns)--AlignstoaLuapattern,lookingleftandwithpreviews
      end,
   },
   { "kylechui/nvim-surround",
@@ -1058,9 +1065,9 @@ require("lazy").setup({
     keys = {"r", "R", "gr"},
     config = function()
     require('leap').opts.highlight_unlabeled_phase_one_targets = true
-    vim.keymap.set({'x', 'o', 'n'}, 'r', '<Plug>(leap-forward-to)')
-    vim.keymap.set({'x', 'o', 'n'}, 'R', '<Plug>(leap-backward-to)')
-    vim.keymap.set({'x', 'o', 'n'}, 'gr', '<Plug>(leap-cross-window)')
+    neomap({'x', 'o', 'n'}, 'r', '<Plug>(leap-forward-to)')
+    neomap({'x', 'o', 'n'}, 'R', '<Plug>(leap-backward-to)')
+    neomap({'x', 'o', 'n'}, 'gr', '<Plug>(leap-cross-window)')
     end,
   },
   {
@@ -1250,13 +1257,13 @@ require("lazy").setup({
     }
     end,
     init = function()
-    --vim.keymap.set("n", "<leader>fp", ":Telescope file_browser<cr>", { silent = true })
-    vim.keymap.set("n", "<leader>ff", ":Telescope file_browser path=:/<left><left>", {})
+    --neomap("n", "<leader>fp", ":Telescope file_browser<cr>", key_opts_ns)
+    neomap("n", "<leader>ff", ":Telescope file_browser path=:/<left><left>", key_opts_n)
     vim.cmd[[nnoremap <silent> <leader>fb :lua require("telescope.builtin").find_files({layout_strategy="vertical"})<cr>]]
-    vim.keymap.set("n", "<leader>fp", ":Telescope current_buffer_fuzzy_find<cr>", { silent = true })
-    vim.keymap.set("n", "<leader>fl", ":Telescope live_grep<cr>", { silent = true })
-    vim.keymap.set("n", "<leader>fc", ":Telescope command_history<cr>", { silent = true })
-    vim.keymap.set("n", "<leader>fs", ":Telescope search_history<cr>", { silent = true })
+    neomap("n", "<leader>fp", ":Telescope current_buffer_fuzzy_find<cr>", key_opts_ns)
+    neomap("n", "<leader>fl", ":Telescope live_grep<cr>", key_opts_ns)
+    neomap("n", "<leader>fc", ":Telescope command_history<cr>", key_opts_ns)
+    neomap("n", "<leader>fs", ":Telescope search_history<cr>", key_opts_ns)
     end,
   },
   {
@@ -1306,8 +1313,8 @@ require("lazy").setup({
     })
     end,
     init = function()
-    vim.keymap.set("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", { silent = true })
-    vim.keymap.set("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { silent = true })
+    neomap("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", key_opts_ns)
+    neomap("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", key_opts_ns)
     end,
   },
   {
@@ -1687,11 +1694,11 @@ require("lazy").setup({
         vim.diagnostic.hide()
       end
     end
-    vim.keymap.set('n', '<F6>', toggle_diagnostics)
-    vim.api.nvim_set_keymap('n', '<F5>', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
-    --vim.api.nvim_set_keymap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
-    --vim.api.nvim_set_keymap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
-    --vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
+    neomap('n', '<F6>', toggle_diagnostics)
+    neomap('n', '<F5>', '<cmd>lua vim.diagnostic.open_float()<CR>', key_opts_ns)
+    --neomap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', key_opts_ns)
+    --neomap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', key_opts_ns)
+    --neomap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', key_opts_ns)
     vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
     end,
   },
@@ -1765,7 +1772,7 @@ require("lazy").setup({
     require("luasnip/loaders/from_vscode").lazy_load({ paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"}})
     end,
     init = function()
-    vim.keymap.set("n", "<leader>rm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", { silent = true })
+    neomap("n", "<leader>rm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", key_opts_ns)
     end,
   },
   --Local plugins
@@ -1999,7 +2006,7 @@ require("lazy").setup({
 })
 -- }}}
 
--- {{{ autocmd
+-- {{{ autocmds
 vim.cmd[[
 " 中/英输入法切换
 augroup input_switching
@@ -2138,12 +2145,12 @@ if vim.g.neovide then
     -- vim.g.neovide_profiler = true               -- 左上角显示帧数
     vim.g.neovide_scroll_animation_length = 0.3
 -- Adjust transparency
-    vim.api.nvim_set_keymap('n', '<M-,>', ':let g:neovide_transparency -= 0.02<CR>:let g:neovide_transparency<CR>', {})
-    vim.api.nvim_set_keymap('n', '<M-.>', ':let g:neovide_transparency += 0.02<CR>:let g:neovide_transparency<CR>', {})
-    vim.api.nvim_set_keymap('i', '<M-,>', '<C-o>:let g:neovide_transparency -= 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
-    vim.api.nvim_set_keymap('i', '<M-.>', '<C-o>:let g:neovide_transparency += 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
+    neomap('n', '<M-,>', ':let g:neovide_transparency -= 0.02<CR>:let g:neovide_transparency<CR>', {})
+    neomap('n', '<M-.>', ':let g:neovide_transparency += 0.02<CR>:let g:neovide_transparency<CR>', {})
+    neomap('i', '<M-,>', '<C-o>:let g:neovide_transparency -= 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
+    neomap('i', '<M-.>', '<C-o>:let g:neovide_transparency += 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
 -- Toggle fullscreen
-    vim.keymap.set("n", "<m-CR>", function()
+    neomap("n", "<m-CR>", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
 end
@@ -2151,8 +2158,8 @@ end
 
 -- {{{ << goneovim >>
 if vim.g.goneovim then
-    vim.keymap.set("n", "<m-CR>", ":GonvimMaximize<CR>", { silent = true })
-    vim.keymap.set("n", "<leader>rg", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/.goneovim/settings.toml<CR>", { silent = true })
+    neomap("n", "<m-CR>", ":GonvimMaximize<CR>", key_opts_ns)
+    neomap("n", "<leader>rg", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/.goneovim/settings.toml<CR>", key_opts_ns)
 end
 -- }}}
 
