@@ -393,6 +393,7 @@ require("lazy").setup({
     vim.g.Lf_PreviewCode    = 1
     vim.g.Lf_PreviewInPopup = 1
     vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览 
+    vim.cmd([[let g:Lf_CommandMap = {'<Tab>': ['<Esc>']}]])
     -- 显示绝对路径
     vim.g.Lf_ShowRelativePath = 0
     vim.g.Lf_WildIgnore = {
