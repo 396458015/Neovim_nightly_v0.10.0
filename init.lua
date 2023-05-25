@@ -368,7 +368,7 @@ require("lazy").setup({
     config = function()
     vim.g.Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
     vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
-	vim.g.Lf_CursorBlink  = 0
+	--vim.g.Lf_CursorBlink  = 0
     vim.g.Lf_ShowDevIcons = 1
     vim.g.Lf_DevIconsFont = "Delugia Mono"
     vim.g.Lf_ReverseOrder = 1
@@ -389,10 +389,10 @@ require("lazy").setup({
 	vim.g.Lf_PopupShowBorder      = 1
 	vim.g.Lf_PopupBorders         = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
     vim.g.Lf_StlSeparator         = { left = '', right = '', font = '' }
-    -- BufTag和Function取消自动预览(<C-p>预览)
+    -- 代码预览(p)
     vim.g.Lf_PreviewCode    = 1
     vim.g.Lf_PreviewInPopup = 1
-    vim.g.Lf_PreviewResult  = { Function = 0, BufTag = 0 }
+    vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览 
     -- 显示绝对路径
     vim.g.Lf_ShowRelativePath = 0
     vim.g.Lf_WildIgnore = {
@@ -409,6 +409,7 @@ require("lazy").setup({
     neomap("n", "<localleader>t", ":Leaderf bufTag<CR>", key_opts_ns) --变量搜索(仅当前文件里)
     neomap("n", "<localleader>ff", ":Leaderf function<CR>", key_opts_ns) --函数搜索(仅当前文件里)
     neomap("n", "<localleader>fc", ":Leaderf colorscheme<CR>", key_opts_ns) --配色搜索
+    neomap("n", "<localleader>fr", ":LeaderfMru<CR>", key_opts_ns) --配色搜索
     end,
   },
   {
@@ -601,72 +602,211 @@ require("lazy").setup({
     end,
   },
   {
+    "Shatur/neovim-session-manager",
+    cmd = "SessionManager",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    init = function()
+    require('session_manager').setup({
+        --sessions_dir = require('plenary.path'):new(vim.fn.stdpath('data'), 'sessions'), -- 'C:/Users/ThinkPad/AppData/Local/nvim-data/sessions'
+        sessions_dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/SessionManager_temp",
+        path_replacer = '__', -- The character to which the path separator will be replaced for session files.
+        colon_replacer = '++', -- The character to which the colon symbol will be replaced for session files.
+        autoload_mode = require('session_manager.config').AutoloadMode.Disabled, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
+        autosave_last_session = true, -- Automatically save last session on exit and on session switch.
+        autosave_ignore_not_normal = true, -- Plugin will not save a session when no buffers are opened, or all of them aren't writable or listed.
+        autosave_ignore_filetypes = { -- All buffers of these file types will be closed before the session is saved.
+          'gitcommit',
+          'gitrebase',
+          'neo-tree',
+        },
+        autosave_only_in_session = false, -- Always autosaves session. If true, only autosaves after a session is active.
+        max_path_length = 80,  -- Shorten the display path if length exceeds this threshold. Use 0 if don't want to shorten the path at all.
+    })
+    end,
+  },
+  {
     dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/dashboard-nvim",
     event = 'BufWinEnter',
+-- startify
+--    config = function()
+--      require('dashboard').setup({
+--      theme = 'hyper',
+--      shortcut_type = 'number',
+--      config = {
+--        disable_move = false,
+--        week_header = { enable = true },
+--        packages = { enable = false },
+--        project = {
+--          enable = false,
+--        },
+--        shortcut = {
+--            {
+--              icon = ' ',
+--              desc = 'Recently files',
+--              group = 'Label',
+--              --action = 'LeaderfMru',  --leaderf
+--              action = 'Telescope oldfiles',  --Telescope
+--              key= 'f',
+--            },
+--            {
+--              icon = ' ',
+--              desc = 'dotfiles',
+--              group = 'Number',
+--              action = "edit $MYVIMRC | tcd %:p:h",--tabnew;edit
+--              key = 'd',
+--            },
+--            {
+--              icon = ' ',
+--              desc = 'New File',
+--              group = 'Number',
+--              action = 'enew',
+--              key = 'i',
+--            },
+--            {
+--              icon = " ",
+--              desc = "Last session",
+--              group = 'Number',
+--              action = "SessionManager load_last_session",
+--              key = "l",
+--            },
+--            {
+--              icon = " ",
+--              desc = "Exit",
+--              group = 'Number',
+--              action = "qa",
+--              key = "q",
+--            },
+--        },
+--        mru = { limit = 15, icon = '📚 ', label = 'Recently Files' },
+--        --header ={
+--        --},
+--        footer = function()
+--            return {
+--                '',
+--                '',
+--                [[. ,-"-.   ,-"-. ,-"-.   ,-"-. ,-"-.   ,]],
+--                [[ X | | \ / | | X | | \ / | | X | | \ / ]],
+--                [[/ \| | |X| | |/ \| | |X| | |/ \| | |X| ]],
+--                [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
+--                '',
+--                '',
+--                "🎉 NVIM(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins  in " .. require"lazy".stats().startuptime .. " ms 🎉",
+--            }
+--        end
+--      },
+--  	  hide = {
+--  		statusline = true,
+--  		tabline = true,
+--  		winbar = true,
+--  	},
+--    })
+--    end,
+--  },
+-- doom
     config = function()
-      require('dashboard').setup({
-      theme = 'hyper',
-      shortcut_type = 'number',
-      config = {
-        disable_move = false,
-        week_header = { enable = true },
-        packages = { enable = false },
-        project = {
-          enable = false,
+    require('dashboard').setup({
+    theme = 'doom',
+    config = {
+        header ={
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
+              [[   ▄████▄              ▒▒▒▒▒   ]],
+              [[  ███▄█▀              ▒ ▄▒ ▄▒  ]],
+              [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒ ]],
+              [[  █████▄             ▒▒▒▒▒▒▒▒▒ ]],
+              [[   ▀████▀            ▒ ▒ ▒ ▒ ▒ ]],
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
+              [[                               ]],
         },
-        shortcut = {
-            {
-              icon = ' ',
-              desc = 'Recently files',
-              group = 'Label',
-              --action = 'LeaderfMru',
-              action = 'Telescope oldfiles',
-              key= 'f',
-            },
-            {
-              icon = ' ',
-              desc = 'dotfiles',
-              group = 'Number',
-              action = "edit $MYVIMRC | tcd %:p:h",--tabnew;edit
-              key = 'd',
-            },
-            {
-              icon = ' ',
-              desc = 'New File',
-              group = 'Number',
-              action = 'enew',
-              key = 'i',
-            },
-            {
-              icon = " ",
-              desc = "Quit",
-              group = 'Number',
-              action = "qa",
-              key = "q",
-            },
+      center = {
+        {
+          icon    = ' ',
+          icon_hl = 'Title',
+          desc    = 'Find File',
+          desc_hl = 'String',
+          key     = 'f',
+          keymap  = 'SPC f f',
+          key_hl  = 'Number',
+          action  = 'Telescope file_browser path=:/<left><left>'
         },
-        mru = { limit = 15, icon = '📚 ', label = 'Recently Files' },
-        --header ={
-        --},
-        footer = function()
-            return {
-                '',
-                '',
-                [[. ,-"-.   ,-"-. ,-"-.   ,-"-. ,-"-.   ,]],
-                [[ X | | \ / | | X | | \ / | | X | | \ / ]],
-                [[/ \| | |X| | |/ \| | |X| | |/ \| | |X| ]],
-                [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
-                '',
-                '',
-                "🎉 NVIM(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins  in " .. require"lazy".stats().startuptime .. " ms 🎉",
-            }
-        end
+        {
+          icon    = ' ',
+          icon_hl = 'Title',
+          desc    = 'Recently files',
+          desc_hl = 'String',
+          key     = 'r',
+          key_hl  = 'Number',
+          keymap  = ', f r',  --leaderf
+          action = 'LeaderfMru',  --leaderf
+          --keymap  = 'SPC f r',  --Telescope
+          --action  = 'Telescope oldfiles',  --Telescope
+        },
+        {
+          icon    = ' ',
+          icon_hl = 'Title',
+          desc    = 'dotfile',
+          desc_hl = 'String',
+          key     = 'd',
+          keymap  = 'SPC r c',
+          key_hl  = 'Number',
+          action  = 'edit $MYVIMRC | tcd %:p:h', --tabnew;edit
+        },
+        {
+          icon    = ' ',
+          icon_hl = 'Title',
+          desc    = 'New File',
+          desc_hl = 'String',
+          key     = 'i',
+          --keymap  = 'SPC i',
+          key_hl  = 'Number',
+          action  = 'enew',
+        },
+        {
+          icon    = " ",
+          icon_hl = 'Title',
+          desc    = "Last session",
+          desc_hl = 'String',
+          key     = "l",
+          --keymap  = 'SPC l',
+          key_hl  = 'Number',
+          action  = "SessionManager load_last_session",
+        },
+        {
+          icon    = " ",
+          icon_hl = 'Title',
+          desc    = "Exit",
+          desc_hl = 'String',
+          key     = "q",
+          --keymap  = 'SPC q',
+          key_hl  = 'Number',
+          action  = "qa",
+        },
       },
-  	  hide = {
-  		statusline = true,
-  		tabline = true,
-  		winbar = true,
-  	},
+      footer = function()
+          return {
+              '',
+              '',
+              '',
+              '',
+              "🎉 NVIM(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins  in " .. require"lazy".stats().startuptime .. " ms 🎉",
+          }
+      end
+    },
+    hide = {
+        statusline = true,
+        tabline = true,
+        winbar = true,
+    },
+    --vim.api.nvim_command("hi DashboardHeader guifg=red")
     })
     end,
   },
@@ -1264,6 +1404,7 @@ require("lazy").setup({
     neomap("n", "<leader>fl", ":Telescope live_grep<cr>", key_opts_ns)
     neomap("n", "<leader>fc", ":Telescope command_history<cr>", key_opts_ns)
     neomap("n", "<leader>fs", ":Telescope search_history<cr>", key_opts_ns)
+    neomap("n", "<leader>fr", ":Telescope oldfiles<cr>", key_opts_ns)
     end,
   },
   {
@@ -1932,6 +2073,7 @@ require("lazy").setup({
         p = {"Fuzze Word" },
         l = {"Word Line" },
         f = {"File Browser" },
+        r = {"Recently files" },
         },
     ['z'] = {'Replace Word'},
     ['q'] = {'Close Buffer'},
@@ -1992,6 +2134,7 @@ require("lazy").setup({
         f = {"Function" },
         l = {"Word Line" },
         p = {"Fuzze Word" },
+        r = {"Recently files" },
         },
     ['t'] = {'Tag'},
     w = {
