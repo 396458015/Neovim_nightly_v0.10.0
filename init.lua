@@ -198,7 +198,7 @@ local vim_opts = {
     mouse = "a",
     number = true,
     relativenumber = true,
-    ruler = true,  -- 右下角显示光标位置的状态行
+    ruler = false,  -- 右下角显示光标位置的状态行
     scrolloff = 5,  -- 设置目标行与顶部底部的距离(5行)
     sessionoptions = "buffers,curdir,help,tabpages,winsize",
     shiftround = true,
@@ -305,7 +305,7 @@ require("lazy").setup({
     init = function()
     if vim.fn.has('persistent_undo') then
       vim.cmd('set undofile')
-      vim.cmd('set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/undodir')
+      vim.cmd('set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/undodir')
     end
     vim.g.undotree_DiffAutoOpen = 1
     vim.g.undotree_HelpLine = 1
@@ -364,25 +364,28 @@ require("lazy").setup({
   { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
   {
     "Yggdroot/LeaderF",
+    event = 'BufWinEnter',
     cmd = { "LeaderfFile", "Leaderf", "LeaderfLine", "LeaderfMru" },
     config = function()
     vim.g.Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
     vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
-	--vim.g.Lf_CursorBlink  = 0
+	vim.g.Lf_CursorBlink  = 0
     vim.g.Lf_ShowDevIcons = 1
     vim.g.Lf_DevIconsFont = "Delugia Mono"
     vim.g.Lf_ReverseOrder = 1
     -- don't show the help in normal mode
     vim.g.Lf_HideHelp = 1
     vim.g.Lf_UseCache = 0
+    vim.g.Lf_UseMemoryCache = 1
     vim.g.Lf_UseVersionControlTool = 0
     vim.g.Lf_IgnoreCurrentBufferName = 1
-    -- popup mode
-    vim.g.Lf_PopupColorscheme     = "onedark"
+    -- PopupColorscheme
+    --vim.g.Lf_PopupColorscheme     = "solarized"
+    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]])
     vim.g.Lf_WindowPosition       = 'popup'
     vim.g.Lf_WindowHeight         = 0.9
     vim.g.Lf_PopupHeight          = 0.7
-    vim.g.Lf_PopupWidth           = 0.4
+    vim.g.Lf_PopupWidth           = 0.45
     vim.g.Lf_PopupPosition        = {0, 0}
     vim.g.Lf_PopupPreviewPosition = 'left'
 	vim.g.Lf_PopupShowStatusline  = 0
@@ -393,24 +396,25 @@ require("lazy").setup({
     vim.g.Lf_PreviewCode    = 1
     vim.g.Lf_PreviewInPopup = 1
     vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览 
-    vim.cmd([[let g:Lf_CommandMap = {'<Tab>': ['<Esc>']}]])
+    vim.g.Lf_NeedCacheTime = 0.1  -- cache the files list,if time > 0.1s.
+    vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
     -- 显示绝对路径
     vim.g.Lf_ShowRelativePath = 0
     vim.g.Lf_WildIgnore = {
       dir = { ".svn", ".git", ".hg" },
       file = { "*.sw?", "~$*", "*.bak", "*.exe", "*.o", "*.so", "*.py[co]" },
-    }
+    },
     -- 使用:LeaderfRg 路径不全, 搜索该录下经的文件.
     vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
     end,
     init = function()
-    neomap("n", "<localleader>fb", ":LeaderfFile :/<left><left>", key_opts_n) --文件搜索
-    neomap("n", "<localleader>fp", ":Leaderf rg<CR>", key_opts_ns) --模糊搜索,很强大的功能,迅速秒搜
-    neomap("n", "<localleader>fl", ":LeaderfLine<CR>", key_opts_ns) --关键字搜索(仅当前文件里)
-    neomap("n", "<localleader>t", ":Leaderf bufTag<CR>", key_opts_ns) --变量搜索(仅当前文件里)
-    neomap("n", "<localleader>ff", ":Leaderf function<CR>", key_opts_ns) --函数搜索(仅当前文件里)
-    neomap("n", "<localleader>fc", ":Leaderf colorscheme<CR>", key_opts_ns) --配色搜索
-    neomap("n", "<localleader>fr", ":LeaderfMru<CR>", key_opts_ns) --配色搜索
+    neomap("n", "<localleader>fb", ":LeaderfFile :/<left><left>", key_opts_n)
+    neomap("n", "<localleader>fp", ":Leaderf rg<CR>", key_opts_ns)
+    neomap("n", "<localleader>fl", ":LeaderfLine<CR>", key_opts_ns)
+    neomap("n", "<localleader>t", ":Leaderf bufTag<CR>", key_opts_ns)
+    neomap("n", "<localleader>ff", ":Leaderf function<CR>", key_opts_ns)
+    neomap("n", "<localleader>fc", ":Leaderf colorscheme<CR>", key_opts_ns)
+    neomap("n", "<localleader>r", ":LeaderfMru<CR>", key_opts_ns)
     end,
   },
   {
@@ -603,29 +607,6 @@ require("lazy").setup({
     end,
   },
   {
-    "Shatur/neovim-session-manager",
-    cmd = "SessionManager",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    init = function()
-    require('session_manager').setup({
-        --sessions_dir = require('plenary.path'):new(vim.fn.stdpath('data'), 'sessions'), -- 'C:/Users/ThinkPad/AppData/Local/nvim-data/sessions'
-        sessions_dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/SessionManager_temp",
-        path_replacer = '__', -- The character to which the path separator will be replaced for session files.
-        colon_replacer = '++', -- The character to which the colon symbol will be replaced for session files.
-        autoload_mode = require('session_manager.config').AutoloadMode.Disabled, -- Define what to do when Neovim is started without arguments. Possible values: Disabled, CurrentDir, LastSession
-        autosave_last_session = true, -- Automatically save last session on exit and on session switch.
-        autosave_ignore_not_normal = true, -- Plugin will not save a session when no buffers are opened, or all of them aren't writable or listed.
-        autosave_ignore_filetypes = { -- All buffers of these file types will be closed before the session is saved.
-          'gitcommit',
-          'gitrebase',
-          'neo-tree',
-        },
-        autosave_only_in_session = false, -- Always autosaves session. If true, only autosaves after a session is active.
-        max_path_length = 80,  -- Shorten the display path if length exceeds this threshold. Use 0 if don't want to shorten the path at all.
-    })
-    end,
-  },
-  {
     dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/dashboard-nvim",
     event = 'BufWinEnter',
 -- startify
@@ -645,9 +626,9 @@ require("lazy").setup({
 --              icon = ' ',
 --              desc = 'Recently files',
 --              group = 'Label',
---              --action = 'LeaderfMru',  --leaderf
---              action = 'Telescope oldfiles',  --Telescope
---              key= 'f',
+--              action = 'LeaderfMru',  --leaderf
+--              --action = 'Telescope oldfiles',  --Telescope
+--              key= 'r',
 --            },
 --            {
 --              icon = ' ',
@@ -662,13 +643,6 @@ require("lazy").setup({
 --              group = 'Number',
 --              action = 'enew',
 --              key = 'i',
---            },
---            {
---              icon = " ",
---              desc = "Last session",
---              group = 'Number',
---              action = "SessionManager load_last_session",
---              key = "l",
 --            },
 --            {
 --              icon = " ",
@@ -746,8 +720,8 @@ require("lazy").setup({
           desc_hl = 'String',
           key     = 'r',
           key_hl  = 'Number',
-          keymap  = ', f r',  --leaderf
-          action = 'LeaderfMru',  --leaderf
+          keymap  = ', r',
+          action = 'LeaderfMru',
           --keymap  = 'SPC f r',  --Telescope
           --action  = 'Telescope oldfiles',  --Telescope
         },
@@ -770,16 +744,6 @@ require("lazy").setup({
           --keymap  = 'SPC i',
           key_hl  = 'Number',
           action  = 'enew',
-        },
-        {
-          icon    = " ",
-          icon_hl = 'Title',
-          desc    = "Last session",
-          desc_hl = 'String',
-          key     = "l",
-          --keymap  = 'SPC l',
-          key_hl  = 'Number',
-          action  = "SessionManager load_last_session",
         },
         {
           icon    = " ",
@@ -828,7 +792,10 @@ require("lazy").setup({
   },
   {
     "lfv89/vim-interestingwords",
-    keys = {"<leader>k"},
+    keys = {
+            { "<leader>k", mode = { "n" } },
+            { "<leader>k", mode = { "v" } },
+           },
     config = function()
     neomap("n", "<leader>k", ":call InterestingWords('n')<cr>", key_opts_ns)
     neomap("v", "<leader>k", ":call InterestingWords('v')<cr>", key_opts_ns)
@@ -1249,7 +1216,7 @@ require("lazy").setup({
         },
         inverse = {
           match_paren = true,
-          visual = false,       --default is true
+          visual = false,       -- default is true
           search = false,
         },
         modules = {
@@ -1347,6 +1314,66 @@ require("lazy").setup({
       on_colors = function(colors) end,
 
       on_highlights = function(highlights, colors) end,
+    })
+    end,
+  },
+  {
+    "catppuccin/nvim",
+    event = "BufReadPre",
+    config = function()
+    require("catppuccin").setup({
+        transparent_background = false,
+        show_end_of_buffer = false, -- show the '~' characters after the end of buffers
+        term_colors = true,
+        dim_inactive = {
+            enabled = false,
+            shade = "dark",
+            percentage = 0.15,
+        },
+        no_italic = false, -- Force no italic
+        no_bold = false, -- Force no bold
+        no_underline = false, -- Force no underline
+        styles = {
+            comments = {},
+            conditionals = { "italic" },
+            loops = {},
+            functions = { "italic" },
+            keywords = { "bold" },
+            strings = {},
+            variables = {},
+            numbers = { "italic" },
+            booleans = {},
+            properties = {},
+            types = { "italic", "bold" },
+            operators = {},
+        },
+        color_overrides = {
+                    latte = {
+                        mantle = "#EFF1F5",
+                    },
+                    frappe = {
+                        mantle = "#303446",
+                    },
+                    macchiato = {
+                        mantle = "#24273A",
+                    },
+                    mocha = {
+                        mantle = "#1E1E2E",
+                    },
+        },
+        custom_highlights = {},
+        integrations = {
+            cmp = true,
+            telescope = true,
+            dashboard = true,
+            leap = true,
+            mason = true,
+            neotree = true,
+            treesitter = true,
+            treesitter_context = true,
+            ts_rainbow2 = true,
+            which_key = true,
+        },
     })
     end,
   },
@@ -1984,6 +2011,14 @@ require("lazy").setup({
         require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
     elseif vim.g.colors_name == 'tokyonight' then
         require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
+    elseif vim.g.colors_name == 'catppuccin-frappe' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe' }}
+    elseif vim.g.colors_name == 'catppuccin-macchiato' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_macchiato' }}
+    elseif vim.g.colors_name == 'catppuccin-mocha' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_mocha' }}
+    elseif vim.g.colors_name == 'catppuccin-latte' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_latte' }}
     end
     end,
   }, --modified
@@ -2135,9 +2170,9 @@ require("lazy").setup({
         f = {"Function" },
         l = {"Word Line" },
         p = {"Fuzze Word" },
-        r = {"Recently files" },
         },
     ['t'] = {'Tag'},
+    ['r'] = {'Recently files'},
     w = {
         name = "Weather Forecast",
         d = {"3 day" },
@@ -2222,16 +2257,16 @@ augroup END
 
 -- {{{ colorscheme
 random_color = {
-    -- 'tokyonight-day',
-    -- 'dayfox',
-    'duskfox',
-    'terafox',
-    'nordfox',
-    'nightfox',
-    'nightfox',
-    'nightfox',
-    'nightfox',
-    'nightfox',
+    --'catppuccin-latte',
+    --'tokyonight-day',
+    --'dayfox',
+    --'duskfox',
+    --'terafox',
+    --'nordfox',
+    --'nightfox',
+    'catppuccin-frappe',
+    'catppuccin-macchiato',
+    --'catppuccin-mocha',
 }
 math.randomseed(os.time())
 local mycolor = random_color[math.random(table.getn(random_color))]
