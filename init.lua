@@ -395,7 +395,7 @@ require("lazy").setup({
     -- 代码预览(p)
     vim.g.Lf_PreviewCode    = 1
     vim.g.Lf_PreviewInPopup = 1
-    vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览 
+    vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览
     vim.g.Lf_NeedCacheTime = 0.1  -- cache the files list,if time > 0.1s.
     vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
     -- 显示绝对路径
@@ -683,24 +683,24 @@ require("lazy").setup({
     theme = 'doom',
     config = {
         header ={
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
-              [[   ▄████▄              ▒▒▒▒▒   ]],
-              [[  ███▄█▀              ▒ ▄▒ ▄▒  ]],
-              [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒ ]],
-              [[  █████▄             ▒▒▒▒▒▒▒▒▒ ]],
-              [[   ▀████▀            ▒ ▒ ▒ ▒ ▒ ]],
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
-              [[                               ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[   ▄████▄              ▒▒▒▒▒       ▒▒▒▒▒   ]],
+              [[  ███▄█▀              ▒ ▄▒ ▄▒     ▒ ▄▒ ▄▒  ]],
+              [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
+              [[  █████▄             ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
+              [[   ▀████▀            ▒ ▒ ▒ ▒ ▒   ▒ ▒ ▒ ▒ ▒ ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
+              [[                                           ]],
         },
       center = {
         {
@@ -1112,13 +1112,49 @@ require("lazy").setup({
             hijack_netrw_behavior = "open_current",
         },
         default_component_configs = {
-          indent = {
-            with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-            expander_collapsed = "",
-            expander_expanded = "",
-            expander_highlight = "NeoTreeExpander",
-          },
-        },
+    container = {
+      enable_character_fade = true,
+    },
+    indent = {
+      indent_size = 2,
+      padding = 1, -- extra padding on left hand side
+      with_markers = true,
+      indent_marker = "│",
+      last_indent_marker = "└", -- └
+      highlight = "NeoTreeIndentMarker",
+      with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+      expander_collapsed = "",
+      expander_expanded = "",
+      expander_highlight = "NeoTreeExpander",
+    },
+    icon = {
+      folder_closed = "",
+      folder_open = "",
+      folder_empty = "",
+      default = " ",
+      highlight = "NeoTreeFileIcon",
+    },
+    modified = {
+      symbol = "[+]",
+      highlight = "NeoTreeModified",
+    },
+    name = {
+      trailing_slash = false,
+      use_git_status_colors = true,
+      highlight = "NeoTreeFileName",
+    },
+    git_status = {
+      symbols = {
+        renamed = "", -- this can only be used in the git_status source
+        untracked = "",
+        ignored = "",
+        unstaged = "U",
+        staged = "",
+        conflict = "",
+      },
+    },
+
+    },
     })
     -- change neo-tree background color (transparency)
     vim.api.nvim_command("hi NeoTreeNormal guibg=none ctermbg=none guifg=none")
@@ -1319,6 +1355,7 @@ require("lazy").setup({
   },
   {
     "catppuccin/nvim",
+    name = "catppuccin",
     event = "BufReadPre",
     config = function()
     require("catppuccin").setup({
@@ -1352,13 +1389,27 @@ require("lazy").setup({
                         mantle = "#EFF1F5",
                     },
                     frappe = {
+                        text   = "#abb2bf",
                         mantle = "#303446",
                     },
                     macchiato = {
+                        text   = "#abb2bf",
                         mantle = "#24273A",
                     },
                     mocha = {
-                        mantle = "#1E1E2E",
+                        text     = "#abb2bf",
+                        --text = "#F4CDE9",
+                        subtext1 = "#DEBAD4",
+                        subtext0 = "#C8A6BE",
+                        overlay2 = "#B293A8",
+                        overlay1 = "#9C7F92",
+                        overlay0 = "#866C7D",
+                        surface2 = "#705867",
+                        surface1 = "#5A4551",
+                        surface0 = "#44313B",
+                        base     = "#352939",
+                        mantle   = "#352939", --origin "#1E1E2E"
+                        crust    = "#1a1016",
                     },
         },
         custom_highlights = {},
@@ -2266,7 +2317,7 @@ random_color = {
     --'nightfox',
     'catppuccin-frappe',
     'catppuccin-macchiato',
-    --'catppuccin-mocha',
+    'catppuccin-mocha',
 }
 math.randomseed(os.time())
 local mycolor = random_color[math.random(table.getn(random_color))]
