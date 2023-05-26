@@ -468,6 +468,21 @@ require("lazy").setup({
     end,
   },
   {
+    "kdheepak/lazygit.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+	keys = {
+		{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+	},
+    init = function()
+    vim.g.lazygit_floating_window_winblend = 0
+    vim.g.lazygit_floating_window_scaling_factor = 0.9
+    vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" }
+    vim.g.lazygit_use_neovim_remote = 0
+    end,
+  },
+  {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     build = function()
@@ -1112,49 +1127,45 @@ require("lazy").setup({
             hijack_netrw_behavior = "open_current",
         },
         default_component_configs = {
-    container = {
-      enable_character_fade = true,
-    },
-    indent = {
-      indent_size = 2,
-      padding = 1, -- extra padding on left hand side
-      with_markers = true,
-      indent_marker = "│",
-      last_indent_marker = "└", -- └
-      highlight = "NeoTreeIndentMarker",
-      with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-      expander_collapsed = "",
-      expander_expanded = "",
-      expander_highlight = "NeoTreeExpander",
-    },
-    icon = {
-      folder_closed = "",
-      folder_open = "",
-      folder_empty = "",
-      default = " ",
-      highlight = "NeoTreeFileIcon",
-    },
-    modified = {
-      symbol = "[+]",
-      highlight = "NeoTreeModified",
-    },
-    name = {
-      trailing_slash = false,
-      use_git_status_colors = true,
-      highlight = "NeoTreeFileName",
-    },
-    git_status = {
-      symbols = {
-        renamed = "", -- this can only be used in the git_status source
-        untracked = "",
-        ignored = "",
-        unstaged = "U",
-        staged = "",
-        conflict = "",
-      },
-    },
-
-    },
+            container = {
+              enable_character_fade = true,
+            },
+            indent = {
+              indent_size = 2,
+              padding = 1, -- extra padding on left hand side
+              with_markers = true,
+              indent_marker = "│",
+              last_indent_marker = "└", -- └
+              highlight = "NeoTreeIndentMarker",
+              with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+              expander_highlight = "NeoTreeExpander",
+            },
+            icon = {
+              folder_closed = "",
+              folder_open = "",
+              folder_empty = "",
+              default = " ",
+              highlight = "NeoTreeFileIcon",
+            },
+            modified = {
+              symbol = "[+]",
+              highlight = "NeoTreeModified",
+            },
+            name = {
+              trailing_slash = false,
+              use_git_status_colors = true,
+              highlight = "NeoTreeFileName",
+            },
+            git_status = {
+              symbols = {
+                untracked = "",
+                ignored = "",
+                unstaged = "U",
+                staged = "",
+                conflict = "",
+              },
+            },
+        },
     })
     -- change neo-tree background color (transparency)
     vim.api.nvim_command("hi NeoTreeNormal guibg=none ctermbg=none guifg=none")
@@ -1162,7 +1173,6 @@ require("lazy").setup({
     vim.api.nvim_command("hi NeoTreeStatusLineNC guibg=none ctermbg=none guifg=none")
     vim.api.nvim_command("hi NeoTreeNormalNC guibg=none ctermbg=none guifg=none")
     vim.api.nvim_command("hi NeoTreeVertSplit guibg=none ctermbg=none guifg=none")
-
     -- change color for NeoTreeIndent to light blue
     vim.api.nvim_command("hi NeoTreeIndentMarker guifg=#3FC5FF")
     end,
