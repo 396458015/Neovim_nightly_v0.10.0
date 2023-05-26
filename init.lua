@@ -918,7 +918,8 @@ require("lazy").setup({
   {
     "chentoast/marks.nvim",
 	keys = {
-		{ "mm", "<Plug>(Marks-setnext)", desc = "Open LazyGit" },
+		{ "mm", mode = { "n" }, "<Plug>(Marks-setnext)", desc = "Set nextMark" },
+		{ "mc", mode = { "n" }, "<Plug>(Marks-deletebuf)", desc = "Clear Marks" },
 	},
     config = function()
     require'marks'.setup {
@@ -934,7 +935,6 @@ require("lazy").setup({
             virt_text = "hello world"
         },
     }
-    neomap("n", "mc", "<Plug>(Marks-deletebuf)", key_opts_ns)
     neomap("n", "<C-m>", "<Plug>(Marks-next)", key_opts_ns)
     neomap("n", "<S-m>", "<Plug>(Marks-prev)", key_opts_ns)
     end,
@@ -2217,12 +2217,6 @@ require("lazy").setup({
     ['j'] = {'Split'},
     ['t'] = {'Vsplit-Startify'},
     }, { prefix = 's' })
-
-    local m_all = require('which-key')
-    m_all.register({
-    ['m'] = {'Set nextMark'},
-    ['c'] = {'Clear Marks'},
-    }, { prefix = 'm' })
 
     local LL_others = require('which-key')
     LL_others.register({
