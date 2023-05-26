@@ -911,15 +911,15 @@ require("lazy").setup({
         "startify",
         "lspinfo",
         "dashboard",
-        --"packer",
-        --"neogitstatus",
         "checkhealth",
     }
     end,
   },
   {
     "chentoast/marks.nvim",
-    keys = "m" ,
+	keys = {
+		{ "mm", "<Plug>(Marks-setnext)", desc = "Open LazyGit" },
+	},
     config = function()
     require'marks'.setup {
         default_mappings = false,
@@ -933,12 +933,8 @@ require("lazy").setup({
             sign = "⚑",
             virt_text = "hello world"
         },
-        mappings = {
-            delete_buf = "mc",
-            toggle = "mm",
-            prev = false -- pass false to disable only this default mapping
-        }
     }
+    neomap("n", "mc", "<Plug>(Marks-deletebuf)", key_opts_ns)
     neomap("n", "<C-m>", "<Plug>(Marks-next)", key_opts_ns)
     neomap("n", "<S-m>", "<Plug>(Marks-prev)", key_opts_ns)
     end,
@@ -1428,6 +1424,7 @@ require("lazy").setup({
             cmp = true,
             telescope = true,
             dashboard = true,
+            markdown = true,
             leap = true,
             mason = true,
             neotree = true,
@@ -2223,8 +2220,8 @@ require("lazy").setup({
 
     local m_all = require('which-key')
     m_all.register({
-    ['m'] = {'Toggle Sig'},
-    ['c'] = {'Clear Sig'},
+    ['m'] = {'Set nextMark'},
+    ['c'] = {'Clear Marks'},
     }, { prefix = 'm' })
 
     local LL_others = require('which-key')
@@ -2246,7 +2243,6 @@ require("lazy").setup({
         },
     }, { prefix = ',' })
     end,
-
   },
 })
 -- }}}
