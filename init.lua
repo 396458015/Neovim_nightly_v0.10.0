@@ -2163,6 +2163,10 @@ require("lazy").setup({
         ['i'] = {'Uncomment' },
         },
     ['e'] = {'Tree'},
+    g = {
+        name = "Git",
+        g = {"LazyGit" },
+        },
     f = {
         name = "Telescope",
         s = {"Search History" },
