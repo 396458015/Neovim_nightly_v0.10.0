@@ -1393,7 +1393,8 @@ require("lazy").setup({
         },
         color_overrides = {
                     latte = {
-                        mantle = "#EFF1F5",
+                        base = '#e1e2e7',
+                        mantle = "#e1e2e7",
                     },
                     frappe = {
                         text   = "#abb2bf",
@@ -1433,6 +1434,68 @@ require("lazy").setup({
             ts_rainbow2 = true,
             which_key = true,
         },
+    })
+    end,
+  },
+  {
+    "projekt0n/github-nvim-theme",
+    event = "BufReadPre",
+    config = function()
+    require('github-theme').setup({
+    options = {
+      -- Compiled file's destination location
+      compile_path = vim.fn.stdpath('cache') .. '/github-theme',
+      compile_file_suffix = '_compiled', -- Compiled file suffix
+      hide_end_of_buffer = true, -- Hide the '~' character at the end of the buffer for a cleaner look
+      hide_nc_statusline = true, -- Override the underline style for non-active statuslines
+      transparent = false,       -- Disable setting background
+      terminal_colors = true,    -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+      dim_inactive = false,      -- Non focused panes set to alternative background
+      module_default = true,     -- Default enable value for modules
+      styles = {                 -- Style to be applied to different syntax groups
+        comments = 'NONE',     -- Value is any valid attr-list value `:help attr-list`
+        functions = 'italic',
+        keywords = 'bold',
+        variables = 'NONE',
+        conditionals = 'italic',
+        constants = 'NONE',
+        numbers = 'italic',
+        operators = 'NONE',
+        strings = 'NONE',
+        types = 'italic, bold',
+      },
+      inverse = {                -- Inverse highlight for different types
+        match_paren = false,
+        visual = false,
+        search = false,
+      },
+      darken = {                 -- Darken floating windows and sidebar-like windows
+        floats = false,
+        sidebars = {
+          enable = true,
+          list = {},             -- Apply dark background to specific windows
+        },
+      },
+      modules = {                -- List of various plugins and additional options
+            'cmp',
+            'dashboard',
+            'indent_blankline',
+            'native_lsp',
+            'neotree',
+            'telescope',
+            'treesitter',
+            'treesitter_context',
+            'whichkey',
+            'markdown',
+            'leap',
+            'mason',
+            'ts_rainbow2',
+            'which_key',
+      },
+    },
+    palettes = {},
+    specs = {},
+    groups = {},
     })
     end,
   },
@@ -2078,6 +2141,10 @@ require("lazy").setup({
         require'lualine'.setup {options = { theme = 'max_lualine_theme_mocha' }}
     elseif vim.g.colors_name == 'catppuccin-latte' then
         require'lualine'.setup {options = { theme = 'max_lualine_theme_latte' }}
+    elseif vim.g.colors_name == 'github_dark' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_github_dark' }}
+    elseif vim.g.colors_name == 'github_light' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_github_light' }}
     end
     end,
   }, --modified
@@ -2315,14 +2382,17 @@ augroup END
 random_color = {
     --'catppuccin-latte',
     --'tokyonight-day',
+    'github_light',
     --'dayfox',
+
     --'duskfox',
     --'terafox',
     --'nordfox',
     --'nightfox',
-    'catppuccin-frappe',
-    'catppuccin-macchiato',
-    'catppuccin-mocha',
+    -- 'catppuccin-frappe',
+    -- 'catppuccin-macchiato',
+    -- 'catppuccin-mocha',
+    -- 'github_dark',
 }
 math.randomseed(os.time())
 local mycolor = random_color[math.random(table.getn(random_color))]
@@ -2343,18 +2413,20 @@ vim.api.nvim_command("hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=bold gu
 vim.api.nvim_command("hi DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#8787af")  -- 变化的行
 vim.api.nvim_command("hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e")  -- 变化的文字
 -- cmp color
-vim.api.nvim_command("hi! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
-vim.api.nvim_command("hi! CmpItemAbbrMatch guibg=NONE guifg=#569CD6")  -- Abbr
-vim.api.nvim_command("hi! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch")
-vim.api.nvim_command("hi! CmpItemKindVariable guibg=NONE guifg=#9CDCFE")  -- Variable
-vim.api.nvim_command("hi! link CmpItemKindInterface CmpItemKindVariable")
-vim.api.nvim_command("hi! link CmpItemKindText CmpItemKindVariable")
-vim.api.nvim_command("hi! CmpItemKindFunction guibg=NONE guifg=#9d79d6")  -- Function
-vim.api.nvim_command("hi! link CmpItemKindMethod CmpItemKindFunction")
-vim.api.nvim_command("hi! CmpItemKindKeyword guibg=NONE guifg=#63cdcf")  -- Keyword
-vim.api.nvim_command("hi! link CmpItemKindProperty CmpItemKindKeyword")
-vim.api.nvim_command("hi! link CmpItemKindUnit CmpItemKindKeyword")
-vim.api.nvim_command("hi! CmpItemKindSnippet guibg=NONE guifg=#d64f44")  -- Snippet
+if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+    vim.api.nvim_command("hi! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
+    vim.api.nvim_command("hi! CmpItemAbbrMatch guibg=NONE guifg=#569CD6")  -- Abbr
+    vim.api.nvim_command("hi! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch")
+    vim.api.nvim_command("hi! CmpItemKindVariable guibg=NONE guifg=#9CDCFE")  -- Variable
+    vim.api.nvim_command("hi! link CmpItemKindInterface CmpItemKindVariable")
+    vim.api.nvim_command("hi! link CmpItemKindText CmpItemKindVariable")
+    vim.api.nvim_command("hi! CmpItemKindFunction guibg=NONE guifg=#9d79d6")  -- Function
+    vim.api.nvim_command("hi! link CmpItemKindMethod CmpItemKindFunction")
+    vim.api.nvim_command("hi! CmpItemKindKeyword guibg=NONE guifg=#63cdcf")  -- Keyword
+    vim.api.nvim_command("hi! link CmpItemKindProperty CmpItemKindKeyword")
+    vim.api.nvim_command("hi! link CmpItemKindUnit CmpItemKindKeyword")
+    vim.api.nvim_command("hi! CmpItemKindSnippet guibg=NONE guifg=#d64f44")  -- Snippet
+end
 -- lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
 -- which-key background color (transparency)
