@@ -2382,17 +2382,17 @@ augroup END
 random_color = {
     --'catppuccin-latte',
     --'tokyonight-day',
-    'github_light',
+    --'github_light',
     --'dayfox',
 
     --'duskfox',
     --'terafox',
     --'nordfox',
     --'nightfox',
-    -- 'catppuccin-frappe',
-    -- 'catppuccin-macchiato',
-    -- 'catppuccin-mocha',
-    -- 'github_dark',
+    'catppuccin-frappe',
+    'catppuccin-macchiato',
+    'catppuccin-mocha',
+    --'github_dark',
 }
 math.randomseed(os.time())
 local mycolor = random_color[math.random(table.getn(random_color))]
