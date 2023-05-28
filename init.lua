@@ -41,9 +41,9 @@ neomap("i", "<C-l>", "<C-Right>", key_opts_ns)
 neomap("n", "<", "<<", key_opts_ns)
 neomap("n", ">", ">>", key_opts_ns)
 -- 单词的 选/改/删
-neomap("n", "vi", "viw", key_opts_ns)
+--[[ neomap("n", "vi", "viw", key_opts_ns)
 neomap("n", "ci", "ciw", key_opts_ns)
-neomap("n", "di", "diw", key_opts_ns)
+neomap("n", "di", "diw", key_opts_ns) ]]
 -- IDE like delete
 neomap("i", "<C-BS>", "<Esc>b\"_dei", key_opts_ns)
 -- 代码折叠
@@ -1289,35 +1289,30 @@ require("lazy").setup({
         fg1     = "#b2b2b2",
         comment = "#5c6370",
         sel0    = "#364a82", --visual
-        sel1    = "#228b22", --visual Selected
       },
       duskfox   = {
         white   = "#abb2bf",
         fg1     = "#b2b2b2",
         comment = "#5c6370",
         sel0    = "#364a82", --visual
-        sel1    = "#228b22", --visual Selected
       },
       terafox   = {
         white   = "#abb2bf",
         fg1     = "#b2b2b2",
         comment = "#5c6370",
         sel0    = "#364a82", --visual
-        sel1    = "#228b22", --visual Selected
       },
       nordfox   = {
         white   = "#abb2bf",
         fg1     = "#b2b2b2",
         comment = "#5c6370",
         sel0    = "#364a82", --visual
-        sel1    = "#228b22", --visual Selected
       },
       carbonfox = {
         white   = "#abb2bf",
         fg1     = "#b2b2b2",
         comment = "#5c6370",
         sel0    = "#364a82", --visual
-        sel1    = "#228b22", --visual Selected
       },
       dayfox    = {
         bg1     = "#e1e2e7",
@@ -1497,6 +1492,15 @@ require("lazy").setup({
     specs = {},
     groups = {},
     })
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+	keys = {
+		{ "<leader>co", mode = { "n" }, "<cmd>ColorizerToggle<cr>", desc = "Toggle color highlighter" },
+	},
+    config = function()
+    require'colorizer'.setup()
     end,
   },
   {
@@ -1883,6 +1887,7 @@ require("lazy").setup({
       		org = true,
       		markdown = true,
       		lua = true,
+      		python = true,
       		matlab = true,
       	},
       	show_prediction_strength = false
@@ -2382,53 +2387,58 @@ augroup END
 
 -- {{{ colorscheme
 random_color = {
-    --'catppuccin-latte',
-    --'tokyonight-day',
-    --'github_light',
-    --'dayfox',
+    -- 'catppuccin-latte',
+    -- 'tokyonight-day',
+    -- 'github_light',
+    -- 'dayfox',
 
-    --'duskfox',
-    --'terafox',
-    --'nordfox',
-    --'nightfox',
+    -- 'duskfox',
+    -- 'terafox',
+    -- 'nordfox',
+    -- 'nightfox',
     'catppuccin-frappe',
-    'catppuccin-macchiato',
-    'catppuccin-mocha',
-    --'github_dark',
+    -- 'catppuccin-macchiato',
+    -- 'catppuccin-mocha',
+    -- 'github_dark',
 }
 math.randomseed(os.time())
 local mycolor = random_color[math.random(table.getn(random_color))]
 vim.cmd('colorscheme ' .. mycolor)
-
--- dark & light colorscheme
-if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
-    vim.cmd('hi CursorLine gui=NONE guibg=#3C4452')
-elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
-    vim.cmd('hi CursorLine gui=NONE guibg=#c6cbd9')
-end
 -- }}}
 
 -- {{{ highlihgt (origin neovim & plugins)
+-- dark & light colorscheme
+if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+    -- search color
+    vim.api.nvim_command("hi Search guibg=#228b22")
+    -- cuc cul color
+    vim.cmd('hi CursorLine gui=NONE guibg=#3C4452')
+    vim.cmd('hi Cursorcolumn gui=NONE guibg=#3C4452')
+    -- cmp color
+    vim.api.nvim_command("hi CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
+    vim.api.nvim_command("hi CmpItemAbbrMatch guibg=NONE guifg=#569CD6")  -- Abbr
+    vim.api.nvim_command("hi link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch")
+    vim.api.nvim_command("hi CmpItemKindVariable guibg=NONE guifg=#9CDCFE")  -- Variable
+    vim.api.nvim_command("hi link CmpItemKindInterface CmpItemKindVariable")
+    vim.api.nvim_command("hi link CmpItemKindText CmpItemKindVariable")
+    vim.api.nvim_command("hi CmpItemKindFunction guibg=NONE guifg=#9d79d6")  -- Function
+    vim.api.nvim_command("hi link CmpItemKindMethod CmpItemKindFunction")
+    vim.api.nvim_command("hi CmpItemKindKeyword guibg=NONE guifg=#63cdcf")  -- Keyword
+    vim.api.nvim_command("hi link CmpItemKindProperty CmpItemKindKeyword")
+    vim.api.nvim_command("hi link CmpItemKindUnit CmpItemKindKeyword")
+    vim.api.nvim_command("hi CmpItemKindSnippet guibg=NONE guifg=#d64f44")  -- Snippet
+elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+    -- search color
+    vim.api.nvim_command("hi Search guibg=#e78284")
+    -- cuc cul color
+    vim.cmd('hi CursorLine gui=NONE guibg=#c6cbd9')
+    vim.cmd('hi Cursorcolumn gui=NONE guibg=#c6cbd9')
+end
 -- diff color (original neovim)
 vim.api.nvim_command("hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#87af87")  -- 新增的行
 vim.api.nvim_command("hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#86abdc")  -- 删除的行
 vim.api.nvim_command("hi DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#8787af")  -- 变化的行
 vim.api.nvim_command("hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e")  -- 变化的文字
--- cmp color
-if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
-    vim.api.nvim_command("hi! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
-    vim.api.nvim_command("hi! CmpItemAbbrMatch guibg=NONE guifg=#569CD6")  -- Abbr
-    vim.api.nvim_command("hi! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch")
-    vim.api.nvim_command("hi! CmpItemKindVariable guibg=NONE guifg=#9CDCFE")  -- Variable
-    vim.api.nvim_command("hi! link CmpItemKindInterface CmpItemKindVariable")
-    vim.api.nvim_command("hi! link CmpItemKindText CmpItemKindVariable")
-    vim.api.nvim_command("hi! CmpItemKindFunction guibg=NONE guifg=#9d79d6")  -- Function
-    vim.api.nvim_command("hi! link CmpItemKindMethod CmpItemKindFunction")
-    vim.api.nvim_command("hi! CmpItemKindKeyword guibg=NONE guifg=#63cdcf")  -- Keyword
-    vim.api.nvim_command("hi! link CmpItemKindProperty CmpItemKindKeyword")
-    vim.api.nvim_command("hi! link CmpItemKindUnit CmpItemKindKeyword")
-    vim.api.nvim_command("hi! CmpItemKindSnippet guibg=NONE guifg=#d64f44")  -- Snippet
-end
 -- lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
 -- which-key background color (transparency)
