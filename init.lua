@@ -364,6 +364,7 @@ require("lazy").setup({
   { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
   {
     "Yggdroot/LeaderF",
+    build = ":LeaderfInstallCExtension",
     event = 'BufWinEnter',
     cmd = { "LeaderfFile", "Leaderf", "LeaderfLine", "LeaderfMru" },
     config = function()
@@ -373,32 +374,30 @@ require("lazy").setup({
     vim.g.Lf_ShowDevIcons = 1
     vim.g.Lf_DevIconsFont = "Delugia Mono"
     vim.g.Lf_ReverseOrder = 1
-    -- don't show the help in normal mode
     vim.g.Lf_HideHelp = 1
-    vim.g.Lf_UseCache = 0
+    vim.g.Lf_UseCache = 1
     vim.g.Lf_UseMemoryCache = 1
     vim.g.Lf_UseVersionControlTool = 0
     vim.g.Lf_IgnoreCurrentBufferName = 1
-    -- PopupColorscheme
     --vim.g.Lf_PopupColorscheme     = "solarized"
-    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]])
+    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]])  -- PopupColorscheme
+	vim.g.Lf_WorkingDirectoryMode = 'Ac'
+	vim.g.Lf_DefaultMode          = 'NameOnly'
     vim.g.Lf_WindowPosition       = 'popup'
     vim.g.Lf_WindowHeight         = 0.9
+    vim.g.Lf_PopupWidth           = 0.54
     vim.g.Lf_PopupHeight          = 0.7
-    vim.g.Lf_PopupWidth           = 0.45
-    vim.g.Lf_PopupPosition        = {0, 0}
+    vim.g.Lf_PopupPosition        = { 0, 0 }
     vim.g.Lf_PopupPreviewPosition = 'left'
 	vim.g.Lf_PopupShowStatusline  = 0
 	vim.g.Lf_PopupShowBorder      = 1
 	vim.g.Lf_PopupBorders         = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
     vim.g.Lf_StlSeparator         = { left = '', right = '', font = '' }
-    -- 代码预览(p)
     vim.g.Lf_PreviewCode    = 1
     vim.g.Lf_PreviewInPopup = 1
     vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览
     vim.g.Lf_NeedCacheTime = 0.1  -- cache the files list,if time > 0.1s.
     vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
-    -- 显示绝对路径
     vim.g.Lf_ShowRelativePath = 0
     vim.g.Lf_WildIgnore = {
       dir = { ".svn", ".git", ".hg" },
@@ -456,7 +455,6 @@ require("lazy").setup({
             command! Push execute "FloatermNew!git add init.lua<CR>git commit --allow-empty-message -m \"\"<CR>git push<CR>"
             command! Pull execute "FloatermNew!git fetch --all<CR>git reset --hard origin/main<CR>"
             command! Gitlog execute "FloatermNew!git log --all --oneline --graph<CR>"
-
             " Administrator CMD mode
             nnoremap  <leader>ta  :FloatermNew<CR>runas /user:ThinkPad\Administrator cmd<CR>1234<CR>
             " nnoremap  <leader>ta  :FloatermNew<CR>runas /user:administrator cmd<CR>1234<CR>
@@ -625,75 +623,6 @@ require("lazy").setup({
   {
     dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/dashboard-nvim",
     event = 'BufWinEnter',
--- startify
---    config = function()
---      require('dashboard').setup({
---      theme = 'hyper',
---      shortcut_type = 'number',
---      config = {
---        disable_move = false,
---        week_header = { enable = true },
---        packages = { enable = false },
---        project = {
---          enable = false,
---        },
---        shortcut = {
---            {
---              icon = ' ',
---              desc = 'Recently files',
---              group = 'Label',
---              action = 'LeaderfMru',  --leaderf
---              --action = 'Telescope oldfiles',  --Telescope
---              key= 'r',
---            },
---            {
---              icon = ' ',
---              desc = 'dotfiles',
---              group = 'Number',
---              action = "edit $MYVIMRC | tcd %:p:h",--tabnew;edit
---              key = 'd',
---            },
---            {
---              icon = ' ',
---              desc = 'New File',
---              group = 'Number',
---              action = 'enew',
---              key = 'i',
---            },
---            {
---              icon = " ",
---              desc = "Exit",
---              group = 'Number',
---              action = "qa",
---              key = "q",
---            },
---        },
---        mru = { limit = 15, icon = '📚 ', label = 'Recently Files' },
---        --header ={
---        --},
---        footer = function()
---            return {
---                '',
---                '',
---                [[. ,-"-.   ,-"-. ,-"-.   ,-"-. ,-"-.   ,]],
---                [[ X | | \ / | | X | | \ / | | X | | \ / ]],
---                [[/ \| | |X| | |/ \| | |X| | |/ \| | |X| ]],
---                [[   `-!-' `-!-"   `-!-' `-!-'   `-!-' `-]],
---                '',
---                '',
---                "🎉 NVIM(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins  in " .. require"lazy".stats().startuptime .. " ms 🎉",
---            }
---        end
---      },
---  	  hide = {
---  		statusline = true,
---  		tabline = true,
---  		winbar = true,
---  	},
---    })
---    end,
---  },
--- doom
     config = function()
     require('dashboard').setup({
     theme = 'doom',
@@ -757,7 +686,6 @@ require("lazy").setup({
           desc    = 'New File',
           desc_hl = 'String',
           key     = 'i',
-          --keymap  = 'SPC i',
           key_hl  = 'Number',
           action  = 'enew',
         },
@@ -767,7 +695,6 @@ require("lazy").setup({
           desc    = "Exit",
           desc_hl = 'String',
           key     = "q",
-          --keymap  = 'SPC q',
           key_hl  = 'Number',
           action  = "qa",
         },
@@ -800,8 +727,8 @@ require("lazy").setup({
     vim.g.better_whitespace_guicolor='red'
     vim.g.strip_whitespace_on_save=0
     vim.g.better_whitespace_filetypes_blacklist = {
-        'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'markdown',
-        'startify', 'dashboard'
+                'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'markdown',
+                'startify', 'dashboard'
     }
     neomap("n", "<leader>si", ":StripWhitespace<CR>", key_opts_ns)
     end,
@@ -817,14 +744,14 @@ require("lazy").setup({
     neomap("v", "<leader>k", ":call InterestingWords('v')<cr>", key_opts_ns)
     neomap("n", "<leader>K", ":call UncolorAllWords()<cr>", key_opts_ns)
     vim.g.interestingWordsGUIColors = {
-      '#72b5e4', '#f0c53f', '#ff8784', '#c5c7f1',
-      '#c2d735', '#78d3cc', '#ea8336', '#e43542',
-      '#ebab35', '#ebe735', '#aadd32', '#dcca6b',
-      '#219286', '#2f569c', '#ffb577', '#5282a4',
-      '#edfccf', '#67064c', '#f5bca7', '#95c474',
-      '#dece83', '#de9783', '#f2e700', '#e9e9e9',
-      '#69636d', '#626b98', '#f5f5a7', '#dcca6b',
-      '#b72a83', '#6f2b9d', '#69636d', '#5f569c',
+                '#72b5e4', '#f0c53f', '#ff8784', '#c5c7f1',
+                '#c2d735', '#78d3cc', '#ea8336', '#e43542',
+                '#ebab35', '#ebe735', '#aadd32', '#dcca6b',
+                '#219286', '#2f569c', '#ffb577', '#5282a4',
+                '#edfccf', '#67064c', '#f5bca7', '#95c474',
+                '#dece83', '#de9783', '#f2e700', '#e9e9e9',
+                '#69636d', '#626b98', '#f5f5a7', '#dcca6b',
+                '#b72a83', '#6f2b9d', '#69636d', '#5f569c',
     }
     end,
   },
@@ -861,10 +788,7 @@ require("lazy").setup({
         --  return ""
         --end,
         modified = function(bufnr)
-            --return vim.fn.getbufvar(bufnr, '&modified') == 1 and '[+] ' or ''
-            --return vim.fn.getbufvar(bufnr, '&modified') == 1 and '● ' or ''
-            return vim.fn.getbufvar(bufnr, '&modified') == 1 and ' ' or ''
-            --return vim.fn.getbufvar(bufnr, '&modified') == 1 and '🈚 ' or ''
+            return vim.fn.getbufvar(bufnr, '&modified') == 1 and ' ' or ''  -- '[+] ', '● ', '🈚 '
         end,
         title = function(bufnr)
             local file = vim.fn.bufname(bufnr)
@@ -1252,7 +1176,6 @@ require("lazy").setup({
           strings = "NONE",
           types = "italic,bold",
           variables = "NONE",
-
           functions = "italic",
           keywords = "bold",
           numbers = "italic",
