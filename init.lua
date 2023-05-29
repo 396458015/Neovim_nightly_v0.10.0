@@ -2219,7 +2219,7 @@ require("lazy").setup({
     LL_others.register({
     f = {
         name = "LeaderF",
-        b = {"Open File" },
+        b = {"File Search" },
         c = {"Colorscheme" },
         f = {"Function" },
         l = {"Word Line" },
