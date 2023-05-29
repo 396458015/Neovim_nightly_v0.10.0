@@ -1498,9 +1498,9 @@ require("lazy").setup({
               indent = true,
               symbols = {
                   list = "•",
-                  headlines = {"◉", "◎", "○", "✺", "▶", "⤷" }, --neorg level1:◉⦿
-                  --headlines = { "◉", "○", "✸", "✿" },        --orgmode
-                  --headlines = {"🌸","🌱","💧","✨","💗" },   --others
+                  headlines = {"◉", "◎", "○", "✺", "▶", "⤷" }, -- neorg level1:◉⦿
+                  --headlines = { "◉", "○", "✸", "✿" },        -- orgmode
+                  --headlines = {"🌸","🌱","💧","✨","💗" },   -- others
                   checkboxes = {
                       cancelled = { '', 'OrgCancelled' },
                       half = { '', 'OrgTSCheckboxHalfChecked' },
@@ -1516,7 +1516,7 @@ require("lazy").setup({
     local orgmode = require('orgmode')
     orgmode.setup_ts_grammar()
     orgmode.setup({
-       org_agenda_files = {'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/**'},
+       org_agenda_files = { 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/**' },
        org_default_notes_file = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/index.org',
        org_hide_leading_stars = true,
        org_hide_emphasis_markers = true,
@@ -1531,6 +1531,7 @@ require("lazy").setup({
     })
     end,
     init = function()
+    vim.cmd([[au FileType org setlocal nofoldenable]]) -- 关闭打开org默认folding
     neomap("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", key_opts_ns)
     neomap("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", key_opts_ns)
     end,
