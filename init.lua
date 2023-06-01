@@ -1995,6 +1995,7 @@ require("lazy").setup({
     end,
     init = function()
     neomap("n", "<leader>rm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", key_opts_ns)
+    neomap("n", "<leader>rp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", key_opts_ns)
     end,
   },
   --Local plugins
@@ -2187,6 +2188,7 @@ require("lazy").setup({
         ['r'] = {'Reload VIMRC' },
         ['m'] = {'Matlab-Snippets' },
         ['o'] = {'Org-Snippets' },
+        ['p'] = {'Python-Snippets' },
         },
     ['s'] = {
         name = 'Tools',
