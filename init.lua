@@ -1143,18 +1143,19 @@ require("lazy").setup({
     neomap({'x', 'o', 'n'}, 'r', '<Plug>(leap-forward-to)')
     neomap({'x', 'o', 'n'}, 'R', '<Plug>(leap-backward-to)')
     neomap({'x', 'o', 'n'}, 'gr', '<Plug>(leap-cross-window)')
+    vim.api.nvim_command("hi LeapBackdrop guifg=#737994") --dim color
     end,
   },
   {
-    "ggandor/flit.nvim",
+    "jinh0/eyeliner.nvim",
     keys = {"f", "F", "t", "T"},
     config = function()
-    require('flit').setup {
-        keys = { f = 'f', F = 'F', t = 't', T = 'T' },
-        labeled_modes = "v",
-        multiline = true,
-        opts = {}
+    require'eyeliner'.setup {
+      highlight_on_key = true, -- show highlights only after keypress
+      dim = true,              -- dim all other characters if set to true (recommended!)
     }
+    vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg='#b5e395', bold = true, underline = false })
+    vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg='#d73a4a', underline = false })
     end,
   },
   {
@@ -2086,6 +2087,9 @@ require("lazy").setup({
     init = function()
     vim.g.weather_city = "Xi'an"--weather3day plug
     end,
+  },
+  {
+
   },
   {
     "folke/which-key.nvim",
