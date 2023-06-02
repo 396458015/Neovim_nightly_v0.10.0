@@ -1154,8 +1154,6 @@ require("lazy").setup({
       highlight_on_key = true, -- show highlights only after keypress
       dim = true,              -- dim all other characters if set to true (recommended!)
     }
-    vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg='#b5e395', bold = true, underline = false })
-    vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg='#d73a4a', underline = false })
     end,
   },
   {
@@ -2357,12 +2355,18 @@ if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.api.nvim_command("hi link CmpItemKindProperty CmpItemKindKeyword")
     vim.api.nvim_command("hi link CmpItemKindUnit CmpItemKindKeyword")
     vim.api.nvim_command("hi CmpItemKindSnippet guibg=NONE guifg=#d64f44")  -- Snippet
+    -- eyeliner color
+    vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg='#b5e395', bold = true, underline = false })
+    vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg='#d73a4a', underline = false })
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     -- search color
     vim.api.nvim_command("hi Search guibg=#e78284")
     -- cuc cul color
     vim.cmd('hi CursorLine gui=NONE guibg=#c6cbd9')
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#c6cbd9')
+    -- eyeliner color
+    vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg='#000000', bold = true, underline = false })
+    vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg='#e43542', underline = false })
 end
 -- diff color (original neovim)
 vim.api.nvim_command("hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#87af87")  -- 新增的行
