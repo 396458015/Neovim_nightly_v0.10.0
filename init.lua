@@ -1809,6 +1809,7 @@ require("lazy").setup({
       	ignored_file_types = {
       		org = true,
       		markdown = true,
+      		text = true,
       		lua = true,
       		python = true,
       		matlab = true,
