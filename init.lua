@@ -2381,9 +2381,8 @@ vim.api.nvim_command("hi WhichKeyFloat ctermbg=black ctermfg=black guibg=0")
 vim.api.nvim_command("hi WhichKeyBorder ctermbg=black ctermfg=black guibg=0")
 -- }}}
 
-------- GUI -------
--- {{{ << neovide >>
-if vim.g.neovide then
+-- {{{ GUI&TERM
+if vim.g.neovide then-- neovide
     vim.g.neovide_cursor_vfx_mode = "railgun"  -- "torpedo", "pixiedust", "ripple"
     vim.g.neovide_cursor_vfx_particle_density = 7.0
     vim.g.neovide_cursor_trail_length = 0.05
@@ -2398,22 +2397,23 @@ if vim.g.neovide then
     vim.g.neovide_hide_mouse_when_typing = true    -- 输入时隐藏鼠标
     -- vim.g.neovide_profiler = true               -- 左上角显示帧数
     vim.g.neovide_scroll_animation_length = 0.3
--- Adjust transparency
+    -- Adjust transparency
     neomap('n', '<M-,>', ':let g:neovide_transparency -= 0.02<CR>:let g:neovide_transparency<CR>', {})
     neomap('n', '<M-.>', ':let g:neovide_transparency += 0.02<CR>:let g:neovide_transparency<CR>', {})
     neomap('i', '<M-,>', '<C-o>:let g:neovide_transparency -= 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
     neomap('i', '<M-.>', '<C-o>:let g:neovide_transparency += 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
--- Toggle fullscreen
+    -- Toggle fullscreen
     neomap("n", "<m-CR>", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
-end
--- }}}
-
--- {{{ << goneovim >>
-if vim.g.goneovim then
+elseif vim.g.goneovim then-- gonevim
     neomap("n", "<m-CR>", ":GonvimMaximize<CR>", key_opts_ns)
     neomap("n", "<leader>rg", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/.goneovim/settings.toml<CR>", key_opts_ns)
+elseif vim.g.nvy then-- nvy
+else-- terminal
+    -- vim.api.nvim_command("hi Normal guibg=NONE")
+    -- vim.api.nvim_command("hi NonText guibg=NONE")
+    -- vim.api.nvim_command("hi SignColumn guibg=NONE")
 end
 -- }}}
 
