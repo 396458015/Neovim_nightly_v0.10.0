@@ -82,10 +82,10 @@ neomap('t', '<C-k>', '<C-w><C-k>', key_opts_s)
 neomap('t', '<C-l>', '<C-w><C-l>', key_opts_s)
 neomap('t', '<Esc>', '<C-\\><C-n>', key_opts_s)
 -- 调整分屏尺寸
-neomap('n', '<C-up>', ':resize -3<CR>', key_opts_ns)
-neomap('n', '<C-down>', ':resize +3<CR>', key_opts_ns)
-neomap('n', '<C-left>', ':vertical resize +3<CR>', key_opts_ns)
-neomap('n', '<C-right>', ':vertical resize -3<CR>', key_opts_ns)
+neomap('n', '<S-up>', ':resize -3<CR>', key_opts_ns)
+neomap('n', '<S-down>', ':resize +3<CR>', key_opts_ns)
+neomap('n', '<S-left>', ':vertical resize +3<CR>', key_opts_ns)
+neomap('n', '<S-right>', ':vertical resize -3<CR>', key_opts_ns)
 -------------------- 标签页 --------------------
 -- 支持Alt+n切换标签页
 neomap('n', '<M-1>', '1gt', key_opts_ns)
@@ -434,7 +434,9 @@ require("lazy").setup({
                 au FileType floaterm nnoremap <buffer> <Esc> :q<CR>
                 " -- Python --
                 au FileType python nnoremap <C-CR> :FloatermNew py "%:p"<CR>
+                au FileType python nnoremap <C-g> :FloatermNew py "%:p"<CR>
                 au FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
+                au FileType python noremap! <C-g>  <Esc>:FloatermToggle<CR>
                 " au FileType python tnoremap <C-CR>  <C-\><C-n>:FloatermToggle<CR>
                 " -- Python REPL --
                 nnoremap <leader>tp :FloatermNew --width=0.5 --wintype=vsplit --name=repl --position=rightbelow ipython<CR>
@@ -442,13 +444,16 @@ require("lazy").setup({
                 au FileType python vnoremap <leader>w :FloatermSend<CR>
                 " -- Matlab --
                 au FileType matlab nnoremap <silent><C-CR> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
+                au FileType matlab nnoremap <silent><C-g> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
                 " TERMINAL运行matlab代码,以'test.m'代码为例 'matlab -nosplash -nodesktop -r test'
                 " -- Fortran --
                 au FileType fortran nnoremap <C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
+                au FileType fortran nnoremap <C-g> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
                 " -- Typst --
                 " highligth file 'D:\Program Files\Neovim\share\nvim\runtime\syntax\typst.vim'
                 au BufRead,BufNewFile *.typ setlocal filetype=typst
                 au FileType typst nnoremap <C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
+                au FileType typst nnoremap <C-g> :FloatermNew --height=1.0 typst watch %:p<CR>
                 au FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
             augroup END
             " Git
@@ -519,6 +524,7 @@ require("lazy").setup({
     augroup markdown_preview
         au!
         au FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
+        au FileType markdown nnoremap <C-g> <Plug>MarkdownPreview
     augroup END
     ]]
     end,
