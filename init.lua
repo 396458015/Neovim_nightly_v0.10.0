@@ -568,6 +568,56 @@ require("lazy").setup({
     end,
   },
   { "dhruvasagar/vim-table-mode", ft = {"markdown", "org"} },
+  { "lervag/vimtex",
+    ft = {"tex", "latex", "bib"},
+    config = function()
+    vim.g.tex_flavor = "latex"
+    vim.g.vimtex_quickfix_mode = 2
+    vim.g.vimtex_compiler_latexmk_engines = { _ = "-xelatex" } --{["_"] = "-lualatex"}
+    vim.g.vimtex_view_automatic = 1
+    vim.g.vimtex_indent_on_ampersands = 0
+    vim.g.vimtex_view_general_viewer = "SumatraPDF"
+    vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
+    vim.g.vimtex_fold_enabled = true
+    -- neovim ---(highlight)---> pdf by 'lv'
+    function open_sumatra_pdf()
+        local pdf_file = vim.fn.expand('%:r') .. '.pdf'
+        if vim.fn.filereadable(pdf_file) == 0 then
+          pdf_file = ""
+        end
+        local cmd = 'cmd /c start /b "" SumatraPDF -reuse-instance ' .. pdf_file
+        os.execute(cmd)
+    end
+    vim.api.nvim_create_autocmd({"BufReadPost"}, {
+      pattern = {"*.tex", "*.latex"},
+      callback = open_sumatra_pdf,
+    })
+    -- Disable conceal
+    vim.g.vimtex_syntax_conceal = {
+        accents = 0,
+        cites = 0,
+        fancy = 0,
+        greek = 0,
+        math_bounds = 0,
+        math_delimiters = 0,
+        math_fracs = 0,
+        math_super_sub = 0,
+        math_symbols = 0,
+        sections = 0,
+        styles = 0,
+    },
+    neomap("n", "<localleader>li", "<plug>(vimtex-info)", key_opts_ns)
+    neomap("n", "<localleader>lt", "<plug>(vimtex-toc-open)", key_opts_ns)
+    neomap("n", "<localleader>lT", "<plug>(vimtex-toc-toggle)", key_opts_ns)
+    neomap("n", "<localleader>lv", "<plug>(vimtex-view)", key_opts_ns)
+    neomap("n", "<localleader>ll", "<plug>(vimtex-compile)", key_opts_ns)
+    neomap("n", "<localleader>lo", "<plug>(vimtex-compile-output)", key_opts_ns)
+    neomap("n", "<localleader>lg", "<plug>(vimtex-status)", key_opts_ns)
+    neomap("n", "<localleader>lG", "<plug>(vimtex-status-all)", key_opts_ns)
+    neomap("n", "<localleader>lc", "<plug>(vimtex-clean)", key_opts_ns)
+    neomap("n", "<localleader>lC", "<plug>(vimtex-clean-full)", key_opts_ns)
+    end,
+  },
   {
     "mhinz/vim-startify",
     cmd = "Startify",
