@@ -573,12 +573,17 @@ require("lazy").setup({
     config = function()
     vim.g.tex_flavor = "latex"
     vim.g.vimtex_quickfix_mode = 2
+    vim.g.vimtex_compiler_progname = "nvr"
+    vim.g.vimtex_view_reverse_search_edit_cmd = "nvr --remote-silent %f -c %l"
     vim.g.vimtex_compiler_latexmk_engines = { _ = "-xelatex" } --{["_"] = "-lualatex"}
     vim.g.vimtex_view_automatic = 1
     vim.g.vimtex_indent_on_ampersands = 0
     vim.g.vimtex_view_general_viewer = "SumatraPDF"
     vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
     vim.g.vimtex_fold_enabled = true
+    -- Using Treesitter requires these settings
+    vim.g.vimtex_syntax_enabled = 0
+    vim.g.vimtex_syntax_conceal_disable = 1
     -- neovim ---(highlight)---> pdf by 'lv'
     function open_sumatra_pdf()
         local pdf_file = vim.fn.expand('%:r') .. '.pdf'
