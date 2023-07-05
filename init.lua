@@ -1871,6 +1871,7 @@ require("lazy").setup({
       		org = true,
       		markdown = true,
       		text = true,
+      		tex = true,
       		lua = true,
       		python = true,
       		matlab = true,
@@ -2147,9 +2148,6 @@ require("lazy").setup({
     init = function()
     vim.g.weather_city = "Xi'an"--weather3day plug
     end,
-  },
-  {
-
   },
   {
     "folke/which-key.nvim",
