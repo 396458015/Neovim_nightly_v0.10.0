@@ -875,29 +875,63 @@ require("lazy").setup({
     end,
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
+    "shellRaining/hlchunk.nvim",
     event = "BufRead",
     config = function()
-    require("indent_blankline").setup {
-        space_char_blankline = " ",
-        show_current_context = true,
-        show_current_context_start = true,
-    }
-    end,
-    opts = function()
-    vim.g.indent_blankline_buftype_exclude = {
-        "terminal",
-        "nofile",
-        "quickfix",
-        "prompt",
-    }
-    vim.g.indent_blankline_filetype_exclude = {
-        "help",
-        "startify",
-        "lspinfo",
-        "dashboard",
-        "checkhealth",
-    }
+    require('hlchunk').setup({
+        chunk = {
+            enable = true,
+            use_treesitter = true,
+            notify = true, -- notify if some situation(like disable chunk mod double time)
+            exclude_filetypes = {
+                aerial = true,
+                dashboard = true,
+            },
+            support_filetypes = {
+                "*.lua",
+                "*.js",
+                "*.m",
+                "*.py",
+            },
+            chars = {
+                horizontal_line = "─",
+                vertical_line = "│",
+                left_top = "╭",
+                left_bottom = "╰",
+                right_arrow = ">",
+            },
+            style = {
+                { fg = "#806d9c" },
+            },
+        },
+
+        indent = {
+            enable = true,
+            use_treesitter = false,
+            chars = {
+                "¦",--│¦┆┊
+            },
+            style = {
+                { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui") }
+            },
+        },
+
+        line_num = {
+            enable = true,
+            use_treesitter = false,
+            style = "#806d9c",
+        },
+
+        blank = {
+            enable = false,
+            chars = {
+                "․",
+            },
+            style = {
+                vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
+            },
+        },
+    })
     end,
   },
   {
