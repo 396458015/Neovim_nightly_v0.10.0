@@ -2153,6 +2153,13 @@ require("lazy").setup({
     end,
   },
   {
+    "Eandrju/cellular-automaton.nvim",
+    keys = "<leader>rt",
+    config = function()
+      neomap("n", "<leader>rt", "<cmd>CellularAutomaton make_it_rain<CR>", key_opts_ns)
+    end,
+  },
+  {
     "folke/which-key.nvim",
     event = { "VeryLazy" },
     config = function()
