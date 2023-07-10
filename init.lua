@@ -1698,16 +1698,32 @@ require("lazy").setup({
             branch = "master",
             commit = "c68b3a0",
             config = function()
-            require('lspkind').presets['default']['Constructor']   =''
-            require('lspkind').presets['default']['Field']         ='⌘'
-            require('lspkind').presets['default']['Interface']     ='ﰮ'
-            require('lspkind').presets['default']['Unit']          =''
-            require('lspkind').presets['default']['Snippet']       ='✂️'
-            require('lspkind').presets['default']['Reference']     =''
-            require('lspkind').presets['default']['Struct']        =''
-            require('lspkind').presets['default']['Event']         =''
-            require('lspkind').presets['default']['TypeParameter'] =''
-        end,
+                require('lspkind').presets['default']['Constructor']   ='  '-- 
+                require('lspkind').presets['default']['Field']         ='  '-- ⌘ 
+                require('lspkind').presets['default']['Interface']     =' ﰮ '
+                require('lspkind').presets['default']['Unit']          ='  '
+                require('lspkind').presets['default']['Snippet']       ='  '-- ✂️   
+                require('lspkind').presets['default']['Reference']     ='  '
+                require('lspkind').presets['default']['Struct']        =' פּ '-- 
+                require('lspkind').presets['default']['Event']         ='  '
+                require('lspkind').presets['default']['TypeParameter'] ='  '
+                require('lspkind').presets['default']['Text']          ='  '
+                require('lspkind').presets['default']['Method']        ='  '
+                require('lspkind').presets['default']['Function']      =' ƒ '-- ƒ
+                require('lspkind').presets['default']['Variable']      ='  '
+                require('lspkind').presets['default']['Class']         =' ﴯ '
+                require('lspkind').presets['default']['Module']        ='  '
+                require('lspkind').presets['default']['Property']      =' ﰠ '
+                require('lspkind').presets['default']['Value']         ='  '
+                require('lspkind').presets['default']['Enum']          ='  '
+                require('lspkind').presets['default']['Keyword']       ='  '
+                require('lspkind').presets['default']['Color']         ='  '
+                require('lspkind').presets['default']['File']          ='  '
+                require('lspkind').presets['default']['Folder']        ='  '
+                require('lspkind').presets['default']['EnumMember']    ='  '
+                require('lspkind').presets['default']['Constant']      ='  '
+                require('lspkind').presets['default']['Operator']      ='  '
+            end,
         },
         { "hrsh7th/cmp-emoji" },
         { "hrsh7th/cmp-calc" },
@@ -1742,7 +1758,7 @@ require("lazy").setup({
     local lspkind = require('lspkind')
     local source_mapping = {
         nvim_lsp = '[LSP]',
-        path = '[PATH]',
+        path = '🖫 [PATH]',
         luasnip = '[SNIP]',
         buffer = '◉[BUF]',
         calc = '[CALC]',
@@ -1820,11 +1836,11 @@ require("lazy").setup({
             ),
         }),
         formatting = {
-            fields = { "abbr", "kind", "menu" },
-            -- fields = { "kind", "abbr", "menu" },
+            -- fields = { "abbr", "kind", "menu" },
+            fields = { "kind", "abbr", "menu" },
           	format = function(entry, vim_item)
-           		-- vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
-                vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
+           		vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
+                -- vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
            		vim_item.menu = source_mapping[entry.source.name]
            		if entry.source.name == "cmp_tabnine" then
                     local detail = (entry.completion_item.labelDetails or {}).detail
@@ -2447,18 +2463,45 @@ if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.cmd('hi CursorLine gui=NONE guibg=#3C4452')
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#3C4452')
     -- cmp color
-    vim.api.nvim_command("hi CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080")
-    vim.api.nvim_command("hi CmpItemAbbrMatch guibg=NONE guifg=#569CD6")  -- Abbr
-    vim.api.nvim_command("hi link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch")
-    vim.api.nvim_command("hi CmpItemKindVariable guibg=NONE guifg=#9CDCFE")  -- Variable
-    vim.api.nvim_command("hi link CmpItemKindInterface CmpItemKindVariable")
-    vim.api.nvim_command("hi link CmpItemKindText CmpItemKindVariable")
-    vim.api.nvim_command("hi CmpItemKindFunction guibg=NONE guifg=#9d79d6")  -- Function
-    vim.api.nvim_command("hi link CmpItemKindMethod CmpItemKindFunction")
-    vim.api.nvim_command("hi CmpItemKindKeyword guibg=NONE guifg=#63cdcf")  -- Keyword
-    vim.api.nvim_command("hi link CmpItemKindProperty CmpItemKindKeyword")
-    vim.api.nvim_command("hi link CmpItemKindUnit CmpItemKindKeyword")
-    vim.api.nvim_command("hi CmpItemKindSnippet guibg=NONE guifg=#d64f44")  -- Snippet
+	local fgdark = "#2E3440"
+	vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#569CD6", bg = "NONE", bold = true })
+	vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#569CD6", bg = "NONE", bold = true })
+	vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = "#808080", bg = "NONE", strikethrough = true })
+
+	vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#abb2bf", bg = "NONE", italic = true })
+	vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = fgdark, bg = "#D4A959" })
+	vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = fgdark, bg = "#D4A959" })
+	vim.api.nvim_set_hl(0, "CmpItemKindEvent", { fg = fgdark, bg = "#D4A959" })
+
+	vim.api.nvim_set_hl(0, "CmpItemKindText", { fg = fgdark, bg = "#9FBD73" })
+	vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = fgdark, bg = "#9FBD73" })
+	vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { fg = fgdark, bg = "#9FBD73" })
+
+	vim.api.nvim_set_hl(0, "CmpItemKindConstant", { fg = fgdark, bg = "#D4BB6C" })
+	vim.api.nvim_set_hl(0, "CmpItemKindConstructor", { fg = fgdark, bg = "#D4BB6C" })
+	vim.api.nvim_set_hl(0, "CmpItemKindReference", { fg = fgdark, bg = "#D4BB6C" })
+
+	vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = fgdark, bg = "#A377BF" })
+	vim.api.nvim_set_hl(0, "CmpItemKindStruct", { fg = fgdark, bg = "#A377BF" })
+	vim.api.nvim_set_hl(0, "CmpItemKindClass", { fg = fgdark, bg = "#A377BF" })
+	vim.api.nvim_set_hl(0, "CmpItemKindModule", { fg = fgdark, bg = "#A377BF" })
+	vim.api.nvim_set_hl(0, "CmpItemKindOperator", { fg = fgdark, bg = "#A377BF" })
+
+	vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = fgdark, bg = "#9CDCFE" })
+	vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = fgdark, bg = "#9CDCFE" })
+
+	vim.api.nvim_set_hl(0, "CmpItemKindUnit", { fg = fgdark, bg = "#d64f44" })
+	vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = fgdark, bg = "#d64f44" })
+	vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = fgdark, bg = "#d64f44" })
+
+	vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = fgdark, bg = "#6C8ED4" })
+	vim.api.nvim_set_hl(0, "CmpItemKindValue", { fg = fgdark, bg = "#6C8ED4" })
+	vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = fgdark, bg = "#6C8ED4" })
+
+	vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = fgdark, bg = "#58B5A8" })
+	vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = fgdark, bg = "#58B5A8" })
+	vim.api.nvim_set_hl(0, "CmpItemKindTypeParameter", { fg = fgdark, bg = "#58B5A8" })
+
     -- eyeliner color
     vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg='#b5e395', bold = true, underline = false })
     vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg='#d73a4a', underline = false })
