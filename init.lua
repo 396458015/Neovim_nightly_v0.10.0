@@ -386,7 +386,7 @@ require("lazy").setup({
     vim.g.Lf_WindowPosition       = 'popup'
     vim.g.Lf_WindowHeight         = 0.9
     vim.g.Lf_PopupWidth           = 0.54
-    vim.g.Lf_PopupHeight          = 0.7
+    vim.g.Lf_PopupHeight          = 0.9
     vim.g.Lf_PopupPosition        = { 0, 0 }
     vim.g.Lf_PopupPreviewPosition = 'left'
 	vim.g.Lf_PopupShowStatusline  = 0
