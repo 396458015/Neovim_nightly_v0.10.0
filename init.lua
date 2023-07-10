@@ -1821,9 +1821,9 @@ require("lazy").setup({
         }),
         formatting = {
             fields = { "abbr", "kind", "menu" },
-              --fields = { "kind", "abbr", "menu" },
+            -- fields = { "kind", "abbr", "menu" },
           	format = function(entry, vim_item)
-           		--vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
+           		-- vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
                 vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
            		vim_item.menu = source_mapping[entry.source.name]
            		if entry.source.name == "cmp_tabnine" then
