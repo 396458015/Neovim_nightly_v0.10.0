@@ -908,9 +908,7 @@ require("lazy").setup({
         indent = {
             enable = true,
             use_treesitter = false,
-            chars = {
-                "¦",--│¦┆┊
-            },
+			chars = { "│", "¦", "┆", "┊", },
             style = {
                 { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui") }
             },
