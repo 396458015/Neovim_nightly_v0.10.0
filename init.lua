@@ -1756,20 +1756,20 @@ require("lazy").setup({
     opts = function()
     local lspkind = require('lspkind')
     local source_mapping = {
-        nvim_lsp = '[LSP]',
+        nvim_lsp = 'ﲳ[LSP]',
         path = '🖫 [PATH]',
         luasnip = '[SNIP]',
-        buffer = '◉[BUF]',
+        buffer = '﬘[BUF]',
         calc = '[CALC]',
         emoji = '[EMOJI]',
         cmp_matlab = '[MAT]',
-        dictionary = '📑[Dict]',
-        treesitter = '🌲[TS]',
+        dictionary = '📚[Dict]',
+        treesitter = '[TS]',
         cmp_tabnine = '[T9]',
         orgmode = '[Org]',
         --latex_symbols = '[TEX]',
         --nuspell = '[SPELL]',
-        --spell = '[SPELL]',
+        --spell = '暈[SPELL]',
     }
     local cmp = require'cmp'
     return {
@@ -1837,6 +1837,8 @@ require("lazy").setup({
         formatting = {
             -- fields = { "abbr", "kind", "menu" },
             fields = { "kind", "abbr", "menu" },
+			maxwidth = 60,
+			maxheight = 10,
           	format = function(entry, vim_item)
            		vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
                 -- vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
@@ -1851,7 +1853,6 @@ require("lazy").setup({
            				vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
            			end
            		end
-           		local maxwidth = 80
            		vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
            		return vim_item
             end,
@@ -2461,9 +2462,9 @@ vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#569CD6", bg = "NONE", b
 vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = "#808080", bg = "NONE", strikethrough = true })
 
 vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#abb2bf", bg = "NONE", italic = true })
-vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = fgdark, bg = "#D4A959" })
-vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = fgdark, bg = "#D4A959" })
-vim.api.nvim_set_hl(0, "CmpItemKindEvent", { fg = fgdark, bg = "#D4A959" })
+vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = fgdark, bg = "#B5585F" })
+vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = fgdark, bg = "#B5585F" })
+vim.api.nvim_set_hl(0, "CmpItemKindEvent", { fg = fgdark, bg = "#B5585F" })
 
 vim.api.nvim_set_hl(0, "CmpItemKindText", { fg = fgdark, bg = "#9FBD73" })
 vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = fgdark, bg = "#9FBD73" })
@@ -2482,13 +2483,13 @@ vim.api.nvim_set_hl(0, "CmpItemKindOperator", { fg = fgdark, bg = "#A377BF" })
 vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = fgdark, bg = "#9CDCFE" })
 vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = fgdark, bg = "#9CDCFE" })
 
-vim.api.nvim_set_hl(0, "CmpItemKindUnit", { fg = fgdark, bg = "#d64f44" })
-vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = fgdark, bg = "#d64f44" })
-vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = fgdark, bg = "#d64f44" })
+vim.api.nvim_set_hl(0, "CmpItemKindUnit", { fg = fgdark, bg = "#eb5e28" })
+vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = fgdark, bg = "#eb5e28" })
+vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = fgdark, bg = "#eb5e28" })
 
-vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = fgdark, bg = "#6C8ED4" })
-vim.api.nvim_set_hl(0, "CmpItemKindValue", { fg = fgdark, bg = "#6C8ED4" })
-vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = fgdark, bg = "#6C8ED4" })
+vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = fgdark, bg = "#7287fd" })
+vim.api.nvim_set_hl(0, "CmpItemKindValue", { fg = fgdark, bg = "#7287fd" })
+vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = fgdark, bg = "#7287fd" })
 
 vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = fgdark, bg = "#58B5A8" })
 vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = fgdark, bg = "#58B5A8" })
