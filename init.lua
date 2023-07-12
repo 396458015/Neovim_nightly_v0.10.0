@@ -1233,13 +1233,19 @@ require("lazy").setup({
   },
   {
     "ggandor/leap.nvim",
-    keys = {"r", "R", "gr"},
+    keys = {"r"},
     config = function()
-    require('leap').opts.highlight_unlabeled_phase_one_targets = true
-    neomap({'x', 'o', 'n'}, 'r', '<Plug>(leap-forward-to)')
-    neomap({'x', 'o', 'n'}, 'R', '<Plug>(leap-backward-to)')
-    neomap({'x', 'o', 'n'}, 'gr', '<Plug>(leap-cross-window)')
-    vim.api.nvim_command("hi LeapBackdrop guifg=#737994") --dim color
+        local leap =require('leap')
+        leap.opts.highlight_unlabeled_phase_one_targets = true
+        vim.api.nvim_command("hi LeapBackdrop guifg=#737994") --dim color
+        -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
+	    leap.opts.highlight_unlabeled_phase_one_targets = true
+	    leap.opts.safe_labels = {}
+	    leap.opts.labels = { 'a', 'r', 's', 't', 'n', 'e', 'i', 'o', 'w', 'f', 'u', 'y', 'd', 'h' }
+        neomap({"n", "x", "o"}, "r", function ()
+            local current_window = vim.fn.win_getid()
+            leap.leap { target_windows = { current_window } }
+        end)
     end,
   },
   {
@@ -1673,16 +1679,6 @@ require("lazy").setup({
           strategy = rainbow.strategy.global,
       },
     }
-    -- matlab syntax highlighting
-    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-    parser_config.matlab = {
-        install_info = {
-            url = "https://github.com/mstanciu552/tree-sitter-matlab.git",
-            files = { "src/parser.c" },
-            branch = "main",
-        },
-        filetype = "matlab",
-    }
     end,
   },
   {
@@ -1765,7 +1761,6 @@ require("lazy").setup({
         cmp_matlab = '[MAT]',
         dictionary = '📚[Dict]',
         treesitter = '[TS]',
-        cmp_tabnine = '[T9]',
         orgmode = '[Org]',
         --latex_symbols = '[TEX]',
         --nuspell = '[SPELL]',
@@ -1795,10 +1790,6 @@ require("lazy").setup({
         sorting = {
             priority_weight = 2,
             comparators = {
-                require('cmp_tabnine.compare'),
-                cmp.config.compare.offset,
-                cmp.config.compare.exact,
-                cmp.config.compare.score,
                 require("cmp-under-comparator").under,
                 cmp.config.compare.kind,
                 cmp.config.compare.sort_text,
@@ -1843,16 +1834,6 @@ require("lazy").setup({
            		vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
                 -- vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
            		vim_item.menu = source_mapping[entry.source.name]
-           		if entry.source.name == "cmp_tabnine" then
-                    local detail = (entry.completion_item.labelDetails or {}).detail
-           			vim_item.kind = ""
-           			if detail and detail:find('.*%%.*') then
-           				vim_item.kind = vim_item.kind .. ' ' .. detail
-           			end
-           			if (entry.completion_item.data or {}).multiline then
-           				vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
-           			end
-           		end
            		vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
            		return vim_item
             end,
@@ -1867,7 +1848,6 @@ require("lazy").setup({
             { name = 'cmp_matlab' },
             { name = "dictionary", keyword_length = 2 },
             { name = "treesitter" },
-            { name = "cmp_tabnine" },
             { name = "orgmode" },
             --{ name = "latex_symbols" },
         })
@@ -1908,32 +1888,6 @@ require("lazy").setup({
     dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" },
   },
   {
-    "tzachar/cmp-tabnine",
-    build = "powershell ./install.ps1",
-    event = "InsertEnter",
-    dependencies = "hrsh7th/nvim-cmp",
-    config = function()
-    local tabnine = require('cmp_tabnine.config')
-    tabnine:setup({
-      	max_lines = 1000,
-      	max_num_results = 20,
-      	sort = true,
-      	run_on_every_keystroke = true,
-      	snippet_placeholder = '..',
-      	ignored_file_types = {
-      		org = true,
-      		markdown = true,
-      		text = true,
-      		tex = true,
-      		lua = true,
-      		python = true,
-      		matlab = true,
-      	},
-      	show_prediction_strength = false
-    })
-    end,
-  },
-  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -1948,7 +1902,8 @@ require("lazy").setup({
         { "williamboman/mason-lspconfig.nvim" },
     },
     config = function()
-    local lsp_list = { "pylsp", "vimls", "lua_ls" }
+    -- local lsp_list = { "pylsp", "vimls", "lua_ls", "matlab_ls" }
+    local lsp_list = { "pylsp" }
     require("mason-lspconfig").setup({
         ensure_installed = lsp_list
     })
@@ -1971,6 +1926,10 @@ require("lazy").setup({
         }
       end
     end
+    -- pylsp
+    -- change C:\Users\ThinkPad\AppData\Local\nvim-data\mason\packages\python-lsp-server\venv\pyvenv.cfg:
+    -- include-system-site-packages = true
+    -- for completions 3rd party modules
     require('lspconfig').pylsp.setup {
         capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         settings = {
@@ -1989,23 +1948,25 @@ require("lazy").setup({
             },
         },
     }
-    require('lspconfig').lua_ls.setup {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { 'vim' }
+    if vim.fn.executable('lua-language-server')==1 then
+        require('lspconfig').lua_ls.setup {
+            capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { 'vim' }
+                    },
+                    workspace = {
+                        library = vim.api.nvim_get_runtime_file("", true),
+                        checkThirdParty = false,
+                    },
+                    telemetry = { enable = false },
+                    format = { enable = false },
+                    semantic = { enable = false },
                 },
-                workspace = {
-                    library = vim.api.nvim_get_runtime_file("", true),
-                    checkThirdParty = false,
-                },
-                telemetry = { enable = false },
-                format = { enable = false },
-                semantic = { enable = false },
             },
-        },
-    }
+        }
+    end
     end,
     opts = function()
     -- diagnostic
