@@ -1998,6 +1998,7 @@ require("lazy").setup({
     --neomap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', key_opts_ns)
     --neomap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', key_opts_ns)
     vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
+    neomap('n', '<leader>=', function() vim.lsp.buf.format { async = true } end, key_opts_ns) -- Format
     end,
   },
   {
@@ -2170,6 +2171,15 @@ require("lazy").setup({
       neomap("n", "<leader>rt", "<cmd>CellularAutomaton make_it_rain<CR>", key_opts_ns)
     end,
   },
+  { "HaoHao-Ting/vim-matlab-formatter",
+    ft = "matlab",
+    cmd = "MatlabFormatter",
+    config = function()
+    if vim.bo.filetype == 'matlab' then
+      neomap('n', '<leader>=', ':MatlabFormatter<CR>', key_opts_ns)
+    end
+    end,
+  },
   {
     "folke/which-key.nvim",
     event = { "VeryLazy" },
@@ -2265,6 +2275,7 @@ require("lazy").setup({
     ['/'] = {'Search <Pattern>'},
     ['.'] = {'Open Path'},
     [','] = {'Calculator'},
+    ['='] = {'Format'},
     ['r'] = {
         name = 'VIMRC & Snippets',
         ['c'] = {'Edit VIMRC' },
