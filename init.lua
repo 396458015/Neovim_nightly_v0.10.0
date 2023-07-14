@@ -710,7 +710,7 @@ require("lazy").setup({
         },
       center = {
         {
-          icon    = ' ',
+          icon    = '  ',
           icon_hl = 'Title',
           desc    = 'Find File',
           desc_hl = 'String',
@@ -720,7 +720,7 @@ require("lazy").setup({
           action  = 'Telescope file_browser path=:/<left><left>'
         },
         {
-          icon    = ' ',
+          icon    = '  ',
           icon_hl = 'Title',
           desc    = 'Recently files',
           desc_hl = 'String',
@@ -732,7 +732,7 @@ require("lazy").setup({
           --action  = 'Telescope oldfiles',  --Telescope
         },
         {
-          icon    = ' ',
+          icon    = '  ',
           icon_hl = 'Title',
           desc    = 'dotfile',
           desc_hl = 'String',
@@ -742,7 +742,7 @@ require("lazy").setup({
           action  = 'edit $MYVIMRC | tcd %:p:h', --tabnew;edit
         },
         {
-          icon    = ' ',
+          icon    = '  ',
           icon_hl = 'Title',
           desc    = 'New File',
           desc_hl = 'String',
@@ -751,7 +751,16 @@ require("lazy").setup({
           action  = 'enew',
         },
         {
-          icon    = " ",
+          icon    = '💤 ',
+          icon_hl = 'Title',
+          desc    = 'Lazy',
+          desc_hl = 'String',
+          key     = 'l',
+          key_hl  = 'Number',
+          action  = 'Lazy',
+        },
+        {
+          icon    = "  ",
           icon_hl = 'Title',
           desc    = "Exit",
           desc_hl = 'String',
@@ -1669,7 +1678,6 @@ require("lazy").setup({
       indent = {
         enable = true,
       },
-      -- yati = { enable = true },  -- treesitter indent plugin
       rainbow = {
           enable = true,
           query = {
@@ -1754,9 +1762,9 @@ require("lazy").setup({
     local source_mapping = {
         nvim_lsp = 'ﲳ[LSP]',
         path = '🖫 [PATH]',
-        luasnip = '[SNIP]',
+        luasnip = '',
         buffer = '﬘[BUF]',
-        calc = '[CALC]',
+        calc = '💻[CALC]',
         emoji = '[EMOJI]',
         cmp_matlab = '[MAT]',
         dictionary = '📚[Dict]',
