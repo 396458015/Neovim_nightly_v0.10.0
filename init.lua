@@ -1705,7 +1705,7 @@ require("lazy").setup({
                 lspkind_icons['Field']         = '  '-- ⌘ 
                 lspkind_icons['Interface']     = ' ﰮ '
                 lspkind_icons['Unit']          = '  '
-                lspkind_icons['Snippet']       = '  '-- ✂️   
+                lspkind_icons['Snippet']       = '  '-- ✂️   
                 lspkind_icons['Reference']     = '  '
                 lspkind_icons['Struct']        = ' פּ '-- 
                 lspkind_icons['Event']         = '  '
@@ -1798,6 +1798,7 @@ require("lazy").setup({
             ghost_text = true,
             native_menu = false,
         },
+
         sorting = {
             priority_weight = 2,
             comparators = {
@@ -2449,11 +2450,14 @@ vim.cmd('colorscheme ' .. mycolor)
 -- {{{ highlihgt (origin neovim & plugins)
 -- cmp color
 local fgdark = "#2E3440"
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#569CD6", bg = "NONE", bold = true })
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#569CD6", bg = "NONE", bold = true })
+
+vim.api.nvim_set_hl(0, "CmpItemAbbr", { fg = "#949cbb", bg = "NONE" })
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#9CDCFE", bg = "NONE", bold = true })
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#d73a4a", bg = "NONE", bold = true })
 vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = "#808080", bg = "NONE", strikethrough = true })
 
-vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#abb2bf", bg = "NONE", italic = true })
+vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#ef9f76", bg = "NONE", italic = true })-- #abb2bf
+
 vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = fgdark, bg = "#B5585F" })
 vim.api.nvim_set_hl(0, "CmpItemKindProperty", { fg = fgdark, bg = "#B5585F" })
 vim.api.nvim_set_hl(0, "CmpItemKindEvent", { fg = fgdark, bg = "#B5585F" })
