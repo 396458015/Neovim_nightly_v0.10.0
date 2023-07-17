@@ -1764,7 +1764,7 @@ require("lazy").setup({
         path = '🖫 ',--[PATH]
         luasnip = '',
         buffer = '﬘',--[BUF]
-        calc = '',--[CALC]
+        calc = '',--[CALC]
         emoji = '😄',--[EMOJI]
         cmp_matlab = '[MAT]',
         dictionary = '',--[Dict]
