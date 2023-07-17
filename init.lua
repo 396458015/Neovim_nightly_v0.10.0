@@ -1760,16 +1760,16 @@ require("lazy").setup({
     opts = function()
     local lspkind = require('lspkind')
     local source_mapping = {
-        nvim_lsp = 'ﲳ[LSP]',
-        path = '🖫 [PATH]',
+        nvim_lsp = 'ﲳ',--[LSP]
+        path = '🖫 ',--[PATH]
         luasnip = '',
-        buffer = '﬘[BUF]',
-        calc = '💻[CALC]',
-        emoji = '[EMOJI]',
+        buffer = '﬘',--[BUF]
+        calc = '',--[CALC]
+        emoji = '😄',--[EMOJI]
         cmp_matlab = '[MAT]',
-        dictionary = '📚[Dict]',
-        treesitter = '[TS]',
-        orgmode = '[Org]',
+        dictionary = '',--[Dict]
+        treesitter = '',--[TS]
+        orgmode = '',--[Org]
         --latex_symbols = '[TEX]',
         --nuspell = '[SPELL]',
         --spell = '暈[SPELL]',
@@ -1785,7 +1785,10 @@ require("lazy").setup({
         end,
         },
         window = {
-            completion = cmp.config.window.bordered(),
+            completion = cmp.config.window.bordered({
+                side_padding = 0,
+                col_offset = -4,
+            }),
             documentation = {
                 border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
                 winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
@@ -1842,7 +1845,16 @@ require("lazy").setup({
            		vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
                 -- vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
            		vim_item.menu = source_mapping[entry.source.name]
-           		vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
+           		-- vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
+                function trim(text)
+                    local max = 40
+                    if text and text:len() > max then
+                        text = text:sub(1,max) .. "..."
+                    end
+                    return text
+                end
+                vim_item.abbr = trim(vim_item.abbr)
+           		-- vim_item.abbr = vim_item.abbr:match("[^(]+")
            		return vim_item
             end,
         },
