@@ -1947,6 +1947,37 @@ require("lazy").setup({
         }
       end
     end
+    -- Use LspAttach autocommand to only map the following keys
+    -- after the language server attaches to the current buffer
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+      callback = function(ev) -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        -- Buffer local mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local opts = { buffer = ev.buf }
+        neomap('n', 'gd', vim.lsp.buf.definition, opts)
+        neomap('n', 'gD', vim.lsp.buf.type_definition, opts)
+        neomap('n', 'K', vim.lsp.buf.hover, opts)
+        neomap('n', 'gr', vim.lsp.buf.references, opts)
+        neomap('n', 'gi', vim.lsp.buf.implementation, opts)
+        neomap('n', '<space>r', vim.lsp.buf.rename, opts)
+        neomap('i', '<C-h>', vim.lsp.buf.signature_help, opts)
+        -- neomap({ 'n', 'v' }, ';', vim.lsp.buf.code_action, opts)
+        -- neomap('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+        -- neomap('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+        -- neomap('n', '<space>wl', function()
+        --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        -- end, opts)
+      end,
+    })
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      border = "single",
+    })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = "single",
+    })
+    ------------ lsp language config ------------
     -- pylsp
     -- change C:\Users\ThinkPad\AppData\Local\nvim-data\mason\packages\python-lsp-server\venv\pyvenv.cfg:
     -- include-system-site-packages = true
