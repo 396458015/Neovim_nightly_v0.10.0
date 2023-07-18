@@ -1243,28 +1243,34 @@ require("lazy").setup({
   {
     "folke/flash.nvim",
     keys = {
-      { "r", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "R", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "f", mode = { "n", "o", "x" },},
-      { "F", mode = { "n" },},
-      { "t", mode = { "n" },},
-      { "T", mode = { "n" },},
-      -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      -- { "<C-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+           { "r", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+           { "R", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+           { "f", mode = { "n" } },
+           { "F", mode = { "n" } },
+           { "t", mode = { "n" } },
+           { "T", mode = { "n" } },
+           -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+           -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+           -- { "<C-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
 	opts = {
+        jump = {
+            -- automatically jump when there is only one match
+            autojump = true,
+        },
 		label = {
+            after = { 0, 0 },
 			rainbow = {
-                enabled = true, shade = 3,
+                enabled = true,
+                shade = 3,
             },
 		},
 		modes = {
             -- `f`, `F`, `t`, `T`, `;` and `,` motions
             char = {
-                    enabled = true,
-                    jump_labels = true,
-                    autohide = true,
+                enabled = true,
+                jump_labels = true,
+                autohide = true,
             },
             -- a regular search with `/` or `?`
 			search = {
