@@ -398,6 +398,7 @@ require("lazy").setup({
     vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览
     vim.g.Lf_NeedCacheTime = 0.1  -- cache the files list,if time > 0.1s.
     vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
+    vim.g.Lf_MruMaxFiles = 2048 -- Specify the number of most recently used files you want LeaderF to record (default: 100).
     vim.g.Lf_ShowRelativePath = 0
     vim.g.Lf_WildIgnore = {
       dir = { ".svn", ".git", ".hg" },
