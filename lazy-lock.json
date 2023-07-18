@@ -1,5 +1,5 @@
 {
-  "LeaderF": { "branch": "master", "commit": "50430a7d67dc7e48498509cb85afdae021796bf3" },
+  "LeaderF": { "branch": "master", "commit": "ed13a2ff5fd6dfbbc9fdc15bea43ec03a6e8dbb6" },
   "LuaSnip": { "branch": "master", "commit": "b4bc24c4925aeb05fd47d2ee9b24b7f73f5d7e32" },
   "align.nvim": { "branch": "master", "commit": "2004d263bb1b1ec28e55cf56c35944ec4ea23f8b" },
   "catppuccin": { "branch": "main", "commit": "1d3eda15703ba70f57e94e6451db55914ff7017f" },
@@ -65,7 +65,7 @@
   "vim-matlab-formatter": { "branch": "main", "commit": "506b46c0dfcd3a90ba49460eff43debdf07f03c1" },
   "vim-mine-sweeping": { "branch": "main", "commit": "7db1246d8a0a0bed1dc468ea866e04afd6fbb995" },
   "vim-startify": { "branch": "master", "commit": "81e36c352a8deea54df5ec1e2f4348685569bed2" },
-  "vim-startuptime": { "branch": "master", "commit": "01b67169c3ebe41f163c07bf6853555ca19bc27f" },
+  "vim-startuptime": { "branch": "master", "commit": "454b3de856b7bd298700de33d79774ca9b9e3875" },
   "vim-table-mode": { "branch": "master", "commit": "9555a3e6e5bcf285ec181b7fc983eea90500feb4" },
   "vim-visual-increment": { "branch": "master", "commit": "0e55bb4054cdd5eefc0bb870f3e3c249673817cb" },
   "vim-visual-multi": { "branch": "master", "commit": "724bd53adfbaf32e129b001658b45d4c5c29ca1a" },
