@@ -1241,31 +1241,37 @@ require("lazy").setup({
     end,
   },
   {
-    "ggandor/leap.nvim",
-    keys = {"r"},
-    config = function()
-        local leap =require('leap')
-        leap.opts.highlight_unlabeled_phase_one_targets = true
-        vim.api.nvim_command("hi LeapBackdrop guifg=#737994") --dim color
-        -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
-	    leap.opts.highlight_unlabeled_phase_one_targets = true
-	    leap.opts.safe_labels = {}
-	    leap.opts.labels = { 'a', 'r', 's', 't', 'n', 'e', 'i', 'o', 'w', 'f', 'u', 'y', 'd', 'h' }
-        neomap({"n", "x", "o"}, "r", function ()
-            local current_window = vim.fn.win_getid()
-            leap.leap { target_windows = { current_window } }
-        end)
-    end,
-  },
-  {
-    "jinh0/eyeliner.nvim",
-    keys = {"f", "F", "t", "T"},
-    config = function()
-    require'eyeliner'.setup {
-      highlight_on_key = true, -- show highlights only after keypress
-      dim = true,              -- dim all other characters if set to true (recommended!)
-    }
-    end,
+    "folke/flash.nvim",
+    keys = {
+      { "r", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "R", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "f", mode = { "n", "o", "x" },},
+      { "F", mode = { "n" },},
+      { "t", mode = { "n" },},
+      { "T", mode = { "n" },},
+      -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      -- { "<C-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+	opts = {
+		label = {
+			rainbow = {
+                enabled = true, shade = 3,
+            },
+		},
+		modes = {
+            -- `f`, `F`, `t`, `T`, `;` and `,` motions
+            char = {
+                    enabled = true,
+                    jump_labels = true,
+                    autohide = true,
+            },
+            -- a regular search with `/` or `?`
+			search = {
+				enabled = false,
+			},
+		},
+	},
   },
   {
     "EdenEast/nightfox.nvim",
@@ -1302,7 +1308,6 @@ require("lazy").setup({
           treesitter = true,
           whichkey = true,
           tsrainbow2 = true,
-          leap = true,
           indent_blanklines = true,
           dashboard = true,
         },
@@ -1454,7 +1459,6 @@ require("lazy").setup({
             telescope = true,
             dashboard = true,
             markdown = true,
-            leap = true,
             mason = true,
             neotree = true,
             treesitter = true,
@@ -1515,7 +1519,6 @@ require("lazy").setup({
             'treesitter_context',
             'whichkey',
             'markdown',
-            'leap',
             'mason',
             'ts_rainbow2',
             'which_key',
@@ -2558,18 +2561,12 @@ if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     -- cuc cul color
     vim.cmd('hi CursorLine gui=NONE guibg=#3C4452')
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#3C4452')
-    -- eyeliner color
-    vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg='#b5e395', bold = true, underline = false })
-    vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg='#d73a4a', underline = false })
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     -- search color
     vim.api.nvim_command("hi Search guibg=#e78284")
     -- cuc cul color
     vim.cmd('hi CursorLine gui=NONE guibg=#c6cbd9')
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#c6cbd9')
-    -- eyeliner color
-    vim.api.nvim_set_hl(0, 'EyelinerPrimary', { fg='#000000', bold = true, underline = false })
-    vim.api.nvim_set_hl(0, 'EyelinerSecondary', { fg='#e43542', underline = false })
 end
 -- diff color (original neovim)
 vim.api.nvim_command("hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#87af87")  -- 新增的行
