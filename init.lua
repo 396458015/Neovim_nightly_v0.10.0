@@ -1256,7 +1256,7 @@ require("lazy").setup({
 	opts = {
         jump = {
             -- automatically jump when there is only one match
-            autojump = true,
+            autojump = false,
         },
 		label = {
             after = { 0, 0 },
