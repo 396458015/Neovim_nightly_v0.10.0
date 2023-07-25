@@ -2064,6 +2064,22 @@ require("lazy").setup({
     end,
   },
   {
+    "j-hui/fidget.nvim", -- LSP progress indicator
+    tag = "legacy",
+    event = "LspAttach",
+    opts = {
+            text = {
+                spinner = "moon",
+            },
+			align = {
+				bottom = true,
+			},
+            window = {
+                relative = "editor",
+            },
+        },
+  },
+  {
     "ray-x/lsp_signature.nvim",
     event = "InsertEnter",
     dependencies = { "hrsh7th/nvim-cmp" },
