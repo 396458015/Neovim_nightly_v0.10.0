@@ -573,9 +573,12 @@ require("lazy").setup({
     ft = {"tex", "latex", "bib"},
     config = function()
     vim.g.tex_flavor = "latex"
-    vim.g.vimtex_quickfix_mode = 2
+    vim.g.vimtex_quickfix_mode = 1
     vim.g.vimtex_compiler_progname = "nvr"
     vim.g.vimtex_view_reverse_search_edit_cmd = "nvr --remote-silent %f -c %l"
+    vim.g.vimtex_compiler_latexmk = {
+      continuous = 0,
+    }
     vim.g.vimtex_compiler_latexmk_engines = { _ = "-xelatex" } --{["_"] = "-lualatex"}
     vim.g.vimtex_view_automatic = 1
     vim.g.vimtex_indent_on_ampersands = 0
@@ -2117,7 +2120,7 @@ require("lazy").setup({
      close_timeout = 4000, -- close floating window after ms when laster parameter is entered
      fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
      hint_enable = true, -- virtual hint enable
-     hint_prefix = "🤔 ",--🐼,
+     hint_prefix = "🧐 ",--🐼,🧐🤔
      hint_scheme = "String",
      hi_parameter = "lsp_signature_highlight",  -- "Cursor" "IncSearch" "Visual" "Search"
      handler_opts = {
