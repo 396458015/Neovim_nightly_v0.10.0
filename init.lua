@@ -339,12 +339,24 @@ require("lazy").setup({
     end,
   },
   {
-    "terryma/vim-expand-region",
-    keys = { "v", "<C-v>" },
-    config = function()
-    neomap("v", "v", "<Plug>(expand_region_expand)", key_opts_ns)
-    neomap("v", "<C-v>", "<Plug>(expand_region_shrink)", key_opts_ns)
-    end,
+  	"sustech-data/wildfire.nvim",
+    keys = { "<CR>" },
+  	dependencies = { "nvim-treesitter/nvim-treesitter" },
+  	config = function()
+  		require("wildfire").setup({
+  			surrounds = {
+  				{ "(", ")" },
+  				{ "{", "}" },
+  				{ "<", ">" },
+  				{ "[", "]" },
+  			},
+  			keymaps = {
+                  init_selection = "<CR>",
+                  node_incremental = "<CR>",
+                  node_decremental = "<BS>",
+  			},
+  		})
+  	end,
   },
   { "AndrewRadev/linediff.vim", cmd = {"Linediff", "LinediffAdd"} },
   {
@@ -2065,22 +2077,6 @@ require("lazy").setup({
     vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
     neomap('n', '<leader>=', function() vim.lsp.buf.format { async = true } end, key_opts_ns) -- Format
     end,
-  },
-  {
-    "j-hui/fidget.nvim", -- LSP progress indicator
-    tag = "legacy",
-    event = "LspAttach",
-    opts = {
-            text = {
-                spinner = "moon",
-            },
-			align = {
-				bottom = true,
-			},
-            window = {
-                relative = "editor",
-            },
-        },
   },
   {
     "ray-x/lsp_signature.nvim",
