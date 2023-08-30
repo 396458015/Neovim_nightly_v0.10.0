@@ -738,7 +738,7 @@ require("lazy").setup({
         {
           icon    = ' ',--
           icon_hl = 'Title',
-          desc    = 'Recently files',
+          desc    = 'Recently Files',
           desc_hl = 'String',
           key     = 'r',
           key_hl  = 'Number',
@@ -750,7 +750,7 @@ require("lazy").setup({
         {
           icon    = ' ',
           icon_hl = 'Title',
-          desc    = 'dotfile',
+          desc    = 'Dotfile',
           desc_hl = 'String',
           key     = 'd',
           keymap  = 'SPC r c',
@@ -769,7 +769,7 @@ require("lazy").setup({
         {
           icon    = '鈴',--
           icon_hl = 'Title',
-          desc    = 'Manage plugins',
+          desc    = 'Manage Plugins',
           desc_hl = 'String',
           key     = 'l',
           key_hl  = 'Number',
