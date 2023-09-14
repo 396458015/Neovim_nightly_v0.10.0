@@ -299,404 +299,8 @@ require("lazy").setup({
       }
     end,
   },
-  {
-    "mbbill/undotree",
-    cmd = "UndotreeToggle",
-    init = function()
-    if vim.fn.has('persistent_undo') then
-      vim.cmd('set undofile')
-      vim.cmd('set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/undodir')
-    end
-    vim.g.undotree_DiffAutoOpen = 1
-    vim.g.undotree_HelpLine = 1
-    vim.g.undotree_SetFocusWhenToggle = 1
-    vim.g.undotree_ShortIndicators = 1
-    vim.g.undotree_TreeNodeShape = "├"
-    vim.g.undotree_TreeVertShape = "│"
-    vim.g.undotree_TreeSplitShape = "─┘"
-    vim.g.undotree_TreeReturnShape = "─┐"
-    neomap('n', '<leader>u', vim.cmd.UndotreeToggle, key_opts_ns)
-    end,
-    -- 增加系统环境变量Path"D:\Program Files\Git\usr\bin",解决打开插件报错的问题.
-   },
-  {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
-    init = function()
-    vim.g.startuptime_tries = 10
-    neomap("n", "<F12>", ":StartupTime<CR>", key_opts_ns)
-    end,
-  },
-  {
-    "arecarn/vim-crunch",
-    keys = {
-            { "<Plug>(crunch-operator-line)", mode = {"n"} },
-            { "<Plug>(visual-crunch-operator)", mode = { "x" } },
-           },
-    init =function()
-    neomap("n", "<leader>,", "<Plug>(crunch-operator-line)", key_opts_ns)
-    neomap("x", "<leader>,", "<Plug>(visual-crunch-operator)<cr>", key_opts_ns)
-    end,
-  },
-  {
-  	"sustech-data/wildfire.nvim",
-    keys = { "<CR>" },
-  	dependencies = { "nvim-treesitter/nvim-treesitter" },
-  	config = function()
-  		require("wildfire").setup({
-  			surrounds = {
-  				{ "(", ")" },
-  				{ "{", "}" },
-  				{ "<", ">" },
-  				{ "[", "]" },
-  			},
-  			keymaps = {
-                  init_selection = "<CR>",
-                  node_incremental = "<CR>",
-                  node_decremental = "<BS>",
-  			},
-  		})
-  	end,
-  },
-  { "AndrewRadev/linediff.vim", cmd = {"Linediff", "LinediffAdd"} },
-  {
-    "alpertuna/vim-header",
-    cmd = "AddHeader",
-    config = function()
-    vim.g.header_field_author           = 'Max'
-    vim.g.header_field_author_email     = 'ismaxiaolong@gmail.com'
-    vim.g.header_field_timestamp_format = '%Y.%m.%d'
-    vim.g.header_field_modified_by      = 0
-    vim.g.header_field_license_id       = ''
-    end,
-    init = function()
-    neomap("n", "<F2>", ":AddHeader<CR>", key_opts_ns)
-    end,
-  },
-  { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
-  {
-    "Yggdroot/LeaderF",
-    build = ":LeaderfInstallCExtension",
-    event = 'BufWinEnter',
-    cmd = { "LeaderfFile", "Leaderf", "LeaderfLine", "LeaderfMru" },
-    config = function()
-    vim.g.Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
-    vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
-	vim.g.Lf_CursorBlink  = 0
-    vim.g.Lf_ShowDevIcons = 1
-    vim.g.Lf_DevIconsFont = "Delugia Mono"
-    vim.g.Lf_ReverseOrder = 1
-    vim.g.Lf_HideHelp = 1
-    vim.g.Lf_UseCache = 1
-    vim.g.Lf_UseMemoryCache = 1
-    vim.g.Lf_UseVersionControlTool = 0
-    vim.g.Lf_IgnoreCurrentBufferName = 1
-    --vim.g.Lf_PopupColorscheme     = "solarized"
-    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]])  -- PopupColorscheme
-	vim.g.Lf_WorkingDirectoryMode = 'Ac'
-	vim.g.Lf_DefaultMode          = 'NameOnly'
-    vim.g.Lf_WindowPosition       = 'popup'
-    vim.g.Lf_WindowHeight         = 0.9
-    vim.g.Lf_PopupWidth           = 0.54
-    vim.g.Lf_PopupHeight          = 0.9
-    vim.g.Lf_PopupPosition        = { 0, 0 }
-    vim.g.Lf_PopupPreviewPosition = 'left'
-	vim.g.Lf_PopupShowStatusline  = 0
-	vim.g.Lf_PopupShowBorder      = 1
-	vim.g.Lf_PopupBorders         = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
-    vim.g.Lf_StlSeparator         = { left = '', right = '', font = '' }
-    vim.g.Lf_PreviewCode    = 1
-    vim.g.Lf_PreviewInPopup = 1
-    vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览
-    vim.g.Lf_NeedCacheTime = 0.1  -- cache the files list,if time > 0.1s.
-    vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
-    vim.g.Lf_MruMaxFiles = 2048 -- Specify the number of most recently used files you want LeaderF to record (default: 100).
-    vim.g.Lf_ShowRelativePath = 0
-    vim.g.Lf_WildIgnore = {
-      dir = { ".svn", ".git", ".hg" },
-      file = { "*.sw?", "~$*", "*.bak", "*.exe", "*.o", "*.so", "*.py[co]" },
-    },
-    -- 使用:LeaderfRg 路径不全, 搜索该录下经的文件.
-    vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
-    end,
-    init = function()
-    neomap("n", "<localleader>fb", ":LeaderfFile :/<left><left>", key_opts_n)
-    neomap("n", "<localleader>fp", ":Leaderf rg<CR>", key_opts_ns)
-    neomap("n", "<localleader>fl", ":LeaderfLine<CR>", key_opts_ns)
-    neomap("n", "<localleader>t", ":Leaderf bufTag<CR>", key_opts_ns)
-    neomap("n", "<localleader>ff", ":Leaderf function<CR>", key_opts_ns)
-    neomap("n", "<localleader>fc", ":Leaderf colorscheme<CR>", key_opts_ns)
-    neomap("n", "<localleader>r", ":LeaderfMru<CR>", key_opts_ns)
-    end,
-  },
-  {
-    "voldikss/vim-floaterm",
-    cmd = { "FloatermNew", "FloatermSend" },
-    init = function()
-            vim.api.nvim_command("hi FloatermBorder guibg=#3e4452 guifg=#5c6370")
-            vim.g.floaterm_autoclose = 0
-            vim.g.floaterm_keymap_kill = '<C-q>'
-            vim.g.floaterm_keymap_next = '<leader>tn'
-            neomap("n","<leader>to",":FloatermNew<CR>")
-            neomap("n","<leader>tt",":FloatermToggle<CR>")
-            neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
-            neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
-            vim.cmd[[
-            augroup Compiler_code
-                au!
-                au FileType floaterm nnoremap <buffer> <Esc> :q<CR>
-                " -- Python --
-                au FileType python nnoremap <C-CR> :FloatermNew py "%:p"<CR>
-                au FileType python nnoremap <C-g> :FloatermNew py "%:p"<CR>
-                au FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
-                au FileType python noremap! <C-g>  <Esc>:FloatermToggle<CR>
-                " au FileType python tnoremap <C-CR>  <C-\><C-n>:FloatermToggle<CR>
-                " -- Python REPL --
-                nnoremap <leader>tp :FloatermNew --width=0.5 --wintype=vsplit --name=repl --position=rightbelow ipython<CR>
-                au FileType python nnoremap <leader>w :FloatermSend<CR>
-                au FileType python vnoremap <leader>w :FloatermSend<CR>
-                " -- Matlab --
-                au FileType matlab nnoremap <silent><C-CR> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
-                au FileType matlab nnoremap <silent><C-g> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
-                " TERMINAL运行matlab代码,以'test.m'代码为例 'matlab -nosplash -nodesktop -r test'
-                " -- Fortran --
-                au FileType fortran nnoremap <C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
-                au FileType fortran nnoremap <C-g> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
-                " -- Typst --
-                " highligth file 'D:\Program Files\Neovim\share\nvim\runtime\syntax\typst.vim'
-                au BufRead,BufNewFile *.typ setlocal filetype=typst
-                au FileType typst nnoremap <C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
-                au FileType typst nnoremap <C-g> :FloatermNew --height=1.0 typst watch %:p<CR>
-                au FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
-            augroup END
-            " Git
-            command! Push execute "FloatermNew!git add init.lua<CR>git commit --allow-empty-message -m \"\"<CR>git push<CR>"
-            command! Pull execute "FloatermNew!git fetch --all<CR>git reset --hard origin/main<CR>"
-            command! Gitlog execute "FloatermNew!git log --all --oneline --graph<CR>"
-            " Administrator CMD mode
-            nnoremap  <leader>ta  :FloatermNew<CR>runas /user:ThinkPad\Administrator cmd<CR>1234<CR>
-            " nnoremap  <leader>ta  :FloatermNew<CR>runas /user:administrator cmd<CR>1234<CR>
-            " 'runas /user:administrator cmd' 进入管理员CMD的前提是开启管理员账号
-            " 开启管理员账号: net user administrator /active:yes
-            " 关闭管理员账号: net user administrator /active:no
-            " 设置管理员密码(1234): net user administrator 1234
-            ]]
-    end,
-  },
-  {
-    "kdheepak/lazygit.nvim",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
-	keys = {
-		{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
-	},
-    init = function()
-    vim.g.lazygit_floating_window_winblend = 0
-    vim.g.lazygit_floating_window_scaling_factor = 0.9
-    vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" }
-    vim.g.lazygit_floating_window_use_plenary = 0
-    vim.g.lazygit_use_neovim_remote = 0
-    end,
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    ft = "markdown",
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-    init = function()
-    vim.g.mkdp_auto_start = 0
-    vim.g.mkdp_auto_close = 0
-    vim.g.mkdp_refresh_slow = 0
-    vim.g.mkdp_command_for_global = 0
-    vim.g.mkdp_open_to_the_world = 0
-    vim.g.mkdp_open_ip = ""
-    vim.g.mkdp_echo_preview_url = 0
-    vim.g.mkdp_browserfunc = ""
-    vim.g.mkdp_preview_options = {
-      mkit = {},
-      katex = {},
-      uml = {},
-      maid = {},
-      disable_sync_scroll = 0,
-      sync_scroll_type = "middle",
-      hide_yaml_meta = 1,
-      sequence_diagrams = {},
-      flowchart_diagrams = {},
-      content_editable = "v:false",
-      disable_filename = 0,
-    }
-    --设置预览代码高亮(绝对路径)
-    vim.g.mkdp_markdown_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/github-markdown.css"
-    vim.g.mkdp_highlight_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown.css"
-    --vim.g.mkdp_highlight_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown_highlight_solarized_dark.css"
-    vim.g.mkdp_port = ""
-    vim.g.mkdp_page_title = "「${name}」"
-    vim.cmd[[
-    augroup markdown_preview
-        au!
-        au FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
-        au FileType markdown nnoremap <C-g> <Plug>MarkdownPreview
-    augroup END
-    ]]
-    end,
-  },
-  {
-    "plasticboy/vim-markdown",
-    ft = "markdown",
-    config = function()
-    vim.g.vim_markdown_toc_autofit = 1                 -- Enable TOC window auto-fit,调节合适的窗口尺寸
-
-    vim.g.vim_markdown_conceal = 0                     -- 取消隐藏 Markdown          语法符号
-    vim.g.vim_markdown_conceal_code_blocks = 0         -- 取消隐藏 代码块            符号 ```
-    vim.g.tex_conceal = ""                             -- 取消隐藏 LaTeX math syntax 符号
-
-    vim.g.vim_markdown_math = 1                        -- 高亮显示 LaTeX math
-    vim.g.vim_markdown_strikethrough = 1               -- 划线文本显示,由 ~~xx~~ 变为 划线~~xx~~划线
-
-    vim.g.vim_markdown_new_list_item_indent = 2        -- *item1 *item2 缩进距离为2(默认是4).
-    vim.g.vim_markdown_auto_insert_bullets = 0
-
-    vim.g.vim_markdown_folding_disabled = 1            -- 取消 markdown 折叠
-    --let g.vim_markdown_no_default_key_mappings = 1    -- 取消默认按键映射
-    vim.g.vim_markdown_fenced_languages = {
-        "c++=cpp",
-        "viml=vim",
-        "bash=sh",
-        "ini=dosini",
-        "js=javascript",
-        "json=javascript",
-        "jsx=javascriptreact",
-        "tsx=typescriptreact",
-        "docker=Dockerfile",
-        "makefile=make",
-        "py=python",
-    }
-    vim.g.vim_markdown_follow_anchor = 1
-    vim.g.vim_markdown_edit_url_in = 'vsplit'       -- tab  vsplit  hsplit  current
-    vim.g.vim_markdown_folding_disabled = 0         -- 开启折叠功能
-    vim.g.vim_markdown_folding_style_pythonic = 1   -- 折叠样式
-    vim.g.vim_markdown_folding_level = 1            -- n级不自动折叠
-    end,
-  },
-  { "dhruvasagar/vim-table-mode", ft = {"markdown", "org"} },
-  { "lervag/vimtex",
-    ft = {"tex", "latex", "bib"},
-    config = function()
-    vim.g.tex_flavor = "latex"
-    vim.g.vimtex_quickfix_mode = 1
-    vim.g.vimtex_compiler_progname = "nvr"
-    vim.g.vimtex_view_reverse_search_edit_cmd = "nvr --remote-silent %f -c %l"
-    vim.g.vimtex_compiler_latexmk = {
-      continuous = 0,
-    }
-    vim.g.vimtex_compiler_latexmk_engines = { _ = "-xelatex" } --{["_"] = "-lualatex"}
-    vim.g.vimtex_view_automatic = 1
-    vim.g.vimtex_indent_on_ampersands = 0
-    vim.g.vimtex_view_general_viewer = "SumatraPDF"
-    vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
-    vim.g.vimtex_fold_enabled = true
-    -- Using Treesitter requires these settings
-    vim.g.vimtex_syntax_enabled = 0
-    vim.g.vimtex_syntax_conceal_disable = 1
-    -- neovim ---(highlight)---> pdf by 'lv'
-    function open_sumatra_pdf()
-        local pdf_file = vim.fn.expand('%:r') .. '.pdf'
-        if vim.fn.filereadable(pdf_file) == 0 then
-          pdf_file = ""
-        end
-        local cmd = 'cmd /c start /b "" SumatraPDF -reuse-instance ' .. pdf_file
-        os.execute(cmd)
-    end
-    vim.api.nvim_create_autocmd({"BufReadPost"}, {
-      pattern = {"*.tex", "*.latex"},
-      callback = open_sumatra_pdf,
-    })
-    -- Disable conceal
-    vim.g.vimtex_syntax_conceal = {
-        accents = 0,
-        cites = 0,
-        fancy = 0,
-        greek = 0,
-        math_bounds = 0,
-        math_delimiters = 0,
-        math_fracs = 0,
-        math_super_sub = 0,
-        math_symbols = 0,
-        sections = 0,
-        styles = 0,
-    },
-    neomap("n", "<localleader>li", "<plug>(vimtex-info)", key_opts_ns)
-    neomap("n", "<localleader>lt", "<plug>(vimtex-toc-open)", key_opts_ns)
-    neomap("n", "<localleader>lT", "<plug>(vimtex-toc-toggle)", key_opts_ns)
-    neomap("n", "<localleader>lv", "<plug>(vimtex-view)", key_opts_ns)
-    neomap("n", "<localleader>ll", "<plug>(vimtex-compile)", key_opts_ns)
-    neomap("n", "<localleader>lo", "<plug>(vimtex-compile-output)", key_opts_ns)
-    neomap("n", "<localleader>lg", "<plug>(vimtex-status)", key_opts_ns)
-    neomap("n", "<localleader>lG", "<plug>(vimtex-status-all)", key_opts_ns)
-    neomap("n", "<localleader>lc", "<plug>(vimtex-clean)", key_opts_ns)
-    neomap("n", "<localleader>lC", "<plug>(vimtex-clean-full)", key_opts_ns)
-    end,
-  },
-  {
-    "mhinz/vim-startify",
-    cmd = "Startify",
-    config = function()
-    vim.g.startify_files_number = 16  -- 起始页显示的列表长度
-    vim.api.nvim_command("hi StartifyBracket ctermfg=10 guifg=#444B6A")
-    vim.api.nvim_command("hi StartifyNumber ctermfg=10 guifg=#FF9E64")
-    vim.api.nvim_command("hi StartifyPath ctermfg=10 guifg=#786591")
-    vim.api.nvim_command("hi StartifySlash ctermfg=10 guifg=#786591")
-    vim.api.nvim_command("hi StartifySection ctermfg=10 guifg=#7AA2F7")
-    vim.api.nvim_command("hi StartifyHeader ctermfg=10 guifg=#8687b0")
-    vim.api.nvim_command("hi StartifyFooter ctermfg=10 guifg=#F7768E")
-    vim.api.nvim_command("hi StartifySpecial ctermfg=10 guifg=#444B6A")
-    vim.g.ascii_neovim = {
-      '                                                                   ',
-      '                                                                   ',
-      '                                                                   ',
-      '                                                                   ',
-      '                                                                   ',
-      '                                                                   ',
-      '            ,                                                      ',
-      '           / ,,_  ."|                                              ',
-      '         [[| /]]]]/_."                                             ',
-      '       ]]]]` "[["  ".                                              ',
-      '     [[[[[    _   ;,                                               ',
-      '  ,]]]]]]    /o`  ` ;)                                             ',
-      ' [[[[[[   /           (                                            ',
-      ' ]]]]]]   |                      ___________________________       ',
-      '[[[[[[[[                        /                           |      ',
-      ']]]]]]]]]   ".__      _  |     /                            |      ',
-      '[[[[[[[[       /`._  (_ /     |     Still waters run deep!  |      ',
-      ' ]]]]]]"      |    //___/   --=:                            |      ',
-      ' `[[[[`       |     `--`       |                            |      ',
-      '  ]]]`                          ____________________________/      ',
-    }
-    vim.g.startify_custom_footer = 'startify#pad(g:ascii_neovim)'
-
-    -- show startify icon
-    function _G.webDevIcons(path)
-      local filename = vim.fn.fnamemodify(path, ':t')
-      local extension = vim.fn.fnamemodify(path, ':e')
-      return require'nvim-web-devicons'.get_icon(filename, extension, { default = true })
-    end
-
-    vim.cmd[[
-    function! StartifyEntryFormat() abort
-      return 'v:lua.webDevIcons(absolute_path) . " " . entry_path'
-    endfunction
-    ]]
-
-    -- dark & light colorscheme
-    if vim.o.background == 'dark' then
-        vim.api.nvim_command("hi StartifyFile ctermfg=10 guifg=#9ECE6A")
-    elseif vim.o.background == 'light' then
-        vim.api.nvim_command("hi StartifyFile ctermfg=10 guifg=#12970e")
-    end
-    end,
-  },
+-- Local plugins
+-- {{{ Dir = dashboard-nvim
   {
     dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/dashboard-nvim",
     event = 'BufWinEnter',
@@ -804,8 +408,537 @@ require("lazy").setup({
     })
     end,
   },
+-- }}}
+-- {{{ Dir = vim-speeddating-master
+  { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = {"markdown", "org"} }, --modified
+-- }}}
+-- {{{ Dir = lualine.nvim-master
+  {
+    dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/lualine.nvim-master",
+    event = "VeryLazy",
+    config = function()
+    require "lualine".setup {
+        globalstatus = true,
+        options = {
+            icons_enabled = true,
+            theme = 'auto',
+            component_separators = { left = '', right = '\\' },
+            section_separators = { left = '', right = ''},
+            disabled_filetypes = {'neotree'},
+            always_divide_middle = true,
+            globalstatus = false,
+        },
+        sections = {
+            lualine_a = {{
+                'windows',
+                show_modified_status = true,
+                mode = 0,
+                max_length = vim.o.columns * 2 / 3,
+                symbols = {
+                    modified = ' [𝓐 ]',-- 🈚,[+],
+                    alternate_file = ' o',
+                    directory = ' z',
+                },
+                filetype_names = {
+                    startify = 'Startify',
+                    dashboard = 'Dashboard',
+                },
+            }},
+            lualine_b = { 'branch', 'diff', {
+                "diagnostics",
+                    sources = { "nvim_diagnostic" },
+                    sections = { "error", "warn", "hint", "info" },
+                    symbols = {
+                        error = ' ',
+                        warn = ' ',
+                        hint = ' ',
+                        info = ' ',
+                    },
+                    colored = true,
+                    update_in_insert = false,
+                    always_visible = false,
+                },
+            },
+            lualine_c = { '% [ %F -  %p%% ]' },
+            lualine_x = { 'os.date("%H:%M %a")', 'filetype' },
+            lualine_y = { '%c' },
+            lualine_z = { '%l - %L' },
+        },
+    }
+    --Match colorscheme
+    if vim.g.colors_name == 'nightfox' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_nightfox' }}
+    elseif vim.g.colors_name == 'nordfox' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_nordfox' }}
+    elseif vim.g.colors_name == 'duskfox' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_duskfox' }}
+    elseif vim.g.colors_name == 'terafox' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_terafox' }}
+    elseif vim.g.colors_name == 'dayfox' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
+    elseif vim.g.colors_name == 'tokyonight' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
+    elseif vim.g.colors_name == 'catppuccin-frappe' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe' }}
+    elseif vim.g.colors_name == 'catppuccin-macchiato' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_macchiato' }}
+    elseif vim.g.colors_name == 'catppuccin-mocha' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_mocha' }}
+    elseif vim.g.colors_name == 'catppuccin-latte' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_latte' }}
+    elseif vim.g.colors_name == 'github_dark' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_github_dark' }}
+    elseif vim.g.colors_name == 'github_light' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_github_light' }}
+    end
+    end,
+  }, --modified
+-- }}}
+-- {{{ Dir = weather3day.nvim-main
+  {
+    dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/weather3day.nvim-main", --modified
+    cmd = "Weather3day",
+    init = function()
+    vim.g.weather_city = "Xi'an"--weather3day plug
+    end,
+  },
+-- }}}
+-- Github plugins
+-- {{{ mbbill/undotree
+  {
+    "mbbill/undotree",
+    cmd = "UndotreeToggle",
+    init = function()
+    if vim.fn.has('persistent_undo') then
+      vim.cmd('set undofile')
+      vim.cmd('set undodir=C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/undodir')
+    end
+    vim.g.undotree_DiffAutoOpen = 1
+    vim.g.undotree_HelpLine = 1
+    vim.g.undotree_SetFocusWhenToggle = 1
+    vim.g.undotree_ShortIndicators = 1
+    vim.g.undotree_TreeNodeShape = "├"
+    vim.g.undotree_TreeVertShape = "│"
+    vim.g.undotree_TreeSplitShape = "─┘"
+    vim.g.undotree_TreeReturnShape = "─┐"
+    neomap('n', '<leader>u', vim.cmd.UndotreeToggle, key_opts_ns)
+    end,
+    -- 增加系统环境变量Path"D:\Program Files\Git\usr\bin",解决打开插件报错的问题.
+  },
+-- }}}
+-- {{{ dstein64/vim-startuptime
+  {
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime",
+    init = function()
+    vim.g.startuptime_tries = 10
+    neomap("n", "<F12>", ":StartupTime<CR>", key_opts_ns)
+    end,
+  },
+-- }}}
+-- {{{ arecarn/vim-crunch
+  {
+    "arecarn/vim-crunch",
+    keys = {
+            { "<Plug>(crunch-operator-line)", mode = {"n"} },
+            { "<Plug>(visual-crunch-operator)", mode = { "x" } },
+           },
+    init =function()
+    neomap("n", "<leader>,", "<Plug>(crunch-operator-line)", key_opts_ns)
+    neomap("x", "<leader>,", "<Plug>(visual-crunch-operator)<cr>", key_opts_ns)
+    end,
+  },
+-- }}}
+-- {{{ sustech-data/wildfire.nvim
+  {
+  	"sustech-data/wildfire.nvim",
+    keys = { "<CR>" },
+  	dependencies = { "nvim-treesitter/nvim-treesitter" },
+  	config = function()
+  		require("wildfire").setup({
+  			surrounds = {
+  				{ "(", ")" },
+  				{ "{", "}" },
+  				{ "<", ">" },
+  				{ "[", "]" },
+  			},
+  			keymaps = {
+                  init_selection = "<CR>",
+                  node_incremental = "<CR>",
+                  node_decremental = "<BS>",
+  			},
+  		})
+  	end,
+  },
+-- }}}
+-- {{{ AndrewRadev/linediff.vim
+  { "AndrewRadev/linediff.vim", cmd = {"Linediff", "LinediffAdd"} },
+-- }}}
+-- {{{ alpertuna/vim-header
+  {
+    "alpertuna/vim-header",
+    cmd = "AddHeader",
+    config = function()
+    vim.g.header_field_author           = 'Max'
+    vim.g.header_field_author_email     = 'ismaxiaolong@gmail.com'
+    vim.g.header_field_timestamp_format = '%Y.%m.%d'
+    vim.g.header_field_modified_by      = 0
+    vim.g.header_field_license_id       = ''
+    end,
+    init = function()
+    neomap("n", "<F2>", ":AddHeader<CR>", key_opts_ns)
+    end,
+  },
+-- }}}
+-- {{{ iqxd/vim-mine-sweeping
+  { "iqxd/vim-mine-sweeping", cmd = "MineSweep" },
+-- }}}
+-- {{{ Yggdroot/LeaderF
+  {
+    "Yggdroot/LeaderF",
+    build = ":LeaderfInstallCExtension",
+    event = 'BufWinEnter',
+    cmd = { "LeaderfFile", "Leaderf", "LeaderfLine", "LeaderfMru" },
+    config = function()
+    vim.g.Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
+    vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
+	vim.g.Lf_CursorBlink  = 0
+    vim.g.Lf_ShowDevIcons = 1
+    vim.g.Lf_DevIconsFont = "Delugia Mono"
+    vim.g.Lf_ReverseOrder = 1
+    vim.g.Lf_HideHelp = 1
+    vim.g.Lf_UseCache = 1
+    vim.g.Lf_UseMemoryCache = 1
+    vim.g.Lf_UseVersionControlTool = 0
+    vim.g.Lf_IgnoreCurrentBufferName = 1
+    --vim.g.Lf_PopupColorscheme     = "solarized"
+    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]])  -- PopupColorscheme
+	vim.g.Lf_WorkingDirectoryMode = 'Ac'
+	vim.g.Lf_DefaultMode          = 'NameOnly'
+    vim.g.Lf_WindowPosition       = 'popup'
+    vim.g.Lf_WindowHeight         = 0.9
+    vim.g.Lf_PopupWidth           = 0.54
+    vim.g.Lf_PopupHeight          = 0.9
+    vim.g.Lf_PopupPosition        = { 0, 0 }
+    vim.g.Lf_PopupPreviewPosition = 'left'
+	vim.g.Lf_PopupShowStatusline  = 0
+	vim.g.Lf_PopupShowBorder      = 1
+	vim.g.Lf_PopupBorders         = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+    vim.g.Lf_StlSeparator         = { left = '', right = '', font = '' }
+    vim.g.Lf_PreviewCode    = 1
+    vim.g.Lf_PreviewInPopup = 1
+    vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览
+    vim.g.Lf_NeedCacheTime = 0.1  -- cache the files list,if time > 0.1s.
+    vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
+    vim.g.Lf_MruMaxFiles = 2048 -- Specify the number of most recently used files you want LeaderF to record (default: 100).
+    vim.g.Lf_ShowRelativePath = 0
+    vim.g.Lf_WildIgnore = {
+      dir = { ".svn", ".git", ".hg" },
+      file = { "*.sw?", "~$*", "*.bak", "*.exe", "*.o", "*.so", "*.py[co]" },
+    },
+    -- 使用:LeaderfRg 路径不全, 搜索该录下经的文件.
+    vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
+    end,
+    init = function()
+    neomap("n", "<localleader>fb", ":LeaderfFile :/<left><left>", key_opts_n)
+    neomap("n", "<localleader>fp", ":Leaderf rg<CR>", key_opts_ns)
+    neomap("n", "<localleader>fl", ":LeaderfLine<CR>", key_opts_ns)
+    neomap("n", "<localleader>t", ":Leaderf bufTag<CR>", key_opts_ns)
+    neomap("n", "<localleader>ff", ":Leaderf function<CR>", key_opts_ns)
+    neomap("n", "<localleader>fc", ":Leaderf colorscheme<CR>", key_opts_ns)
+    neomap("n", "<localleader>r", ":LeaderfMru<CR>", key_opts_ns)
+    end,
+  },
+-- }}}
+-- {{{ voldikss/vim-floaterm
+  {
+    "voldikss/vim-floaterm",
+    cmd = { "FloatermNew", "FloatermSend" },
+    init = function()
+            vim.api.nvim_command("hi FloatermBorder guibg=#3e4452 guifg=#5c6370")
+            vim.g.floaterm_autoclose = 0
+            vim.g.floaterm_keymap_kill = '<C-q>'
+            vim.g.floaterm_keymap_next = '<leader>tn'
+            neomap("n","<leader>to",":FloatermNew<CR>")
+            neomap("n","<leader>tt",":FloatermToggle<CR>")
+            neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
+            neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
+            vim.cmd[[
+            augroup Compiler_code
+                au!
+                au FileType floaterm nnoremap <buffer> <Esc> :q<CR>
+                " -- Python --
+                au FileType python nnoremap <C-CR> :FloatermNew py "%:p"<CR>
+                au FileType python nnoremap <C-g> :FloatermNew py "%:p"<CR>
+                au FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
+                au FileType python noremap! <C-g>  <Esc>:FloatermToggle<CR>
+                " au FileType python tnoremap <C-CR>  <C-\><C-n>:FloatermToggle<CR>
+                " -- Python REPL --
+                nnoremap <leader>tp :FloatermNew --width=0.5 --wintype=vsplit --name=repl --position=rightbelow ipython<CR>
+                au FileType python nnoremap <leader>w :FloatermSend<CR>
+                au FileType python vnoremap <leader>w :FloatermSend<CR>
+                " -- Matlab --
+                au FileType matlab nnoremap <silent><C-CR> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
+                au FileType matlab nnoremap <silent><C-g> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
+                " TERMINAL运行matlab代码,以'test.m'代码为例 'matlab -nosplash -nodesktop -r test'
+                " -- Fortran --
+                au FileType fortran nnoremap <C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
+                au FileType fortran nnoremap <C-g> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
+                " -- Typst --
+                " highligth file 'D:\Program Files\Neovim\share\nvim\runtime\syntax\typst.vim'
+                au BufRead,BufNewFile *.typ setlocal filetype=typst
+                au FileType typst nnoremap <C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
+                au FileType typst nnoremap <C-g> :FloatermNew --height=1.0 typst watch %:p<CR>
+                au FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
+            augroup END
+            " Git
+            command! Push execute "FloatermNew!git add init.lua<CR>git commit --allow-empty-message -m \"\"<CR>git push<CR>"
+            command! Pull execute "FloatermNew!git fetch --all<CR>git reset --hard origin/main<CR>"
+            command! Gitlog execute "FloatermNew!git log --all --oneline --graph<CR>"
+            " Administrator CMD mode
+            nnoremap  <leader>ta  :FloatermNew<CR>runas /user:ThinkPad\Administrator cmd<CR>1234<CR>
+            " nnoremap  <leader>ta  :FloatermNew<CR>runas /user:administrator cmd<CR>1234<CR>
+            " 'runas /user:administrator cmd' 进入管理员CMD的前提是开启管理员账号
+            " 开启管理员账号: net user administrator /active:yes
+            " 关闭管理员账号: net user administrator /active:no
+            " 设置管理员密码(1234): net user administrator 1234
+            ]]
+    end,
+  },
+-- }}}
+-- {{{ kdheepak/lazygit.nvim
+  {
+    "kdheepak/lazygit.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+	keys = {
+		{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+	},
+    init = function()
+    vim.g.lazygit_floating_window_winblend = 0
+    vim.g.lazygit_floating_window_scaling_factor = 0.9
+    vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" }
+    vim.g.lazygit_floating_window_use_plenary = 0
+    vim.g.lazygit_use_neovim_remote = 0
+    end,
+  },
+-- }}}
+-- {{{ iamcco/markdown-preview.nvim
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = "markdown",
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+    init = function()
+    vim.g.mkdp_auto_start = 0
+    vim.g.mkdp_auto_close = 0
+    vim.g.mkdp_refresh_slow = 0
+    vim.g.mkdp_command_for_global = 0
+    vim.g.mkdp_open_to_the_world = 0
+    vim.g.mkdp_open_ip = ""
+    vim.g.mkdp_echo_preview_url = 0
+    vim.g.mkdp_browserfunc = ""
+    vim.g.mkdp_preview_options = {
+      mkit = {},
+      katex = {},
+      uml = {},
+      maid = {},
+      disable_sync_scroll = 0,
+      sync_scroll_type = "middle",
+      hide_yaml_meta = 1,
+      sequence_diagrams = {},
+      flowchart_diagrams = {},
+      content_editable = "v:false",
+      disable_filename = 0,
+    }
+    --设置预览代码高亮(绝对路径)
+    vim.g.mkdp_markdown_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/github-markdown.css"
+    vim.g.mkdp_highlight_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown.css"
+    --vim.g.mkdp_highlight_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown_highlight_solarized_dark.css"
+    vim.g.mkdp_port = ""
+    vim.g.mkdp_page_title = "「${name}」"
+    vim.cmd[[
+    augroup markdown_preview
+        au!
+        au FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
+        au FileType markdown nnoremap <C-g> <Plug>MarkdownPreview
+    augroup END
+    ]]
+    end,
+  },
+-- }}}
+-- {{{ plasticboy/vim-markdown
+  {
+    "plasticboy/vim-markdown",
+    ft = "markdown",
+    config = function()
+    vim.g.vim_markdown_toc_autofit = 1                 -- Enable TOC window auto-fit,调节合适的窗口尺寸
+
+    vim.g.vim_markdown_conceal = 0                     -- 取消隐藏 Markdown          语法符号
+    vim.g.vim_markdown_conceal_code_blocks = 0         -- 取消隐藏 代码块            符号 ```
+    vim.g.tex_conceal = ""                             -- 取消隐藏 LaTeX math syntax 符号
+
+    vim.g.vim_markdown_math = 1                        -- 高亮显示 LaTeX math
+    vim.g.vim_markdown_strikethrough = 1               -- 划线文本显示,由 ~~xx~~ 变为 划线~~xx~~划线
+
+    vim.g.vim_markdown_new_list_item_indent = 2        -- *item1 *item2 缩进距离为2(默认是4).
+    vim.g.vim_markdown_auto_insert_bullets = 0
+
+    vim.g.vim_markdown_folding_disabled = 1            -- 取消 markdown 折叠
+    --let g.vim_markdown_no_default_key_mappings = 1    -- 取消默认按键映射
+    vim.g.vim_markdown_fenced_languages = {
+        "c++=cpp",
+        "viml=vim",
+        "bash=sh",
+        "ini=dosini",
+        "js=javascript",
+        "json=javascript",
+        "jsx=javascriptreact",
+        "tsx=typescriptreact",
+        "docker=Dockerfile",
+        "makefile=make",
+        "py=python",
+    }
+    vim.g.vim_markdown_follow_anchor = 1
+    vim.g.vim_markdown_edit_url_in = 'vsplit'       -- tab  vsplit  hsplit  current
+    vim.g.vim_markdown_folding_disabled = 0         -- 开启折叠功能
+    vim.g.vim_markdown_folding_style_pythonic = 1   -- 折叠样式
+    vim.g.vim_markdown_folding_level = 1            -- n级不自动折叠
+    end,
+  },
+-- }}}
+-- {{{ dhruvasagar/vim-table-mode
+  { "dhruvasagar/vim-table-mode", ft = {"markdown", "org"} },
+-- }}}
+-- {{{ lervag/vimtex
+  { "lervag/vimtex",
+    ft = {"tex", "latex", "bib"},
+    config = function()
+    vim.g.tex_flavor = "latex"
+    vim.g.vimtex_quickfix_mode = 1
+    vim.g.vimtex_compiler_progname = "nvr"
+    vim.g.vimtex_view_reverse_search_edit_cmd = "nvr --remote-silent %f -c %l"
+    vim.g.vimtex_compiler_latexmk = {
+      continuous = 0,
+    }
+    vim.g.vimtex_compiler_latexmk_engines = { _ = "-xelatex" } --{["_"] = "-lualatex"}
+    vim.g.vimtex_view_automatic = 1
+    vim.g.vimtex_indent_on_ampersands = 0
+    vim.g.vimtex_view_general_viewer = "SumatraPDF"
+    vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
+    vim.g.vimtex_fold_enabled = true
+    -- Using Treesitter requires these settings
+    vim.g.vimtex_syntax_enabled = 0
+    vim.g.vimtex_syntax_conceal_disable = 1
+    -- neovim ---(highlight)---> pdf by 'lv'
+    function open_sumatra_pdf()
+        local pdf_file = vim.fn.expand('%:r') .. '.pdf'
+        if vim.fn.filereadable(pdf_file) == 0 then
+          pdf_file = ""
+        end
+        local cmd = 'cmd /c start /b "" SumatraPDF -reuse-instance ' .. pdf_file
+        os.execute(cmd)
+    end
+    vim.api.nvim_create_autocmd({"BufReadPost"}, {
+      pattern = {"*.tex", "*.latex"},
+      callback = open_sumatra_pdf,
+    })
+    -- Disable conceal
+    vim.g.vimtex_syntax_conceal = {
+        accents = 0,
+        cites = 0,
+        fancy = 0,
+        greek = 0,
+        math_bounds = 0,
+        math_delimiters = 0,
+        math_fracs = 0,
+        math_super_sub = 0,
+        math_symbols = 0,
+        sections = 0,
+        styles = 0,
+    },
+    neomap("n", "<localleader>li", "<plug>(vimtex-info)", key_opts_ns)
+    neomap("n", "<localleader>lt", "<plug>(vimtex-toc-open)", key_opts_ns)
+    neomap("n", "<localleader>lT", "<plug>(vimtex-toc-toggle)", key_opts_ns)
+    neomap("n", "<localleader>lv", "<plug>(vimtex-view)", key_opts_ns)
+    neomap("n", "<localleader>ll", "<plug>(vimtex-compile)", key_opts_ns)
+    neomap("n", "<localleader>lo", "<plug>(vimtex-compile-output)", key_opts_ns)
+    neomap("n", "<localleader>lg", "<plug>(vimtex-status)", key_opts_ns)
+    neomap("n", "<localleader>lG", "<plug>(vimtex-status-all)", key_opts_ns)
+    neomap("n", "<localleader>lc", "<plug>(vimtex-clean)", key_opts_ns)
+    neomap("n", "<localleader>lC", "<plug>(vimtex-clean-full)", key_opts_ns)
+    end,
+  },
+-- }}}
+-- {{{ mhinz/vim-startify
+  {
+    "mhinz/vim-startify",
+    cmd = "Startify",
+    config = function()
+    vim.g.startify_files_number = 16  -- 起始页显示的列表长度
+    vim.api.nvim_command("hi StartifyBracket ctermfg=10 guifg=#444B6A")
+    vim.api.nvim_command("hi StartifyNumber ctermfg=10 guifg=#FF9E64")
+    vim.api.nvim_command("hi StartifyPath ctermfg=10 guifg=#786591")
+    vim.api.nvim_command("hi StartifySlash ctermfg=10 guifg=#786591")
+    vim.api.nvim_command("hi StartifySection ctermfg=10 guifg=#7AA2F7")
+    vim.api.nvim_command("hi StartifyHeader ctermfg=10 guifg=#8687b0")
+    vim.api.nvim_command("hi StartifyFooter ctermfg=10 guifg=#F7768E")
+    vim.api.nvim_command("hi StartifySpecial ctermfg=10 guifg=#444B6A")
+    vim.g.ascii_neovim = {
+      '                                                                   ',
+      '                                                                   ',
+      '                                                                   ',
+      '                                                                   ',
+      '                                                                   ',
+      '                                                                   ',
+      '            ,                                                      ',
+      '           / ,,_  ."|                                              ',
+      '         [[| /]]]]/_."                                             ',
+      '       ]]]]` "[["  ".                                              ',
+      '     [[[[[    _   ;,                                               ',
+      '  ,]]]]]]    /o`  ` ;)                                             ',
+      ' [[[[[[   /           (                                            ',
+      ' ]]]]]]   |                      ___________________________       ',
+      '[[[[[[[[                        /                           |      ',
+      ']]]]]]]]]   ".__      _  |     /                            |      ',
+      '[[[[[[[[       /`._  (_ /     |     Still waters run deep!  |      ',
+      ' ]]]]]]"      |    //___/   --=:                            |      ',
+      ' `[[[[`       |     `--`       |                            |      ',
+      '  ]]]`                          ____________________________/      ',
+    }
+    vim.g.startify_custom_footer = 'startify#pad(g:ascii_neovim)'
+
+    -- show startify icon
+    function _G.webDevIcons(path)
+      local filename = vim.fn.fnamemodify(path, ':t')
+      local extension = vim.fn.fnamemodify(path, ':e')
+      return require'nvim-web-devicons'.get_icon(filename, extension, { default = true })
+    end
+
+    vim.cmd[[
+    function! StartifyEntryFormat() abort
+      return 'v:lua.webDevIcons(absolute_path) . " " . entry_path'
+    endfunction
+    ]]
+
+    -- dark & light colorscheme
+    if vim.o.background == 'dark' then
+        vim.api.nvim_command("hi StartifyFile ctermfg=10 guifg=#9ECE6A")
+    elseif vim.o.background == 'light' then
+        vim.api.nvim_command("hi StartifyFile ctermfg=10 guifg=#12970e")
+    end
+    end,
+  },
+-- }}}
+-- {{{ wellle/targets.vim
   { "wellle/targets.vim", keys = { "c", "d", "y", "v"} },
+-- }}}
+-- {{{ chrisbra/csv.vim
   { "chrisbra/csv.vim", ft = "csv" },
+-- }}}
+-- {{{ ntpeters/vim-better-whitespace
   {
     "ntpeters/vim-better-whitespace",
     event = "InsertEnter",
@@ -819,6 +952,8 @@ require("lazy").setup({
     neomap("n", "<leader>si", ":StripWhitespace<CR>", key_opts_ns)
     end,
   },
+-- }}}
+-- {{{ lfv89/vim-interestingwords
   {
     "lfv89/vim-interestingwords",
     keys = {
@@ -841,6 +976,8 @@ require("lazy").setup({
     }
     end,
   },
+-- }}}
+-- {{{ markonm/traces.vim
   {
     "markonm/traces.vim",
     event = {"CursorMoved", "CmdlineEnter"},
@@ -849,6 +986,8 @@ require("lazy").setup({
     vim.g.traces_num_range_preview = 1
     end,
   },
+-- }}}
+-- {{{ triglav/vim-visual-increment
   {
     "triglav/vim-visual-increment",
     event = "InsertEnter",
@@ -856,9 +995,14 @@ require("lazy").setup({
     vim.cmd[[set nrformats=alpha,octal,hex]]
     end,
   },
+-- }}}
+-- {{{ itchyny/vim-cursorword
   { "itchyny/vim-cursorword", event = "BufReadPre" },
+-- }}}
+-- {{{ bronson/vim-visual-star-search
   { "bronson/vim-visual-star-search", event = "BufReadPre" },
-  --lua
+-- }}}
+-- {{{ alvarosevilla95/luatab.nvim
   {
     "alvarosevilla95/luatab.nvim",
     event = "BufReadPre",
@@ -899,6 +1043,8 @@ require("lazy").setup({
     }
     end,
   },
+-- }}}
+-- {{{ shellRaining/hlchunk.nvim
   {
     "shellRaining/hlchunk.nvim",
     event = "BufRead",
@@ -957,6 +1103,8 @@ require("lazy").setup({
     })
     end,
   },
+-- }}}
+-- {{{ chentoast/marks.nvim
   {
     "chentoast/marks.nvim",
 	keys = {
@@ -981,6 +1129,8 @@ require("lazy").setup({
     neomap("n", "<S-m>", "<Plug>(Marks-prev)", key_opts_ns)
     end,
   },
+-- }}}
+-- {{{ windwp/nvim-autopairs
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -1002,6 +1152,8 @@ require("lazy").setup({
         local map_c_w = false -- map <c-w> to delete a pair if possible
     end,
   },
+-- }}}
+-- {{{ karb94/neoscroll.nvim
   {
     "karb94/neoscroll.nvim",
     event = "BufReadPre",
@@ -1032,6 +1184,8 @@ require("lazy").setup({
     require('neoscroll.config').set_mappings(t)
     end,
   },
+-- }}}
+-- {{{ petertriho/nvim-scrollbar
   {
     "petertriho/nvim-scrollbar",
     event = "BufReadPre",
@@ -1099,6 +1253,8 @@ require("lazy").setup({
     require("scrollbar.handlers.search").setup({})
     end,
   },
+-- }}}
+-- {{{ b3nj5m1n/kommentary
   {
     "b3nj5m1n/kommentary",
     keys = {
@@ -1114,6 +1270,8 @@ require("lazy").setup({
     neomap("x", "<leader>ci", "<Plug>kommentary_visual_decrease", {})
     end,
   },
+-- }}}
+-- {{{ nvim-neo-tree/neo-tree.nvim
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
@@ -1219,6 +1377,8 @@ require("lazy").setup({
     vim.api.nvim_command("hi NeoTreeIndentMarker guifg=#3FC5FF")
     end,
   },
+-- }}}
+-- {{{ ellisonleao/weather.nvim
   {
     "ellisonleao/weather.nvim",
     cmd = "Weather",
@@ -1234,6 +1394,8 @@ require("lazy").setup({
     neomap("n", "<localleader>wd", ":Weather3day<CR>", key_opts_ns)
     end,
   },
+-- }}}
+-- {{{ Vonr/align.nvim
   {
     "Vonr/align.nvim",
     keys = { "<leader>a", mode = { "x" } },
@@ -1244,6 +1406,8 @@ require("lazy").setup({
     --neomap('x','<leader>ar',function()require'align'.align_to_string(true,true,true)end,key_opts_ns)--AlignstoaLuapattern,lookingleftandwithpreviews
      end,
   },
+-- }}}
+-- {{{ kylechui/nvim-surround
   { "kylechui/nvim-surround",
     keys = {
            { mode = "n", "ys" },
@@ -1256,6 +1420,8 @@ require("lazy").setup({
     require("nvim-surround").setup()
     end,
   },
+-- }}}
+-- {{{ folke/flash.nvim
   {
     "folke/flash.nvim",
     keys = {
@@ -1295,6 +1461,8 @@ require("lazy").setup({
 		},
 	},
   },
+-- }}}
+-- {{{ EdenEast/nightfox.nvim
   {
     "EdenEast/nightfox.nvim",
     event = "BufReadPre",
@@ -1385,6 +1553,8 @@ require("lazy").setup({
     require("nightfox").setup({ palettes = palettes })
     end,
   },
+-- }}}
+-- {{{ folke/tokyonight.nvim
   {
     "folke/tokyonight.nvim",
     event = "BufReadPre",
@@ -1415,6 +1585,8 @@ require("lazy").setup({
     })
     end,
   },
+-- }}}
+-- {{{ catppuccin/nvim
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -1491,6 +1663,8 @@ require("lazy").setup({
     })
     end,
   },
+-- }}}
+-- {{{ projekt0n/github-nvim-theme
   {
     "projekt0n/github-nvim-theme",
     event = "BufReadPre",
@@ -1552,6 +1726,8 @@ require("lazy").setup({
     })
     end,
   },
+-- }}}
+-- {{{ norcalli/nvim-colorizer.lua
   {
     "norcalli/nvim-colorizer.lua",
 	keys = {
@@ -1561,6 +1737,8 @@ require("lazy").setup({
     require'colorizer'.setup()
     end,
   },
+-- }}}
+-- {{{ nvim-telescope/telescope.nvim
   {
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
@@ -1619,6 +1797,8 @@ require("lazy").setup({
     neomap("n", "<leader>fr", ":Telescope oldfiles<cr>", key_opts_ns)
     end,
   },
+-- }}}
+-- {{{ nvim-orgmode/orgmode
   {
     "nvim-orgmode/orgmode",
     ft = "org",
@@ -1671,6 +1851,8 @@ require("lazy").setup({
     neomap("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", key_opts_ns)
     end,
   },
+-- }}}
+-- {{{ nvim-treesitter/nvim-treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -1714,6 +1896,8 @@ require("lazy").setup({
     }
     end,
   },
+-- }}}
+-- {{{ hrsh7th/nvim-cmp
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -1900,6 +2084,8 @@ require("lazy").setup({
     }
     end,
   },
+-- }}}
+-- {{{ hrsh7th/cmp-cmdline
   {
     "hrsh7th/cmp-cmdline",
     --event = "BufReadPre",
@@ -1928,11 +2114,15 @@ require("lazy").setup({
     })
     end,
   },
+-- }}}
+-- {{{ saadparwaiz1/cmp_luasnip
   {
     "saadparwaiz1/cmp_luasnip",
     event = "InsertEnter",
     dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" },
   },
+-- }}}
+-- {{{ neovim/nvim-lspconfig
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -2078,6 +2268,8 @@ require("lazy").setup({
     neomap('n', '<leader>=', function() vim.lsp.buf.format { async = true } end, key_opts_ns) -- Format
     end,
   },
+-- }}}
+-- {{{ ray-x/lsp_signature.nvim
   {
     "ray-x/lsp_signature.nvim",
     event = "InsertEnter",
@@ -2142,6 +2334,8 @@ require("lazy").setup({
     }
     end,
   },
+-- }}}
+-- {{{ L3MON4D3/LuaSnip
   { "L3MON4D3/LuaSnip",
     event = "InsertEnter",
     config = function()
@@ -2152,95 +2346,8 @@ require("lazy").setup({
     neomap("n", "<leader>rp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", key_opts_ns)
     end,
   },
-  --Local plugins
-  { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = {"markdown", "org"} }, --modified
-  {
-    dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/lualine.nvim-master",
-    event = "VeryLazy",
-    config = function()
-    require "lualine".setup {
-        globalstatus = true,
-        options = {
-            icons_enabled = true,
-            theme = 'auto',
-            component_separators = { left = '', right = '\\' },
-            section_separators = { left = '', right = ''},
-            disabled_filetypes = {'neotree'},
-            always_divide_middle = true,
-            globalstatus = false,
-        },
-        sections = {
-            lualine_a = {{
-                'windows',
-                show_modified_status = true,
-                mode = 0,
-                max_length = vim.o.columns * 2 / 3,
-                symbols = {
-                    modified = ' [𝓐 ]',-- 🈚,[+],
-                    alternate_file = ' o',
-                    directory = ' z',
-                },
-                filetype_names = {
-                    startify = 'Startify',
-                    dashboard = 'Dashboard',
-                },
-            }},
-            lualine_b = { 'branch', 'diff', {
-                "diagnostics",
-                    sources = { "nvim_diagnostic" },
-                    sections = { "error", "warn", "hint", "info" },
-                    symbols = {
-                        error = ' ',
-                        warn = ' ',
-                        hint = ' ',
-                        info = ' ',
-                    },
-                    colored = true,
-                    update_in_insert = false,
-                    always_visible = false,
-                },
-            },
-            lualine_c = { '% [ %F -  %p%% ]' },
-            lualine_x = { 'os.date("%H:%M %a")', 'filetype' },
-            lualine_y = { '%c' },
-            lualine_z = { '%l - %L' },
-        },
-    }
-    --Match colorscheme
-    if vim.g.colors_name == 'nightfox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_nightfox' }}
-    elseif vim.g.colors_name == 'nordfox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_nordfox' }}
-    elseif vim.g.colors_name == 'duskfox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_duskfox' }}
-    elseif vim.g.colors_name == 'terafox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_terafox' }}
-    elseif vim.g.colors_name == 'dayfox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
-    elseif vim.g.colors_name == 'tokyonight' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
-    elseif vim.g.colors_name == 'catppuccin-frappe' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe' }}
-    elseif vim.g.colors_name == 'catppuccin-macchiato' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_macchiato' }}
-    elseif vim.g.colors_name == 'catppuccin-mocha' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_mocha' }}
-    elseif vim.g.colors_name == 'catppuccin-latte' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_latte' }}
-    elseif vim.g.colors_name == 'github_dark' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_github_dark' }}
-    elseif vim.g.colors_name == 'github_light' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_github_light' }}
-    end
-    end,
-  }, --modified
-  {
-    dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/weather3day.nvim-main", --modified
-    cmd = "Weather3day",
-    init = function()
-    vim.g.weather_city = "Xi'an"--weather3day plug
-    end,
-  },
+-- }}}
+-- {{{ Eandrju/cellular-automaton.nvim
   {
     "Eandrju/cellular-automaton.nvim",
     keys = "<leader>rt",
@@ -2248,6 +2355,8 @@ require("lazy").setup({
       neomap("n", "<leader>rt", "<cmd>CellularAutomaton make_it_rain<CR>", key_opts_ns)
     end,
   },
+-- }}}
+-- {{{ HaoHao-Ting/vim-matlab-formatter
   { "HaoHao-Ting/vim-matlab-formatter",
     ft = "matlab",
     cmd = "MatlabFormatter",
@@ -2257,6 +2366,8 @@ require("lazy").setup({
     end
     end,
   },
+-- }}}
+-- {{{ lewis6991/gitsigns.nvim
   {
 	"lewis6991/gitsigns.nvim",
 	event = { "BufReadPre", "BufNewFile" },
@@ -2286,6 +2397,8 @@ require("lazy").setup({
 	end
 	end,
   },
+-- }}}
+-- {{{ nguyenvukhang/nvim-toggler
   {
     "nguyenvukhang/nvim-toggler",
     keys = {
@@ -2308,6 +2421,8 @@ require("lazy").setup({
     })
 	end,
   },
+-- }}}
+-- {{{ folke/which-key.nvim
   {
     "folke/which-key.nvim",
     event = { "VeryLazy" },
@@ -2460,6 +2575,7 @@ require("lazy").setup({
     }, { prefix = ',' })
     end,
   },
+-- }}}
 })
 -- }}}
 
