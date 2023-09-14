@@ -42,11 +42,12 @@
   "nvim-lspconfig": { "branch": "master", "commit": "deade69789089c3da15237697156334fb3e943f0" },
   "nvim-scrollbar": { "branch": "main", "commit": "f3a5469e9881360e70d34b25333c910ee4a505f3" },
   "nvim-surround": { "branch": "main", "commit": "219bd66585aa467b1c90fd01b54a2a423aaed4ab" },
+  "nvim-toggler": { "branch": "main", "commit": "c10828c333a91bcb1dbdae9131ced799158c16b0" },
   "nvim-treesitter": { "branch": "master", "commit": "b4b94ec387525cb9df4b56eb1a8bf33231a0df47" },
   "nvim-ts-rainbow2": { "branch": "master", "commit": "b3120cd5ae9ca524af9cb602f41e12e301fa985f" },
   "nvim-web-devicons": { "branch": "master", "commit": "969728506c0175644a1d448f55e311ccdada7eaf" },
   "org-bullets.nvim": { "branch": "main", "commit": "6e0d60e901bb939eb526139cb1f8d59065132fd9" },
-  "orgmode": { "branch": "master", "commit": "6f73b461b9f887968d0f69ab3aee6b4ceebe3445" },
+  "orgmode": { "branch": "master", "commit": "6b6eb8eabbed4d95568fd1f5374a3dff7ed51a3b" },
   "plenary.nvim": { "branch": "master", "commit": "9ac3e9541bbabd9d73663d757e4fe48a675bb054" },
   "targets.vim": { "branch": "master", "commit": "642d3a4ce306264b05ea3219920b13ea80931767" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "4054a5d0ab85475bf75df00cf10754d2e54b5532" },
@@ -57,7 +58,6 @@
   "vim-better-whitespace": { "branch": "master", "commit": "1b22dc57a2751c7afbc6025a7da39b7c22db635d" },
   "vim-crunch": { "branch": "master", "commit": "2c99271108e0d86341837f185a6102363ccee8a6" },
   "vim-cursorword": { "branch": "master", "commit": "371fdd7fa8817c28aa09d181cfcfa3c7ca29bf56" },
-  "vim-expand-region": { "branch": "master", "commit": "966513543de0ddc2d673b5528a056269e7917276" },
   "vim-floaterm": { "branch": "master", "commit": "bd0aee3c861d613f56b85bd9eaffdcab459071fd" },
   "vim-header": { "branch": "master", "commit": "123c98450d6e37fef0a6fa512726ca766aec037d" },
   "vim-interestingwords": { "branch": "master", "commit": "e59f97aca15c6180e6f3aceaf4f7b50ca04326ed" },
@@ -72,5 +72,6 @@
   "vim-visual-star-search": { "branch": "master", "commit": "7c32edb9e3c85d473d9be4dec721a4c9d5d4d69c" },
   "vimtex": { "branch": "master", "commit": "f4a0c2f1c000c8220ebea9e4fd69baeda2951cbf" },
   "weather.nvim": { "branch": "main", "commit": "6367c56c3a520212cdb707d188d37dcfe29fa212" },
-  "which-key.nvim": { "branch": "main", "commit": "5a6c954a5a46023c19acc03a8b6d7c3e57964fc5" }
+  "which-key.nvim": { "branch": "main", "commit": "5a6c954a5a46023c19acc03a8b6d7c3e57964fc5" },
+  "wildfire.nvim": { "branch": "master", "commit": "213b6a7a4a59ebebaef92445ce325a216e5eb156" }
 }
