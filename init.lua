@@ -64,9 +64,8 @@ neomap('v', '<leader>z', [[:s///g<left><left><left>]], key_opts_n)
 -- 创建列表
 neomap('n', '<leader>b', [[:put =range(,,1)<left><left><left><left>]], key_opts_n)
 -------------------- 分屏 --------------------
-neomap('n', 'sh', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
-neomap('n', 'sj', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
-neomap('n', 'st', [[:set splitright<CR>:vsplit<CR>:Startify<CR>]], key_opts_ns)
+neomap('n', '<C-F12>', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
+neomap('n', '<C-F11>', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
 -- 互换分割窗口
 neomap('n', '<S-h>', '<C-w>b<C-w>H', key_opts_ns)
 -- neomap('n', 'srh', '<C-w>b<C-w>K', {}) -- 注释掉，因为与 <S-h> 冲突
@@ -233,6 +232,7 @@ local vim_opts = {
 for k, v in pairs(vim_opts) do
     vim.opt[k] = v
 end
+
 vim.cmd[[
 language en
 filetype indent on
@@ -1425,8 +1425,8 @@ require("lazy").setup({
   {
     "folke/flash.nvim",
     keys = {
-           { "r", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-           { "R", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+           { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+           { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
            { "f", mode = { "n" } },
            { "F", mode = { "n" } },
            { "t", mode = { "n" } },
@@ -2547,13 +2547,6 @@ require("lazy").setup({
         ['a'] = {'Term(Admin)' },
         },
     }, { prefix = '<leader>' })
-
-    local s_all = require('which-key')
-    s_all.register({
-    ['h'] = {'Vsplit'},
-    ['j'] = {'Split'},
-    ['t'] = {'Vsplit-Startify'},
-    }, { prefix = 's' })
 
     local LL_others = require('which-key')
     LL_others.register({
