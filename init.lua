@@ -1413,7 +1413,7 @@ require("lazy").setup({
             { mode = "n", "ys" },
             { mode = "n", "cs" },
             { mode = "n", "ds" },
-            { mode = "x", "<C-s>" },
+            { mode = "x", "<C- >" },
         },
     config = function()
     require("nvim-surround").setup({
@@ -1421,7 +1421,7 @@ require("lazy").setup({
             normal = "ys",
             change = "cs",
             delete = "ds",
-            visual = "<C-s>",
+            visual = "<C- >",
         },--S, dss, css
     })
     end,
@@ -2650,7 +2650,7 @@ augroup END
 
 -- {{{ colorscheme
 random_color = {
-    -- 'catppuccin-latte',
+    'catppuccin-latte',
     -- 'tokyonight-day',
     -- 'github_light',
     -- 'dayfox',
@@ -2659,7 +2659,7 @@ random_color = {
     -- 'terafox',
     -- 'nordfox',
     -- 'nightfox',
-    'catppuccin-frappe',
+    -- 'catppuccin-frappe',
     -- 'catppuccin-macchiato',
     -- 'catppuccin-mocha',
     -- 'github_dark',
