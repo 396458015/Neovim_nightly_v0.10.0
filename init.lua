@@ -1410,14 +1410,20 @@ require("lazy").setup({
 -- {{{ kylechui/nvim-surround
   { "kylechui/nvim-surround",
     keys = {
-           { mode = "n", "ys" },
-           { mode = "n", "cs" },
-           { mode = "n", "ds" },
-           { mode = "i", "<C-g>" },
-           { mode = "x", "S" },
-    }, --S, dss, css
+            { mode = "n", "ys" },
+            { mode = "n", "cs" },
+            { mode = "n", "ds" },
+            { mode = "x", "<C-s>" },
+        },
     config = function()
-    require("nvim-surround").setup()
+    require("nvim-surround").setup({
+        keymaps = {
+            normal = "ys",
+            change = "cs",
+            delete = "ds",
+            visual = "<C-s>",
+        },--S, dss, css
+    })
     end,
   },
 -- }}}
