@@ -1248,7 +1248,11 @@ require("lazy").setup({
           vim.api.nvim_command("hi default link HlSearchLens WildMenu")
           vim.api.nvim_command("hi default link HlSearchLensNear IncSearch")
           vim.api.nvim_command("hi default link HlSearchFloat IncSearch")
-          vim.api.nvim_command("hi IncSearch guibg=#d73a4a")
+          if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+              vim.api.nvim_command("hi IncSearch guibg=#d73a4a")
+          elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+              vim.api.nvim_command("hi IncSearch guibg=#e78284")
+          end
           vim.api.nvim_command("hi IncSearch guifg=black")
           end,
         },
@@ -2371,10 +2375,9 @@ require("lazy").setup({
 -- {{{ Eandrju/cellular-automaton.nvim
   {
     "Eandrju/cellular-automaton.nvim",
-    keys = "<localleader>,",
-    config = function()
-      neomap("n", "<localleader>,", "<cmd>CellularAutomaton make_it_rain<CR>", key_opts_ns)
-    end,
+    keys = {
+        { "<localleader>,", "<cmd>CellularAutomaton make_it_rain<CR>", mode = "n", desc = "make it rain" },
+    }
   },
 -- }}}
 -- {{{ HaoHao-Ting/vim-matlab-formatter
@@ -2689,13 +2692,14 @@ vim.cmd('colorscheme ' .. mycolor)
 local fgdark = "#2E3440"
 
 vim.api.nvim_set_hl(0, "CmpItemAbbr", { fg = "#949cbb", bg = "NONE" })
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#d73a4a", bg = "NONE", bold = true })
 vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = "#808080", bg = "NONE", strikethrough = true })
 -- CmpItemAbbrMatch
 if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#9CDCFE", bg = "NONE", bold = true })
+    vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#e64553", bg = "NONE", bold = true })
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#2E3440", bg = "NONE", bold = true })
+    vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#d73a4a", bg = "NONE", bold = true })
 end
 
 vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#ef9f76", bg = "NONE", italic = true })-- #abb2bf
@@ -2736,13 +2740,13 @@ vim.api.nvim_set_hl(0, "CmpItemKindTypeParameter", { fg = fgdark, bg = "#58B5A8"
 -- dark & light colorscheme
 if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     -- search color
-    vim.api.nvim_command("hi Search guibg=#228b22")
+    vim.api.nvim_command("hi Search guibg=#228b22 guifg=#ccd0da")
     -- cuc cul color
     vim.cmd('hi CursorLine gui=NONE guibg=#3C4452')
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#3C4452')
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     -- search color
-    vim.api.nvim_command("hi Search guibg=#e78284")
+    vim.api.nvim_command("hi Search guibg=#a6d189")
     -- cuc cul color
     vim.cmd('hi CursorLine gui=NONE guibg=#c6cbd9')
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#c6cbd9')
