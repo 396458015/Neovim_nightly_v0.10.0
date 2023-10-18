@@ -2746,7 +2746,7 @@ if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#3C4452')
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     -- search color
-    vim.api.nvim_command("hi Search guibg=#a6d189")
+    vim.api.nvim_command("hi Search guibg=#40a02b guifg=#e1e2e7")
     -- cuc cul color
     vim.cmd('hi CursorLine gui=NONE guibg=#c6cbd9')
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#c6cbd9')
