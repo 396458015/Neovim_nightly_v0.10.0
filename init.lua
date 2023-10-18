@@ -602,6 +602,8 @@ require("lazy").setup({
     config = function()
     vim.g.Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
     vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
+    vim.g.Lf_ShortcutF = ""
+    vim.g.Lf_ShortcutB = ""
 	vim.g.Lf_CursorBlink  = 0
     vim.g.Lf_ShowDevIcons = 1
     vim.g.Lf_DevIconsFont = "Delugia Mono"
@@ -611,26 +613,39 @@ require("lazy").setup({
     vim.g.Lf_UseMemoryCache = 1
     vim.g.Lf_UseVersionControlTool = 0
     vim.g.Lf_IgnoreCurrentBufferName = 1
-    --vim.g.Lf_PopupColorscheme     = "solarized"
     vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]])  -- PopupColorscheme
 	vim.g.Lf_WorkingDirectoryMode = 'Ac'
 	vim.g.Lf_DefaultMode          = 'NameOnly'
     vim.g.Lf_WindowPosition       = 'popup'
-    vim.g.Lf_WindowHeight         = 0.9
-    vim.g.Lf_PopupWidth           = 0.54
-    vim.g.Lf_PopupHeight          = 0.9
-    vim.g.Lf_PopupPosition        = { 0, 0 }
-    vim.g.Lf_PopupPreviewPosition = 'left'
+    vim.g.Lf_WindowHeight         = 0.4
+    vim.g.Lf_PopupHeight          = 0.4
+    vim.g.Lf_PopupWidth           = 0.8
+    vim.g.Lf_PopupPosition        = { 1, 0 }
+    vim.g.Lf_PopupPreviewPosition = 'bottom'
+    vim.g.Lf_PreviewPosition      = 'center'
 	vim.g.Lf_PopupShowStatusline  = 0
 	vim.g.Lf_PopupShowBorder      = 1
+    vim.g.Lf_JumpToExistingWindow = 0
 	vim.g.Lf_PopupBorders         = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
-    vim.g.Lf_StlSeparator         = { left = '', right = '', font = '' }
+    vim.g.Lf_StlSeparator = { left = "", right = "" }
     vim.g.Lf_PreviewCode    = 1
     vim.g.Lf_PreviewInPopup = 1
-    vim.g.Lf_PreviewResult  = { Function = 1, BufTag = 1, Mru = 0 }  -- 0:不自动预览; 1:自动预览
+    vim.g.Lf_PreviewResult = {
+        File = 1,
+        Buffer = 0,
+        Mru = 0,
+        Tag = 0,
+        BufTag = 1,
+        Function = 1,
+        Line = 1,
+        Colorscheme = 0,
+        Rg = 0,
+        Gtags = 0,
+    }-- 0:不自动预览; 1:自动预览
     vim.g.Lf_NeedCacheTime = 0.1  -- cache the files list,if time > 0.1s.
     vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
     vim.g.Lf_MruMaxFiles = 2048 -- Specify the number of most recently used files you want LeaderF to record (default: 100).
+    vim.g.Lf_MruEnableFrecency = 0
     vim.g.Lf_ShowRelativePath = 0
     vim.g.Lf_WildIgnore = {
       dir = { ".svn", ".git", ".hg" },
