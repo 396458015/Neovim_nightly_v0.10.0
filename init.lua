@@ -2356,9 +2356,9 @@ require("lazy").setup({
 -- {{{ Eandrju/cellular-automaton.nvim
   {
     "Eandrju/cellular-automaton.nvim",
-    keys = "<leader>rt",
+    keys = "<localleader>,",
     config = function()
-      neomap("n", "<leader>rt", "<cmd>CellularAutomaton make_it_rain<CR>", key_opts_ns)
+      neomap("n", "<localleader>,", "<cmd>CellularAutomaton make_it_rain<CR>", key_opts_ns)
     end,
   },
 -- }}}
@@ -2674,9 +2674,14 @@ vim.cmd('colorscheme ' .. mycolor)
 local fgdark = "#2E3440"
 
 vim.api.nvim_set_hl(0, "CmpItemAbbr", { fg = "#949cbb", bg = "NONE" })
-vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#9CDCFE", bg = "NONE", bold = true })
 vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#d73a4a", bg = "NONE", bold = true })
 vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { fg = "#808080", bg = "NONE", strikethrough = true })
+-- CmpItemAbbrMatch
+if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+    vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#9CDCFE", bg = "NONE", bold = true })
+elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+    vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#2E3440", bg = "NONE", bold = true })
+end
 
 vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = "#ef9f76", bg = "NONE", italic = true })-- #abb2bf
 
