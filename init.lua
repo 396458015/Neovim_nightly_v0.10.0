@@ -19,6 +19,8 @@ local key_opts_s    = { silent = true }
 neomap("", ";", ":", key_opts_n)
 neomap("n", "s", "<nop>", key_opts_ns)
 neomap("x", "s", "<nop>", key_opts_ns)
+neomap("n", "r", "<nop>", key_opts_ns)
+neomap("x", "r", "<nop>", key_opts_ns)
 neomap("n", "<Space>", "<nop>", key_opts_ns)
 neomap("n", ",", "<nop>", key_opts_ns)
 -- x,c仅复制,不更改寄存器.(d为剪切)
@@ -648,7 +650,6 @@ require("lazy").setup({
     vim.g.Lf_WindowPosition = 'bottom'
     vim.api.nvim_command("hi link Lf_hl_stlName StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlMode StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlCategory StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlSeparator0 StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlSeparator1 StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlSeparator2 StatuslineNC")
@@ -656,13 +657,20 @@ require("lazy").setup({
     vim.api.nvim_command("hi link Lf_hl_stlSeparator4 StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlSeparator5 StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlLineInfo Statusline")
-    vim.api.nvim_command("hi link Lf_hl_stlNameOnlyMode StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlRegexMode StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlFullPathMode StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlFuzzyMode StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlCwd Statusline")
     vim.api.nvim_command("hi link Lf_hl_stlBlank Statusline")
     vim.api.nvim_command("hi link Lf_hl_stlTotal Statusline")
+    if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+        vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg="#303446", fg="#429940", bold=true, italic=true } ) --2 domain
+        vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg="#303446",fg="#737994" } )                      --3 domain
+        vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { fg="#b09a6f" } )                                            --4 domain
+    elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+        vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg="#e1e2e7",fg="#8839ef", bold=true, italic=true } )  --2 domain
+        vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg="#e1e2e7",fg="#838ba7" } )                      --3 domain
+        vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { bg="#e1e2e7", fg="#de6d78" } )                              --4 domain
+    end
 
     -- Popup mode
     --[[ vim.g.Lf_WindowPosition       = 'popup'
@@ -1501,6 +1509,12 @@ require("lazy").setup({
                 enabled = true,
                 jump_labels = true,
                 autohide = true,
+                char_actions = function()
+                  return {
+                    [";"] = "right", -- set to `right` to always go right
+                    [","] = "left", -- set to `left` to always go left
+                  }
+                end,
             },
             -- a regular search with `/` or `?`
 			search = {
