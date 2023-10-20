@@ -290,7 +290,6 @@ require("lazy").setup({
         { "<C-n>", mode = { "n", "x" }, desc = "visual multi" },
     },
     init = function()
-      vim.g.VM_theme             = 'iceblue'
       vim.g.VM_highlight_matches = 'underline'
       vim.g.VM_maps = {
         ["Find Under"]         = "<C-n>",
@@ -2796,6 +2795,12 @@ vim.api.nvim_command("hi DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none gu
 vim.api.nvim_command("hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e")  -- 变化的文字
 -- lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
+-- mg979/vim-visual-multi theme
+if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+    vim.g.VM_theme = 'iceblue'
+elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+    vim.g.VM_theme = 'lightblue2'
+end
 -- which-key background color (transparency)
 vim.api.nvim_command("hi WhichKeyFloat ctermbg=black ctermfg=black guibg=0")
 vim.api.nvim_command("hi WhichKeyBorder ctermbg=black ctermfg=black guibg=0")
