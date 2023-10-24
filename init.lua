@@ -301,115 +301,6 @@ require("lazy").setup({
     end,
   },
 -- Local plugins
--- {{{ Dir = dashboard-nvim
-  {
-    dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/dashboard-nvim",
-    event = 'BufWinEnter',
-    config = function()
-    require('dashboard').setup({
-    theme = 'doom',
-    config = {
-        header ={
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[   ▄████▄              ▒▒▒▒▒       ▒▒▒▒▒   ]],
-              [[  ███▄█▀              ▒ ▄▒ ▄▒     ▒ ▄▒ ▄▒  ]],
-              [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
-              [[  █████▄             ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
-              [[   ▀████▀            ▒ ▒ ▒ ▒ ▒   ▒ ▒ ▒ ▒ ▒ ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-              [[                                           ]],
-        },
-      center = {
-        {
-          icon    = ' ',
-          icon_hl = 'Title',
-          desc    = 'Find File',
-          desc_hl = 'String',
-          key     = 'f',
-          keymap  = 'SPC f f',
-          key_hl  = 'Number',
-          action  = 'Telescope file_browser path=:/<left><left>'
-        },
-        {
-          icon    = ' ',--
-          icon_hl = 'Title',
-          desc    = 'Recently Files',
-          desc_hl = 'String',
-          key     = 'r',
-          key_hl  = 'Number',
-          keymap  = ', r',
-          action = 'LeaderfMru',
-          --keymap  = 'SPC f r',  --Telescope
-          --action  = 'Telescope oldfiles',  --Telescope
-        },
-        {
-          icon    = ' ',
-          icon_hl = 'Title',
-          desc    = 'Dotfile',
-          desc_hl = 'String',
-          key     = 'd',
-          keymap  = 'SPC r c',
-          key_hl  = 'Number',
-          action  = 'edit $MYVIMRC | tcd %:p:h', --tabnew;edit
-        },
-        {
-          icon    = ' ',
-          icon_hl = 'Title',
-          desc    = 'New File',
-          desc_hl = 'String',
-          key     = 'i',
-          key_hl  = 'Number',
-          action  = 'enew',
-        },
-        {
-          icon    = '鈴',--
-          icon_hl = 'Title',
-          desc    = 'Manage Plugins',
-          desc_hl = 'String',
-          key     = 'l',
-          key_hl  = 'Number',
-          action  = 'Lazy',
-        },
-        {
-          icon    = " ",
-          icon_hl = 'Title',
-          desc    = "Exit",
-          desc_hl = 'String',
-          key     = "q",
-          key_hl  = 'Number',
-          action  = "qa",
-        },
-      },
-      footer = function()
-          return {
-              '',
-              '',
-              '',
-              '',
-              "🎉 NVIM(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins  in " .. require"lazy".stats().startuptime .. " ms 🎉",
-          }
-      end
-    },
-    hide = {
-        statusline = true,
-        tabline = true,
-        winbar = true,
-    },
-    --vim.api.nvim_command("hi DashboardHeader guifg=red")
-    })
-    end,
-  },
--- }}}
 -- {{{ Dir = vim-speeddating-master
   { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = {"markdown", "org"} }, --modified
 -- }}}
@@ -505,6 +396,115 @@ require("lazy").setup({
   },
 -- }}}
 -- Github plugins
+-- {{{ nvimdev/dashboard-nvim
+    {
+        "nvimdev/dashboard-nvim",
+        event = 'BufWinEnter',
+        config = function()
+            require('dashboard').setup {
+                theme = 'doom',
+                config = {
+                    header ={
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[   ▄████▄              ▒▒▒▒▒       ▒▒▒▒▒   ]],
+                        [[  ███▄█▀              ▒ ▄▒ ▄▒     ▒ ▄▒ ▄▒  ]],
+                        [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
+                        [[  █████▄             ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
+                        [[   ▀████▀            ▒ ▒ ▒ ▒ ▒   ▒ ▒ ▒ ▒ ▒ ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                        [[                                           ]],
+                    },
+                    center = {
+                        {
+                            icon    = ' ',
+                            icon_hl = 'Title',
+                            desc    = 'Find File',
+                            desc_hl = 'String',
+                            key     = 'f',
+                            keymap  = 'SPC f f',
+                            key_hl  = 'Number',
+                            action  = 'Telescope file_browser path=:/<left><left>'
+                        },
+                        {
+                            icon    = ' ',--
+                            icon_hl = 'Title',
+                            desc    = 'Recently Files',
+                            desc_hl = 'String',
+                            key     = 'r',
+                            key_hl  = 'Number',
+                            keymap  = ', r',
+                            action = 'LeaderfMru',
+                            --keymap  = 'SPC f r',  --Telescope
+                            --action  = 'Telescope oldfiles',  --Telescope
+                        },
+                        {
+                            icon    = ' ',
+                            icon_hl = 'Title',
+                            desc    = 'Dotfile',
+                            desc_hl = 'String',
+                            key     = 'd',
+                            keymap  = 'SPC r c',
+                            key_hl  = 'Number',
+                            action  = 'edit $MYVIMRC | tcd %:p:h', --tabnew;edit
+                        },
+                        {
+                            icon    = ' ',
+                            icon_hl = 'Title',
+                            desc    = 'New File',
+                            desc_hl = 'String',
+                            key     = 'i',
+                            key_hl  = 'Number',
+                            action  = 'enew',
+                        },
+                        {
+                            icon    = '鈴',--
+                            icon_hl = 'Title',
+                            desc    = 'Manage Plugins',
+                            desc_hl = 'String',
+                            key     = 'l',
+                            key_hl  = 'Number',
+                            action  = 'Lazy',
+                        },
+                        {
+                            icon    = " ",
+                            icon_hl = 'Title',
+                            desc    = "Exit",
+                            desc_hl = 'String',
+                            key     = "q",
+                            key_hl  = 'Number',
+                            action  = "qa",
+                        },
+                    },
+                    footer = function()
+                        return {
+                            '',
+                            '',
+                            '',
+                            '',
+                            "🎉 NVIM(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins  in " .. require"lazy".stats().startuptime .. " ms 🎉",
+                        }
+                    end
+                },
+                hide = {
+                    statusline = true,
+                    tabline = true,
+                    winbar = true,
+                },
+                vim.api.nvim_command("hi DashboardHeader guifg='#925ba6'")
+            }
+        end,
+    },
+-- }}}
 -- {{{ mbbill/undotree
   {
     "mbbill/undotree",
