@@ -1288,17 +1288,53 @@ require("lazy").setup({
         },
     },
     config = function()
-    require("scrollbar").setup({
-        handle = {
-            color = '#abb2bf',
-        },
-        marks = {
-            Cursor = {
-                text = "•",
-                color = 'black',
-            },
-        },
-    })
+            if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+                require("scrollbar").setup({
+                    handle = {
+                        text = " ",
+                        color = "#abb2bf",
+                        cterm = nil,
+                        highlight = "CursorColumn",
+                        hide_if_all_visible = true, -- Hides handle if all lines are visible
+                    },
+                    marks = {
+                        Cursor = {
+                            text = "•",
+                            color = 'black',
+                        },
+                        Search = {
+                            text = { "-", "=" },
+                            priority = 0,
+                            color = "#e1e2e7",
+                            cterm = nil,
+                            highlight = "Search",
+                        },
+                    },
+                })
+            elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+                require("scrollbar").setup({
+                    handle = {
+                        text = " ",
+                        color = "#4d688e",
+                        cterm = nil,
+                        highlight = "CursorColumn",
+                        hide_if_all_visible = true, -- Hides handle if all lines are visible
+                    },
+                    marks = {
+                        Cursor = {
+                            text = "•",
+                            color = "black",
+                        },
+                        Search = {
+                            text = { "-", "=" },
+                            priority = 0,
+                            color = "black",
+                            cterm = nil,
+                            highlight = "Search",
+                        },
+                    },
+                })
+            end
     require("scrollbar.handlers.search").setup({})
     end,
   },
