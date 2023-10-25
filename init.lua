@@ -426,7 +426,7 @@ require("lazy").setup({
                     },
                     center = {
                         {
-                            icon    = ' ',
+                            icon    = '  ',
                             icon_hl = 'Title',
                             desc    = 'New File',
                             desc_hl = 'String',
@@ -435,7 +435,7 @@ require("lazy").setup({
                             action  = 'enew',
                         },
                         {
-                            icon    = ' ',
+                            icon    = '  ',
                             icon_hl = 'Title',
                             desc    = 'Find File',
                             desc_hl = 'String',
@@ -445,7 +445,7 @@ require("lazy").setup({
                             action  = 'Telescope file_browser path=:/<left><left>'
                         },
                         {
-                            icon    = ' ',--
+                            icon    = '  ',--
                             icon_hl = 'Title',
                             desc    = 'Recently Files',
                             desc_hl = 'String',
@@ -457,7 +457,7 @@ require("lazy").setup({
                             --action  = 'Telescope oldfiles',  --Telescope
                         },
                         {
-                            icon    = ' ',
+                            icon    = '  ',
                             icon_hl = 'Title',
                             desc    = 'Last Session',
                             desc_hl = 'String',
@@ -467,7 +467,7 @@ require("lazy").setup({
                             action = 'lua require("persistence").load({ last = true })',
                         },
                         {
-                            icon    = '鈴',--
+                            icon    = '💤 ',-- 鈴
                             icon_hl = 'Title',
                             desc    = 'Manage Plugins',
                             desc_hl = 'String',
@@ -476,7 +476,7 @@ require("lazy").setup({
                             action  = 'Lazy',
                         },
                         {
-                            icon    = ' ',
+                            icon    = '  ',
                             icon_hl = 'Title',
                             desc    = 'Dotfile',
                             desc_hl = 'String',
@@ -486,7 +486,7 @@ require("lazy").setup({
                             action  = 'edit $MYVIMRC | tcd %:p:h', --tabnew;edit
                         },
                         {
-                            icon    = " ",
+                            icon    = "  ",
                             icon_hl = 'Title',
                             desc    = "Exit",
                             desc_hl = 'String',
