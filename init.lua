@@ -426,6 +426,15 @@ require("lazy").setup({
                     },
                     center = {
                         {
+                            icon    = ' ',
+                            icon_hl = 'Title',
+                            desc    = 'New File',
+                            desc_hl = 'String',
+                            key     = 'i',
+                            key_hl  = 'Number',
+                            action  = 'enew',
+                        },
+                        {
                             icon    = ' ',
                             icon_hl = 'Title',
                             desc    = 'Find File',
@@ -448,23 +457,14 @@ require("lazy").setup({
                             --action  = 'Telescope oldfiles',  --Telescope
                         },
                         {
-                            icon    = ' ',
+                            icon    = ' ',
                             icon_hl = 'Title',
-                            desc    = 'Dotfile',
+                            desc    = 'Last Session',
                             desc_hl = 'String',
-                            key     = 'd',
-                            keymap  = 'SPC r c',
+                            key     = 's',
                             key_hl  = 'Number',
-                            action  = 'edit $MYVIMRC | tcd %:p:h', --tabnew;edit
-                        },
-                        {
-                            icon    = ' ',
-                            icon_hl = 'Title',
-                            desc    = 'New File',
-                            desc_hl = 'String',
-                            key     = 'i',
-                            key_hl  = 'Number',
-                            action  = 'enew',
+                            keymap  = 'SPC s l',
+                            action = 'lua require("persistence").load({ last = true })',
                         },
                         {
                             icon    = '鈴',--
@@ -474,6 +474,16 @@ require("lazy").setup({
                             key     = 'l',
                             key_hl  = 'Number',
                             action  = 'Lazy',
+                        },
+                        {
+                            icon    = ' ',
+                            icon_hl = 'Title',
+                            desc    = 'Dotfile',
+                            desc_hl = 'String',
+                            key     = 'd',
+                            keymap  = 'SPC r c',
+                            key_hl  = 'Number',
+                            action  = 'edit $MYVIMRC | tcd %:p:h', --tabnew;edit
                         },
                         {
                             icon    = " ",
@@ -504,6 +514,18 @@ require("lazy").setup({
             }
         end,
     },
+-- }}}
+-- {{{ folke/persistence.nvim
+  {
+    "folke/persistence.nvim",
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    opts = {
+        save_empty = false,
+    },
+    keys = {
+      { "<leader>sl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+    },
+  },
 -- }}}
 -- {{{ mbbill/undotree
   {
