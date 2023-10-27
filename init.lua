@@ -721,8 +721,14 @@ require("lazy").setup({
   {
     "voldikss/vim-floaterm",
     cmd = { "FloatermNew", "FloatermSend" },
+    config = function()
+        if vim.o.background == 'dark' then
+            vim.api.nvim_command("hi FloatermBorder guibg=#303446 guifg=#868c9a")
+        elseif vim.o.background == 'light' then
+            vim.api.nvim_command("hi FloatermBorder guibg=#e1e2e7 guifg=#5c6370")
+        end
+    end,
     init = function()
-            vim.api.nvim_command("hi FloatermBorder guibg=#3e4452 guifg=#5c6370")
             vim.g.floaterm_autoclose = 0
             vim.g.floaterm_keymap_kill = '<C-q>'
             vim.g.floaterm_keymap_next = '<leader>tn'
@@ -2540,6 +2546,10 @@ require("lazy").setup({
 	end,
   },
 -- }}}
+  {
+    "seandewar/bad-apple.nvim",
+    cmd = { "BadApple" },
+  },
 -- {{{ folke/which-key.nvim
   {
     "folke/which-key.nvim",
