@@ -723,9 +723,9 @@ require("lazy").setup({
     cmd = { "FloatermNew", "FloatermSend" },
     config = function()
         if vim.o.background == 'dark' then
-            vim.api.nvim_command("hi FloatermBorder guibg=#303446 guifg=#868c9a")
+            vim.api.nvim_command("hi FloatermBorder guibg=#303446 guifg=#89a0c3")
         elseif vim.o.background == 'light' then
-            vim.api.nvim_command("hi FloatermBorder guibg=#e1e2e7 guifg=#5c6370")
+            vim.api.nvim_command("hi FloatermBorder guibg=#e1e2e7 guifg=#40a02b")
         end
     end,
     init = function()
