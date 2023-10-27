@@ -729,6 +729,9 @@ require("lazy").setup({
         end
     end,
     init = function()
+            vim.g.floaterm_wintype = 'float'
+            vim.g.floaterm_title = '─────  Terminal [$1|$2] '
+            vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
             vim.g.floaterm_autoclose = 0
             vim.g.floaterm_keymap_kill = '<C-q>'
             vim.g.floaterm_keymap_next = '<leader>tn'
