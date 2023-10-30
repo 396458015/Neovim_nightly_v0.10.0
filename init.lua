@@ -2549,10 +2549,31 @@ require("lazy").setup({
 	end,
   },
 -- }}}
+-- {{{ seandewar/bad-apple.nvim
   {
     "seandewar/bad-apple.nvim",
     cmd = { "BadApple" },
   },
+-- }}}
+-- {{{ tamton-aquib/duck.nvim
+  {
+    'tamton-aquib/duck.nvim',
+    keys = {
+        { "<leader>dd", function() require("duck").hatch() end, desc = "duck +1" },
+        { "<leader>dk", function() require("duck").cook() end, desc = "duck -1" },
+    }, 
+    config = function()
+        local duck_list = { "🦆" , "ඞ ", "🦀" , "🐈", "🐎", "🦖", "🐤" }
+        local randomIndex_duck = math.random(1,#duck_list)
+        require("duck").setup {
+            character = duck_list[randomIndex_duck],
+            speed = 10,   -- optimal: 1 to 99
+            width = 2,
+            blend = 100,  -- 0 to 100
+        }
+    end,
+  },
+-- }}}
 -- {{{ folke/which-key.nvim
   {
     "folke/which-key.nvim",
