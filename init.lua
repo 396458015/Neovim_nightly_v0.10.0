@@ -66,8 +66,6 @@ neomap('v', '<leader>z', [[:s///g<left><left><left>]], key_opts_n)
 -- 创建列表
 neomap('n', '<leader>b', [[:put =range(,,1)<left><left><left><left>]], key_opts_n)
 -------------------- 分屏 --------------------
-neomap('n', '<C-F12>', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
-neomap('n', '<C-F11>', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
 -- 互换分割窗口
 neomap('n', '<S-h>', '<C-w>b<C-w>H', key_opts_ns)
 -- neomap('n', 'srh', '<C-w>b<C-w>K', {}) -- 注释掉，因为与 <S-h> 冲突
@@ -137,6 +135,17 @@ neomap('c', '<F3>', '<C-c>:set list!<CR>', key_opts_ns)
 -- 高亮光标行列
 neomap('n', '<F4>', ':set cuc! cul!<CR>', key_opts_ns)
 neomap('i', '<F4>', '<C-o>:set cuc! cul!<CR>', key_opts_ns)
+-- smart split
+function smart_split()
+    if vim.api.nvim_win_get_width(0) > vim.api.nvim_win_get_height(0) * 3 then
+        vim.cmd("vsplit")
+    else
+        vim.cmd("split")
+    end
+end
+neomap('n', '<C-\\>', ':lua smart_split()<CR>', key_opts_ns)
+-- neomap('n', '<C-\\>', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
+-- neomap('n', '<C-F11>', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
 -- }}}
 
 -- {{{ font
@@ -357,31 +366,38 @@ require("lazy").setup({
             lualine_z = { '%l - %L' },
         },
     }
+
     --Match colorscheme
-    if vim.g.colors_name == 'nightfox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_nightfox' }}
-    elseif vim.g.colors_name == 'nordfox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_nordfox' }}
-    elseif vim.g.colors_name == 'duskfox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_duskfox' }}
-    elseif vim.g.colors_name == 'terafox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_terafox' }}
-    elseif vim.g.colors_name == 'dayfox' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
-    elseif vim.g.colors_name == 'tokyonight' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
-    elseif vim.g.colors_name == 'catppuccin-frappe' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe' }}
-    elseif vim.g.colors_name == 'catppuccin-macchiato' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_macchiato' }}
-    elseif vim.g.colors_name == 'catppuccin-mocha' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_mocha' }}
-    elseif vim.g.colors_name == 'catppuccin-latte' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_latte' }}
-    elseif vim.g.colors_name == 'github_dark' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_github_dark' }}
-    elseif vim.g.colors_name == 'github_light' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_github_light' }}
+    if vim.fn.has('gui_running') == 1 then
+        if vim.g.colors_name == 'nightfox' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_nightfox' }}
+        elseif vim.g.colors_name == 'nordfox' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_nordfox' }}
+        elseif vim.g.colors_name == 'duskfox' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_duskfox' }}
+        elseif vim.g.colors_name == 'terafox' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_terafox' }}
+        elseif vim.g.colors_name == 'dayfox' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
+        elseif vim.g.colors_name == 'tokyonight' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
+        elseif vim.g.colors_name == 'catppuccin-frappe' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe' }}
+        elseif vim.g.colors_name == 'catppuccin-macchiato' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_macchiato' }}
+        elseif vim.g.colors_name == 'catppuccin-mocha' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_mocha' }}
+        elseif vim.g.colors_name == 'catppuccin-latte' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_latte' }}
+        elseif vim.g.colors_name == 'github_dark' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_github_dark' }}
+        elseif vim.g.colors_name == 'github_light' then
+            require'lualine'.setup {options = { theme = 'max_lualine_theme_github_light' }}
+        end
+    else
+        if vim.g.colors_name == 'catppuccin-frappe' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe_transparent' }}
+        end
     end
     end,
   }, --modified
@@ -411,15 +427,11 @@ require("lazy").setup({
                         [[                                           ]],
                         [[                                           ]],
                         [[                                           ]],
-                        [[                                           ]],
-                        [[                                           ]],
-                        [[                                           ]],
                         [[   ▄████▄              ▒▒▒▒▒       ▒▒▒▒▒   ]],
                         [[  ███▄█▀              ▒ ▄▒ ▄▒     ▒ ▄▒ ▄▒  ]],
                         [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
                         [[  █████▄             ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
                         [[   ▀████▀            ▒ ▒ ▒ ▒ ▒   ▒ ▒ ▒ ▒ ▒ ]],
-                        [[                                           ]],
                         [[                                           ]],
                         [[                                           ]],
                         [[                                           ]],
@@ -497,8 +509,6 @@ require("lazy").setup({
                     },
                     footer = function()
                         return {
-                            '',
-                            '',
                             '',
                             '',
                             "🎉 NVIM(v" .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch .. ") " .. "loaded " .. require("lazy").stats().count .. " plugins  in " .. require"lazy".stats().startuptime .. " ms 🎉",
@@ -1403,6 +1413,11 @@ require("lazy").setup({
 			'<cmd>Neotree filesystem left toggle dir=c:/Users/ThinkPad/Desktop/<CR>',
 			desc = 'Desktop',
 		},
+		{
+			'<leader>rw',
+			'<cmd>Neotree filesystem left toggle dir=c:/Users/ThinkPad/.config/wezterm/config<CR>',
+			desc = 'wezterm config',
+		},
 	},
   	dependencies = {
         {
@@ -1590,6 +1605,90 @@ require("lazy").setup({
 	},
   },
 -- }}}
+-- {{{ catppuccin/nvim
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    event = "BufReadPre",
+    config = function()
+    local transparent_TREM
+    if vim.fn.has('gui_running') == 1 then
+        transparent_TREM = false
+    else
+        transparent_TREM = true
+    end
+    require("catppuccin").setup({
+        transparent_background = transparent_TREM,
+        show_end_of_buffer = false, -- show the '~' characters after the end of buffers
+        term_colors = true,
+        dim_inactive = {
+            enabled = false,
+            shade = "dark",
+            percentage = 0.15,
+        },
+        no_italic = false, -- Force no italic
+        no_bold = false, -- Force no bold
+        no_underline = false, -- Force no underline
+        styles = {
+            comments = {},
+            conditionals = { "italic" },
+            loops = {},
+            functions = { "italic" },
+            keywords = { "bold" },
+            strings = {},
+            variables = {},
+            numbers = { "italic" },
+            booleans = {},
+            properties = {},
+            types = { "italic", "bold" },
+            operators = {},
+        },
+        color_overrides = {
+                    latte = {
+                        base = '#e1e2e7',
+                        mantle = "#e1e2e7",
+                    },
+                    frappe = {
+                        text   = "#abb2bf",
+                        mantle = "#303446",
+                    },
+                    macchiato = {
+                        text   = "#abb2bf",
+                        mantle = "#24273A",
+                    },
+                    mocha = {
+                        text     = "#abb2bf",
+                        --text = "#F4CDE9",
+                        subtext1 = "#DEBAD4",
+                        subtext0 = "#C8A6BE",
+                        overlay2 = "#B293A8",
+                        overlay1 = "#9C7F92",
+                        overlay0 = "#866C7D",
+                        surface2 = "#705867",
+                        surface1 = "#5A4551",
+                        surface0 = "#44313B",
+                        base     = "#352939",
+                        mantle   = "#352939", --origin "#1E1E2E"
+                        crust    = "#1a1016",
+                    },
+        },
+        custom_highlights = {},
+        integrations = {
+            cmp = true,
+            telescope = true,
+            dashboard = true,
+            markdown = true,
+            mason = true,
+            neotree = true,
+            treesitter = true,
+            treesitter_context = true,
+            ts_rainbow2 = true,
+            which_key = true,
+        },
+    })
+    end,
+  },
+-- }}}
 -- {{{ EdenEast/nightfox.nvim
   {
     "EdenEast/nightfox.nvim",
@@ -1710,84 +1809,6 @@ require("lazy").setup({
       on_colors = function(colors) end,
 
       on_highlights = function(highlights, colors) end,
-    })
-    end,
-  },
--- }}}
--- {{{ catppuccin/nvim
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    event = "BufReadPre",
-    config = function()
-    require("catppuccin").setup({
-        transparent_background = false,
-        show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-        term_colors = true,
-        dim_inactive = {
-            enabled = false,
-            shade = "dark",
-            percentage = 0.15,
-        },
-        no_italic = false, -- Force no italic
-        no_bold = false, -- Force no bold
-        no_underline = false, -- Force no underline
-        styles = {
-            comments = {},
-            conditionals = { "italic" },
-            loops = {},
-            functions = { "italic" },
-            keywords = { "bold" },
-            strings = {},
-            variables = {},
-            numbers = { "italic" },
-            booleans = {},
-            properties = {},
-            types = { "italic", "bold" },
-            operators = {},
-        },
-        color_overrides = {
-                    latte = {
-                        base = '#e1e2e7',
-                        mantle = "#e1e2e7",
-                    },
-                    frappe = {
-                        text   = "#abb2bf",
-                        mantle = "#303446",
-                    },
-                    macchiato = {
-                        text   = "#abb2bf",
-                        mantle = "#24273A",
-                    },
-                    mocha = {
-                        text     = "#abb2bf",
-                        --text = "#F4CDE9",
-                        subtext1 = "#DEBAD4",
-                        subtext0 = "#C8A6BE",
-                        overlay2 = "#B293A8",
-                        overlay1 = "#9C7F92",
-                        overlay0 = "#866C7D",
-                        surface2 = "#705867",
-                        surface1 = "#5A4551",
-                        surface0 = "#44313B",
-                        base     = "#352939",
-                        mantle   = "#352939", --origin "#1E1E2E"
-                        crust    = "#1a1016",
-                    },
-        },
-        custom_highlights = {},
-        integrations = {
-            cmp = true,
-            telescope = true,
-            dashboard = true,
-            markdown = true,
-            mason = true,
-            neotree = true,
-            treesitter = true,
-            treesitter_context = true,
-            ts_rainbow2 = true,
-            which_key = true,
-        },
     })
     end,
   },
@@ -2795,25 +2816,30 @@ augroup END
 -- }}}
 
 -- {{{ colorscheme
-random_color = {
---light
-    'catppuccin-latte',
-    -- 'tokyonight-day',
-    -- 'github_light',
-    -- 'dayfox',
---dark
-    -- 'duskfox',
-    -- 'terafox',
-    -- 'nordfox',
-    -- 'nightfox',
-    -- 'catppuccin-frappe',
-    -- 'catppuccin-macchiato',
-    -- 'catppuccin-mocha',
-    -- 'github_dark',
-}
-math.randomseed(os.time())
-local mycolor = random_color[math.random(table.getn(random_color))]
-vim.cmd('colorscheme ' .. mycolor)
+if vim.fn.has('gui_running') == 1 then
+-- random colorscheme
+    local colorscheme_list = {
+    --light
+        'catppuccin-latte',
+        -- 'tokyonight-day',
+        -- 'github_light',
+        -- 'dayfox',
+    --dark
+        -- 'duskfox',
+        -- 'terafox',
+        -- 'nordfox',
+        -- 'nightfox',
+        -- 'catppuccin-frappe',
+        -- 'catppuccin-macchiato',
+        -- 'catppuccin-mocha',
+        -- 'github_dark',
+    }
+    math.randomseed(os.time())
+    local randomIndex_CS = math.random(1,#colorscheme_list)
+    vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
+else
+    vim.cmd('colorscheme catppuccin-frappe')
+end
 -- }}}
 
 -- {{{ highlihgt (origin neovim & plugins)
