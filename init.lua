@@ -51,6 +51,11 @@ neomap("i", "<C-BS>", "<Esc>b\"_dei", key_opts_ns)
 -- 代码折叠
 neomap("n", "<Tab>", "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>", key_opts_ns)
 -- zf:创建折叠;zd:删除折叠,仅在manual/marker中有效;zD:删除嵌套折叠,仅在manual/marker中有效;za:打开/关闭当前折叠;zM:关闭所有折叠;zR:打开所有折叠
+-------------------- copy path(file) --------------------
+-- path without filename
+neomap("n", "<leader>y", [[:let @+=expand('%:p:h')<CR>:echo "File path in clipboard"<CR>]], key_opts_ns)
+-- path with filename
+-- neomap("n", "<leader>y", [[:let @+=expand('%:p')<CR>:echo "File path in clipboard"<CR>]], key_opts_ns)
 -------------------- spell checking --------------------
 -- 设置拼写检查开关
 neomap('n', '<Leader>sc', ':set spell!<CR>', key_opts_ns)
@@ -2688,6 +2693,7 @@ require("lazy").setup({
     ['u'] = {'Undotree'},
     ['k'] = {'Color Word'},
     ['K'] = {'Uncolor Word'},
+    ['y'] = {'Copy Path(file)'},
     ['/'] = {'Search <Pattern>'},
     ['.'] = {'Open Path'},
     [','] = {'Calculator'},
