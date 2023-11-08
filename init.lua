@@ -638,7 +638,7 @@ require("lazy").setup({
     event = 'BufWinEnter',
     cmd = { "Leaderf", "LeaderfFile" },
 	keys = {
-		-- { "<leader>fg", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File Browser" },
+		{ "<leader>fb", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File(path)" },
 		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "Fuzzy word" },
 		{ "<leader>fg", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
 		{ "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "Line" },
@@ -1911,12 +1911,13 @@ require("lazy").setup({
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
 	keys = {
-		{ "<localleader>ff", mode = { "n" }, ":Telescope file_browser path=:/<left><left>", desc = "File Browser" },
-		{ "<localleader>fp", mode = { "n" }, "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Word" },
-		{ "<localleader>fl", mode = { "n" }, "<cmd>Telescope live_grep<cr>", desc = "Word Line" },
+		{ "<localleader>fg", mode = { "n" }, "<cmd>Telescope find_files<cr>", desc = "File" },
+		{ "<localleader>fb", mode = { "n" }, ":Telescope file_browser path=:/<left><left>", desc = "File Browser" },
+		{ "<localleader>ff", mode = { "n" }, "<cmd>Telescope live_grep<cr>", desc = "Fuzzy word" },
 		{ "<localleader>fc", mode = { "n" }, "<cmd>Telescope command_history<cr>", desc = "Command History" },
-		{ "<localleader>fs", mode = { "n" }, "<cmd>Telescope search_history<cr>", desc = "Search History" },
 		{ "<localleader>fr", mode = { "n" }, "<cmd>Telescope oldfiles<cr>", desc = "Recently Files" },
+		{ "<localleader>fl", mode = { "n" }, "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Line" },
+		{ "<localleader>fs", mode = { "n" }, "<cmd>Telescope search_history<cr>", desc = "Search History" },
 	},
     dependencies = {
         {
@@ -1961,9 +1962,6 @@ require("lazy").setup({
             },
         },
     }
-    end,
-    init = function()
-    vim.cmd[[nnoremap <silent> <localleader>fb :lua require("telescope.builtin").find_files({layout_strategy="vertical"})<cr>]]
     end,
   },
 -- }}}
@@ -2739,7 +2737,6 @@ require("lazy").setup({
     LL_others.register({
     f = {
         name = "Telescope",
-        b = {"CWD File" },
         },
     w = {
         name = "Weather Forecast",
