@@ -340,7 +340,7 @@ require("lazy").setup({
                 mode = 0,
                 max_length = vim.o.columns * 2 / 3,
                 symbols = {
-                    modified = ' [𝓐 ]',-- 🈚,[+],
+                    modified = ' [+]',-- 🈚,[+],,' [𝓐 ]'
                     alternate_file = ' o',
                     directory = ' z',
                 },
@@ -458,7 +458,8 @@ require("lazy").setup({
                             key     = 'f',
                             keymap  = 'SPC f f',
                             key_hl  = 'Number',
-                            action  = 'Telescope file_browser path=:/<left><left>'
+                            action  = 'Leaderf file'
+                            -- action  = 'Telescope file_browser path=:/<left><left>'
                         },
                         {
                             icon    = '  ',--
@@ -467,8 +468,8 @@ require("lazy").setup({
                             desc_hl = 'String',
                             key     = 'r',
                             key_hl  = 'Number',
-                            keymap  = ', r',
-                            action = 'LeaderfMru',
+                            keymap  = 'SPC r',
+                            action = 'Leaderf mru',
                             --keymap  = 'SPC f r',  --Telescope
                             --action  = 'Telescope oldfiles',  --Telescope
                         },
@@ -635,12 +636,27 @@ require("lazy").setup({
     "Yggdroot/LeaderF",
     build = ":LeaderfInstallCExtension",
     event = 'BufWinEnter',
-    cmd = { "LeaderfFile", "Leaderf", "LeaderfLine", "LeaderfMru" },
+    cmd = { "Leaderf", "LeaderfFile" },
+	keys = {
+		-- { "<leader>ff", mode = { "n" }, "<cmd>LeaderfFile :/<left><left>", desc = "File Browser" },
+		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
+		{ "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "Line" },
+		{ "<leader>fc", mode = { "n" }, "<cmd>Leaderf colorscheme<cr>", desc = "Colorscheme" },
+		{ "<leader>ft", mode = { "n" }, "<cmd>Leaderf bufTag<cr>", desc = "Tag" },
+		{ "<leader>fs", mode = { "n" }, "<cmd>Leaderf searchHistory<cr>", desc = "Search History" },
+		{ "<localleader>T", mode = { "n" }, "<cmd>Leaderf bufTag<cr>", desc = "Tag" },
+		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf function<cr>", desc = "Function" },
+		{ "<localleader>F", mode = { "n" }, "<cmd>Leaderf function<cr>", desc = "Function" },
+		{ "<leader>fr", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
+		{ "<localleader>r", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
+	},
+    init = function()
+    vim.g.Lf_ShortcutF = "<C-p>"
+    vim.g.Lf_ShortcutB = ""
+    end,
     config = function()
     vim.g.Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
     vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
-    vim.g.Lf_ShortcutF = ""
-    vim.g.Lf_ShortcutB = ""
 	vim.g.Lf_CursorBlink  = 0
     vim.g.Lf_ShowDevIcons = 1
     vim.g.Lf_DevIconsFont = "Delugia Mono"
@@ -650,12 +666,13 @@ require("lazy").setup({
     vim.g.Lf_UseMemoryCache = 1
     vim.g.Lf_UseVersionControlTool = 0
     vim.g.Lf_IgnoreCurrentBufferName = 1
-    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]])  -- PopupColorscheme
+    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]]) --PopupColorscheme
 	vim.g.Lf_WorkingDirectoryMode = 'Ac'
 	vim.g.Lf_DefaultMode = 'NameOnly'
     vim.g.Lf_PreviewCode = 1
     vim.g.Lf_PreviewInPopup = 1
-    vim.g.Lf_StlSeparator = { left = "", right = "" }
+    -- vim.g.Lf_StlSeparator = { left = "", right = "" }
+    vim.g.Lf_StlSeparator = { left = "", right = "" }
     vim.g.Lf_JumpToExistingWindow = 0
     vim.g.Lf_PreviewResult = {
         File = 1,
@@ -697,14 +714,23 @@ require("lazy").setup({
     vim.api.nvim_command("hi link Lf_hl_stlFuzzyMode StatuslineNC")
     vim.api.nvim_command("hi link Lf_hl_stlBlank Statusline")
     vim.api.nvim_command("hi link Lf_hl_stlTotal Statusline")
-    if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
-        vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg="#303446", fg="#429940", bold=true, italic=true } ) --2 domain
-        vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg="#303446",fg="#737994" } )                      --3 domain
-        vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { fg="#b09a6f" } )                                            --4 domain
-    elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
-        vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg="#e1e2e7",fg="#8839ef", bold=true, italic=true } )  --2 domain
-        vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg="#e1e2e7",fg="#838ba7" } )                      --3 domain
-        vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { bg="#e1e2e7", fg="#de6d78" } )                              --4 domain
+
+    if vim.fn.has('gui_running') == 1 then
+        if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+            vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg="#303446", fg="#429940", bold=true, italic=true } ) --2 domain
+            vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg="#303446",fg="#737994" } )                      --3 domain
+            vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { fg="#b09a6f" } )                                            --4 domain
+        elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+            vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg="#e1e2e7",fg="#8839ef", bold=true, italic=true } )  --2 domain
+            vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg="#e1e2e7",fg="#838ba7" } )                      --3 domain
+            vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { bg="#e1e2e7", fg="#de6d78" } )                              --4 domain
+        end
+    else
+        if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+            vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg=nil, fg="#429940", bold=true, italic=true } ) --2 domain
+            vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg=nil,fg="#737994" } )                      --3 domain
+            vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { bg=nil, fg="#b09a6f" } )                              --4 domain
+        end
     end
 
     -- Popup mode
@@ -718,16 +744,6 @@ require("lazy").setup({
 	vim.g.Lf_PopupShowStatusline  = 0
 	vim.g.Lf_PopupShowBorder      = 1
 	vim.g.Lf_PopupBorders         = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' } ]]
-    end,
-
-    init = function()
-    neomap("n", "<localleader>fb", ":LeaderfFile :/<left><left>", key_opts_n)
-    neomap("n", "<localleader>fp", ":Leaderf rg<CR>", key_opts_ns)
-    neomap("n", "<localleader>fl", ":LeaderfLine<CR>", key_opts_ns)
-    neomap("n", "<localleader>t", ":Leaderf bufTag<CR>", key_opts_ns)
-    neomap("n", "<localleader>ff", ":Leaderf function<CR>", key_opts_ns)
-    neomap("n", "<localleader>fc", ":Leaderf colorscheme<CR>", key_opts_ns)
-    neomap("n", "<localleader>r", ":LeaderfMru<CR>", key_opts_ns)
     end,
   },
 -- }}}
@@ -1895,6 +1911,14 @@ require("lazy").setup({
   {
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
+	keys = {
+		{ "<localleader>ff", mode = { "n" }, "<cmd>Telescope file_browser path=:/<left><left>", desc = "File Browser" },
+		{ "<localleader>fp", mode = { "n" }, "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Word" },
+		{ "<localleader>fl", mode = { "n" }, "<cmd>Telescope live_grep<cr>", desc = "Word Line" },
+		{ "<localleader>fc", mode = { "n" }, "<cmd>Telescope command_history<cr>", desc = "Command History" },
+		{ "<localleader>fs", mode = { "n" }, "<cmd>Telescope search_history<cr>", desc = "Search History" },
+		{ "<localleader>fr", mode = { "n" }, "<cmd>Telescope oldfiles<cr>", desc = "Recently Files" },
+	},
     dependencies = {
         {
         "nvim-telescope/telescope-file-browser.nvim",
@@ -1940,14 +1964,7 @@ require("lazy").setup({
     }
     end,
     init = function()
-    --neomap("n", "<leader>fp", ":Telescope file_browser<cr>", key_opts_ns)
-    neomap("n", "<leader>ff", ":Telescope file_browser path=:/<left><left>", key_opts_n)
-    vim.cmd[[nnoremap <silent> <leader>fb :lua require("telescope.builtin").find_files({layout_strategy="vertical"})<cr>]]
-    neomap("n", "<leader>fp", ":Telescope current_buffer_fuzzy_find<cr>", key_opts_ns)
-    neomap("n", "<leader>fl", ":Telescope live_grep<cr>", key_opts_ns)
-    neomap("n", "<leader>fc", ":Telescope command_history<cr>", key_opts_ns)
-    neomap("n", "<leader>fs", ":Telescope search_history<cr>", key_opts_ns)
-    neomap("n", "<leader>fr", ":Telescope oldfiles<cr>", key_opts_ns)
+    vim.cmd[[nnoremap <silent> <localleader>fb :lua require("telescope.builtin").find_files({layout_strategy="vertical"})<cr>]]
     end,
   },
 -- }}}
@@ -2586,7 +2603,7 @@ require("lazy").setup({
     keys = {
         { "<leader>dd", function() require("duck").hatch() end, desc = "duck +1" },
         { "<leader>dk", function() require("duck").cook() end, desc = "duck -1" },
-    }, 
+    },
     config = function()
         local duck_list = { "🦆" , "ඞ ", "🦀" , "🐈", "🐎", "🦖", "🐤" }
         local randomIndex_duck = math.random(1,#duck_list)
@@ -2677,14 +2694,7 @@ require("lazy").setup({
         g = {"LazyGit" },
         },
     f = {
-        name = "Telescope",
-        s = {"Search History" },
-        c = {"Command History" },
-        b = {"CWD File" },
-        p = {"Fuzze Word" },
-        l = {"Word Line" },
-        f = {"File Browser" },
-        r = {"Recently files" },
+        name = "Leaderf",
         },
     ['z'] = {'Replace Word'},
     ['q'] = {'Close Buffer'},
@@ -2729,15 +2739,9 @@ require("lazy").setup({
     local LL_others = require('which-key')
     LL_others.register({
     f = {
-        name = "LeaderF",
-        b = {"File Search" },
-        c = {"Colorscheme" },
-        f = {"Function" },
-        l = {"Word Line" },
-        p = {"Fuzze Word" },
+        name = "Telescope",
+        b = {"CWD File" },
         },
-    ['t'] = {'Tag'},
-    ['r'] = {'Recently files'},
     w = {
         name = "Weather Forecast",
         d = {"3 day" },
