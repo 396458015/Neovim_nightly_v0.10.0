@@ -456,7 +456,7 @@ require("lazy").setup({
                             desc    = 'Find File',
                             desc_hl = 'String',
                             key     = 'f',
-                            keymap  = 'SPC f f',
+                            keymap  = 'SPC f g',
                             key_hl  = 'Number',
                             action  = 'Leaderf file'
                             -- action  = 'Telescope file_browser path=:/<left><left>'
@@ -638,9 +638,9 @@ require("lazy").setup({
     event = 'BufWinEnter',
     cmd = { "Leaderf", "LeaderfFile" },
 	keys = {
-		-- { "<leader>ff", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File Browser" },
-		{ "<leader>fg", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "Fuzzy" },
-		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
+		-- { "<leader>fg", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File Browser" },
+		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "Fuzzy word" },
+		{ "<leader>fg", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
 		{ "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "Line" },
 		{ "<leader>fc", mode = { "n" }, "<cmd>Leaderf colorscheme<cr>", desc = "Colorscheme" },
 		{ "<leader>fs", mode = { "n" }, "<cmd>Leaderf searchHistory<cr>", desc = "Search History" },
