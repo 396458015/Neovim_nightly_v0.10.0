@@ -638,20 +638,19 @@ require("lazy").setup({
     event = 'BufWinEnter',
     cmd = { "Leaderf", "LeaderfFile" },
 	keys = {
-		-- { "<leader>ff", mode = { "n" }, "<cmd>LeaderfFile :/<left><left>", desc = "File Browser" },
+		-- { "<leader>ff", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File Browser" },
+		{ "<leader>fg", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "Fuzzy" },
 		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
 		{ "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "Line" },
 		{ "<leader>fc", mode = { "n" }, "<cmd>Leaderf colorscheme<cr>", desc = "Colorscheme" },
-		{ "<leader>ft", mode = { "n" }, "<cmd>Leaderf bufTag<cr>", desc = "Tag" },
 		{ "<leader>fs", mode = { "n" }, "<cmd>Leaderf searchHistory<cr>", desc = "Search History" },
 		{ "<localleader>T", mode = { "n" }, "<cmd>Leaderf bufTag<cr>", desc = "Tag" },
-		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf function<cr>", desc = "Function" },
 		{ "<localleader>F", mode = { "n" }, "<cmd>Leaderf function<cr>", desc = "Function" },
 		{ "<leader>fr", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
 		{ "<localleader>r", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
 	},
     init = function()
-    vim.g.Lf_ShortcutF = "<C-p>"
+    vim.g.Lf_ShortcutF = ""
     vim.g.Lf_ShortcutB = ""
     end,
     config = function()
@@ -1912,7 +1911,7 @@ require("lazy").setup({
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
 	keys = {
-		{ "<localleader>ff", mode = { "n" }, "<cmd>Telescope file_browser path=:/<left><left>", desc = "File Browser" },
+		{ "<localleader>ff", mode = { "n" }, ":Telescope file_browser path=:/<left><left>", desc = "File Browser" },
 		{ "<localleader>fp", mode = { "n" }, "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Fuzzy Word" },
 		{ "<localleader>fl", mode = { "n" }, "<cmd>Telescope live_grep<cr>", desc = "Word Line" },
 		{ "<localleader>fc", mode = { "n" }, "<cmd>Telescope command_history<cr>", desc = "Command History" },
