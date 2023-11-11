@@ -328,7 +328,8 @@ require("lazy").setup({
             icons_enabled = true,
             theme = 'auto',
             component_separators = { left = '', right = '\\' },
-            section_separators = { left = '', right = ''},
+            -- section_separators = { left = '', right = ''},
+            section_separators = { left = '', right = ''},
             disabled_filetypes = {'neotree'},
             always_divide_middle = true,
             globalstatus = false,
@@ -1563,7 +1564,8 @@ require("lazy").setup({
             { mode = "n", "ys" },
             { mode = "n", "cs" },
             { mode = "n", "ds" },
-            { mode = "x", "<C- >" },
+            -- { mode = "x", "<C- >" },
+            { mode = "x", "<C-s>" },
         },
     config = function()
     require("nvim-surround").setup({
@@ -1571,7 +1573,8 @@ require("lazy").setup({
             normal = "ys",
             change = "cs",
             delete = "ds",
-            visual = "<C- >",
+            -- visual = "<C- >",
+            visual = "<C-s>",
         },--S, dss, css
     })
     end,
