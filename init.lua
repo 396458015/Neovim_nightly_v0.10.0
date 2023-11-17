@@ -403,6 +403,8 @@ require("lazy").setup({
     else
         if vim.g.colors_name == 'catppuccin-frappe' then
         require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe_transparent' }}
+        elseif vim.g.colors_name == 'catppuccin-latte' then
+        require'lualine'.setup {options = { theme = 'max_lualine_theme_latte_transparent' }}
         end
     end
     end,
@@ -731,6 +733,10 @@ require("lazy").setup({
             vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg=nil, fg="#429940", bold=true, italic=true } ) --2 domain
             vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg=nil,fg="#737994" } )                      --3 domain
             vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { bg=nil, fg="#b09a6f" } )                              --4 domain
+        elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+            vim.api.nvim_set_hl(0, "Lf_hl_stlCategory", { bg=nil, fg="#8839ef", bold=true, italic=true } ) --2 domain
+            vim.api.nvim_set_hl(0, "Lf_hl_stlNameOnlyMode", { bg=nil,fg="#838ba7" } )                      --3 domain
+            vim.api.nvim_set_hl(0, "Lf_hl_stlCwd", { bg=nil, fg="#de6d78" } )                              --4 domain
         end
     end
 
@@ -767,7 +773,7 @@ require("lazy").setup({
             vim.g.floaterm_keymap_kill = '<C-q>'
             vim.g.floaterm_keymap_next = '<leader>tn'
             vim.g.floaterm_shell="C:/PROGRA~1/PowerShell/7/pwsh.exe"
-            neomap("n","<leader>to",":FloatermNew<CR>")
+            neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>")
             neomap("n","<leader>tt",":FloatermToggle<CR>")
             neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
             neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
@@ -2848,8 +2854,18 @@ if vim.fn.has('gui_running') == 1 then
     local randomIndex_CS = math.random(1,#colorscheme_list)
     vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
 else
-    vim.cmd('colorscheme catppuccin-frappe')
+    local colorscheme_list = {
+    --light
+        'catppuccin-latte',
+    --dark
+        -- 'catppuccin-frappe',
+    }
+    math.randomseed(os.time())
+    local randomIndex_CS = math.random(1,#colorscheme_list)
+    vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
 end
+-- vim.cmd('colorscheme catppuccin-frappe')
+-- vim.cmd('colorscheme catppuccin-latte')
 -- }}}
 
 -- {{{ highlihgt (origin neovim & plugins)
