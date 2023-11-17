@@ -243,6 +243,7 @@ local vim_opts = {
     wildmode = "longest:full,full",  -- Command-line completion mode
     wrap = true,
     writebackup = false,
+    -- shell = "C:/PROGRA~1/PowerShell/7/pwsh.exe" -- pwsh7,启动速度200+ms
 }
 for k, v in pairs(vim_opts) do
     vim.opt[k] = v
@@ -765,6 +766,7 @@ require("lazy").setup({
             vim.g.floaterm_autoclose = 0
             vim.g.floaterm_keymap_kill = '<C-q>'
             vim.g.floaterm_keymap_next = '<leader>tn'
+            vim.g.floaterm_shell="C:/PROGRA~1/PowerShell/7/pwsh.exe"
             neomap("n","<leader>to",":FloatermNew<CR>")
             neomap("n","<leader>tt",":FloatermToggle<CR>")
             neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
@@ -824,7 +826,7 @@ require("lazy").setup({
     init = function()
     vim.g.lazygit_floating_window_winblend = 0
     vim.g.lazygit_floating_window_scaling_factor = 0.9
-    vim.g.lazygit_floating_window_corner_chars = { "╭", "╮", "╰", "╯" }
+    vim.g.lazygit_floating_window_border_chars = { "╭", "╮", "╰", "╯" }
     vim.g.lazygit_floating_window_use_plenary = 0
     vim.g.lazygit_use_neovim_remote = 0
     end,
