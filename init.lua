@@ -1475,6 +1475,7 @@ require("lazy").setup({
     end,
     config = function()
     require("neo-tree").setup({
+        use_default_mappings = false,
         close_if_last_window = true,
         popup_border_style = "rounded",
         window = {
@@ -1486,7 +1487,36 @@ require("lazy").setup({
             hijack_netrw_behavior = "open_current",
 -------------图片预览,仅支持wezterm---------------------------------------------------
           -- window = { mappings = { ["<leader>p"] = "image_wezterm", }, },
-          window = { mappings = { ["v"] = "image_wezterm", }, },
+            window = {
+              mappings = {
+                ["h"] = "navigate_up",
+                ["<bs>"] = "navigate_up",
+                ["l"] = "toggle_node",
+
+                ["<2-leftmouse>"] = "open",
+                ["<cr>"] = "open",
+
+                ["s"] = "open_vsplit",
+                ["t"] = "open_tabnew",
+
+                ["a"] = "add",
+                ["A"] = "add_directory",
+                ["yy"] = "copy_to_clipboard",
+                ["dd"] = "cut_to_clipboard",
+                ["p"] = "paste_from_clipboard",
+                ["X"] = "delete",
+                ["r"] = "rename",
+
+                ["P"] = "toggle_preview",
+                ["<esc>"] = "revert_preview",
+                ["v"] = "image_wezterm",
+
+                ["."] = "toggle_hidden",
+                ["R"] = "refresh",
+                ["q"] = "close_window",
+                ["?"] = "show_help",
+              },
+            },
           commands = {
             image_wezterm = function(state)
               local node = state.tree:get_node()
