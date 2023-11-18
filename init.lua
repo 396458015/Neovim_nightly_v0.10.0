@@ -1490,7 +1490,6 @@ require("lazy").setup({
             window = {
               mappings = {
                 ["h"] = "navigate_up",
-                ["<bs>"] = "navigate_up",
                 ["l"] = "toggle_node",
 
                 ["<2-leftmouse>"] = "open",
