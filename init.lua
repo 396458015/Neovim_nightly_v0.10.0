@@ -1484,6 +1484,18 @@ require("lazy").setup({
             follow_current_file = true,
             use_libuv_file_watcher = true,
             hijack_netrw_behavior = "open_current",
+-------------图片预览,仅支持wezterm---------------------------------------------------
+          -- window = { mappings = { ["<leader>p"] = "image_wezterm", }, },
+          window = { mappings = { ["v"] = "image_wezterm", }, },
+          commands = {
+            image_wezterm = function(state)
+              local node = state.tree:get_node()
+              if node.type == "file" then
+                require("image_preview").PreviewImage(node.path)
+              end
+            end,
+          },
+--------------------------------------------------------------------------------------
         },
         default_component_configs = {
             container = {
@@ -2624,6 +2636,13 @@ require("lazy").setup({
     end,
   },
 -- }}}
+{
+    'https://github.com/adelarsq/image_preview.nvim',
+    event = 'VeryLazy',
+    config = function()
+        require("image_preview").setup()
+    end
+},
 -- {{{ folke/which-key.nvim
   {
     "folke/which-key.nvim",
