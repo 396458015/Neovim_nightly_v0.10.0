@@ -1508,7 +1508,7 @@ require("lazy").setup({
 
                 ["P"] = "toggle_preview",
                 ["<esc>"] = "revert_preview",
-                ["v"] = "image_wezterm",
+                ["<S-i>"] = "image_wezterm",
 
                 ["."] = "toggle_hidden",
                 ["R"] = "refresh",
