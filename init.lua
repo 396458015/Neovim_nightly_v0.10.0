@@ -167,17 +167,17 @@ function! AdjustFontSize(amount)
 endfunction
 ]]
 -- keyboard
-neomap("n", "<m-->", ":call AdjustFontSize(-1)<CR>", key_opts_ns)
-neomap("n", "<m-=>", ":call AdjustFontSize(1)<CR>", key_opts_ns)
-neomap("n", "<m-BS>", ":set guifont=Delugia\\ Mono:h12.01<CR>", key_opts_ns)
-neomap("i", "<m-->", "<C-o>:call AdjustFontSize(-1)<CR>", key_opts_ns)
-neomap("i", "<m-=>", "<C-o>:call AdjustFontSize(1)<CR>", key_opts_ns)
-neomap("i", "<m-BS>", "<C-o>:set guifont=Delugia\\ Mono:h12.01<CR>", key_opts_ns)
+neomap("n", "<C-->", ":call AdjustFontSize(-1)<CR>", key_opts_ns)
+neomap("n", "<C-=>", ":call AdjustFontSize(1)<CR>", key_opts_ns)
+neomap("n", "<C-0>", ":set guifont=Delugia\\ Mono:h12.01<CR>", key_opts_ns)
+neomap("i", "<C-->", "<C-o>:call AdjustFontSize(-1)<CR>", key_opts_ns)
+neomap("i", "<C-=>", "<C-o>:call AdjustFontSize(1)<CR>", key_opts_ns)
+neomap("i", "<C-0>", "<C-o>:set guifont=Delugia\\ Mono:h12.01<CR>", key_opts_ns)
 -- mouse
-neomap("n", "<m-ScrollWheelUp>", ":call AdjustFontSize(1)<CR>", key_opts_ns)
-neomap("n", "<m-ScrollWheelDown>", ":call AdjustFontSize(-1)<CR>", key_opts_ns)
-neomap("i", "<m-ScrollWheelUp>", "<ESC>:call AdjustFontSize(1)<CR>a", key_opts_ns)
-neomap("i", "<m-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a", key_opts_ns)
+neomap("n", "<C-ScrollWheelUp>", ":call AdjustFontSize(1)<CR>", key_opts_ns)
+neomap("n", "<C-ScrollWheelDown>", ":call AdjustFontSize(-1)<CR>", key_opts_ns)
+neomap("i", "<C-ScrollWheelUp>", "<ESC>:call AdjustFontSize(1)<CR>a", key_opts_ns)
+neomap("i", "<C-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a", key_opts_ns)
 -- }}}
 
 -- {{{ options
@@ -3015,15 +3015,18 @@ if vim.g.neovide then-- neovide
     -- vim.g.neovide_profiler = true               -- 左上角显示帧数
     vim.g.neovide_scroll_animation_length = 0.3
     -- Adjust transparency
-    neomap('n', '<M-,>', ':let g:neovide_transparency -= 0.02<CR>:let g:neovide_transparency<CR>', {})
-    neomap('n', '<M-.>', ':let g:neovide_transparency += 0.02<CR>:let g:neovide_transparency<CR>', {})
-    neomap('i', '<M-,>', '<C-o>:let g:neovide_transparency -= 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
-    neomap('i', '<M-.>', '<C-o>:let g:neovide_transparency += 0.02<CR><C-o>:let g:neovide_transparency<CR>', {})
+    neomap('n', '<C-_>', ':let g:neovide_transparency -= 0.25<CR>:let g:neovide_transparency<CR>', {})
+    neomap('n', '<C-+>', ':let g:neovide_transparency += 0.25<CR>:let g:neovide_transparency<CR>', {})
+    neomap('i', '<C-_>', '<C-o>:let g:neovide_transparency -= 0.25<CR><C-o>:let g:neovide_transparency<CR>', {})
+    neomap('i', '<C-+>', '<C-o>:let g:neovide_transparency += 0.25<CR><C-o>:let g:neovide_transparency<CR>', {})
     -- Toggle fullscreen
     neomap("n", "<m-CR>", function()
         vim.g.neovide_fullscreen = vim.g.neovide_fullscreen == 1 and 0 or 1
     end, { desc = "Toggle fullscreen" })
 elseif vim.g.goneovim then-- gonevim
+    --不完美解决goneovim透明后,窗口不透明的问题,下面设置窗口不遮挡文本,如果值为100,纯透明会和文本重叠影响操作
+    vim.opt.pumblend = 10
+    vim.opt.winblend = 10
     neomap("n", "<m-CR>", ":GonvimMaximize<CR>", key_opts_ns)
     neomap("n", "<leader>rg", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/.goneovim/settings.toml<CR>", key_opts_ns)
 elseif vim.g.nvy then-- nvy
@@ -3033,6 +3036,8 @@ else-- terminal
     -- vim.api.nvim_command("hi SignColumn guibg=NONE")
 end
 -- }}}
+
+
 
 
 
