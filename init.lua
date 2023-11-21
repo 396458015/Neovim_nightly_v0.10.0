@@ -153,26 +153,37 @@ neomap('n', '<C-\\>', ':lua smart_split()<CR>', key_opts_ns)
 -- }}}
 
 -- {{{ font
-vim.opt.guifont     = "Delugia Mono:h11.6"  -- Cascadia Code, others: 'CodeNewRoman\ NFM', 'OperatorMono\ NF', 'ComicMono\ NF'
-vim.opt.guifontwide = "inconsolatago qihei nf:h12.5"  -- 中文 Nerd Font
+-- English (all have Nerd): 'Delugia Mono' ≈ Cascadia Code; 'CodeNewRoman NFM'; 'OperatorMono NF'; 'ComicMono NF'
+-- 中文: 'Noto Sans Mono CJK SC' (whitout Nerd); LXGW WenKai Mono (whitout Nerd); 'inconsolatago qihei nf' (Nerd)
+vim.opt.guifont     = "Delugia Mono:h12"
+-- vim.opt.guifontwide = "Noto Sans Mono CJK SC:h12"
+vim.opt.guifontwide = "LXGW WenKai Mono:h12"
 -- Adjust fontsize
 vim.cmd[[
 let s:guifontsize=12
 let s:guifont="Delugia\\ Mono"
-let s:guifontwide="inconsolatago\\ qihei\\ nf"
+"let s:guifontwide="Noto\\ Sans\\ Mono\\ CJK\\ SC"
+let s:guifontwide="LXGW\\ WenKai\\ Mono"
+
 function! AdjustFontSize(amount)
     let s:guifontsize = s:guifontsize + a:amount
     execute "set guifont=" .. s:guifont .. ":h" .. s:guifontsize
     execute "set guifontwide=" .. s:guifontwide .. ":h" .. s:guifontsize
 endfunction
+
+function!  AdjustFontSize_0()
+    execute "set guifont=" .. s:guifont .. ":h12"
+    execute "set guifontwide=" .. s:guifontwide .. ":h12"
+endfunction
 ]]
 -- keyboard
 neomap("n", "<C-->", ":call AdjustFontSize(-1)<CR>", key_opts_ns)
 neomap("n", "<C-=>", ":call AdjustFontSize(1)<CR>", key_opts_ns)
-neomap("n", "<C-0>", ":set guifont=Delugia\\ Mono:h12.01<CR>", key_opts_ns)
+neomap("n", "<C-0>", ":call AdjustFontSize_0()<CR>", key_opts_ns)
+
 neomap("i", "<C-->", "<C-o>:call AdjustFontSize(-1)<CR>", key_opts_ns)
 neomap("i", "<C-=>", "<C-o>:call AdjustFontSize(1)<CR>", key_opts_ns)
-neomap("i", "<C-0>", "<C-o>:set guifont=Delugia\\ Mono:h12.01<CR>", key_opts_ns)
+neomap("i", "<C-0>", "<C-o>:call AdjustFontSize_0()<CR>", key_opts_ns)
 -- mouse
 neomap("n", "<C-ScrollWheelUp>", ":call AdjustFontSize(1)<CR>", key_opts_ns)
 neomap("n", "<C-ScrollWheelDown>", ":call AdjustFontSize(-1)<CR>", key_opts_ns)
@@ -2904,9 +2915,9 @@ if vim.fn.has('gui_running') == 1 then
 else
     local colorscheme_list = {
     --light
-        'catppuccin-latte',
+        -- 'catppuccin-latte',
     --dark
-        -- 'catppuccin-frappe',
+        'catppuccin-frappe',
     }
     math.randomseed(os.time())
     local randomIndex_CS = math.random(1,#colorscheme_list)
@@ -3036,8 +3047,6 @@ else-- terminal
     -- vim.api.nvim_command("hi SignColumn guibg=NONE")
 end
 -- }}}
-
-
 
 
 
