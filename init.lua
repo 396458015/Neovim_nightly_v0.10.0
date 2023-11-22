@@ -2895,7 +2895,7 @@ if vim.fn.has('gui_running') == 1 then
 -- random colorscheme
     local colorscheme_list = {
     --light
-        'catppuccin-latte',
+        -- 'catppuccin-latte',
         -- 'tokyonight-day',
         -- 'github_light',
         -- 'dayfox',
@@ -2904,7 +2904,7 @@ if vim.fn.has('gui_running') == 1 then
         -- 'terafox',
         -- 'nordfox',
         -- 'nightfox',
-        -- 'catppuccin-frappe',
+        'catppuccin-frappe',
         -- 'catppuccin-macchiato',
         -- 'catppuccin-mocha',
         -- 'github_dark',
