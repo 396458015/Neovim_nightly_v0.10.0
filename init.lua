@@ -832,6 +832,9 @@ require("lazy").setup({
   },
 -- }}}
 -- {{{ kdheepak/lazygit.nvim
+    -- 首先在系统安装lazygit,'jesseduffield/lazygit'
+    -- lazygit的配置文件'C:\Users\ThinkPad\AppData\Roaming\lazygit\config.yml'
+    -- 查询仓库路径 'C:\Users\ThinkPad\AppData\Roaming\lazygit\state.yml'
   {
     "kdheepak/lazygit.nvim",
     dependencies = {
