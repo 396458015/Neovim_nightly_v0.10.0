@@ -674,6 +674,7 @@ require("lazy").setup({
     vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
 	vim.g.Lf_CursorBlink  = 0
     vim.g.Lf_ShowDevIcons = 1
+    vim.g.Lf_SpacesAfterIcon = ' '
     vim.g.Lf_DevIconsFont = "Delugia Mono"
     vim.g.Lf_ReverseOrder = 1
     vim.g.Lf_HideHelp = 1
