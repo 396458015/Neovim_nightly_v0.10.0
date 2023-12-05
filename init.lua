@@ -787,6 +787,7 @@ require("lazy").setup({
             vim.g.floaterm_keymap_next = '<leader>tn'
             vim.g.floaterm_shell="C:/PROGRA~1/PowerShell/7/pwsh.exe"
             neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>")
+            neomap("n","<leader>lf",":FloatermNew --position=center --width=0.9 --height=0.9 lfcd<CR>")
             neomap("n","<leader>tt",":FloatermToggle<CR>")
             neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
             neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
@@ -2681,6 +2682,7 @@ require("lazy").setup({
     end,
   },
 -- }}}
+-- {{{ wezterm image_preview.nvim
 {
     'https://github.com/adelarsq/image_preview.nvim',
     event = 'VeryLazy',
@@ -2688,6 +2690,7 @@ require("lazy").setup({
         require("image_preview").setup()
     end
 },
+-- }}}
 -- {{{ folke/which-key.nvim
   {
     "folke/which-key.nvim",
