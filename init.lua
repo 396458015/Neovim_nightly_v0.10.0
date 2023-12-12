@@ -2704,7 +2704,6 @@ require("lazy").setup({
       vim.o.timeout = true
       vim.o.timeoutlen = 300
       require("which-key").setup({
-          {
       plugins = {
         marks = true,
         registers = true,
@@ -2727,7 +2726,7 @@ require("lazy").setup({
       },
       icons = {
         breadcrumb = "»",
-        separator = "➜",
+        separator = "",-- ➜
         group = "+",
       },
       popup_mappings = {
@@ -2755,7 +2754,6 @@ require("lazy").setup({
         i = { "j", "k" },
         v = { "j", "k" },
       },
-      }
       })
     end,
     opts = function()
