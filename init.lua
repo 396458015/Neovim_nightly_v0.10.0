@@ -2643,7 +2643,7 @@ require("lazy").setup({
   {
     "nguyenvukhang/nvim-toggler",
     keys = {
-            { "<leader>cl", mode = { "n", "v" }, desc = "Toggle word" },
+            { "<leader>i", mode = { "n", "v" }, desc = "Toggle word" },
         },
 	config = function()
     require('nvim-toggler').setup({
@@ -2657,7 +2657,7 @@ require("lazy").setup({
         -- ['!='] = '==',
       },
       remove_default_keybinds = true, -- removes the default <leader>i keymap
-      neomap({ 'n', 'v' }, '<leader>cl', require('nvim-toggler').toggle),
+      neomap({ 'n', 'v' }, '<leader>i', require('nvim-toggler').toggle),
       remove_default_inverses = true, -- removes the default set of inverses
     })
 	end,
