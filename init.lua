@@ -788,7 +788,8 @@ require("lazy").setup({
             vim.g.floaterm_shell="C:/PROGRA~1/PowerShell/7/pwsh.exe"
             neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>")
             -- neomap("n","<localleader>e",":FloatermNew! --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --slower
-            neomap("n","<localleader>e",":FloatermNew --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --faster
+            -- neomap("n","<localleader>e",":FloatermNew --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --faster
+            neomap("n","<localleader>e",":FloatermNew --position=center --width=0.9 --height=0.9 --autoclose=1 yazi<CR>") --faster
             neomap("n","<leader>tt",":FloatermToggle<CR>")
             neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
             neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
