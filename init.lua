@@ -671,7 +671,7 @@ require("lazy").setup({
     end,
     config = function()
     vim.g.Lf_Ctags = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/ctags.exe"
-    vim.g.Lf_Rg = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/rg.exe'
+    vim.g.Lf_Rg = 'C:/Users/ThinkPad/scoop/shims/rg.exe'
 	vim.g.Lf_CursorBlink  = 0
     vim.g.Lf_ShowDevIcons = 1
     vim.g.Lf_SpacesAfterIcon = ' '
