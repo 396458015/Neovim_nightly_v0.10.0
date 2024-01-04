@@ -387,19 +387,7 @@ require("lazy").setup({
 
     --Match colorscheme
     if vim.fn.has('gui_running') == 1 then
-        if vim.g.colors_name == 'nightfox' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_nightfox' }}
-        elseif vim.g.colors_name == 'nordfox' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_nordfox' }}
-        elseif vim.g.colors_name == 'duskfox' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_duskfox' }}
-        elseif vim.g.colors_name == 'terafox' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_terafox' }}
-        elseif vim.g.colors_name == 'dayfox' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
-        elseif vim.g.colors_name == 'tokyonight' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_dayfox' }}
-        elseif vim.g.colors_name == 'catppuccin-frappe' then
+        if vim.g.colors_name == 'catppuccin-frappe' then
             require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe' }}
         elseif vim.g.colors_name == 'catppuccin-macchiato' then
             require'lualine'.setup {options = { theme = 'max_lualine_theme_macchiato' }}
@@ -407,10 +395,6 @@ require("lazy").setup({
             require'lualine'.setup {options = { theme = 'max_lualine_theme_mocha' }}
         elseif vim.g.colors_name == 'catppuccin-latte' then
             require'lualine'.setup {options = { theme = 'max_lualine_theme_latte' }}
-        elseif vim.g.colors_name == 'github_dark' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_github_dark' }}
-        elseif vim.g.colors_name == 'github_light' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_github_light' }}
         end
     else
         if vim.g.colors_name == 'catppuccin-frappe' then
@@ -682,7 +666,7 @@ require("lazy").setup({
     vim.g.Lf_UseMemoryCache = 1
     vim.g.Lf_UseVersionControlTool = 0
     vim.g.Lf_IgnoreCurrentBufferName = 1
-    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme_nightfox.vim]]) --PopupColorscheme
+    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme.vim]]) --PopupColorscheme
 	vim.g.Lf_WorkingDirectoryMode = 'Ac'
 	vim.g.Lf_DefaultMode = 'NameOnly'
     vim.g.Lf_PreviewCode = 1
@@ -803,9 +787,9 @@ require("lazy").setup({
                 au FileType floaterm nnoremap <buffer> <Esc> :q<CR>
                 " -- Python --
                 au FileType python nnoremap <C-CR> :FloatermNew py "%:p"<CR>
-                au FileType python nnoremap <C-g> :FloatermNew py "%:p"<CR>
+                " au FileType python nnoremap <C-g> :FloatermNew py "%:p"<CR>
                 au FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
-                au FileType python noremap! <C-g>  <Esc>:FloatermToggle<CR>
+                " au FileType python noremap! <C-g>  <Esc>:FloatermToggle<CR>
                 " au FileType python tnoremap <C-CR>  <C-\><C-n>:FloatermToggle<CR>
                 " -- Python REPL --
                 nnoremap <leader>tp :FloatermNew --width=0.5 --wintype=vsplit --name=repl --position=rightbelow ipython<CR>
@@ -813,16 +797,16 @@ require("lazy").setup({
                 au FileType python vnoremap <leader>w :FloatermSend<CR>
                 " -- Matlab --
                 au FileType matlab nnoremap <silent><C-CR> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
-                au FileType matlab nnoremap <silent><C-g> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
+                " au FileType matlab nnoremap <silent><C-g> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
                 " TERMINAL运行matlab代码,以'test.m'代码为例 'matlab -nosplash -nodesktop -r test'
                 " -- Fortran --
                 au FileType fortran nnoremap <C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
-                au FileType fortran nnoremap <C-g> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
+                " au FileType fortran nnoremap <C-g> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
                 " -- Typst --
                 " highligth file 'D:\Program Files\Neovim\share\nvim\runtime\syntax\typst.vim'
                 au BufRead,BufNewFile *.typ setlocal filetype=typst
                 au FileType typst nnoremap <C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
-                au FileType typst nnoremap <C-g> :FloatermNew --height=1.0 typst watch %:p<CR>
+                " au FileType typst nnoremap <C-g> :FloatermNew --height=1.0 typst watch %:p<CR>
                 au FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
             augroup END
             " Git
@@ -900,7 +884,7 @@ require("lazy").setup({
     augroup markdown_preview
         au!
         au FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
-        au FileType markdown nnoremap <C-g> <Plug>MarkdownPreview
+        " au FileType markdown nnoremap <C-g> <Plug>MarkdownPreview
     augroup END
     ]]
     end,
@@ -1779,193 +1763,6 @@ require("lazy").setup({
             ts_rainbow2 = true,
             which_key = true,
         },
-    })
-    end,
-  },
--- }}}
--- {{{ EdenEast/nightfox.nvim
-  {
-    "EdenEast/nightfox.nvim",
-    event = "BufReadPre",
-    config = function()
-    require('nightfox').setup({
-      options = {
-        compile_path = vim.fn.stdpath("cache") .. "/nightfox",
-        compile_file_suffix = "_compiled", -- Compiled file suffix
-        transparent = false,    -- Disable setting background
-        terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-        dim_inactive = false,   -- Non focused panes set to alternative background
-        styles = {              -- Style to be applied to different syntax groups
-          comments = "NONE",    -- Value is any valid attr-list value `:help attr-list`
-          conditionals = "italic",
-          constants = "NONE",
-          operators = "NONE",
-          strings = "NONE",
-          types = "italic,bold",
-          variables = "NONE",
-          functions = "italic",
-          keywords = "bold",
-          numbers = "italic",
-        },
-        inverse = {
-          match_paren = true,
-          visual = false,       -- default is true
-          search = false,
-        },
-        modules = {
-          neotree = true,
-          cmp = true,
-          telescope = true,
-          treesitter = true,
-          whichkey = true,
-          tsrainbow2 = true,
-          indent_blanklines = true,
-          dashboard = true,
-        },
-        },
-      groups = {
-        all = {
-          NormalFloat = { bg = "bg1" },
-          NormalNC = { bg = "NONE" },
-        },
-      },
-    })
-    end,
-    opts = function()
-    local palettes = {
-      nightfox  = {
-        white   = "#abb2bf",
-        fg1     = "#b2b2b2",
-        comment = "#5c6370",
-        sel0    = "#364a82", --visual
-      },
-      duskfox   = {
-        white   = "#abb2bf",
-        fg1     = "#b2b2b2",
-        comment = "#5c6370",
-        sel0    = "#364a82", --visual
-      },
-      terafox   = {
-        white   = "#abb2bf",
-        fg1     = "#b2b2b2",
-        comment = "#5c6370",
-        sel0    = "#364a82", --visual
-      },
-      nordfox   = {
-        white   = "#abb2bf",
-        fg1     = "#b2b2b2",
-        comment = "#5c6370",
-        sel0    = "#364a82", --visual
-      },
-      carbonfox = {
-        white   = "#abb2bf",
-        fg1     = "#b2b2b2",
-        comment = "#5c6370",
-        sel0    = "#364a82", --visual
-      },
-      dayfox    = {
-        bg1     = "#e1e2e7",
-        fg1     = "#4d688e",
-        fg3     = "#a8aecb", --line number
-        sel0    = "#99a7df", --visual
-        orange  = "#b15c00", --number
-      },
-    }
-    require("nightfox").setup({ palettes = palettes })
-    end,
-  },
--- }}}
--- {{{ folke/tokyonight.nvim
-  {
-    "folke/tokyonight.nvim",
-    event = "BufReadPre",
-    config = function()
-    require("tokyonight").setup({
-      style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-      light_style = "day", -- The theme is used when the background is set to light
-      transparent = false, -- Enable this to disable setting the background color
-      terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-      styles = {
-        comments = { italic = false },
-        keywords = { bold = true },
-        functions = { italic = true },
-        variables = { },
-        -- Background styles. Can be "dark", "transparent" or "normal"
-        sidebars = "dark", -- style for sidebars, see below
-        floats = "dark", -- style for floating windows
-      },
-      sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-      day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-      hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-      dim_inactive = false, -- dims inactive windows
-      lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
-
-      on_colors = function(colors) end,
-
-      on_highlights = function(highlights, colors) end,
-    })
-    end,
-  },
--- }}}
--- {{{ projekt0n/github-nvim-theme
-  {
-    "projekt0n/github-nvim-theme",
-    event = "BufReadPre",
-    config = function()
-    require('github-theme').setup({
-    options = {
-      -- Compiled file's destination location
-      compile_path = vim.fn.stdpath('cache') .. '/github-theme',
-      compile_file_suffix = '_compiled', -- Compiled file suffix
-      hide_end_of_buffer = true, -- Hide the '~' character at the end of the buffer for a cleaner look
-      hide_nc_statusline = true, -- Override the underline style for non-active statuslines
-      transparent = false,       -- Disable setting background
-      terminal_colors = true,    -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-      dim_inactive = false,      -- Non focused panes set to alternative background
-      module_default = true,     -- Default enable value for modules
-      styles = {                 -- Style to be applied to different syntax groups
-        comments = 'NONE',     -- Value is any valid attr-list value `:help attr-list`
-        functions = 'italic',
-        keywords = 'bold',
-        variables = 'NONE',
-        conditionals = 'italic',
-        constants = 'NONE',
-        numbers = 'italic',
-        operators = 'NONE',
-        strings = 'NONE',
-        types = 'italic, bold',
-      },
-      inverse = {                -- Inverse highlight for different types
-        match_paren = false,
-        visual = false,
-        search = false,
-      },
-      darken = {                 -- Darken floating windows and sidebar-like windows
-        floats = false,
-        sidebars = {
-          enable = true,
-          list = {},             -- Apply dark background to specific windows
-        },
-      },
-      modules = {                -- List of various plugins and additional options
-            'cmp',
-            'dashboard',
-            'indent_blankline',
-            'native_lsp',
-            'neotree',
-            'telescope',
-            'treesitter',
-            'treesitter_context',
-            'whichkey',
-            'markdown',
-            'mason',
-            'ts_rainbow2',
-            'which_key',
-      },
-    },
-    palettes = {},
-    specs = {},
-    groups = {},
     })
     end,
   },
@@ -2917,7 +2714,7 @@ augroup Buffer_quit
 augroup END
 
 " Highlihgt yank
-set background=light " 放到这里的目的,为了tokyonight-day显示复制颜色(HighlightedyankRegion)
+" set background=light " 放到这里的目的,为了tokyonight-day显示复制颜色(HighlightedyankRegion)
 highlight HighlightedyankRegion ctermbg=237 guibg=#c34043
 augroup highlight_yank
     au!
@@ -2946,29 +2743,21 @@ augroup END
 if vim.fn.has('gui_running') == 1 then
 -- random colorscheme
     local colorscheme_list = {
-    --light
+-- light
         -- 'catppuccin-latte',
-        -- 'tokyonight-day',
-        -- 'github_light',
-        -- 'dayfox',
-    --dark
-        -- 'duskfox',
-        -- 'terafox',
-        -- 'nordfox',
-        -- 'nightfox',
+-- dark
         'catppuccin-frappe',
         -- 'catppuccin-macchiato',
         -- 'catppuccin-mocha',
-        -- 'github_dark',
     }
     math.randomseed(os.time())
     local randomIndex_CS = math.random(1,#colorscheme_list)
     vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
 else
     local colorscheme_list = {
-    --light
+-- light
         -- 'catppuccin-latte',
-    --dark
+-- dark
         'catppuccin-frappe',
     }
     math.randomseed(os.time())
