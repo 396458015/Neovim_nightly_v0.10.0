@@ -2983,7 +2983,7 @@ end
 -- cmp color
 local fgdark = "#2E3440"
 vim.api.nvim_set_hl(0, "PmenuSel", { fg = "NONE", bg = "#3c4452"}) -- cmp 选中行背景颜色
-vim.api.nvim_set_hl(0, "Pmenu", { fg = "#949cbb", bg = "NONE"}) -- documentation font color
+vim.api.nvim_set_hl(0, "Pmenu", { fg = "#949cbb", bg = "NONE"}) -- cmp documentation font color
 
 if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = "#82AAFF", bg = "NONE", bold = true })  -- #9CDCFE
