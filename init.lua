@@ -786,7 +786,7 @@ require("lazy").setup({
                 au!
                 au FileType floaterm nnoremap <buffer> <Esc> :q<CR>
                 " -- Python --
-                au FileType python nnoremap <C-CR> :FloatermNew py "%:p"<CR>
+                au FileType python nnoremap <silent><C-CR> :FloatermNew py "%:p"<CR>
                 " au FileType python nnoremap <C-g> :FloatermNew py "%:p"<CR>
                 au FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
                 " au FileType python noremap! <C-g>  <Esc>:FloatermToggle<CR>
@@ -800,12 +800,12 @@ require("lazy").setup({
                 " au FileType matlab nnoremap <silent><C-g> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
                 " TERMINAL运行matlab代码,以'test.m'代码为例 'matlab -nosplash -nodesktop -r test'
                 " -- Fortran --
-                au FileType fortran nnoremap <C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
+                au FileType fortran nnoremap <silent><C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
                 " au FileType fortran nnoremap <C-g> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
                 " -- Typst --
                 " highligth file 'D:\Program Files\Neovim\share\nvim\runtime\syntax\typst.vim'
                 au BufRead,BufNewFile *.typ setlocal filetype=typst
-                au FileType typst nnoremap <C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
+                au FileType typst nnoremap <silent><C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
                 " au FileType typst nnoremap <C-g> :FloatermNew --height=1.0 typst watch %:p<CR>
                 au FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
             augroup END
@@ -883,7 +883,7 @@ require("lazy").setup({
     vim.cmd[[
     augroup markdown_preview
         au!
-        au FileType markdown nnoremap <C-CR> <Plug>MarkdownPreview
+        au FileType markdown nnoremap <silent><C-CR> <Plug>MarkdownPreview
         " au FileType markdown nnoremap <C-g> <Plug>MarkdownPreview
     augroup END
     ]]
