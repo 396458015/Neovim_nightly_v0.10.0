@@ -52,7 +52,7 @@
   "persistence.nvim": { "branch": "main", "commit": "ad538bfd5336f1335cdb6fd4e0b0eebfa6e12f32" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
   "targets.vim": { "branch": "master", "commit": "642d3a4ce306264b05ea3219920b13ea80931767" },
-  "telescope-file-browser.nvim": { "branch": "master", "commit": "4bd5657b14b58e069287f5ac591a647bb860b2ed" },
+  "telescope-file-browser.nvim": { "branch": "master", "commit": "6f735a63dc24b9aed527cd505a31864223c8a6d8" },
   "telescope.nvim": { "branch": "master", "commit": "da8b3d485975a8727bea127518b65c980521ae22" },
   "traces.vim": { "branch": "master", "commit": "9663fcf84de5776bee71b6c816c25ccb6ea11d1a" },
   "undotree": { "branch": "master", "commit": "36ff7abb6b60980338344982ad4cdf03f7961ecd" },
