@@ -1977,6 +1977,7 @@ require("lazy").setup({
                     lspkind_icons['FunctionCall']    = '  '
                     lspkind_icons['KeywordFunction'] = '  '
                     lspkind_icons['StringEscape']    = ' 󱔁 '
+                    lspkind_icons['Spell']           = ' 暈'
                 end,
             },
             { "hrsh7th/cmp-emoji" },
