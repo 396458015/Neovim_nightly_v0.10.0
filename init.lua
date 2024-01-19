@@ -1978,6 +1978,15 @@ require("lazy").setup({
                     lspkind_icons['KeywordFunction'] = '  '
                     lspkind_icons['StringEscape']    = ' 󱔁 '
                     lspkind_icons['Spell']           = ' 暈'
+                    lspkind_icons['Orgtsblock']          = ' ⬛'
+                    lspkind_icons['Orgtsheadlinelevel1'] = '  '
+                    lspkind_icons['Orgtsheadlinelevel2'] = '  '
+                    lspkind_icons['Orgtsheadlinelevel3'] = '  '
+                    lspkind_icons['Orgtsheadlinelevel4'] = '  '
+                    lspkind_icons['Orgtsheadlinelevel5'] = '  '
+                    lspkind_icons['Orgtsheadlinelevel6'] = '  '
+                    lspkind_icons['Orgtsheadlinelevel7'] = '  '
+                    lspkind_icons['Orgtsheadlinelevel8'] = '  '
                 end,
             },
             { "hrsh7th/cmp-emoji" },
