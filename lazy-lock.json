@@ -1,5 +1,5 @@
 {
-  "LeaderF": { "branch": "master", "commit": "597b7b717936ba0ff186f1371125c114629f253c" },
+  "LeaderF": { "branch": "master", "commit": "43e6c0467ef73107f9f6f02ac967dbc359a8d438" },
   "LuaSnip": { "branch": "master", "commit": "2dbef19461198630b3d7c39f414d09fb07d1fdd2" },
   "align.nvim": { "branch": "master", "commit": "6840ba092b7994d1e8330c98d4b838b1f490cf39" },
   "bad-apple.nvim": { "branch": "master", "commit": "1311ffb0fd567dfe9858048db13bca43c5c19ab2" },
