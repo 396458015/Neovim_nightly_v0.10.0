@@ -53,7 +53,7 @@
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
   "targets.vim": { "branch": "master", "commit": "642d3a4ce306264b05ea3219920b13ea80931767" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "6f735a63dc24b9aed527cd505a31864223c8a6d8" },
-  "telescope.nvim": { "branch": "master", "commit": "9cf58f438f95f04cf1709b734bbcb9243c262d70" },
+  "telescope.nvim": { "branch": "master", "commit": "24778fd72fcf39a0b1a6f7c6f4c4e01fef6359a2" },
   "traces.vim": { "branch": "master", "commit": "9663fcf84de5776bee71b6c816c25ccb6ea11d1a" },
   "undotree": { "branch": "master", "commit": "36ff7abb6b60980338344982ad4cdf03f7961ecd" },
   "vim-better-whitespace": { "branch": "master", "commit": "029f35c783f1b504f9be086b9ea757a36059c846" },
