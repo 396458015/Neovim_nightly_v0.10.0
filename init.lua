@@ -1489,7 +1489,10 @@ require("lazy").setup({
             auto_expand_width = true,
         },
         filesystem = {
-            follow_current_file = true,
+            follow_current_file = {
+                enabled = true,
+                leave_dirs_open = false,
+            },
             use_libuv_file_watcher = true,
             hijack_netrw_behavior = "open_current",
             window = {
@@ -1875,7 +1878,6 @@ require("lazy").setup({
     init = function()
     vim.cmd([[au FileType org setlocal nofoldenable]]) -- 关闭打开org默认folding
     neomap("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", key_opts_ns)
-    neomap("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", key_opts_ns)
     end,
   },
 -- }}}
@@ -2421,6 +2423,7 @@ require("lazy").setup({
     init = function()
     neomap("n", "<leader>rm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", key_opts_ns)
     neomap("n", "<leader>rp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", key_opts_ns)
+    neomap("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", key_opts_ns)
     end,
   },
 -- }}}
