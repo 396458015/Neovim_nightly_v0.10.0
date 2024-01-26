@@ -1900,7 +1900,7 @@ require("lazy").setup({
     },
     config = function()
     local rainbow = require 'ts-rainbow'
-    local treesitter_list = { "python", "fortran", "c", "vim", "lua", "latex", "markdown", "org", "matlab" }
+    local treesitter_list = { "python", "fortran", "c", "vim", "lua", "latex", "markdown", "org", "matlab", "json", "toml", "yaml" }
     require 'nvim-treesitter.install'.compilers = { "clang" }
     require'nvim-treesitter.configs'.setup {
       ensure_installed = treesitter_list,
