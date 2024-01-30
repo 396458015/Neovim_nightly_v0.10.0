@@ -151,6 +151,16 @@ end
 neomap('n', '<C-\\>', ':lua smart_split()<CR>', key_opts_ns)
 -- neomap('n', '<C-\\>', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
 -- neomap('n', '<C-F11>', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
+-------------------- Configuration file --------------------
+vim.cmd[[
+command! Psconfig execute "edit C:/Users/ThinkPad/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+command! Alconfig execute "edit C:/Users/ThinkPad/AppData/Roaming/alacritty/alacritty.toml"
+command! Weconfig execute "edit C:/Users/ThinkPad/.config/wezterm/config/appearance.lua"
+command! Yzconfig execute "edit C:/Users/ThinkPad/AppData/Roaming/yazi/config/yazi.toml"
+command! Ssconfig execute "edit C:/Users/ThinkPad/Documents/PowerShell/starship.toml"
+command! Wfconfig execute "edit C:/Users/ThinkPad/.config/winfetch/config.ps1"
+command! Lgconfig execute "edit C:/Users/ThinkPad/AppData/Roaming/lazygit/config.yml"
+]]
 -- }}}
 
 -- {{{ font
