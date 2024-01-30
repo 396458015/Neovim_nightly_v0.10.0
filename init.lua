@@ -1473,6 +1473,17 @@ require("lazy").setup({
             branch = "master",
             commit = "9697285",
             event = "VeryLazy",
+            config = function()
+                local DevIcons = require("nvim-web-devicons")
+                DevIcons.set_icon {
+                    md = {
+                        icon = "",
+                        color = "#ffffff",
+                        cterm_color = "white",
+                        name = "Md"
+                    },
+                }
+            end,
         },
     },
     init = function()
