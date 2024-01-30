@@ -1458,11 +1458,6 @@ require("lazy").setup({
 			'<cmd>Neotree filesystem left toggle dir=c:/Users/ThinkPad/Desktop/<CR>',
 			desc = 'Desktop',
 		},
-		{
-			'<leader>rw',
-			'<cmd>Neotree filesystem left toggle dir=c:/Users/ThinkPad/.config/wezterm/config<CR>',
-			desc = 'wezterm config',
-		},
 	},
   	dependencies = {
         {
