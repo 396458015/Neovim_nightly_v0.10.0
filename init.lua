@@ -468,7 +468,7 @@ require("lazy").setup({
                             desc_hl = 'String',
                             key     = 'r',
                             key_hl  = 'Number',
-                            keymap  = 'SPC r',
+                            keymap  = ', r',
                             action = 'Leaderf mru',
                             --keymap  = 'SPC f r',  --Telescope
                             --action  = 'Telescope oldfiles',  --Telescope
