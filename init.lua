@@ -1130,9 +1130,6 @@ require("lazy").setup({
 -- {{{ itchyny/vim-cursorword
   { "itchyny/vim-cursorword", event = "BufReadPre" },
 -- }}}
--- {{{ bronson/vim-visual-star-search
-  { "bronson/vim-visual-star-search", event = "BufReadPre" },
--- }}}
 -- {{{ alvarosevilla95/luatab.nvim
   {
     "alvarosevilla95/luatab.nvim",
@@ -1494,7 +1491,6 @@ require("lazy").setup({
           require("neo-tree")
         end
       end
-    neomap("n", "<leader>.", ":Neotree dir=:/<left><left>", {})
     end,
     config = function()
     require("neo-tree").setup({
@@ -2517,31 +2513,6 @@ require("lazy").setup({
 	end,
   },
 -- }}}
--- {{{ seandewar/bad-apple.nvim
-  {
-    "seandewar/bad-apple.nvim",
-    cmd = { "BadApple" },
-  },
--- }}}
--- {{{ tamton-aquib/duck.nvim
-  {
-    'tamton-aquib/duck.nvim',
-    keys = {
-        { "<leader>dd", function() require("duck").hatch() end, desc = "duck +1" },
-        { "<leader>dk", function() require("duck").cook() end, desc = "duck -1" },
-    },
-    config = function()
-        local duck_list = { "🦆" , "ඞ ", "🦀" , "🐈", "🐎", "🦖", "🐤" }
-        local randomIndex_duck = math.random(1,#duck_list)
-        require("duck").setup {
-            character = duck_list[randomIndex_duck],
-            speed = 10,   -- optimal: 1 to 99
-            width = 2,
-            blend = 100,  -- 0 to 100
-        }
-    end,
-  },
--- }}}
 -- {{{ folke/which-key.nvim
   {
     "folke/which-key.nvim",
@@ -2628,7 +2599,6 @@ require("lazy").setup({
     ['K'] = {'Uncolor Word'},
     ['y'] = {'Copy Path(file)'},
     ['/'] = {'Search <Pattern>'},
-    ['.'] = {'Open Path'},
     [','] = {'Calculator'},
     ['='] = {'LSP format'},
     ['r'] = {
@@ -2665,6 +2635,7 @@ require("lazy").setup({
     f = {
         name = "Telescope",
         },
+    ['e'] = {'yazi'},
     w = {
         name = "Weather Forecast",
         d = {"3 day" },
