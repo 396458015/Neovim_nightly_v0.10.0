@@ -664,6 +664,7 @@ require("lazy").setup({
     vim.g.Lf_ShortcutB = ""
     end,
     config = function()
+    neomap('n', '<F9>', ':set cmdheight=1<CR>', key_opts_ns)  -- dashboard and leaderf bug
     vim.g.Lf_Ctags = "C:/Users/ThinkPad/scoop/shims/ctags.exe"
     vim.g.Lf_Rg = 'C:/Users/ThinkPad/scoop/shims/rg.exe'
 	vim.g.Lf_CursorBlink  = 0
@@ -2539,7 +2540,8 @@ require("lazy").setup({
         },
       },
       operators = { gc = "Comments" },
-      key_labels = {
+      motions = {
+        count = true,
       },
       icons = {
         breadcrumb = "»",
@@ -2547,24 +2549,25 @@ require("lazy").setup({
         group = "+",
       },
       popup_mappings = {
-        scroll_down = '<c-d>',
-        scroll_up = '<c-u>',
+        scroll_down = '<c-f>',
+        scroll_up = '<c-b>',
       },
       window = {
-        border = "none",
+        border = "none",  -- none, single, shadow
         position = "bottom",
         margin = { 1, 0, 1, 0 },
-        padding = { 2, 2, 2, 2 },
-        winblend = 0
+        padding = { 1, 2, 1, 2 },
+        winblend = 0,
+        zindex = 1000,
       },
       layout = {
         height = { min = 4, max = 25 },
         width = { min = 20, max = 50 },
         spacing = 3,
-        align = "left",
+        align = "center",  --left, center, right
       },
       ignore_missing = false,
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "},
+      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua " },
       show_help = true,
       triggers = "auto",
       triggers_blacklist = {
