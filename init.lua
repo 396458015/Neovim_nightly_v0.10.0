@@ -2434,9 +2434,9 @@ require("lazy").setup({
     require("luasnip/loaders/from_vscode").lazy_load({ paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"}})
     end,
     init = function()
-    neomap("n", "<leader>rm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", key_opts_ns)
-    neomap("n", "<leader>rp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", key_opts_ns)
-    neomap("n", "<leader>ro", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", key_opts_ns)
+    neomap("n", "<leader>rsm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", key_opts_ns)
+    neomap("n", "<leader>rsp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", key_opts_ns)
+    neomap("n", "<leader>rso", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", key_opts_ns)
     end,
   },
 -- }}}
@@ -2585,15 +2585,15 @@ require("lazy").setup({
         name = 'Comment',
         ['c'] = {'Comment' },
         ['i'] = {'Uncomment' },
-        },
+    },
     ['e'] = {'Tree'},
     g = {
         name = "Git",
         g = {"LazyGit" },
-        },
+    },
     f = {
         name = "Leaderf",
-        },
+    },
     ['z'] = {'Replace Word'},
     ['q'] = {'Close Buffer'},
     ['w'] = {'Python Send'},
@@ -2608,10 +2608,13 @@ require("lazy").setup({
         name = 'VIMRC & Snippets',
         ['c'] = {'Edit VIMRC' },
         ['r'] = {'Reload VIMRC' },
-        ['m'] = {'Matlab-Snippets' },
-        ['o'] = {'Org-Snippets' },
-        ['p'] = {'Python-Snippets' },
+        ['s'] = {
+            name = 'Snippets',
+            ['m'] = {'Matlab-Snippets' },
+            ['o'] = {'Org-Snippets' },
+            ['p'] = {'Python-Snippets' },
         },
+    },
     ['s'] = {
         name = 'Tools',
         ['s'] = {'Todo' },
@@ -2621,7 +2624,7 @@ require("lazy").setup({
         ['t'] = {'Startify' },
         ['i'] = {'WhiteSpace' },
         ['?'] = {'Word Candidate' },
-        },
+    },
     ['t'] = {
         name = 'Terminal',
         ['o'] = {'Term New' },
@@ -2630,20 +2633,20 @@ require("lazy").setup({
         ['r'] = {'Term Rg' },
         ['p'] = {'IPyhon' },
         ['a'] = {'Term(Admin)' },
-        },
+    },
     }, { prefix = '<leader>' })
 
     local LL_others = require('which-key')
     LL_others.register({
     f = {
         name = "Telescope",
-        },
+    },
     ['e'] = {'yazi'},
     w = {
         name = "Weather Forecast",
         d = {"3 day" },
         e = {"1 day" },
-        },
+    },
     }, { prefix = ',' })
     end,
   },
