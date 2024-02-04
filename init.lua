@@ -1691,7 +1691,7 @@ require("lazy").setup({
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    event = "BufReadPre",
+    lazy = true,
     config = function()
     local transparent_TREM
     if vim.fn.has('gui_running') == 1 then
