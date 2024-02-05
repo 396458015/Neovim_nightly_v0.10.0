@@ -8,6 +8,9 @@
 -- |_|  |_| |_|      \/__/    \/_/\/_/\/_/\/_/|_| \_\\____|
 -- ========================================================
 
+-- Starup random config
+math.randomseed(os.time())
+
 -- {{{ mapping - original neovim
 vim.g.mapleader      = " "
 vim.g.maplocalleader = ","
@@ -2754,7 +2757,6 @@ if vim.fn.has('gui_running') == 1 then
         -- 'catppuccin-macchiato',
         -- 'catppuccin-mocha',
     }
-    math.randomseed(os.time())
     local randomIndex_CS = math.random(1,#colorscheme_list)
     vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
 else
@@ -2764,7 +2766,6 @@ else
 -- dark
         'catppuccin-frappe',
     }
-    math.randomseed(os.time())
     local randomIndex_CS = math.random(1,#colorscheme_list)
     vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
 end
