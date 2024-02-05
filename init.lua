@@ -431,6 +431,26 @@ require("lazy").setup({
         "nvimdev/dashboard-nvim",
         event = 'BufWinEnter',
         config = function()
+            -- random pacman color
+            local pacman_color_list = {
+                '#fff304', '#e46e16', '#49b6b1', '#f4a6c5',
+                '#db231d', '#374392', '#0C0C0C', '#C50F1F',
+                '#13A10E', '#C19C00', '#0037DA', '#881798',
+                '#3A96DD', '#CCCCCC', '#767676', '#E74856',
+                '#16C60C', '#e6cf00', '#3B78FF', '#B4009E',
+                '#72b5e4', '#f0c53f', '#ff8784', '#c5c7f1',
+                '#c2d735', '#78d3cc', '#ea8336', '#e43542',
+                '#ebab35', '#ebe735', '#aadd32', '#dcca6b',
+                '#219286', '#2f569c', '#ffb577', '#5282a4',
+                '#edfccf', '#67064c', '#f5bca7', '#95c474',
+                '#dece83', '#de9783', '#f2e700', '#e9e9e9',
+                '#69636d', '#626b98', '#f5f5a7', '#dcca6b',
+                '#b72a83', '#6f2b9d', '#69636d', '#5f569c',
+            }
+            local randomIndex_pacman = math.random(1, #pacman_color_list)
+            -- vim.api.nvim_command("hi DashboardHeader guifg='#925ba6'")
+            vim.api.nvim_command("hi DashboardHeader guifg=" .. pacman_color_list[randomIndex_pacman])
+
             require('dashboard').setup {
                 theme = 'doom',
                 config = {
@@ -535,7 +555,6 @@ require("lazy").setup({
                     tabline = true,
                     winbar = true,
                 },
-                vim.api.nvim_command("hi DashboardHeader guifg='#925ba6'")
             }
         end,
     },
