@@ -1502,6 +1502,12 @@ require("lazy").setup({
                         cterm_color = "white",
                         name = "Md"
                     },
+                    org = {
+                        icon = "",
+                        color = "#5dbd7e",
+                        cterm_color = "108",
+                        name = "Org"
+                    },
                 }
             end,
         },
