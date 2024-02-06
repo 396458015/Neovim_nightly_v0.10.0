@@ -1970,11 +1970,20 @@ require("lazy").setup({
 -- {{{ hrsh7th/nvim-cmp
     {
         "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
+        event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
             { "hrsh7th/cmp-buffer" },
             { "hrsh7th/cmp-path" },
+            { "hrsh7th/cmp-emoji" },
+            { "hrsh7th/cmp-calc" },
+            { "mstanciu552/cmp-matlab" },
+            { "lukas-reineke/cmp-under-comparator" },
+            { "ray-x/cmp-treesitter" },
+            {
+              "saadparwaiz1/cmp_luasnip",
+                dependencies = { "L3MON4D3/LuaSnip" },
+            },
             { "onsails/lspkind.nvim",
                 branch = "master",
                 commit = "c68b3a0",
@@ -2032,10 +2041,30 @@ require("lazy").setup({
                     lspkind_icons['Orgtsheadlinelevel8'] = ' ◉ '
                 end,
             },
-            { "hrsh7th/cmp-emoji" },
-            { "hrsh7th/cmp-calc" },
-            { "mstanciu552/cmp-matlab" },
-            { "lukas-reineke/cmp-under-comparator" },
+            {
+                "hrsh7th/cmp-cmdline",
+                config = function()
+                    local cmp = require'cmp'
+                    require("cmp").setup.cmdline({ "/", "?" }, {
+                        mapping = require("cmp").mapping.preset.cmdline({
+                            ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
+                        }),
+                        sources = require("cmp").config.sources({
+                            { name = "buffer", keyword_length = 1 },
+                        }),
+                    })
+                    require("cmp").setup.cmdline(":", {
+                        mapping = require("cmp").mapping.preset.cmdline({
+                            ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
+                        }),
+                        sources = require("cmp").config.sources({
+                            { name = "path", keyword_length = 1 },
+                        }, {
+                                { name = "cmdline", keyword_length = 1 },
+                            }),
+                    })
+                end,
+            },
             {
                 "uga-rosa/cmp-dictionary",
                 branch = "main",
@@ -2059,7 +2088,6 @@ require("lazy").setup({
                     vim.cmd("CmpDictionaryUpdate")
                 end,
             },
-            { "ray-x/cmp-treesitter" },
         },
         config = function()
             local cmp = require('cmp')
@@ -2187,43 +2215,6 @@ require("lazy").setup({
         end,
     },
     -- }}}
-    -- {{{ hrsh7th/cmp-cmdline
-    {
-        "hrsh7th/cmp-cmdline",
-        --event = "BufReadPre",
-        --event = "CmdlineEnter",
-        event = "InsertEnter",
-        dependencies = { "hrsh7th/nvim-cmp", "hrsh7th/cmp-path", "hrsh7th/cmp-buffer" },
-        config = function()
-            local cmp = require'cmp'
-            require("cmp").setup.cmdline({ "/", "?" }, {
-                mapping = require("cmp").mapping.preset.cmdline({
-                    ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
-                }),
-                sources = require("cmp").config.sources({
-                    { name = "buffer", keyword_length = 1 },
-                }),
-            })
-            require("cmp").setup.cmdline(":", {
-                mapping = require("cmp").mapping.preset.cmdline({
-                    ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
-                }),
-                sources = require("cmp").config.sources({
-                    { name = "path", keyword_length = 1 },
-                }, {
-                        { name = "cmdline", keyword_length = 1 },
-                    }),
-            })
-        end,
-    },
--- }}}
--- {{{ saadparwaiz1/cmp_luasnip
-  {
-    "saadparwaiz1/cmp_luasnip",
-    event = "InsertEnter",
-    dependencies = { "hrsh7th/nvim-cmp", "L3MON4D3/LuaSnip" },
-  },
--- }}}
 -- {{{ neovim/nvim-lspconfig
   {
     "neovim/nvim-lspconfig",
@@ -2392,7 +2383,8 @@ require("lazy").setup({
 -- {{{ ray-x/lsp_signature.nvim
   {
     "ray-x/lsp_signature.nvim",
-    event = "InsertEnter",
+    -- event = "InsertEnter",
+    event = 'LspAttach',
     dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
     require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
