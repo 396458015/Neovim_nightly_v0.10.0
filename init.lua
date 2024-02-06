@@ -1168,7 +1168,8 @@ require("lazy").setup({
 -- {{{ markonm/traces.vim
   {
     "markonm/traces.vim",
-    event = {"CursorMoved", "CmdlineEnter"},
+    -- event = {"CursorMoved", "CmdlineEnter"},
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
     vim.g.traces_normal_preview = 1
     vim.g.traces_num_range_preview = 1
