@@ -731,6 +731,40 @@ require("lazy").setup({
     -- 使用:LeaderfRg 路径不全时, 默认搜索该文件目录下的文件
     vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
 
+    -- 修改leaderf的icon和icon颜色,只能用vim语言,设置不了Lua保留字的后缀名如for等
+    vim.cmd[[
+    let g:Lf_DevIconsExtensionSymbols = {
+    \  'org':   '',
+    \  'txt':   '',
+    \  'md':    '',
+    \  'm':     '',
+    \  'py':    '',
+    \  'for':   '',
+    \  'csv':   '',
+    \  'log':   '',
+    \  'tex':   'ﭨ',
+    \}
+
+    let g:Lf_DevIconsPalette = {
+    \  'dark': {
+    \       'org':          { 'guifg': '#5dbd7e', 'ctermfg': '15'   },
+    \       'txt':          { 'guifg': '#89e051', 'ctermfg': '15'   },
+    \       'md':           { 'guifg': '#ffffff', 'ctermfg': '15'   },
+    \       'm':            { 'guifg': '#c04c0b', 'ctermfg': '15'   },
+    \       'py':           { 'guifg': '#FFBC03', 'ctermfg': '15'   },
+    \       'pyc':          { 'guifg': '#FFBC03', 'ctermfg': '15'   },
+    \       'pyd':          { 'guifg': '#FFBC03', 'ctermfg': '15'   },
+    \       'pyi':          { 'guifg': '#FFBC03', 'ctermfg': '15'   },
+    \       'pyo':          { 'guifg': '#FFBC03', 'ctermfg': '15'   },
+    \       'pyw':          { 'guifg': '#FFBC03', 'ctermfg': '15'   },
+    \       'for':          { 'guifg': '#bd93f9', 'ctermfg': '15'   },
+    \       'csv':          { 'guifg': '#207245', 'ctermfg': '15'   },
+    \       'log':          { 'guifg': '#6d8086', 'ctermfg': '15'   },
+    \       'tex':          { 'guifg': '#46c8a8', 'ctermfg': '15'   },
+    \   }
+    \}
+    ]]
+
     -- Bottom mode & Change statusline color (not popup mode)
     vim.g.Lf_WindowPosition = 'bottom'
     vim.api.nvim_command("hi link Lf_hl_stlName StatuslineNC")
