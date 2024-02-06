@@ -667,7 +667,8 @@ require("lazy").setup({
   {
     "Yggdroot/LeaderF",
     build = ":LeaderfInstallCExtension",
-    event = 'BufWinEnter',
+    event = { "BufReadPre", "BufNewFile" },
+    -- event = 'BufWinEnter',
     cmd = { "Leaderf", "LeaderfFile" },
 	keys = {
 		{ "<leader>fb", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File(path)" },
@@ -675,7 +676,7 @@ require("lazy").setup({
 		{ "<leader>fg", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
 		{ "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "Line" },
 		{ "<leader>fc", mode = { "n" }, "<cmd>Leaderf colorscheme<cr>", desc = "Colorscheme" },
-		{ "<leader>fs", mode = { "n" }, "<cmd>Leaderf searchHistory<cr>", desc = "Search History" },
+		{ "<leader>fh", mode = { "n" }, "<cmd>Leaderf searchHistory<cr>", desc = "Search History" },
 		{ "<localleader>T", mode = { "n" }, "<cmd>Leaderf bufTag<cr>", desc = "Tag" },
 		{ "<localleader>F", mode = { "n" }, "<cmd>Leaderf function<cr>", desc = "Function" },
 		{ "<leader>fr", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
@@ -1169,7 +1170,7 @@ require("lazy").setup({
   {
     "markonm/traces.vim",
     -- event = {"CursorMoved", "CmdlineEnter"},
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile", "InsertEnter", "CmdlineEnter" },
     config = function()
     vim.g.traces_normal_preview = 1
     vim.g.traces_num_range_preview = 1
@@ -1527,7 +1528,8 @@ require("lazy").setup({
             "kyazdani42/nvim-web-devicons",
             branch = "master",
             commit = "9697285",
-            event = "VeryLazy",
+            -- event = "VeryLazy",
+            event = { "BufReadPre", "BufNewFile" },
             config = function()
                 local DevIcons = require("nvim-web-devicons")
                 DevIcons.set_icon {
