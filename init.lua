@@ -733,35 +733,7 @@ require("lazy").setup({
     vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
 
     -- 修改leaderf的icon和icon颜色
-    vim.g.Lf_DevIconsExtensionSymbols = {
-        org     = '',
-        txt     = '',
-        md      = '',
-        m       = '',
-        py      = '',
-        ["for"] = '',
-        csv     = '',
-        log     = '',
-        tex     = 'ﭨ',
-    }
-    vim.g.Lf_DevIconsPalette = {
-        dark = {
-            org     =   { guifg = '#5dbd7e', ctermfg = '15' },
-            txt     =   { guifg = '#89e051', ctermfg = '15' },
-            md      =   { guifg = '#ffffff', ctermfg = '15' },
-            m       =   { guifg = '#c04c0b', ctermfg = '15' },
-            py      =   { guifg = '#FFBC03', ctermfg = '15' },
-            pyc     =   { guifg = '#FFBC03', ctermfg = '15' },
-            pyd     =   { guifg = '#FFBC03', ctermfg = '15' },
-            pyi     =   { guifg = '#FFBC03', ctermfg = '15' },
-            pyo     =   { guifg = '#FFBC03', ctermfg = '15' },
-            pyw     =   { guifg = '#FFBC03', ctermfg = '15' },
-            ["for"] =   { guifg = '#bd93f9', ctermfg = '15' },
-            csv     =   { guifg = '#207245', ctermfg = '15' },
-            log     =   { guifg = '#6d8086', ctermfg = '15' },
-            tex     =   { guifg = '#46c8a8', ctermfg = '15' },
-        }
-    }
+    require('leaderf_icons')
 
     -- Bottom mode & Change statusline color (not popup mode)
     vim.g.Lf_WindowPosition = 'bottom'
@@ -1504,7 +1476,7 @@ require("lazy").setup({
     event = { "BufReadPre", "BufNewFile" },
     config = function()
     -- 设置icon (lualine, neo-tree)
-    require('Icons_changed')
+    require('nvim_web_devicons_changed')
     end,
   },
 -- }}}
