@@ -733,7 +733,7 @@ require("lazy").setup({
     vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
 
     -- 修改leaderf的icon和icon颜色
-    require('add_icons(leaderf)')
+    require('add_icons_leaderf')
 
     -- Bottom mode & Change statusline color (not popup mode)
     vim.g.Lf_WindowPosition = 'bottom'
@@ -1476,7 +1476,7 @@ require("lazy").setup({
     event = { "BufReadPre", "BufNewFile" },
     config = function()
     -- 设置icon (lualine, neo-tree)
-    require('edit_icons(nvim_web_devicons)')
+    require('edit_icons_nvim_web_devicons')
     end,
   },
 -- }}}
