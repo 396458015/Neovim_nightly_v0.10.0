@@ -153,7 +153,8 @@ function smart_split()
         vim.cmd("split")
     end
 end
-neomap('n', '<C-\\>', ':lua smart_split()<CR>', key_opts_ns)
+-- neomap('n', '<C-\\>', ':lua smart_split()<CR>', key_opts_ns)
+neomap('n', '<leader>\\', ':lua smart_split()<CR>', key_opts_ns)
 -- neomap('n', '<C-\\>', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
 -- neomap('n', '<C-F11>', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
 -------------------- Configuration file --------------------
@@ -809,6 +810,8 @@ require("lazy").setup({
             vim.g.floaterm_keymap_kill = '<C-q>'
             vim.g.floaterm_keymap_next = '<leader>tn'
             vim.g.floaterm_shell="C:/PROGRA~1/PowerShell/7/pwsh.exe"
+            -- 从':terminal '中打开外部nvim中的文件的命令。
+            vim.g.floaterm_opener = 'vsplit'  -- 'edit', 'split', 'vsplit', 'tabe', 'drop'
             neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>")
             -- neomap("n","<localleader>e",":FloatermNew! --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --slower
             -- neomap("n","<localleader>e",":FloatermNew --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --faster
