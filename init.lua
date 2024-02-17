@@ -344,7 +344,7 @@ require("lazy").setup({
   },
 -- Local plugins
 -- {{{ Dir = vim-speeddating-master
-  { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = {"markdown", "org"} }, --modified
+  { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = { "markdown" } }, --modified
 -- }}}
 -- {{{ Dir = lualine.nvim-master
   {
@@ -465,8 +465,6 @@ require("lazy").setup({
                         [[                                           ]],
                         [[                                           ]],
                         [[                                           ]],
-                        [[                                           ]],
-                        [[                                           ]],
                         [[   ▄████▄              ▒▒▒▒▒       ▒▒▒▒▒   ]],
                         [[  ███▄█▀              ▒ ▄▒ ▄▒     ▒ ▄▒ ▄▒  ]],
                         [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
@@ -537,6 +535,16 @@ require("lazy").setup({
                             keymap  = 'SPC r c',
                             key_hl  = 'Number',
                             action  = 'edit $MYVIMRC | tcd %:p:h', --tabnew;edit
+                        },
+                        {
+                            icon    = '  ',
+                            icon_hl = 'Title',
+                            desc    = 'Todo List',
+                            desc_hl = 'String',
+                            key     = 'n',
+                            key_hl  = 'Number',
+                            keymap  = 'SPC n',
+                            action = 'GlobalNote',
                         },
                         {
                             icon    = "  ",
@@ -1914,12 +1922,53 @@ require("lazy").setup({
            ['IN-PROGRESS'] = ':background coral :foreground black',
            ['DONE'] = ':background chartreuse :foreground black',
            ['CANCELLED'] = ':background red :foreground black',
-       }
+       },
+       mappings = {
+           org = {
+               org_change_date = 'cid',
+               org_todo = 'cit',
+               org_agenda_show_help = 'g?',  -- show help
+           },
+       },
     })
     end,
     init = function()
     vim.cmd([[au FileType org setlocal nofoldenable]]) -- 关闭打开org默认folding
     neomap("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", key_opts_ns)
+    end,
+  },
+-- }}}
+-- {{{ backdround/global-note.nvim
+  {
+    "backdround/global-note.nvim",
+    cmd = { "GlobalNote" },
+	keys = {
+		{ "<leader>n", mode = { "n" }, "<cmd>GlobalNote<cr>", desc = "Todo list" },
+	},
+    config = function()
+        local global_note = require("global-note")
+        global_note.setup({
+            filename = "Todo-list.org",
+            directory = vim.fn.stdpath("data") .. "/Maxl/Org/",
+            title = "Todo list",
+            command_name = "GlobalNote",
+            window_config = function()
+                local window_height = vim.api.nvim_list_uis()[1].height
+                local window_width = vim.api.nvim_list_uis()[1].width
+                return {
+                    relative = "editor",
+                    border = "single",
+                    title = "Note",
+                    title_pos = "center",
+                    width = math.floor(0.7 * window_width),
+                    height = math.floor(0.85 * window_height),
+                    row = math.floor(0.55 * window_height),
+                    col = math.floor(0.15 * window_width),
+                }
+            end,
+            autosave = true,
+            additional_presets = {},
+        })
     end,
   },
 -- }}}
@@ -2040,6 +2089,8 @@ require("lazy").setup({
                     lspkind_icons['Orgtsheadlinelevel6'] = ' ◉ '
                     lspkind_icons['Orgtsheadlinelevel7'] = ' ◉ '
                     lspkind_icons['Orgtsheadlinelevel8'] = ' ◉ '
+                    lspkind_icons['Orgtscheckbox']        = '  '
+                    lspkind_icons['Orgtscheckboxchecked'] = '  '
                 end,
             },
             {
@@ -2483,7 +2534,7 @@ require("lazy").setup({
 -- {{{ lewis6991/gitsigns.nvim
   {
 	"lewis6991/gitsigns.nvim",
-	event = { "BufReadPre", "BufNewFile" },
+    event = "BufRead",
 	config = function()
 		local gitsigns = require("gitsigns")
 		gitsigns.setup({
@@ -2623,6 +2674,8 @@ require("lazy").setup({
     ['K'] = {'Uncolor Word'},
     ['y'] = {'Copy Path(file)'},
     ['/'] = {'Search <Pattern>'},
+    ['\\'] = {'Smart split'},
+    ['<Tab>'] = {'Tabnew'},
     [','] = {'Calculator'},
     ['='] = {'LSP format'},
     ['r'] = {
@@ -2654,6 +2707,9 @@ require("lazy").setup({
         ['r'] = {'Term Rg' },
         ['p'] = {'IPyhon' },
         ['a'] = {'Term(Admin)' },
+    },
+    ['o'] = {
+        name = 'Org',
     },
     }, { prefix = '<leader>' })
 
