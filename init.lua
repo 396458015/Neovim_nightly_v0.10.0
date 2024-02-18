@@ -392,8 +392,6 @@ require("lazy").setup({
                 directory = ' z',
             },
             filetype_names = {
-                startify = 'Startify',
-                dashboard = 'Dashboard',
                 TelescopePrompt = 'Telescope',
                 startuptime = '⏳',
             },
