@@ -346,82 +346,6 @@ require("lazy").setup({
 -- {{{ Dir = vim-speeddating-master
   { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = { "markdown" } }, --modified
 -- }}}
--- {{{ Dir = lualine.nvim-master
-  {
-    dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/lualine.nvim-master",
-    event = "VeryLazy",
-    config = function()
-    require "lualine".setup {
-        globalstatus = true,
-        options = {
-            icons_enabled = true,
-            theme = 'auto',
-            component_separators = { left = '', right = '\\' },
-            -- section_separators = { left = '', right = ''},
-            section_separators = { left = '', right = ''},
-            disabled_filetypes = {'neotree'},
-            always_divide_middle = true,
-            globalstatus = false,
-        },
-        sections = {
-            lualine_a = {{
-                'windows',
-                show_modified_status = true,
-                mode = 0,
-                max_length = vim.o.columns * 2 / 3,
-                symbols = {
-                    modified = ' [+]',-- 🈚,[+],,' [𝓐 ]'
-                    alternate_file = ' o',
-                    directory = ' z',
-                },
-                filetype_names = {
-                    startify = 'Startify',
-                    dashboard = 'Dashboard',
-                },
-            }},
-            lualine_b = { 'branch', 'diff', {
-                "diagnostics",
-                    sources = { "nvim_diagnostic" },
-                    sections = { "error", "warn", "hint", "info" },
-                    symbols = {
-                        error = ' ', --
-                        warn = ' ', --
-                        hint = ' ', --
-                        info = ' ', --
-                    },
-                    colored = true,
-                    update_in_insert = false,
-                    always_visible = false,
-                },
-            },
-            lualine_c = { '% [ %F -  %p%% ]' },
-            lualine_x = { 'os.date("%H:%M %a")', 'filetype' },
-            lualine_y = { '%c' },
-            lualine_z = { '%l - %L' },
-        },
-    }
-
-    --Match colorscheme
-    if vim.fn.has('gui_running') == 1 then
-        if vim.g.colors_name == 'catppuccin-frappe' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe' }}
-        elseif vim.g.colors_name == 'catppuccin-macchiato' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_macchiato' }}
-        elseif vim.g.colors_name == 'catppuccin-mocha' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_mocha' }}
-        elseif vim.g.colors_name == 'catppuccin-latte' then
-            require'lualine'.setup {options = { theme = 'max_lualine_theme_latte' }}
-        end
-    else
-        if vim.g.colors_name == 'catppuccin-frappe' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_frappe_transparent' }}
-        elseif vim.g.colors_name == 'catppuccin-latte' then
-        require'lualine'.setup {options = { theme = 'max_lualine_theme_latte_transparent' }}
-        end
-    end
-    end,
-  }, --modified
--- }}}
 -- {{{ Dir = weather3day.nvim-main
   {
     dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/weather3day.nvim-main", --modified
@@ -432,6 +356,106 @@ require("lazy").setup({
   },
 -- }}}
 -- Github plugins
+-- {{{ nvim-lualine/lualine.nvim
+  {
+    'nvim-lualine/lualine.nvim',
+    event = "VeryLazy",
+    config = function()
+    require('lualine').setup {
+      options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '', right = '\\' },
+        section_separators = { left = '', right = ''},
+        disabled_filetypes = {
+          statusline = {'neo-tree','dashboard',},
+          winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+          statusline = 1000,
+          tabline = 1000,
+          winbar = 1000,
+        }
+      },
+      sections = {
+        lualine_a = {{
+            'windows',
+            show_modified_status = true,
+            mode = 0,
+            max_length = vim.o.columns * 2 / 3,
+            symbols = {
+                modified = ' [+]',-- 🈚,[+],,' [𝓐 ]'
+                alternate_file = ' o',
+                directory = ' z',
+            },
+            filetype_names = {
+                startify = 'Startify',
+                dashboard = 'Dashboard',
+                TelescopePrompt = 'Telescope',
+                startuptime = '⏳',
+            },
+        }},
+        lualine_b = { 'branch', 'diff', {
+            "diagnostics",
+                sources = { "nvim_diagnostic" },
+                sections = { "error", "warn", "hint", "info" },
+                symbols = {
+                    error = ' ', --
+                    warn = ' ', --
+                    hint = ' ', --
+                    info = ' ', --
+                },
+                colored = true,
+                update_in_insert = false,
+                always_visible = false,
+            },
+        },
+        lualine_c = {
+            {
+                'filename',
+                file_status = false,
+                newfile_status = false,
+                path = 2,
+                shorting_target = 40,
+            },
+        },
+        lualine_x = { 'filesize', 'filetype' },  -- 'os.date("%H:%M %a")'
+        lualine_y = { '%c' },
+        lualine_z = { '%l - %L' },
+      },
+    }
+
+    --Match colorscheme
+    local max_lualine_theme_frappe_transparent = require('lualine_custom_theme').max_lualine_theme_frappe_transparent
+    local max_lualine_theme_latte_transparent  = require('lualine_custom_theme').max_lualine_theme_latte_transparent
+    local max_lualine_theme_frappe             = require('lualine_custom_theme').max_lualine_theme_frappe
+    local max_lualine_theme_latte              = require('lualine_custom_theme').max_lualine_theme_latte
+    local max_lualine_theme_macchiato          = require('lualine_custom_theme').max_lualine_theme_macchiato
+    local max_lualine_theme_mocha              = require('lualine_custom_theme').max_lualine_theme_mocha
+
+    if vim.fn.has('gui_running') == 1 then
+        if vim.g.colors_name == 'catppuccin-frappe' then
+            require'lualine'.setup {options = { theme = max_lualine_theme_frappe }}
+        elseif vim.g.colors_name == 'catppuccin-macchiato' then
+            require'lualine'.setup {options = { theme = max_lualine_theme_macchiato }}
+        elseif vim.g.colors_name == 'catppuccin-mocha' then
+            require'lualine'.setup {options = { theme = max_lualine_theme_mocha }}
+        elseif vim.g.colors_name == 'catppuccin-latte' then
+            require'lualine'.setup {options = { theme = max_lualine_theme_latte }}
+        end
+    else
+        if vim.g.colors_name == 'catppuccin-frappe' then
+        require'lualine'.setup {options = { theme = max_lualine_theme_frappe_transparent }}
+        elseif vim.g.colors_name == 'catppuccin-latte' then
+        require'lualine'.setup {options = { theme = max_lualine_theme_latte_transparent }}
+        end
+    end
+    end,
+  },
+-- }}}
 -- {{{ nvimdev/dashboard-nvim
     {
         "nvimdev/dashboard-nvim",
@@ -461,18 +485,17 @@ require("lazy").setup({
                 theme = 'doom',
                 config = {
                     header ={
-                        [[                                           ]],
-                        [[                                           ]],
-                        [[                                           ]],
-                        [[                                           ]],
-                        [[   ▄████▄              ▒▒▒▒▒       ▒▒▒▒▒   ]],
-                        [[  ███▄█▀              ▒ ▄▒ ▄▒     ▒ ▄▒ ▄▒  ]],
-                        [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
-                        [[  █████▄             ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒ ]],
-                        [[   ▀████▀            ▒ ▒ ▒ ▒ ▒   ▒ ▒ ▒ ▒ ▒ ]],
-                        [[                                           ]],
-                        [[                                           ]],
-                        [[                                           ]],
+                        [[                                             ]],
+                        [[                                             ]],
+                        [[                                             ]],
+                        [[   ▄████▄              ▒▒▒▒▒       ▒▒▒▒▒     ]],
+                        [[  ███▄█▀              ▒ ▄▒ ▄▒     ▒ ▄▒ ▄▒    ]],
+                        [[ ▐████     █  █  █   ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒   ]],
+                        [[  █████▄             ▒▒▒▒▒▒▒▒▒   ▒▒▒▒▒▒▒▒▒   ]],
+                        [[   ▀████▀            ▒ ▒ ▒ ▒ ▒   ▒ ▒ ▒ ▒ ▒  ]],
+                        [[                                             ]],
+                        [[                                             ]],
+                        [[                                             ]],
                     },
                     center = {
                         {
@@ -504,8 +527,8 @@ require("lazy").setup({
                             key_hl  = 'Number',
                             keymap  = ', r',
                             action = 'Leaderf mru',
-                            --keymap  = 'SPC f r',  --Telescope
-                            --action  = 'Telescope oldfiles',  --Telescope
+                            -- keymap  = 'SPC f r',  --Telescope
+                            -- action  = 'Telescope oldfiles',  --Telescope
                         },
                         {
                             icon    = '  ',
@@ -518,7 +541,7 @@ require("lazy").setup({
                             action = 'lua require("persistence").load({ last = true })',
                         },
                         {
-                            icon    = '💤 ',-- 鈴
+                            icon    = '💤 ',--  鈴
                             icon_hl = 'Title',
                             desc    = 'Manage Plugins',
                             desc_hl = 'String',
@@ -621,7 +644,7 @@ require("lazy").setup({
   {
     "arecarn/vim-crunch",
     keys = {
-            { "<Plug>(crunch-operator-line)", mode = {"n"} },
+            { "<Plug>(crunch-operator-line)", mode = { "n" } },
             { "<Plug>(visual-crunch-operator)", mode = { "x" } },
            },
     init =function()
@@ -698,7 +721,6 @@ require("lazy").setup({
     vim.g.Lf_ShortcutB = ""
     end,
     config = function()
-    neomap('n', '<F9>', ':set cmdheight=1<CR>', key_opts_ns)  -- dashboard and leaderf bug
     vim.g.Lf_Ctags = "C:/Users/ThinkPad/scoop/shims/ctags.exe"
     vim.g.Lf_Rg = 'C:/Users/ThinkPad/scoop/shims/rg.exe'
 	vim.g.Lf_CursorBlink  = 0
@@ -711,13 +733,12 @@ require("lazy").setup({
     vim.g.Lf_UseMemoryCache = 1
     vim.g.Lf_UseVersionControlTool = 0
     vim.g.Lf_IgnoreCurrentBufferName = 1
-    vim.cmd([[source C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/leaderf_popupColorscheme.vim]]) --PopupColorscheme
+    require('leaderf_popupColorscheme')
 	vim.g.Lf_WorkingDirectoryMode = 'Ac'
 	vim.g.Lf_DefaultMode = 'NameOnly'
     vim.g.Lf_PreviewCode = 1
     vim.g.Lf_PreviewInPopup = 1
-    -- vim.g.Lf_StlSeparator = { left = "", right = "" }
-    vim.g.Lf_StlSeparator = { left = "", right = "" }
+    vim.g.Lf_StlSeparator = { left = "", right = "" }  -- left = "", right = ""
     vim.g.Lf_JumpToExistingWindow = 0
     vim.g.Lf_PreviewResult = {
         File = 1,
@@ -1151,7 +1172,6 @@ require("lazy").setup({
 -- {{{ markonm/traces.vim
   {
     "markonm/traces.vim",
-    -- event = {"CursorMoved", "CmdlineEnter"},
     event = { "BufReadPre", "BufNewFile", "InsertEnter", "CmdlineEnter" },
     config = function()
     vim.g.traces_normal_preview = 1
@@ -1187,7 +1207,7 @@ require("lazy").setup({
         --  return ""
         --end,
         modified = function(bufnr)
-            return vim.fn.getbufvar(bufnr, '&modified') == 1 and ' ' or ''  -- '[+] ', '● ', '🈚 '
+            return vim.fn.getbufvar(bufnr, '&modified') == 1 and '[+] ' or ''  -- '[+] ', '● ', '🈚 ', ' '
         end,
         title = function(bufnr)
             local file = vim.fn.bufname(bufnr)
@@ -1661,7 +1681,6 @@ require("lazy").setup({
             { mode = "n", "ys" },
             { mode = "n", "cs" },
             { mode = "n", "ds" },
-            -- { mode = "x", "<C- >" },
             { mode = "x", "<C-s>" },
         },
     config = function()
@@ -1670,7 +1689,6 @@ require("lazy").setup({
             normal = "ys",
             change = "cs",
             delete = "ds",
-            -- visual = "<C- >",
             visual = "<C-s>",
         },--S, dss, css
     })
@@ -1777,7 +1795,6 @@ require("lazy").setup({
                     },
                     mocha = {
                         text     = "#abb2bf",
-                        --text = "#F4CDE9",
                         subtext1 = "#DEBAD4",
                         subtext0 = "#C8A6BE",
                         overlay2 = "#B293A8",
@@ -2439,63 +2456,63 @@ require("lazy").setup({
     event = 'LspAttach',
     dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
-    require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
-    require'lsp_signature'.on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
+        require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
+        require'lsp_signature'.on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
     end,
     opts = function()
-    cfg = {
-     debug = false, -- set to true to enable debug logging
-     log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
-     -- default is  ~/.cache/nvim/lsp_signature.log
-     verbose = false, -- show debug line number
+        cfg = {
+            debug = false, -- set to true to enable debug logging
+            log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
+            -- default is  ~/.cache/nvim/lsp_signature.log
+            verbose = false, -- show debug line number
 
-     bind = true, -- This is mandatory, otherwise border config won't get registered.
-                  -- If you want to hook lspsaga or other signature handler, pls set to false
-     doc_lines = 10, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
-                    -- set to 0 if you DO NOT want any API comments be shown
-                    -- This setting only take effect in insert mode, it does not affect signature help in normal
-                    -- mode, 10 by default
+            bind = true, -- This is mandatory, otherwise border config won't get registered.
+            -- If you want to hook lspsaga or other signature handler, pls set to false
+            doc_lines = 10, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
+            -- set to 0 if you DO NOT want any API comments be shown
+            -- This setting only take effect in insert mode, it does not affect signature help in normal
+            -- mode, 10 by default
 
-     max_height = 12, -- max height of signature floating_window
-     max_width = 80, -- max_width of signature floating_window
-     noice = false, -- set to true if you using noice to render markdown
-     wrap = true, -- allow doc/signature text wrap inside floating_window, useful if your lsp return doc/sig is too long
+            max_height = 12, -- max height of signature floating_window
+            max_width = 80, -- max_width of signature floating_window
+            noice = false, -- set to true if you using noice to render markdown
+            wrap = true, -- allow doc/signature text wrap inside floating_window, useful if your lsp return doc/sig is too long
 
-     floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
-     floating_window_above_cur_line = true, -- try to place the floating above the current line when possible Note:
-     -- will set to true when fully tested, set to false will use whichever side has more space
-     -- this setting will be helpful if you do not want the PUM and floating win overlap
+            floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
+            floating_window_above_cur_line = true, -- try to place the floating above the current line when possible Note:
+            -- will set to true when fully tested, set to false will use whichever side has more space
+            -- this setting will be helpful if you do not want the PUM and floating win overlap
 
-     floating_window_off_x = 1, -- adjust float windows x position.
-     floating_window_off_y = 0, -- adjust float windows y position. e.g -2 move window up 2 lines; 2 move down 2 lines
+            floating_window_off_x = 1, -- adjust float windows x position.
+            floating_window_off_y = 0, -- adjust float windows y position. e.g -2 move window up 2 lines; 2 move down 2 lines
 
-     close_timeout = 4000, -- close floating window after ms when laster parameter is entered
-     fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
-     hint_enable = true, -- virtual hint enable
-     hint_prefix = "🧐 ",--🐼,🧐🤔
-     hint_scheme = "String",
-     hi_parameter = "lsp_signature_highlight",  -- "Cursor" "IncSearch" "Visual" "Search"
-     handler_opts = {
-       border = "rounded"   -- double, rounded, single, shadow, none, or a table of borders
-     },
+            close_timeout = 4000, -- close floating window after ms when laster parameter is entered
+            fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
+            hint_enable = true, -- virtual hint enable
+            hint_prefix = "🧐 ",--🐼,🧐🤔
+            hint_scheme = "String",
+            hi_parameter = "lsp_signature_highlight",  -- "Cursor" "IncSearch" "Visual" "Search"
+            handler_opts = {
+                border = "rounded"   -- double, rounded, single, shadow, none, or a table of borders
+            },
 
-     always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
+            always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
 
-     auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
-     extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
-     zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
+            auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
+            extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
+            zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
 
-     padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
+            padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
 
-     transparency = nil, -- disabled by default, allow floating win transparent value 1~100
-     shadow_blend = 36, -- if you using shadow as border use this set the opacity
-     shadow_guibg = 'Black', -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
-     timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
-     toggle_key = nil, -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
+            transparency = nil, -- disabled by default, allow floating win transparent value 1~100
+            shadow_blend = 36, -- if you using shadow as border use this set the opacity
+            shadow_guibg = 'Black', -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
+            timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
+            toggle_key = nil, -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
 
-     select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
-     move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
-    }
+            select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
+            move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
+        }
     end,
   },
 -- }}}
