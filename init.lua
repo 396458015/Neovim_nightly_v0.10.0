@@ -368,7 +368,7 @@ require("lazy").setup({
         component_separators = { left = '', right = '\\' },
         section_separators = { left = '', right = ''},
         disabled_filetypes = {
-          statusline = {'neo-tree','dashboard',},
+          statusline = { 'dashboard', 'startify' },
           winbar = {},
         },
         ignore_focus = {},
