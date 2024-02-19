@@ -9,7 +9,7 @@ max_lualine_theme_frappe_transparent = {
     },
     insert = {
         -- a = { fg = '#303446', bg = '#a7e32a', gui = 'bold' },
-        a = { fg = '#8ebf24', bg = nil, gui = 'bold' },
+        a = { fg = '#96c926', bg = nil, gui = 'bold' },
         b = { fg = '#8499b5', bg = nil },
         y = { fg = '#89a0c3', bg = nil },
     },
@@ -75,7 +75,7 @@ max_lualine_theme_frappe = {
         y = { fg = '#89a0c3', bg = nil },
     },
     insert = {
-        a = { fg = '#8ebf24', bg = nil, gui = 'bold' },
+        a = { fg = '#96c926', bg = nil, gui = 'bold' },
         b = { fg = '#8499b5', bg = nil },
         y = { fg = '#89a0c3', bg = nil },
     },
@@ -139,7 +139,7 @@ max_lualine_theme_macchiato = {
         y = { fg = '#89a0c3', bg = nil },
     },
     insert = {
-        a = { fg = '#8ebf24', bg = nil, gui = 'bold' },
+        a = { fg = '#96c926', bg = nil, gui = 'bold' },
         b = { fg = '#8499b5', bg = nil },
         y = { fg = '#89a0c3', bg = nil },
     },
@@ -173,7 +173,7 @@ max_lualine_theme_mocha = {
         y = { fg = '#89a0c3', bg = nil },
     },
     insert = {
-        a = { fg = '#8ebf24', bg = nil, gui = 'bold' },
+        a = { fg = '#96c926', bg = nil, gui = 'bold' },
         b = { fg = '#8499b5', bg = nil },
         y = { fg = '#89a0c3', bg = nil },
     },
