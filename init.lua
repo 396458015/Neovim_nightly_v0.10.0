@@ -153,10 +153,9 @@ function smart_split()
         vim.cmd("split")
     end
 end
--- neomap('n', '<C-\\>', ':lua smart_split()<CR>', key_opts_ns)
 neomap('n', '<leader>\\', ':lua smart_split()<CR>', key_opts_ns)
 -- neomap('n', '<C-\\>', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
--- neomap('n', '<C-F11>', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
+-- neomap('n', '<C-\\>', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
 -------------------- Configuration file --------------------
 vim.cmd[[
 command! Psconfig execute "edit C:/Users/ThinkPad/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
@@ -385,9 +384,11 @@ require("lazy").setup({
                 { 'mode', fmt = function(str) return str:sub(1,1) end },
                 {
                     'windows',
+                    show_filename_only = true,
                     show_modified_status = true,
                     mode = 0,
                     max_length = vim.o.columns * 2 / 3,
+                    use_mode_colors = false,
                     symbols = {
                         modified = ' [+]',-- 🈚,[+],,' [𝓐 ]'
                         alternate_file = ' o',
@@ -423,7 +424,13 @@ require("lazy").setup({
                     shorting_target = 40,
                 },
             },
-            lualine_x = { 'filetype' },  -- 'os.date("%H:%M %a")'
+            lualine_x = {
+                {
+                    'filetype',
+                    colored = true,
+                    icon_only = true,
+                },
+            },  -- 'os.date("%H:%M %a")'
             lualine_y = { '%c' },
             lualine_z = { '%l - %L' },
         },
@@ -1503,7 +1510,6 @@ require("lazy").setup({
     "kyazdani42/nvim-web-devicons",
     branch = "master",
     commit = "9697285",
-    -- event = "VeryLazy",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
     -- 设置icon (lualine, neo-tree)
@@ -2450,7 +2456,6 @@ require("lazy").setup({
 -- {{{ ray-x/lsp_signature.nvim
   {
     "ray-x/lsp_signature.nvim",
-    -- event = "InsertEnter",
     event = 'LspAttach',
     dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
@@ -2585,7 +2590,6 @@ require("lazy").setup({
         },
 	config = function()
     require('nvim-toggler').setup({
-      -- your own inverses
       inverses = {
         ['true'] = 'false',
         ['yes'] = 'no',
