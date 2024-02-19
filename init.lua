@@ -362,42 +362,45 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function()
     require('lualine').setup {
-      options = {
-        icons_enabled = true,
-        theme = 'auto',
-        component_separators = { left = '', right = '\\' },
-        section_separators = { left = '', right = ''},
-        disabled_filetypes = {
-          statusline = { 'dashboard', 'startify' },
-          winbar = {},
+        options = {
+            icons_enabled = true,
+            theme = 'auto',
+            component_separators = { left = '', right = '\\' },
+            section_separators = { left = '', right = ''},
+            disabled_filetypes = {
+                statusline = { 'dashboard', 'startify' },
+                winbar = {},
+            },
+            ignore_focus = {},
+            always_divide_middle = true,
+            globalstatus = false,
+            refresh = {
+                statusline = 1000,
+                tabline = 1000,
+                winbar = 1000,
+            }
         },
-        ignore_focus = {},
-        always_divide_middle = true,
-        globalstatus = false,
-        refresh = {
-          statusline = 1000,
-          tabline = 1000,
-          winbar = 1000,
-        }
-      },
-      sections = {
-        lualine_a = {{
-            'windows',
-            show_modified_status = true,
-            mode = 0,
-            max_length = vim.o.columns * 2 / 3,
-            symbols = {
-                modified = ' [+]',-- 🈚,[+],,' [𝓐 ]'
-                alternate_file = ' o',
-                directory = ' z',
+        sections = {
+            lualine_a = {
+                { 'mode', fmt = function(str) return str:sub(1,1) end },
+                {
+                    'windows',
+                    show_modified_status = true,
+                    mode = 0,
+                    max_length = vim.o.columns * 2 / 3,
+                    symbols = {
+                        modified = ' [+]',-- 🈚,[+],,' [𝓐 ]'
+                        alternate_file = ' o',
+                        directory = ' z',
+                    },
+                    filetype_names = {
+                        TelescopePrompt = 'Telescope',
+                        startuptime = '⏳',
+                    },
+                },
             },
-            filetype_names = {
-                TelescopePrompt = 'Telescope',
-                startuptime = '⏳',
-            },
-        }},
-        lualine_b = { 'branch', 'diff', {
-            "diagnostics",
+            lualine_b = { 'branch', 'diff', {
+                "diagnostics",
                 sources = { "nvim_diagnostic" },
                 sections = { "error", "warn", "hint", "info" },
                 symbols = {
@@ -410,20 +413,20 @@ require("lazy").setup({
                 update_in_insert = false,
                 always_visible = false,
             },
-        },
-        lualine_c = {
-            {
-                'filename',
-                file_status = false,
-                newfile_status = false,
-                path = 2,
-                shorting_target = 40,
             },
+            lualine_c = {
+                {
+                    'filename',
+                    file_status = false,
+                    newfile_status = false,
+                    path = 2,
+                    shorting_target = 40,
+                },
+            },
+            lualine_x = { 'filetype' },  -- 'os.date("%H:%M %a")'
+            lualine_y = { '%c' },
+            lualine_z = { '%l - %L' },
         },
-        lualine_x = { 'filesize', 'filetype' },  -- 'os.date("%H:%M %a")'
-        lualine_y = { '%c' },
-        lualine_z = { '%l - %L' },
-      },
     }
 
     --Match colorscheme
