@@ -381,7 +381,6 @@ require("lazy").setup({
         },
         sections = {
             lualine_a = {
-                -- { 'mode', fmt = function(str) return str:sub(1,1) end },
                 {
                     'windows',
                     use_mode_colors = true,
@@ -400,20 +399,29 @@ require("lazy").setup({
                     },
                 },
             },
-            lualine_b = { 'branch', 'diff', {
-                "diagnostics",
-                sources = { "nvim_diagnostic" },
-                sections = { "error", "warn", "hint", "info" },
-                symbols = {
-                    error = ' ', --
-                    warn = ' ', --
-                    hint = ' ', --
-                    info = ' ', --
+            lualine_b = {
+                {
+                    'branch', icon = {'', align='right', color={fg='#ff8800'}}
+
+                },  --  
+                {
+                    'diff',
+                    symbols = {added = '+', modified = '~', removed = '-'},
                 },
-                colored = true,
-                update_in_insert = false,
-                always_visible = false,
-            },
+                {
+                    'diagnostics',
+                    sources = { "nvim_diagnostic" },
+                    sections = { "error", "warn", "hint", "info" },
+                    symbols = {
+                        error = ' ', --
+                        warn = ' ', --
+                        hint = ' ', --
+                        info = ' ', --
+                    },
+                    colored = true,
+                    update_in_insert = false,
+                    always_visible = false,
+                },
             },
             lualine_c = {
                 {
