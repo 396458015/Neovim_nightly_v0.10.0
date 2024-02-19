@@ -1,21 +1,29 @@
 local max_lualine_theme_frappe_transparent = require'lualine.themes.palenight'
 max_lualine_theme_frappe_transparent = {
     normal = {
-        a = { fg = '#303446', bg = '#89a0c3', gui = 'bold' },
+        -- a = { fg = '#303446', bg = '#89a0c3', gui = 'bold' },
+        a = { fg = '#89a0c3', bg = nil, gui = 'bold' },
         b = { fg = '#89a0c3', bg = nil },
         c = { fg = '#71839b', bg = nil },
     },
     insert = {
-        a = { fg = '#303446', bg = '#a7e32a', gui = 'bold' },
-        b = { fg = '#a7e32a', bg = nil },
+        -- a = { fg = '#303446', bg = '#a7e32a', gui = 'bold' },
+        a = { fg = '#a7e32a', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     visual = {
-        a = { fg = '#303446', bg = '#ae81ff', gui = 'bold' },
-        b = { fg = '#ae81ff', bg = nil },
+        -- a = { fg = '#303446', bg = '#ae81ff', gui = 'bold' },
+        a = { fg = '#ae81ff', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     replace = {
         a = { fg = '#303446', bg = '#C3E88D', gui = 'bold' },
         b = { fg = '#C3E88D', bg = '#303446' },
+    },
+    command = {
+        -- a = { fg = '#303446', bg = '#fe8e89', gui = 'bold' },
+        a = { fg = '#E74856', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     inactive = {
         a = { fg = '#303446', bg = '#303446', gui = 'bold' },
@@ -32,16 +40,20 @@ max_lualine_theme_latte_transparent = {
         c = { fg = '#71839b', bg = nil },
     },
     insert = {
-        a = { fg = '#2c8a5e', bg = nil, gui = 'bold' },
-        b = { fg = '#2c8a5e', bg = nil },
+        a = { fg = '#24a720', bg = nil, gui = 'bold' },
+        b = { fg = '#24a720', bg = nil },
     },
     visual = {
-        a = { fg = '#925ba6', bg = nil, gui = 'bold' },
-        b = { fg = '#925ba6', bg = nil },
+        a = { fg = '#b813a4', bg = nil, gui = 'bold' },
+        b = { fg = '#b813a4', bg = nil },
     },
     replace = {
         a = { fg = '#e1e2e7', bg = '#C3E88D', gui = 'bold' },
         b = { fg = '#C3E88D', bg = '#e1e2e7' },
+    },
+    command = {
+        a = { fg = '#e75562', bg = nil, gui = 'bold' },
+        b = { fg = '#e75562', bg = nil },
     },
     inactive = {
         a = { fg = '#e1e2e7', bg = '#e1e2e7', gui = 'bold' },
@@ -53,21 +65,25 @@ max_lualine_theme_latte_transparent = {
 local max_lualine_theme_frappe = require'lualine.themes.palenight'
 max_lualine_theme_frappe = {
     normal = {
-        a = { fg = '#303446', bg = '#89a0c3', gui = 'bold' },
-        b = { fg = '#89a0c3', bg = '#303446' },
-        c = { fg = '#71839b', bg = '#303446' },
+        a = { fg = '#89a0c3', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
+        c = { fg = '#71839b', bg = nil },
     },
     insert = {
-        a = { fg = '#303446', bg = '#a7e32a', gui = 'bold' },
-        b = { fg = '#a7e32a', bg = '#303446' },
+        a = { fg = '#a7e32a', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     visual = {
-        a = { fg = '#303446', bg = '#ae81ff', gui = 'bold' },
-        b = { fg = '#ae81ff', bg = '#303446' },
+        a = { fg = '#ae81ff', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     replace = {
         a = { fg = '#303446', bg = '#C3E88D', gui = 'bold' },
         b = { fg = '#C3E88D', bg = '#303446' },
+    },
+    command = {
+        a = { fg = '#E74856', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     inactive = {
         a = { fg = '#303446', bg = '#303446', gui = 'bold' },
@@ -84,16 +100,20 @@ max_lualine_theme_latte = {
         c = { fg = '#71839b', bg = nil },
     },
     insert = {
-        a = { fg = '#2c8a5e', bg = nil, gui = 'bold' },
-        b = { fg = '#2c8a5e', bg = nil },
+        a = { fg = '#24a720', bg = nil, gui = 'bold' },
+        b = { fg = '#24a720', bg = nil },
     },
     visual = {
-        a = { fg = '#925ba6', bg = nil, gui = 'bold' },
-        b = { fg = '#925ba6', bg = nil },
+        a = { fg = '#b813a4', bg = nil, gui = 'bold' },
+        b = { fg = '#b813a4', bg = nil },
     },
     replace = {
         a = { fg = '#e1e2e7', bg = '#C3E88D', gui = 'bold' },
         b = { fg = '#C3E88D', bg = '#e1e2e7' },
+    },
+    command = {
+        a = { fg = '#e75562', bg = nil, gui = 'bold' },
+        b = { fg = '#e75562', bg = nil },
     },
     inactive = {
         a = { fg = '#e1e2e7', bg = '#e1e2e7', gui = 'bold' },
@@ -105,21 +125,25 @@ max_lualine_theme_latte = {
 local max_lualine_theme_macchiato = require'lualine.themes.palenight'
 max_lualine_theme_macchiato = {
     normal = {
-        a = { fg = '#24273a', bg = '#89a0c3', gui = 'bold' },
-        b = { fg = '#89a0c3', bg = '#24273a' },
-        c = { fg = '#71839b', bg = '#24273a' },
+        a = { fg = '#89a0c3', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
+        c = { fg = '#71839b', bg = nil },
     },
     insert = {
-        a = { fg = '#24273a', bg = '#a7e32a', gui = 'bold' },
-        b = { fg = '#a7e32a', bg = '#24273a' },
+        a = { fg = '#a7e32a', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     visual = {
-        a = { fg = '#24273a', bg = '#ae81ff', gui = 'bold' },
-        b = { fg = '#ae81ff', bg = '#24273a' },
+        a = { fg = '#ae81ff', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     replace = {
         a = { fg = '#24273a', bg = '#C3E88D', gui = 'bold' },
         b = { fg = '#C3E88D', bg = '#24273a' },
+    },
+    command = {
+        a = { fg = '#E74856', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     inactive = {
         a = { fg = '#24273a', bg = '#24273a', gui = 'bold' },
@@ -131,21 +155,25 @@ max_lualine_theme_macchiato = {
 local max_lualine_theme_mocha = require'lualine.themes.palenight'
 max_lualine_theme_mocha = {
     normal = {
-        a = { fg = '#352939', bg = '#89a0c3', gui = 'bold' },
-        b = { fg = '#89a0c3', bg = '#352939' },
-        c = { fg = '#71839b', bg = '#352939' },
+        a = { fg = '#89a0c3', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
+        c = { fg = '#71839b', bg = nil },
     },
     insert = {
-        a = { fg = '#352939', bg = '#a7e32a', gui = 'bold' },
-        b = { fg = '#a7e32a', bg = '#352939' },
+        a = { fg = '#a7e32a', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     visual = {
-        a = { fg = '#352939', bg = '#ae81ff', gui = 'bold' },
-        b = { fg = '#ae81ff', bg = '#352939' },
+        a = { fg = '#ae81ff', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     replace = {
         a = { fg = '#352939', bg = '#C3E88D', gui = 'bold' },
         b = { fg = '#C3E88D', bg = '#352939' },
+    },
+    command = {
+        a = { fg = '#E74856', bg = nil, gui = 'bold' },
+        b = { fg = '#89a0c3', bg = nil },
     },
     inactive = {
         a = { fg = '#352939', bg = '#352939', gui = 'bold' },
