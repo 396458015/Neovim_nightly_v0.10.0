@@ -1152,8 +1152,8 @@ require("lazy").setup({
     neomap("v", "<leader>k", ":call InterestingWords('v')<cr>", key_opts_ns)
     neomap("n", "<leader>K", ":call UncolorAllWords()<cr>", key_opts_ns)
     vim.g.interestingWordsGUIColors = {
-                '#72b5e4', '#f0c53f', '#ff8784', '#c5c7f1',
-                '#c2d735', '#78d3cc', '#ea8336', '#e43542',
+                '#f0c53f', '#78d3cc', '#ff8784', '#c5c7f1',
+                '#c2d735', '#72b5e4', '#ea8336', '#e43542',
                 '#ebab35', '#ebe735', '#aadd32', '#dcca6b',
                 '#219286', '#2f569c', '#ffb577', '#5282a4',
                 '#edfccf', '#67064c', '#f5bca7', '#95c474',
