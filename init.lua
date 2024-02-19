@@ -719,6 +719,7 @@ require("lazy").setup({
     vim.g.Lf_ShortcutB = ""
     end,
     config = function()
+    require('leaderf_PopupTheme_and_Icons')  -- 修改leaderf主题配色和icon
     vim.g.Lf_Ctags = "C:/Users/ThinkPad/scoop/shims/ctags.exe"
     vim.g.Lf_Rg = 'C:/Users/ThinkPad/scoop/shims/rg.exe'
 	vim.g.Lf_CursorBlink  = 0
@@ -731,7 +732,6 @@ require("lazy").setup({
     vim.g.Lf_UseMemoryCache = 1
     vim.g.Lf_UseVersionControlTool = 0
     vim.g.Lf_IgnoreCurrentBufferName = 1
-    require('leaderf_popupColorscheme')
 	vim.g.Lf_WorkingDirectoryMode = 'Ac'
 	vim.g.Lf_DefaultMode = 'NameOnly'
     vim.g.Lf_PreviewCode = 1
@@ -761,9 +761,6 @@ require("lazy").setup({
     }
     -- 使用:LeaderfRg 路径不全时, 默认搜索该文件目录下的文件
     vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
-
-    -- 修改leaderf的icon和icon颜色
-    require('add_icons_leaderf')
 
     -- Bottom mode & Change statusline color (not popup mode)
     vim.g.Lf_WindowPosition = 'bottom'
@@ -1507,7 +1504,7 @@ require("lazy").setup({
     event = { "BufReadPre", "BufNewFile" },
     config = function()
     -- 设置icon (lualine, neo-tree)
-    require('edit_icons_nvim_web_devicons')
+    require('nvim_web_devicons_edit_icons')
     end,
   },
 -- }}}
