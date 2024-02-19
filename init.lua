@@ -381,14 +381,14 @@ require("lazy").setup({
         },
         sections = {
             lualine_a = {
-                { 'mode', fmt = function(str) return str:sub(1,1) end },
+                -- { 'mode', fmt = function(str) return str:sub(1,1) end },
                 {
                     'windows',
+                    use_mode_colors = true,
                     show_filename_only = true,
                     show_modified_status = true,
                     mode = 0,
                     max_length = vim.o.columns * 2 / 3,
-                    use_mode_colors = false,
                     symbols = {
                         modified = ' [+]',-- 🈚,[+],,' [𝓐 ]'
                         alternate_file = ' o',
