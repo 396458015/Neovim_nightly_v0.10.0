@@ -1288,6 +1288,7 @@ require("lazy").setup({
             exclude_filetypes = {
                 aerial = true,
                 dashboard = true,
+                startify = true,
             },
             support_filetypes = {
                 "*.lua",
