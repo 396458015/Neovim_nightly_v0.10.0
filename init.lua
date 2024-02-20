@@ -468,6 +468,9 @@ require("lazy").setup({
             lualine_y = { '%c' },
             lualine_z = { '%l - %L' },
         },
+        extensions = {
+            "neo-tree"
+        }
     }
 
     --Match colorscheme

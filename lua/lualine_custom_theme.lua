@@ -30,9 +30,9 @@ max_lualine_theme_frappe_transparent = {
         y = { fg = '#89a0c3', bg = nil },
     },
     inactive = {
-        a = { fg = '#303446', bg = '#303446', gui = 'bold' },
-        b = { fg = '#303446', bg = '#303446' },
-        c = { fg = '#303446', bg = '#303446' },
+        a = { fg = '#535a78', bg = nil, gui = 'bold' },
+        b = { fg = '#535a78', bg = nil },
+        c = { fg = '#535a78', bg = nil },
     }
 }
 
@@ -94,9 +94,9 @@ max_lualine_theme_frappe = {
         y = { fg = '#89a0c3', bg = nil },
     },
     inactive = {
-        a = { fg = '#303446', bg = '#303446', gui = 'bold' },
-        b = { fg = '#303446', bg = '#303446' },
-        c = { fg = '#303446', bg = '#303446' },
+        a = { fg = '#535a78', bg = nil, gui = 'bold' },
+        b = { fg = '#535a78', bg = nil },
+        c = { fg = '#535a78', bg = nil },
     }
 }
 
@@ -158,9 +158,9 @@ max_lualine_theme_macchiato = {
         y = { fg = '#89a0c3', bg = nil },
     },
     inactive = {
-        a = { fg = '#24273a', bg = '#24273a', gui = 'bold' },
-        b = { fg = '#24273a', bg = '#24273a' },
-        c = { fg = '#24273a', bg = '#24273a' },
+        a = { fg = '#535a78', bg = nil, gui = 'bold' },
+        b = { fg = '#535a78', bg = nil },
+        c = { fg = '#535a78', bg = nil },
     }
 }
 
@@ -192,9 +192,9 @@ max_lualine_theme_mocha = {
         y = { fg = '#89a0c3', bg = nil },
     },
     inactive = {
-        a = { fg = '#352939', bg = '#352939', gui = 'bold' },
-        b = { fg = '#352939', bg = '#352939' },
-        c = { fg = '#352939', bg = '#352939' },
+        a = { fg = '#535a78', bg = nil, gui = 'bold' },
+        b = { fg = '#535a78', bg = nil },
+        c = { fg = '#535a78', bg = nil },
     }
 }
 
