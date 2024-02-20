@@ -360,11 +360,33 @@ require("lazy").setup({
     'nvim-lualine/lualine.nvim',
     event = "VeryLazy",
     config = function()
+
+    local function modified()
+      if vim.bo.modified then
+        return '[+]'  -- +
+      elseif vim.bo.modifiable == false or vim.bo.readonly == true then
+        return '-'
+      end
+      return ''
+    end
+
+    local function search_result()
+      if vim.v.hlsearch == 0 then
+        return ''
+      end
+      local last_search = vim.fn.getreg('/')
+      if not last_search or last_search == '' then
+        return ''
+      end
+      local searchcount = vim.fn.searchcount { maxcount = 9999 }
+      return last_search .. '(' .. searchcount.current .. '/' .. searchcount.total .. ')'
+    end
+
     require('lualine').setup {
         options = {
             icons_enabled = true,
             theme = 'auto',
-            component_separators = { left = '', right = '\\' },
+            component_separators = { left = '', right = '' },
             section_separators = { left = '', right = ''},
             disabled_filetypes = {
                 statusline = { 'dashboard', 'startify' },
@@ -385,11 +407,11 @@ require("lazy").setup({
                     'windows',
                     use_mode_colors = true,
                     show_filename_only = true,
-                    show_modified_status = true,
+                    show_modified_status = false,
                     mode = 0,
                     max_length = vim.o.columns * 2 / 3,
                     symbols = {
-                        modified = ' [+]',  -- 🈚,[+],,' [𝓐 ]'
+                        modified = ' [+]',  -- 🈚, [+], , ' [𝓐 ]'
                         alternate_file = ' o',
                         directory = ' z',
                     },
@@ -397,12 +419,13 @@ require("lazy").setup({
                         TelescopePrompt = 'Telescope',
                         startuptime = '⏳',
                     },
+                    padding = { right = 1 },  -- 该组件右侧空白长度
                 },
+                {   modified, color = { fg = '#ca1243', gui = 'bold' }, padding = { left = 0 }, },  -- bg = '#ca1243'
             },
             lualine_b = {
                 {
-                    'branch', icon = {'', align='right', color={fg='#ff8800'}}
-
+                    'branch', icon = {'', align='right', color={fg='#ff8800'}},
                 },  --  
                 {
                     'diff',
@@ -433,6 +456,9 @@ require("lazy").setup({
                 },
             },
             lualine_x = {
+                {
+                    search_result,
+                },
                 {
                     'filetype',
                     colored = true,
