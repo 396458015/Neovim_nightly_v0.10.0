@@ -2236,7 +2236,7 @@ require("lazy").setup({
                         -- winhighlight = "FloatBorder:FloatBorder,CursorLine:CursorLine",
                     },
                     documentation = {
-                        -- max_width = 50,
+                        max_width = 50,
                         -- border = "rounded",
                         border = { "┌", " ", "┐", "│", "┘", " ", "└", "│" },
                         scrollbar = true,
@@ -2262,8 +2262,8 @@ require("lazy").setup({
                 mapping = cmp.mapping.preset.insert({
                     ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
                     ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-                    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-                    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+                    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),  -- ["<C-u>"]
+                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),  -- ["<C-d>"]
                     ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
                     ['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true, },
                     ["<Tab>"] = cmp.mapping(function(fallback)
