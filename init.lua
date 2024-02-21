@@ -2224,17 +2224,22 @@ require("lazy").setup({
                 },
                 window = {
                     completion = {
-                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
                         side_padding = 0,
                         col_offset = -4,
-                        border = "rounded",
+                        -- border = "rounded",
+                        -- border = { "╭", " ", "╮", "│", "╯", "─", "╰", "│" },
+                        border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
                         scrollbar = true,
+                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+                        -- winhighlight = "FloatBorder:FloatBorder,CursorLine:CursorLine",
                     },
                     documentation = {
-                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
-                        border = "rounded",
-                        -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+                        -- max_width = 50,
+                        -- border = "rounded",
+                        border = { "┌", " ", "┐", "│", "┘", " ", "└", "│" },
                         scrollbar = true,
+                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+                        -- winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
                     },
                 },
                 snippet = {
