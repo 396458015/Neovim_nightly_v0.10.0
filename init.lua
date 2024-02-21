@@ -2139,6 +2139,8 @@ require("lazy").setup({
                     lspkind_icons['KeywordFunction'] = '  '
                     lspkind_icons['StringEscape']    = ' 󱔁 '
                     lspkind_icons['Spell']           = ' 暈'
+                    lspkind_icons["KeywordConditional"]  = '  '
+                    lspkind_icons["KeywordRepeat"]       = ' 凌' -- 北
                     lspkind_icons['Orgtsblock']          = ' ⬛'
                     lspkind_icons['Orgtsheadlinelevel1'] = ' ◉ '
                     lspkind_icons['Orgtsheadlinelevel2'] = ' ◉ '
