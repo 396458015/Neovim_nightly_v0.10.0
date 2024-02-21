@@ -2016,7 +2016,7 @@ require("lazy").setup({
                 local window_width = vim.api.nvim_list_uis()[1].width
                 return {
                     relative = "editor",
-                    border = "single",
+                    border = "rounded",  -- single
                     title = "Note",
                     title_pos = "center",
                     width = math.floor(0.7 * window_width),
