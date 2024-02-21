@@ -2154,6 +2154,7 @@ require("lazy").setup({
                     lspkind_icons['Orgtscheckboxchecked'] = '  '
                 end,
             },
+            { "dmitmel/cmp-cmdline-history" },
             {
                 "hrsh7th/cmp-cmdline",
                 config = function()
@@ -2164,6 +2165,7 @@ require("lazy").setup({
                         }),
                         sources = require("cmp").config.sources({
                             { name = "buffer", keyword_length = 1 },
+                            { name = 'cmdline_history' },
                         }),
                     })
                     require("cmp").setup.cmdline(":", {
@@ -2172,9 +2174,9 @@ require("lazy").setup({
                         }),
                         sources = require("cmp").config.sources({
                             { name = "path", keyword_length = 1 },
-                        }, {
-                                { name = "cmdline", keyword_length = 1 },
-                            }),
+                            { name = "cmdline", keyword_length = 1 },
+                            { name = 'cmdline_history' },
+                        }),
                     })
                 end,
             },
@@ -2216,6 +2218,7 @@ require("lazy").setup({
                 dictionary = '  ',--[Dict]
                 treesitter = '  ',--[TS]
                 orgmode    = '  ',--[Org]
+                cmdline_history  = '  ',
                 -- latex_symbols = '[TEX]',
                 -- nuspell       = '[SPELL]',
                 -- spell         = '暈[SPELL]',
