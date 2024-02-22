@@ -74,6 +74,9 @@ neomap('v', '<leader>z', [[:s///g<left><left><left>]], key_opts_n)
 -- 创建列表
 neomap('n', '<leader>b', [[:put =range(,,1)<left><left><left><left>]], key_opts_n)
 -------------------- 分屏 --------------------
+-- 分屏后窗口最大化和恢复
+neomap("n", "<m-,>", "<c-w>_<c-w>|", key_opts_ns)
+neomap("n", "<m-.>", "<c-w>=", key_opts_ns)
 -- 互换分割窗口
 neomap('n', '<S-h>', '<C-w>b<C-w>H', key_opts_ns)
 -- neomap('n', 'srh', '<C-w>b<C-w>K', {}) -- 注释掉，因为与 <S-h> 冲突
