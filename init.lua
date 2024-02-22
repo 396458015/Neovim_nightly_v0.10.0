@@ -2220,7 +2220,7 @@ require("lazy").setup({
             local lspkind = require('lspkind')
             local source_mapping = {
                 nvim_lsp        = ' ﲳ ', --[LSP]
-                path            = ' 🖫 ', --[PATH]
+                path            = '  ', --[PATH] 🖫
                 luasnip         = '  ',
                 buffer          = ' ﬘ ', --[BUF]
                 calc            = '  ', --[CALC] 
