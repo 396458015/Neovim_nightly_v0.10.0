@@ -805,7 +805,7 @@ require("lazy").setup({
     vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
     vim.g.Lf_MruMaxFiles = 2048
     vim.g.Lf_MruEnableFrecency = 0
-    vim.g.Lf_ShowRelativePath = 0
+    vim.g.Lf_ShowRelativePath = 1
     vim.g.Lf_WildIgnore = {
       dir = { ".svn", ".git", ".hg" },
       file = { "*.sw?", "~$*", "*.bak", "*.exe", "*.o", "*.so", "*.py[co]" },
@@ -1709,16 +1709,22 @@ require("lazy").setup({
     end,
   },
 -- }}}
--- {{{ Vonr/align.nvim
+-- {{{ echasnovski/mini.align
   {
-    "Vonr/align.nvim",
-    keys = { "<leader>a", mode = { "x" } },
-    init = function()
-    --neomap('x','<leader>aa',function()require'align'.align_to_char(1,true)end,key_opts_ns)--Alignsto1character,lookingleft
-    --neomap('x','<leader>as',function()require'align'.align_to_char(2,true,true)end,key_opts_ns)--Alignsto2characters,lookingleftandwithpreviews
-    neomap('x','<leader>a',function()require'align'.align_to_string(false,true,true)end,key_opts_ns)--Alignstoastring,lookingleftandwithpreviews
-    --neomap('x','<leader>ar',function()require'align'.align_to_string(true,true,true)end,key_opts_ns)--AlignstoaLuapattern,lookingleftandwithpreviews
-     end,
+    "echasnovski/mini.align",
+    version = false,
+    keys = {
+        { mode = { 'x' }, '<leader>a', desc = 'Align' },
+        { mode = { 'x' }, '<leader>A', desc = 'Interactive align' },
+    },
+    config = function()
+        require('mini.align').setup({
+            mappings = {
+                start = '<leader>a',
+                start_with_preview = '<leader>A',
+            },
+        })
+    end,
   },
 -- }}}
 -- {{{ kylechui/nvim-surround
@@ -1859,6 +1865,7 @@ require("lazy").setup({
             cmp = true,
             telescope = true,
             dashboard = true,
+            flash = true,
             markdown = true,
             mason = true,
             neotree = true,
