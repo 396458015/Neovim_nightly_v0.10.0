@@ -419,7 +419,6 @@ require("lazy").setup({
                         directory =  '',
                     },
                     filetype_names = {
-                        TelescopePrompt = 'Telescope',
                         startuptime = '⏳',
                     },
                     padding = { right = 1 },  -- 该组件右侧空白长度
@@ -565,7 +564,6 @@ require("lazy").setup({
                             keymap  = 'SPC f g',
                             key_hl  = 'Number',
                             action  = 'Leaderf file'
-                            -- action  = 'Telescope file_browser path=:/<left><left>'
                         },
                         {
                             icon    = '  ',--
@@ -576,8 +574,6 @@ require("lazy").setup({
                             key_hl  = 'Number',
                             keymap  = ', r',
                             action = 'Leaderf mru',
-                            -- keymap  = 'SPC f r',  --Telescope
-                            -- action  = 'Telescope oldfiles',  --Telescope
                         },
                         {
                             icon    = '  ',
@@ -1863,7 +1859,7 @@ require("lazy").setup({
         custom_highlights = {},
         integrations = {
             cmp = true,
-            telescope = true,
+            -- telescope = true,
             dashboard = true,
             flash = true,
             markdown = true,
@@ -1886,65 +1882,6 @@ require("lazy").setup({
 	},
     config = function()
     require'colorizer'.setup()
-    end,
-  },
--- }}}
--- {{{ nvim-telescope/telescope.nvim
-  {
-    "nvim-telescope/telescope.nvim",
-    cmd = { "Telescope" },
-	keys = {
-		{ "<localleader>fg", mode = { "n" }, "<cmd>Telescope find_files<cr>", desc = "File" },
-		{ "<localleader>fb", mode = { "n" }, ":Telescope file_browser path=:/<left><left>", desc = "File Browser" },
-		{ "<localleader>ff", mode = { "n" }, "<cmd>Telescope live_grep<cr>", desc = "Fuzzy word" },
-		{ "<localleader>fc", mode = { "n" }, "<cmd>Telescope command_history<cr>", desc = "Command History" },
-		{ "<localleader>fr", mode = { "n" }, "<cmd>Telescope oldfiles<cr>", desc = "Recently Files" },
-		{ "<localleader>fl", mode = { "n" }, "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Line" },
-		{ "<localleader>fs", mode = { "n" }, "<cmd>Telescope search_history<cr>", desc = "Search History" },
-	},
-    dependencies = {
-        {
-        "nvim-telescope/telescope-file-browser.nvim",
-        config =function()
-        require("telescope").load_extension "file_browser"
-        end,
-        },
-        { "nvim-lua/plenary.nvim" },
-    },
-    config = function()
-    require("telescope").setup {
-        defaults = {
-            initial_mode = 'normal',
-            prompt_prefix = " ",
-            selection_caret = " ",
-            path_display = { "smart" },
-            dynamic_preview_title = true,
-        },
-        pickers = {
-            find_files = {
-            hidden = true,
-            --find_command = { "fd", "f" },
-            find_command = { "rg", "--files" },
-            mappings = {
-                n = {
-                    ["cd"] = function(prompt_bufnr)
-                    local selection = require("telescope.actions.state").get_selected_entry()
-                    local dir = vim.fn.fnamemodify(selection.path, ":p:h")
-                    require("telescope.actions").close(prompt_bufnr)
-                    -- Depending on what you want put `cd`, `lcd`, `tcd`
-                    vim.cmd(string.format("silent lcd %s", dir))
-                end
-                }
-            }
-            },
-       },
-        extensions = {
-            file_browser = {
-            theme = "ivy",
-            hijack_netrw = true,
-            },
-        },
-    }
     end,
   },
 -- }}}
@@ -2794,9 +2731,6 @@ require("lazy").setup({
 
     local LL_others = require('which-key')
     LL_others.register({
-    f = {
-        name = "Telescope",
-    },
     ['e'] = {'yazi'},
     w = {
         name = "Weather Forecast",
