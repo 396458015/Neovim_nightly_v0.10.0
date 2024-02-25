@@ -234,7 +234,7 @@ local vim_opts = {
     hlsearch = true,
     ignorecase = true,  -- 忽略大小写
     incsearch = true,  -- 开启实时搜索功能
-    laststatus = 3,  -- 3:global Statusline, default is 2
+    laststatus = 2,  -- 3:global Statusline, default is 2
     linebreak = true,
     list = false,
     listchars = "trail:.,extends:>,precedes:<,space:.",
@@ -2600,13 +2600,6 @@ require("lazy").setup({
       remove_default_inverses = true, -- removes the default set of inverses
     })
 	end,
-  },
--- }}}
--- {{{ nvim-zh/colorful-winsep.nvim
-  {
-    "nvim-zh/colorful-winsep.nvim",
-    config = true,
-    event = { "WinNew" },
   },
 -- }}}
 -- {{{ folke/which-key.nvim
