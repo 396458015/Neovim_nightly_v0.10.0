@@ -83,8 +83,8 @@ neomap('n', '<S-h>', '<C-w>b<C-w>H', key_opts_ns)
 -- 光标移动
 neomap('n', '<C-l>', '<C-W><C-L>', key_opts_ns)
 neomap('n', '<C-h>', '<C-W><C-H>', key_opts_ns)
--- neomap('n', '<C-j>', '<C-W><C-J>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
--- neomap('n', '<C-k>', '<C-W><C-K>', {}) -- 注释掉，因为与终端分屏窗口移动冲突
+neomap('n', '<C-j>', '<C-W><C-J>', key_opts_ns)
+neomap('n', '<C-k>', '<C-W><C-K>', key_opts_ns)
 -- 终端分屏窗口移动，split navigations,smart way to move between windows
 neomap('t', '<C-h>', '<C-w><C-h>', key_opts_s)
 neomap('t', '<C-j>', '<C-w><C-j>', key_opts_s)
@@ -328,9 +328,9 @@ require("lazy").setup({
   {
     "mg979/vim-visual-multi",
     keys = {
-        {"<C-j>"},
-        {"<C-k>"},
-        {"<C-z>"},
+        { "<C-Up>", desc = "Visual Multi up" },
+        { "<C-Down>", desc = "Visual Multi down" },
+        { "<C-z>", desc = "Visual Multi select all" },
         { "<C-n>", mode = { "n", "x" }, desc = "visual multi" },
     },
     init = function()
@@ -339,8 +339,8 @@ require("lazy").setup({
         ["Find Under"]         = "<C-n>",
         ["Find Subword Under"] = "<C-n>",
         ["Select All"]         = "<C-z>",
-        ["Add Cursor Up"]      = "<C-k>",
-        ["Add Cursor Down"]    = "<C-j>",
+        ["Add Cursor Up"]      = "<C-Up>",
+        ["Add Cursor Down"]    = "<C-Down>",
       }
     end,
   },
