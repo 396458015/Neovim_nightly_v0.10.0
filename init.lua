@@ -168,6 +168,7 @@ command! Yzconfig execute "edit C:/Users/ThinkPad/AppData/Roaming/yazi/config/ya
 command! Ssconfig execute "edit C:/Users/ThinkPad/Documents/PowerShell/starship.toml"
 command! Wfconfig execute "edit C:/Users/ThinkPad/.config/winfetch/config.ps1"
 command! Lgconfig execute "edit C:/Users/ThinkPad/AppData/Roaming/lazygit/config.yml"
+command! Riconfig execute "edit C:/Users/ThinkPad/AppData/Roaming/Rime/default.custom.yaml"
 ]]
 -- }}}
 
