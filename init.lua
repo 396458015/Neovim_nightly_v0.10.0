@@ -113,6 +113,8 @@ neomap('n', '<M-0>', ':tablast<CR>', key_opts_ns)
 -- Alt+左右键来移动标签顺序
 neomap('n', '<M-left>', [[<Cmd>if tabpagenr() == 1 | execute "tabm " . tabpagenr("$") | else | execute "tabm " . (tabpagenr()-2) | endif<CR>]], key_opts_ns)
 neomap('n', '<M-right>', [[<Cmd>if tabpagenr() == tabpagenr("$") | tabm 0 | else | execute "tabm " . tabpagenr() | endif<CR>]], key_opts_ns)
+-- buffer
+neomap('n', '<leader>q', ':bd<CR>', key_opts_n)  -- bd!: quit even not save
 ------------- Command Mode related ---------------
 neomap('c', '<C-a>', '<Home>', key_opts_n)
 neomap('c', '<C-e>', '<End>', key_opts_n)
@@ -751,7 +753,7 @@ require("lazy").setup({
     -- event = 'BufWinEnter',
     cmd = { "Leaderf", "LeaderfFile" },
 	keys = {
-		{ "<leader>fb", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File(path)" },
+		{ "<leader>fp", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File(path)" },
 		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "Fuzzy word" },
 		{ "<leader>fg", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
 		{ "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "Line" },
@@ -761,6 +763,7 @@ require("lazy").setup({
 		{ "<localleader>F", mode = { "n" }, "<cmd>Leaderf function<cr>", desc = "Function" },
 		{ "<leader>fr", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
 		{ "<localleader>r", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
+		{ "<leader>fb", mode = { "n" }, "<cmd>Leaderf buffer<cr>", desc = "Buffer" },
 	},
     init = function()
     vim.g.Lf_ShortcutF = ""
