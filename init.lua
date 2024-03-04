@@ -952,6 +952,7 @@ require("lazy").setup({
     },
 	keys = {
 		{ "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+		{ "<leader>gg", mode = { "n" }, "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
 	},
     init = function()
     vim.g.lazygit_floating_window_winblend = 0
