@@ -2565,6 +2565,8 @@ require("lazy").setup({
       { "<leader>gj", mode = { "n" }, "<cmd>Gitsigns next_hunk<cr>", desc = "Next Hunk" },
       { "<leader>gk", mode = { "n" }, "<cmd>Gitsigns prev_hunk<cr>", desc = "Prev Hunk" },
 
+      { "<leader>cg", mode = { "n" }, "<cmd>Gitsigns toggle_word_diff<cr>", desc = "Toggle word_diff" },
+
       -- { "<leader>gr", mode = { "n" }, "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk" },
       -- { "<leader>gR", mode = { "n" }, "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset Buffer" },
       -- { "<leader>gs", mode = { "n", "v" }, "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
@@ -2584,7 +2586,7 @@ require("lazy").setup({
 			signcolumn     = true,  -- Toggle with `:Gitsigns toggle_signs`
 			linehl         = false, -- Toggle with `:Gitsigns toggle_linehl`
 			numhl          = false, -- Toggle with `:Gitsigns toggle_nunhl`
-			word_diff      = false, -- Toggle with `:Gitsigns toggle_word_diff`
+			word_diff      = true,  -- Toggle with `:Gitsigns toggle_word_diff`
 			sign_priority  = 9,
 			watch_gitdir   = {
 				interval     = 1000,
@@ -2594,6 +2596,14 @@ require("lazy").setup({
 	if pcall(require, "scrollbar") then
 		require("scrollbar.handlers.gitsigns").setup()
 	end
+    -- signs color
+    vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#a6d189", bg = "None" })
+    vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#e78284", bg = "None" })
+    vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#26deff", bg = "None" })
+    -- word_diff color
+    vim.api.nvim_set_hl(0, "GitSignsAddInline", { fg = "#00cc00", bg = "#005500" })
+    vim.api.nvim_set_hl(0, "GitSignsDeleteInline", { fg = "#cc0000", bg = "#550000" })
+    vim.api.nvim_set_hl(0, "GitSignsChangeInline", { fg = "#00cc00", bg = "#005500" })
 	end,
   },
 -- }}}
