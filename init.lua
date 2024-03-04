@@ -2947,10 +2947,10 @@ elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     vim.cmd('hi Cursorcolumn gui=NONE guibg=#c6cbd9')
 end
 -- diff color (original neovim)
-vim.api.nvim_command("hi DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#87af87")  -- 新增的行
-vim.api.nvim_command("hi DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=bold guifg=bg guibg=#86abdc")  -- 删除的行
-vim.api.nvim_command("hi DiffChange cterm=none ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=#8787af")  -- 变化的行
-vim.api.nvim_command("hi DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=bold guifg=bg guibg=#f7768e")  -- 变化的文字
+vim.api.nvim_command("hi DiffAdd    guifg=#00cc00 guibg=#005500 gui=none")  -- 新增的行
+vim.api.nvim_command("hi DiffDelete guifg=#cc0000 guibg=#550000 gui=none")  -- 删除的行
+vim.api.nvim_command("hi DiffChange guifg=#000000 guibg=#b0b0b0 gui=none")  -- 变化的行
+vim.api.nvim_command("hi DiffText   guifg=#00cc00 guibg=#005500 gui=none")  -- 变化的文字
 -- lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
 -- mg979/vim-visual-multi theme
