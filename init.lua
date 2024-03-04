@@ -2556,6 +2556,20 @@ require("lazy").setup({
   {
 	"lewis6991/gitsigns.nvim",
     event = "BufRead",
+    keys = {
+      { "<leader>gp", mode = { "n" }, "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview Hunk" },
+      { "<leader>gd", mode = { "n" }, "<cmd>Gitsigns diffthis<cr>", desc = "Diff" },
+
+      { "<leader>gl", mode = { "n" }, "<cmd>Gitsigns blame_line<cr>", desc = "Blame" },
+
+      { "<leader>gj", mode = { "n" }, "<cmd>Gitsigns next_hunk<cr>", desc = "Next Hunk" },
+      { "<leader>gk", mode = { "n" }, "<cmd>Gitsigns prev_hunk<cr>", desc = "Prev Hunk" },
+
+      -- { "<leader>gr", mode = { "n" }, "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk" },
+      -- { "<leader>gR", mode = { "n" }, "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset Buffer" },
+      -- { "<leader>gs", mode = { "n", "v" }, "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
+      -- { "<leader>gu", mode = { "n", "v" }, "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
+    },
 	config = function()
 		local gitsigns = require("gitsigns")
 		gitsigns.setup({
