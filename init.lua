@@ -97,6 +97,8 @@ neomap('n', '<S-down>', ':resize +3<CR>', key_opts_ns)
 neomap('n', '<S-left>', ':vertical resize +3<CR>', key_opts_ns)
 neomap('n', '<S-right>', ':vertical resize -3<CR>', key_opts_ns)
 -------------------- 标签页 --------------------
+-- 将新的空白缓冲区替换当前页
+neomap('n', '<c-w>e', ':enew<cr>', key_opts_ns)
 -- 新建标签页
 neomap('n', '<leader><Tab>', ':tabnew<CR>', key_opts_ns)
 -- 支持Alt+n切换标签页
