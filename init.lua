@@ -815,6 +815,9 @@ require("lazy").setup({
     -- 使用:LeaderfRg 路径不全时, 默认搜索该文件目录下的文件
     vim.cmd([[command! -bar -nargs=? -complete=dir LeaderfRg Leaderf! rg "" <q-args>]])
 
+    -- 修改预览窗口移动,默认为<C-Up>和<C-Down>,修改为<C-b>和<C-f>
+    vim.cmd([[let g:Lf_CommandMap = {'<C-Up>': ['<C-b>'], '<C-Down>': ['<C-f>']}]])
+
     -- Bottom mode & Change statusline color (not popup mode)
     vim.g.Lf_WindowPosition = 'bottom'
     vim.api.nvim_command("hi link Lf_hl_stlName StatuslineNC")
