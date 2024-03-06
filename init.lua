@@ -2567,8 +2567,9 @@ require("lazy").setup({
 
       { "<leader>cg", mode = { "n" }, "<cmd>Gitsigns toggle_word_diff<cr>", desc = "Toggle word_diff" },
 
-      -- { "<leader>gr", mode = { "n" }, "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk" },
-      -- { "<leader>gR", mode = { "n" }, "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset Buffer" },
+      { "<leader>gr", mode = { "n" }, "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk" },
+      { "<leader>gR", mode = { "n" }, "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset Buffer" },
+
       -- { "<leader>gs", mode = { "n", "v" }, "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
       -- { "<leader>gu", mode = { "n", "v" }, "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
     },
