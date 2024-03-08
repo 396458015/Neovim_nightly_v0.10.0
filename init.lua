@@ -1345,32 +1345,6 @@ require("lazy").setup({
     end,
   },
 -- }}}
--- {{{ chentoast/marks.nvim
-  {
-    "chentoast/marks.nvim",
-	keys = {
-		{ "mm", mode = { "n" }, "<Plug>(Marks-setnext)", desc = "Set nextMark" },
-		{ "mc", mode = { "n" }, "<Plug>(Marks-deletebuf)", desc = "Clear Marks" },
-	},
-    config = function()
-    require'marks'.setup {
-        default_mappings = false,
-        builtin_marks = { ".", "<", ">", "^" },
-        cyclic = true,
-        force_write_shada = false,
-        refresh_interval = 250,
-        sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
-        excluded_filetypes = {},
-        bookmark_0 = {
-            sign = "⚑",
-            virt_text = "hello world"
-        },
-    }
-    neomap("n", "<C-m>", "<Plug>(Marks-next)", key_opts_ns)
-    neomap("n", "<S-m>", "<Plug>(Marks-prev)", key_opts_ns)
-    end,
-  },
--- }}}
 -- {{{ windwp/nvim-autopairs
   {
     "windwp/nvim-autopairs",
