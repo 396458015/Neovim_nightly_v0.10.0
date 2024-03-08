@@ -1426,112 +1426,94 @@ require("lazy").setup({
     end,
   },
 -- }}}
--- {{{ petertriho/nvim-scrollbar
+-- {{{ dstein64/nvim-scrollview
   {
-    "petertriho/nvim-scrollbar",
+    "dstein64/nvim-scrollview",
     event = "BufReadPre",
-  	dependencies = {
-        {
-          "kevinhwang91/nvim-hlslens",
-          event = "InsertEnter",
-          config = function()
-          require('hlslens').setup({
-              override_lens = function(render, posList, nearest, idx, relIdx)
-                  local sfw = vim.v.searchforward == 1
-                  local indicator, text, chunks
-                  local absRelIdx = math.abs(relIdx)
-                  if absRelIdx > 1 then
-                      indicator = ('%d%s'):format(absRelIdx, sfw ~= (relIdx > 1) and '▲' or '▼')
-                  elseif absRelIdx == 1 then
-                      indicator = sfw ~= (relIdx == 1) and '▲' or '▼'
-                  else
-                      indicator = ''
-                  end
-
-                  local lnum, col = unpack(posList[idx])
-                  if nearest then
-                      local cnt = #posList
-                      if indicator ~= '' then
-                          text = ('[%s %d/%d]'):format(indicator, idx, cnt)
-                      else
-                          text = ('[%d/%d]'):format(idx, cnt)
-                      end
-                      chunks = {{' ', 'Ignore'}, {text, 'HlSearchLensNear'}}
-                  else
-                      text = ('[%s %d]'):format(indicator, idx)
-                      chunks = {{' ', 'Ignore'}, {text, 'HlSearchLens'}}
-                  end
-                  render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
-              end,
-              build_position_cb = function(plist, _, _, _)
-                  require("scrollbar.handlers.search").handler.show(plist.start_pos)
-              end
-          })
-          --mapping
-          vim.cmd[[nnoremap <leader>/ /\<<C-R>=expand("<cword>")<CR>\><left><left>]]
-          --color
-          vim.api.nvim_command("hi default link HlSearchNear IncSearch")
-          vim.api.nvim_command("hi default link HlSearchLens WildMenu")
-          vim.api.nvim_command("hi default link HlSearchLensNear IncSearch")
-          vim.api.nvim_command("hi default link HlSearchFloat IncSearch")
-          if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
-              vim.api.nvim_command("hi IncSearch guibg=#d73a4a")
-          elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
-              vim.api.nvim_command("hi IncSearch guibg=#e78284")
-          end
-          vim.api.nvim_command("hi IncSearch guifg=black")
-          end,
-        },
-    },
     config = function()
-            if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
-                require("scrollbar").setup({
-                    handle = {
-                        text = " ",
-                        color = "#abb2bf",
-                        cterm = nil,
-                        highlight = "CursorColumn",
-                        hide_if_all_visible = true, -- Hides handle if all lines are visible
-                    },
-                    marks = {
-                        Cursor = {
-                            text = "•",
-                            color = 'black',
-                        },
-                        Search = {
-                            text = { "-", "=" },
-                            priority = 0,
-                            color = "#e1e2e7",
-                            cterm = nil,
-                            highlight = "Search",
-                        },
-                    },
-                })
-            elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
-                require("scrollbar").setup({
-                    handle = {
-                        text = " ",
-                        color = "#4d688e",
-                        cterm = nil,
-                        highlight = "CursorColumn",
-                        hide_if_all_visible = true, -- Hides handle if all lines are visible
-                    },
-                    marks = {
-                        Cursor = {
-                            text = "•",
-                            color = "black",
-                        },
-                        Search = {
-                            text = { "-", "=" },
-                            priority = 0,
-                            color = "black",
-                            cterm = nil,
-                            highlight = "Search",
-                        },
-                    },
-                })
+    require("scrollview").setup {
+      excluded_filetypes = { 'dashboard', 'neo-tree','mason','floaterm' },
+      winblend = 50,
+      -- signs_on_startup = {'all'},
+      signs_on_startup = {
+          "conflicts",
+          "cursor",
+          "diagnostics",
+          "folds",
+          "loclist",
+          "marks",
+          "quickfix",
+          "search",
+          "spell",
+          -- "textwidth",
+          -- "trail",
+      },
+      -- diagnostics_error_symbol = '󰨓',
+      -- diagnostics_warn_symbol  = '󰨓',
+      -- diagnostics_hint_symbol  = '󰨓',
+      -- diagnostics_info_symbol  = '󰨓',
+      -- cursor_symbol = "•"
+    }
+
+    require("scrollview.contrib.gitsigns").setup {
+      add_priority = 100,
+      change_priority = 100,
+      delete_priority = 100,
+      -- add_symbol = '│',
+      -- change_symbol = '│',
+      -- delete_symbol = '_',
+    }
+    vim.api.nvim_set_hl(0, "ScrollViewHover", { link = "Search" })
+    end,
+  },
+-- }}}
+-- {{{ kevinhwang91/nvim-hlslens
+  {
+    "kevinhwang91/nvim-hlslens",
+    event = { "InsertEnter", "CmdlineEnter" },
+    config = function()
+    require('hlslens').setup({
+        override_lens = function(render, posList, nearest, idx, relIdx)
+            local sfw = vim.v.searchforward == 1
+            local indicator, text, chunks
+            local absRelIdx = math.abs(relIdx)
+            if absRelIdx > 1 then
+                indicator = ('%d%s'):format(absRelIdx, sfw ~= (relIdx > 1) and '▲' or '▼')
+            elseif absRelIdx == 1 then
+                indicator = sfw ~= (relIdx == 1) and '▲' or '▼'
+            else
+                indicator = ''
             end
-    require("scrollbar.handlers.search").setup({})
+
+            local lnum, col = unpack(posList[idx])
+            if nearest then
+                local cnt = #posList
+                if indicator ~= '' then
+                    text = ('[%s %d/%d]'):format(indicator, idx, cnt)
+                else
+                    text = ('[%d/%d]'):format(idx, cnt)
+                end
+                chunks = {{' ', 'Ignore'}, {text, 'HlSearchLensNear'}}
+            else
+                text = ('[%s %d]'):format(indicator, idx)
+                chunks = {{' ', 'Ignore'}, {text, 'HlSearchLens'}}
+            end
+            render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
+        end,
+    })
+    --mapping
+    vim.cmd[[nnoremap <leader>/ /\<<C-R>=expand("<cword>")<CR>\><left><left>]]
+    --color
+    vim.api.nvim_command("hi default link HlSearchNear IncSearch")
+    vim.api.nvim_command("hi default link HlSearchLens WildMenu")
+    vim.api.nvim_command("hi default link HlSearchLensNear IncSearch")
+    vim.api.nvim_command("hi default link HlSearchFloat IncSearch")
+    if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
+        vim.api.nvim_command("hi IncSearch guibg=#d73a4a")
+    elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
+        vim.api.nvim_command("hi IncSearch guibg=#e78284")
+    end
+    vim.api.nvim_command("hi IncSearch guifg=black")
     end,
   },
 -- }}}
@@ -2599,9 +2581,6 @@ require("lazy").setup({
 			},
 			attach_to_untracked = false,
 		})
-	if pcall(require, "scrollbar") then
-		require("scrollbar.handlers.gitsigns").setup()
-	end
     -- signs color
     vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#a6d189", bg = "None" })
     vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#e78284", bg = "None" })
