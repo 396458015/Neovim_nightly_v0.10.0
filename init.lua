@@ -2222,7 +2222,7 @@ require("lazy").setup({
                         else
                             fallback()
                         end
-                    end, { "i", "s" }
+                    end, { "i", "s", "c" }
                     ),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
@@ -2232,7 +2232,7 @@ require("lazy").setup({
                         else
                             fallback()
                         end
-                    end, { "i", "s" }
+                    end, { "i", "s", "c" }
                     ),
                 }),
                 formatting = {
@@ -2386,7 +2386,7 @@ require("lazy").setup({
         neomap('n', 'gr', vim.lsp.buf.references, opts)
         neomap('n', 'gi', vim.lsp.buf.implementation, opts)
         neomap('n', '<space>r', vim.lsp.buf.rename, opts)
-        neomap('i', '<C-h>', vim.lsp.buf.signature_help, opts)
+        neomap({ "n", "i" }, '<c-h>', vim.lsp.buf.signature_help, opts)
         -- neomap({ 'n', 'v' }, ';', vim.lsp.buf.code_action, opts)
         -- neomap('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
         -- neomap('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
