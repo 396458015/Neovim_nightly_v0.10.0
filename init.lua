@@ -2450,6 +2450,7 @@ require("lazy").setup({
   {
     "ray-x/lsp_signature.nvim",
     event = 'LspAttach',
+    version = '0.2.0',  -- tag >= 0.3.0 will error
     dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
         require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
