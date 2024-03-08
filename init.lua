@@ -45,6 +45,9 @@ neomap("i", "<C-l>", "<C-Right>", key_opts_ns)
 -- Indentation
 neomap("n", "<", "<<", key_opts_ns)
 neomap("n", ">", ">>", key_opts_ns)
+-- marks
+neomap("n", "mc", ":delmarks!<cr>", key_opts_ns)  --删除所有小写marks
+neomap("n", "mC", ":delmarks A-Z<cr>", key_opts_ns)  --删除所有大写marks
 -- 单词的 选/改/删
 --[[ neomap("n", "vi", "viw", key_opts_ns)
 neomap("n", "ci", "ciw", key_opts_ns)
