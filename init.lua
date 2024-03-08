@@ -1464,6 +1464,11 @@ require("lazy").setup({
       -- delete_symbol = '_',
     }
     vim.api.nvim_set_hl(0, "ScrollViewHover", { link = "Search" })
+
+    neomap('n', ']v', '<Cmd>ScrollViewNext<cr>',  key_opts_ns)
+    neomap('n', '[v', '<Cmd>ScrollViewPrev<cr>',  key_opts_ns)
+    neomap('n', '[V', '<Cmd>ScrollViewFirst<cr>', key_opts_ns)
+    neomap('n', ']V', '<Cmd>ScrollViewLast<cr>',  key_opts_ns)
     end,
   },
 -- }}}
