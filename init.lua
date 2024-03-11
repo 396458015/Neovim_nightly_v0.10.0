@@ -59,23 +59,23 @@ neomap("n", "<Tab>", "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>", key_op
 -- zf:创建折叠;zd:删除折叠,仅在manual/marker中有效;zD:删除嵌套折叠,仅在manual/marker中有效;za:打开/关闭当前折叠;zM:关闭所有折叠;zR:打开所有折叠
 -------------------- copy path(file) --------------------
 -- path without filename
--- neomap("n", "<leader>y", [[:let @+=('cd ' .. expand('%:p:h'))<CR>:echo "File path in clipboard"<CR>]], key_opts_ns) -- 路径没有引号
-neomap("n", "<leader>y", [[:let @+=('cd ' .. "'" .. expand('%:p:h') .. "'")<CR>:echo "File path in clipboard"<CR>]], key_opts_ns) -- 路径有引号
+-- neomap("n", "<leader>y", [[:let @+=('cd ' .. expand('%:p:h'))<CR>:echo "File path in clipboard"<CR>]], { desc = 'Copy Path(file)' }) -- 路径没有引号
+neomap("n", "<leader>y", [[:let @+=('cd ' .. "'" .. expand('%:p:h') .. "'")<CR>:echo "File path in clipboard"<CR>]], { desc = '[Y]ank Path(file)' }) -- 路径有引号
 -- if "expand('%:p')", path with filename
 -------------------- spell checking --------------------
 -- 设置拼写检查开关
-neomap('n', '<Leader>sc', ':set spell!<CR>', key_opts_ns)
+neomap('n', '<Leader>sc', ':set spell!<CR>', { desc = 'Spell Word' })
 -- 拼写检查导航
-neomap('n', '<leader>sn', ']s', key_opts_ns)
-neomap('n', '<leader>sp', '[s', key_opts_ns)
+neomap('n', '<leader>sn', ']s', { desc = 'Next Wrong Word' })
+neomap('n', '<leader>sp', '[s', { desc = 'previou Wrong Word' })
 neomap('n', '<leader>sa', 'zg', key_opts_ns)
 -- 显示单词拼写建议
-neomap('n', '<leader>s?', 'z=', key_opts_ns)
+neomap('n', '<leader>s?', 'z=', { desc = 'Word Candidate' })
 -- 查找并替换
-neomap('n', '<leader>z', [[:%s/\<<C-R>=expand("<cword>")<CR>\>/<C-R>=expand("<cword>")<CR>/g<left><left>]], key_opts_n)
-neomap('v', '<leader>z', [[:s///g<left><left><left>]], key_opts_n)
+neomap('n', '<leader>z', [[:%s/\<<C-R>=expand("<cword>")<CR>\>/<C-R>=expand("<cword>")<CR>/g<left><left>]], { desc = 'Replace Word' })
+neomap('v', '<leader>z', [[:s///g<left><left><left>]], { desc = 'Replace Word' })
 -- 创建列表
-neomap('n', '<leader>b', [[:put =range(,,1)<left><left><left><left>]], key_opts_n)
+neomap('n', '<leader>b', [[:put =range(,,1)<left><left><left><left>]], { desc = 'Columns Num' })
 -------------------- 分屏 --------------------
 -- 分屏后窗口最大化和恢复
 neomap("n", "<m-,>", "<c-w>_<c-w>|", key_opts_ns)
@@ -84,10 +84,10 @@ neomap("n", "<m-.>", "<c-w>=", key_opts_ns)
 neomap('n', '<S-h>', '<C-w>b<C-w>H', key_opts_ns)
 -- neomap('n', 'srh', '<C-w>b<C-w>K', {}) -- 注释掉，因为与 <S-h> 冲突
 -- 光标移动
-neomap('n', '<C-l>', '<C-W><C-L>', key_opts_ns)
-neomap('n', '<C-h>', '<C-W><C-H>', key_opts_ns)
-neomap('n', '<C-j>', '<C-W><C-J>', key_opts_ns)
-neomap('n', '<C-k>', '<C-W><C-K>', key_opts_ns)
+neomap('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+neomap('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+neomap('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+neomap('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 -- 终端分屏窗口移动，split navigations,smart way to move between windows
 neomap('t', '<C-h>', '<C-w><C-h>', key_opts_s)
 neomap('t', '<C-j>', '<C-w><C-j>', key_opts_s)
@@ -103,7 +103,7 @@ neomap('n', '<S-right>', ':vertical resize -3<CR>', key_opts_ns)
 -- 将新的空白缓冲区替换当前页
 neomap('n', '<c-w>e', ':enew<cr>', key_opts_ns)
 -- 新建标签页
-neomap('n', '<leader><Tab>', ':tabnew<CR>', key_opts_ns)
+neomap('n', '<leader><Tab>', ':tabnew<CR>', { desc = '[Tab]new' })
 -- 支持Alt+n切换标签页
 neomap('n', '<M-1>', '1gt', key_opts_ns)
 neomap('n', '<M-2>', '2gt', key_opts_ns)
@@ -119,7 +119,7 @@ neomap('n', '<M-0>', ':tablast<CR>', key_opts_ns)
 neomap('n', '<M-left>', [[<Cmd>if tabpagenr() == 1 | execute "tabm " . tabpagenr("$") | else | execute "tabm " . (tabpagenr()-2) | endif<CR>]], key_opts_ns)
 neomap('n', '<M-right>', [[<Cmd>if tabpagenr() == tabpagenr("$") | tabm 0 | else | execute "tabm " . tabpagenr() | endif<CR>]], key_opts_ns)
 -- buffer
-neomap('n', '<leader>q', ':bd<CR>', key_opts_n)  -- bd!: quit even not save
+neomap('n', '<leader>q', ':bd<CR>', { desc = '[Q]uit/Kill Buffer' })  -- bd!: quit even not save
 ------------- Command Mode related ---------------
 neomap('c', '<C-a>', '<Home>', key_opts_n)
 neomap('c', '<C-e>', '<End>', key_opts_n)
@@ -137,17 +137,17 @@ neomap('c', '<C-k>', '<up>', key_opts_n)
 neomap('c', '<C-V>', '<C-R>+', key_opts_n)
 -- -------------------- function --------------------
 -- open Startify
-neomap('n', '<leader>st', ':Startify<CR>', key_opts_ns)
--- diff line
-neomap('n', '<leader>dt', ':Linediff<CR>', key_opts_n)
+neomap('n', '<leader>st', ':Startify<CR>', { desc = 'Startify' })
+-- diff this
+neomap('n', '<leader>dt', ':diffthis<CR>', { desc = '[D]iff [T]his' })
 -- vimrc
-neomap('n', '<leader>rc', ':edit $MYVIMRC<CR>', key_opts_ns)
-neomap('n', '<leader>rr', ':source $MYVIMRC<CR>', key_opts_ns)
+neomap('n', '<leader>rc', ':edit $MYVIMRC<CR>', { desc = 'Edit VIMRC' })
+neomap('n', '<leader>rr', ':source $MYVIMRC<CR>', { desc = '[R]eload VIMRC' })
 -- 插入时间
 vim.cmd([[iab xtime <c-r>=strftime("20%y-%m-%d %a %H:%M")<CR>]])
 vim.cmd([[iab xdate <c-r>=strftime("20%y-%m-%d (%a)")<CR>]])
 -- 取消高亮
-neomap('n', '<BS>', ':nohl<CR>', key_opts_ns)
+neomap('n', '<BS>', ':nohlsearch<CR>', key_opts_ns)
 -- 显示列表，使用`.`表示空格
 neomap('n', '<F3>', ':set list!<CR>', key_opts_ns)
 neomap('i', '<F3>', '<C-o>:set list!<CR>', key_opts_ns)
@@ -156,14 +156,16 @@ neomap('c', '<F3>', '<C-c>:set list!<CR>', key_opts_ns)
 neomap('n', '<F4>', ':set cuc! cul!<CR>', key_opts_ns)
 neomap('i', '<F4>', '<C-o>:set cuc! cul!<CR>', key_opts_ns)
 -- smart split
-function smart_split()
+function Smart_split()
     if vim.api.nvim_win_get_width(0) > vim.api.nvim_win_get_height(0) * 3 then
-        vim.cmd("vsplit")
+        -- vim.cmd("vsplit")  --当前文件分屏
+        vim.cmd("vnew")  --空白分屏
     else
-        vim.cmd("split")
+        -- vim.cmd("split")  --当前文件分屏
+        vim.cmd("new")  --空白分屏
     end
 end
-neomap('n', '<leader>\\', ':lua smart_split()<CR>', key_opts_ns)
+neomap('n', '<leader>\\', ':lua Smart_split()<CR>', { desc = 'Smart split' })
 -- neomap('n', '<C-\\>', [[:set splitright<CR>:vsplit<CR>]], key_opts_ns)
 -- neomap('n', '<C-\\>', [[:set splitbelow<CR>:split<CR>]], key_opts_ns)
 -------------------- Configuration file --------------------
@@ -219,6 +221,7 @@ neomap("i", "<C-ScrollWheelDown>", "<ESC>:call AdjustFontSize(-1)<CR>a", key_opt
 -- }}}
 
 -- {{{ options
+vim.g.have_nerd_font = true
 local vim_opts = {
     autochdir = true,  -- 设定文件浏览器目录为当前目录
     autoindent = true,  -- 自动对齐
@@ -239,13 +242,14 @@ local vim_opts = {
     foldmethod = 'marker',  -- 折叠类型---对文中标志折叠
     formatoptions = "1jcroql",
     hidden = true,  -- 允许在有未保存的修改时切换缓冲区
+    showmode = false,
     hlsearch = true,
     ignorecase = true,  -- 忽略大小写
     incsearch = true,  -- 开启实时搜索功能
     laststatus = 2,  -- 3:global Statusline, default is 2
     linebreak = true,
-    list = false,
-    listchars = "trail:.,extends:>,precedes:<,space:.",
+    list = true,
+    listchars = { tab = '» ', trail = '·', nbsp = '␣' },
     magic = true,
     mouse = "a",
     number = true,
@@ -272,7 +276,9 @@ local vim_opts = {
     termguicolors = true,
     ttimeoutlen = 0,
     undofile = true,
-    updatetime = 200,
+    timeout = true,
+    updatetime = 250,
+    timeoutlen = 300,
     visualbell = true,
     whichwrap = "h,l,<,>,[,],~",  -- 允许backspace和光标键跨越行边界
     wildignore = ".git,.hg,.svn,*.pyc,*.o,*.out,*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store,**/node_modules/**,**/bower_modules/**",
@@ -516,27 +522,6 @@ require("lazy").setup({
         "nvimdev/dashboard-nvim",
         event = 'BufWinEnter',
         config = function()
-            -- random pacman color
-            local pacman_color_list = {
-                  '#000000', '#030303', '#080808', '#0D0D0D', '#121212', '#171717', '#1A1A1A',
-                --'#fff304', '#e46e16', '#49b6b1', '#f4a6c5',
-                --'#db231d', '#374392', '#0C0C0C', '#C50F1F',
-                --'#13A10E', '#C19C00', '#0037DA', '#881798',
-                --'#3A96DD', '#CCCCCC', '#767676', '#E74856',
-                --'#16C60C', '#e6cf00', '#3B78FF', '#B4009E',
-                --'#72b5e4', '#f0c53f', '#ff8784', '#c5c7f1',
-                --'#c2d735', '#78d3cc', '#ea8336', '#e43542',
-                --'#ebab35', '#ebe735', '#aadd32', '#dcca6b',
-                --'#219286', '#2f569c', '#ffb577', '#5282a4',
-                --'#edfccf', '#67064c', '#f5bca7', '#95c474',
-                --'#dece83', '#de9783', '#f2e700', '#e9e9e9',
-                --'#69636d', '#626b98', '#f5f5a7', '#dcca6b',
-                --'#b72a83', '#6f2b9d', '#69636d', '#5f569c',
-            }
-            local randomIndex_pacman = math.random(1, #pacman_color_list)
-            -- vim.api.nvim_command("hi DashboardHeader guifg='#925ba6'")
-            vim.api.nvim_command("hi DashboardHeader guifg=" .. pacman_color_list[randomIndex_pacman])
-
             require('dashboard').setup {
                 theme = 'doom',
                 config = {
@@ -646,6 +631,27 @@ require("lazy").setup({
                     winbar = true,
                 },
             }
+
+            -- random pacman color
+            local pacman_color_list = {
+                  '#000000', '#030303', '#080808', '#0D0D0D', '#121212', '#171717', '#1A1A1A',
+                --'#fff304', '#e46e16', '#49b6b1', '#f4a6c5',
+                --'#db231d', '#374392', '#0C0C0C', '#C50F1F',
+                --'#13A10E', '#C19C00', '#0037DA', '#881798',
+                --'#3A96DD', '#CCCCCC', '#767676', '#E74856',
+                --'#16C60C', '#e6cf00', '#3B78FF', '#B4009E',
+                --'#72b5e4', '#f0c53f', '#ff8784', '#c5c7f1',
+                --'#c2d735', '#78d3cc', '#ea8336', '#e43542',
+                --'#ebab35', '#ebe735', '#aadd32', '#dcca6b',
+                --'#219286', '#2f569c', '#ffb577', '#5282a4',
+                --'#edfccf', '#67064c', '#f5bca7', '#95c474',
+                --'#dece83', '#de9783', '#f2e700', '#e9e9e9',
+                --'#69636d', '#626b98', '#f5f5a7', '#dcca6b',
+                --'#b72a83', '#6f2b9d', '#69636d', '#5f569c',
+            }
+            local randomIndex_pacman = math.random(1, #pacman_color_list)
+            -- vim.api.nvim_command("hi DashboardHeader guifg='#925ba6'")
+            vim.api.nvim_command("hi DashboardHeader guifg=" .. pacman_color_list[randomIndex_pacman])
         end,
     },
 -- }}}
@@ -653,12 +659,8 @@ require("lazy").setup({
   {
     "folke/persistence.nvim",
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
-    opts = {
-        save_empty = false,
-    },
-    keys = {
-      { "<leader>sl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-    },
+    opts = { save_empty = false },
+    keys = { { "<leader>sl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" } },
   },
 -- }}}
 -- {{{ mbbill/undotree
@@ -678,7 +680,7 @@ require("lazy").setup({
     vim.g.undotree_TreeVertShape = "│"
     vim.g.undotree_TreeSplitShape = "─┘"
     vim.g.undotree_TreeReturnShape = "─┐"
-    neomap('n', '<leader>u', vim.cmd.UndotreeToggle, key_opts_ns)
+    neomap('n', '<leader>u', vim.cmd.UndotreeToggle, { desc = '[U]ndotree' })
     end,
     -- 增加系统环境变量Path"D:\Program Files\Git\usr\bin",解决打开插件报错的问题.
   },
@@ -686,10 +688,9 @@ require("lazy").setup({
 -- {{{ dstein64/vim-startuptime
   {
     "dstein64/vim-startuptime",
-    cmd = "StartupTime",
+	keys = { { "<F12>", mode = { "n" }, ":StartupTime<CR>", desc = "StartupTime" } },
     init = function()
     vim.g.startuptime_tries = 10
-    neomap("n", "<F12>", ":StartupTime<CR>", key_opts_ns)
     end,
   },
 -- }}}
@@ -697,13 +698,9 @@ require("lazy").setup({
   {
     "arecarn/vim-crunch",
     keys = {
-            { "<Plug>(crunch-operator-line)", mode = { "n" } },
-            { "<Plug>(visual-crunch-operator)", mode = { "x" } },
-           },
-    init =function()
-    neomap("n", "<leader>,", "<Plug>(crunch-operator-line)", key_opts_ns)
-    neomap("x", "<leader>,", "<Plug>(visual-crunch-operator)<cr>", key_opts_ns)
-    end,
+        { "<leader>,", mode = { "n" }, "<Plug>(crunch-operator-line)", { desc = 'Calculator' } },
+        { "<leader>,", mode = { "x" }, "<Plug>(visual-crunch-operator)", { desc = 'Calculator' } },
+    },
   },
 -- }}}
 -- {{{ sustech-data/wildfire.nvim
@@ -729,21 +726,21 @@ require("lazy").setup({
   },
 -- }}}
 -- {{{ AndrewRadev/linediff.vim
-  { "AndrewRadev/linediff.vim", cmd = {"Linediff", "LinediffAdd"} },
+  {
+    "AndrewRadev/linediff.vim",
+	keys = { { "<leader>dl", mode = { "n", "v" }, ":Linediff<CR>", desc = "[D]iff [L]ine" } },
+  },
 -- }}}
 -- {{{ alpertuna/vim-header
   {
     "alpertuna/vim-header",
-    cmd = "AddHeader",
+	keys = { { "<F2>", mode = { "n" }, ":AddHeader<CR>", desc = "Add Header" } },
     config = function()
     vim.g.header_field_author           = 'Max'
     vim.g.header_field_author_email     = 'ismaxiaolong@gmail.com'
     vim.g.header_field_timestamp_format = '%Y.%m.%d'
     vim.g.header_field_modified_by      = 0
     vim.g.header_field_license_id       = ''
-    end,
-    init = function()
-    neomap("n", "<F2>", ":AddHeader<CR>", key_opts_ns)
     end,
   },
 -- }}}
@@ -755,21 +752,20 @@ require("lazy").setup({
     "Yggdroot/LeaderF",
     build = ":LeaderfInstallCExtension",
     event = { "BufReadPre", "BufNewFile" },
-    -- event = 'BufWinEnter',
-    cmd = { "Leaderf", "LeaderfFile" },
-	keys = {
-		{ "<leader>fp", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File(path)" },
-		{ "<leader>ff", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "Fuzzy word" },
-		{ "<leader>fg", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
-		{ "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "Line" },
-		{ "<leader>fc", mode = { "n" }, "<cmd>Leaderf colorscheme<cr>", desc = "Colorscheme" },
-		{ "<leader>fh", mode = { "n" }, "<cmd>Leaderf searchHistory<cr>", desc = "Search History" },
-		{ "<localleader>T", mode = { "n" }, "<cmd>Leaderf bufTag<cr>", desc = "Tag" },
-		{ "<localleader>F", mode = { "n" }, "<cmd>Leaderf function<cr>", desc = "Function" },
-		{ "<leader>fr", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
-		{ "<localleader>r", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "Recently Files" },
-		{ "<leader>fb", mode = { "n" }, "<cmd>Leaderf buffer<cr>", desc = "Buffer" },
-	},
+    cmd = { "Leaderf" },
+    keys = {
+        { "<leader>fp", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File by [P]ath" },
+        { "<leader>ff", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "[F]uzzy word" },
+        { "<leader>fg", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
+        { "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "[L]ine" },
+        { "<leader>fc", mode = { "n" }, "<cmd>Leaderf colorscheme<cr>", desc = "[C]olorscheme" },
+        { "<leader>fh", mode = { "n" }, "<cmd>Leaderf searchHistory<cr>", desc = "Search [H]istory" },
+        { "<localleader>T", mode = { "n" }, "<cmd>Leaderf bufTag<cr>", desc = "[T]ag" },
+        { "<localleader>F", mode = { "n" }, "<cmd>Leaderf function<cr>", desc = "[F]unction" },
+        { "<leader>fr", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "[R]ecently Files" },
+        { "<localleader>r", mode = { "n" }, "<cmd>Leaderf mru<cr>", desc = "[R]ecently Files" },
+        { "<leader>fb", mode = { "n" }, "<cmd>Leaderf buffer<cr>", desc = "[B]uffer" },
+    },
     init = function()
     vim.g.Lf_ShortcutF = ""
     vim.g.Lf_ShortcutB = ""
@@ -886,66 +882,66 @@ require("lazy").setup({
         end
     end,
     init = function()
-            vim.g.floaterm_wintype = 'float'
-            vim.g.floaterm_title = '─────  Terminal [$1|$2] '
-            vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
-            vim.g.floaterm_autoclose = 0
-            vim.g.floaterm_keymap_kill = '<C-q>'
-            vim.g.floaterm_keymap_next = '<leader>tn'
-            vim.g.floaterm_shell="C:/PROGRA~1/PowerShell/7/pwsh.exe"
-            -- 从':terminal '中打开外部nvim中的文件的命令。
-            vim.g.floaterm_opener = 'vsplit'  -- 'edit', 'split', 'vsplit', 'tabe', 'drop'
-            neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>")
-            -- neomap("n","<localleader>e",":FloatermNew! --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --slower
-            -- neomap("n","<localleader>e",":FloatermNew --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --faster
-            neomap("n","<localleader>e",":FloatermNew --position=center --width=0.99 --height=0.99 --autoclose=1 yazi<CR>") --faster
-            neomap("n","<leader>tt",":FloatermToggle<CR>")
-            neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
-            neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
+        vim.g.floaterm_wintype = 'float'
+        vim.g.floaterm_title = '─────  Terminal [$1|$2] '
+        vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
+        vim.g.floaterm_autoclose = 0
+        vim.g.floaterm_keymap_kill = '<C-q>'
+        vim.g.floaterm_keymap_next = '<leader>tn'
+        vim.g.floaterm_shell="C:/PROGRA~1/PowerShell/7/pwsh.exe"
+        -- 从':terminal '中打开外部nvim中的文件的命令。
+        vim.g.floaterm_opener = 'edit'  -- 'edit', 'split', 'vsplit', 'tabe', 'drop'
+        neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>", { desc = 'Term New' })
+        -- neomap("n","<localleader>e",":FloatermNew! --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --slower
+        -- neomap("n","<localleader>e",":FloatermNew --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --faster
+        neomap("n","<localleader>e",":FloatermNew --position=center --width=0.99 --height=0.99 --autoclose=1 yazi<CR>", { desc = 'yazi' }) --faster
+        neomap("n","<leader>tt",":FloatermToggle<CR>", { desc = 'Term Toggle' })
+        neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
+        neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
 
-            neomap("n","<leader>tj",":FloatermNext<CR>")
-            neomap("n","<leader>tk",":FloatermPrev<CR>")
+        neomap("n","<leader>tj",":FloatermNext<CR>")
+        neomap("n","<leader>tk",":FloatermPrev<CR>")
 
-            vim.cmd[[
-            augroup Compiler_code
-                au!
-                au FileType floaterm nnoremap <buffer> <Esc> :q<CR>
-                " -- Python --
-                au FileType python nnoremap <silent><C-CR> :FloatermNew py "%:p"<CR>
-                " au FileType python nnoremap <C-g> :FloatermNew py "%:p"<CR>
-                au FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
-                " au FileType python noremap! <C-g>  <Esc>:FloatermToggle<CR>
-                " au FileType python tnoremap <C-CR>  <C-\><C-n>:FloatermToggle<CR>
-                " -- Python REPL --
-                nnoremap <leader>tp :FloatermNew --width=0.5 --wintype=vsplit --name=repl --position=rightbelow ipython<CR>
-                au FileType python nnoremap <leader>w :FloatermSend<CR>
-                au FileType python vnoremap <leader>w :FloatermSend<CR>
-                " -- Matlab --
-                au FileType matlab nnoremap <silent><C-CR> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
-                " au FileType matlab nnoremap <silent><C-g> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
-                " TERMINAL运行matlab代码,以'test.m'代码为例 'matlab -nosplash -nodesktop -r test'
-                " -- Fortran --
-                au FileType fortran nnoremap <silent><C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
-                " au FileType fortran nnoremap <C-g> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
-                " -- Typst --
-                " highligth file 'D:\Program Files\Neovim\share\nvim\runtime\syntax\typst.vim'
-                au BufRead,BufNewFile *.typ setlocal filetype=typst
-                au FileType typst nnoremap <silent><C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
-                " au FileType typst nnoremap <C-g> :FloatermNew --height=1.0 typst watch %:p<CR>
-                au FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
-            augroup END
-            " Git
-            command! Push execute "FloatermNew!git add init.lua<CR>git commit --allow-empty-message -m \"\"<CR>git push<CR>"
-            command! Pull execute "FloatermNew!git fetch --all<CR>git reset --hard origin/main<CR>"
-            command! Gitlog execute "FloatermNew!git log --all --oneline --graph<CR>"
-            " Administrator CMD mode
-            nnoremap  <leader>ta  :FloatermNew<CR>runas /user:ThinkPad\Administrator cmd<CR>1234<CR>
-            " nnoremap  <leader>ta  :FloatermNew<CR>runas /user:administrator cmd<CR>1234<CR>
-            " 'runas /user:administrator cmd' 进入管理员CMD的前提是开启管理员账号
-            " 开启管理员账号: net user administrator /active:yes
-            " 关闭管理员账号: net user administrator /active:no
-            " 设置管理员密码(1234): net user administrator 1234
-            ]]
+        vim.cmd[[
+        augroup Compiler_code
+        au!
+        au FileType floaterm nnoremap <buffer> <Esc> :q<CR>
+        " -- Python --
+        au FileType python nnoremap <silent><C-CR> :FloatermNew py "%:p"<CR>
+        " au FileType python nnoremap <C-g> :FloatermNew py "%:p"<CR>
+        au FileType python noremap! <C-CR>  <Esc>:FloatermToggle<CR>
+        " au FileType python noremap! <C-g>  <Esc>:FloatermToggle<CR>
+        " au FileType python tnoremap <C-CR>  <C-\><C-n>:FloatermToggle<CR>
+        " -- Python REPL --
+        nnoremap <leader>tp :FloatermNew --width=0.5 --wintype=vsplit --name=repl --position=rightbelow ipython<CR>
+        au FileType python nnoremap <leader>w :FloatermSend<CR>
+        au FileType python vnoremap <leader>w :FloatermSend<CR>
+        " -- Matlab --
+        au FileType matlab nnoremap <silent><C-CR> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
+        " au FileType matlab nnoremap <silent><C-g> :! matlab -nosplash -nodesktop -r %:r<CR><CR>
+        " TERMINAL运行matlab代码,以'test.m'代码为例 'matlab -nosplash -nodesktop -r test'
+        " -- Fortran --
+        au FileType fortran nnoremap <silent><C-CR> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
+        " au FileType fortran nnoremap <C-g> :FloatermNew<CR>compilervars.bat intel64<CR>ifort<Space>
+        " -- Typst --
+        " highligth file 'D:\Program Files\Neovim\share\nvim\runtime\syntax\typst.vim'
+        au BufRead,BufNewFile *.typ setlocal filetype=typst
+        au FileType typst nnoremap <silent><C-CR> :FloatermNew --height=1.0 typst watch %:p<CR>
+        " au FileType typst nnoremap <C-g> :FloatermNew --height=1.0 typst watch %:p<CR>
+        au FileType typst command! TypstPDF execute "FloatermNew! sumatrapdf %:p<C-h><C-h><C-h>pdf<CR>"
+        augroup END
+        " Git
+        command! Push execute "FloatermNew!git add init.lua<CR>git commit --allow-empty-message -m \"\"<CR>git push<CR>"
+        command! Pull execute "FloatermNew!git fetch --all<CR>git reset --hard origin/main<CR>"
+        command! Gitlog execute "FloatermNew!git log --all --oneline --graph<CR>"
+        " Administrator CMD mode
+        nnoremap  <leader>ta  :FloatermNew<CR>runas /user:ThinkPad\Administrator cmd<CR>1234<CR>
+        " nnoremap  <leader>ta  :FloatermNew<CR>runas /user:administrator cmd<CR>1234<CR>
+        " 'runas /user:administrator cmd' 进入管理员CMD的前提是开启管理员账号
+        " 开启管理员账号: net user administrator /active:yes
+        " 关闭管理员账号: net user administrator /active:no
+        " 设置管理员密码(1234): net user administrator 1234
+        ]]
     end,
   },
 -- }}}
@@ -955,17 +951,9 @@ require("lazy").setup({
     -- 查询仓库路径 'C:\Users\ThinkPad\AppData\Roaming\lazygit\state.yml'
   {
     "kdheepak/lazygit.nvim",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
-	keys = {
-		{ "<leader>gg", mode = { "n" }, "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
-	},
+	keys = { { "<leader>gg", mode = { "n" }, "<cmd>LazyGit<cr>", desc = "Lazy[G]it" } },
+    dependencies = { "nvim-lua/plenary.nvim" },
     init = function()
-    vim.g.lazygit_floating_window_winblend = 0
-    vim.g.lazygit_floating_window_scaling_factor = 0.9
-    vim.g.lazygit_floating_window_border_chars = { "╭", "╮", "╰", "╯" }
-    vim.g.lazygit_floating_window_use_plenary = 0
     vim.g.lazygit_use_neovim_remote = 0
     end,
   },
@@ -974,37 +962,14 @@ require("lazy").setup({
   {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
+    build = function() vim.fn["mkdp#util#install"]() end,
     init = function()
-    vim.g.mkdp_auto_start = 0
     vim.g.mkdp_auto_close = 0
-    vim.g.mkdp_refresh_slow = 0
-    vim.g.mkdp_command_for_global = 0
-    vim.g.mkdp_open_to_the_world = 0
-    vim.g.mkdp_open_ip = ""
-    vim.g.mkdp_echo_preview_url = 0
-    vim.g.mkdp_browserfunc = ""
-    vim.g.mkdp_preview_options = {
-      mkit = {},
-      katex = {},
-      uml = {},
-      maid = {},
-      disable_sync_scroll = 0,
-      sync_scroll_type = "middle",
-      hide_yaml_meta = 1,
-      sequence_diagrams = {},
-      flowchart_diagrams = {},
-      content_editable = "v:false",
-      disable_filename = 0,
-    }
     --设置预览代码高亮(绝对路径)
     vim.g.mkdp_markdown_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/github-markdown.css"
     vim.g.mkdp_highlight_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown.css"
     --vim.g.mkdp_highlight_css = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/markdown_highlight_solarized_dark.css"
-    vim.g.mkdp_port = ""
-    vim.g.mkdp_page_title = "「${name}」"
+    vim.g.mkdp_theme = 'light'  --'dark', 若不设置则和系统一致
     vim.cmd[[
     augroup markdown_preview
         au!
@@ -1017,7 +982,7 @@ require("lazy").setup({
 -- }}}
 -- {{{ plasticboy/vim-markdown
   {
-    "plasticboy/vim-markdown",
+    "preservim/vim-markdown",
     ft = "markdown",
     config = function()
     vim.g.vim_markdown_toc_autofit = 1                 -- Enable TOC window auto-fit,调节合适的窗口尺寸
@@ -1032,7 +997,6 @@ require("lazy").setup({
     vim.g.vim_markdown_new_list_item_indent = 2        -- *item1 *item2 缩进距离为2(默认是4).
     vim.g.vim_markdown_auto_insert_bullets = 0
 
-    vim.g.vim_markdown_folding_disabled = 1            -- 取消 markdown 折叠
     --let g.vim_markdown_no_default_key_mappings = 1    -- 取消默认按键映射
     vim.g.vim_markdown_fenced_languages = {
         "c++=cpp",
@@ -1061,6 +1025,18 @@ require("lazy").setup({
 -- {{{ lervag/vimtex
   { "lervag/vimtex",
     ft = {"tex", "latex", "bib"},
+    keys = {
+        { "<localleader>li", "<plug>(vimtex-info)", mode = "n" },
+        { "<localleader>lt", "<plug>(vimtex-toc-open)", mode = "n" },
+        { "<localleader>lT", "<plug>(vimtex-toc-toggle)", mode = "n" },
+        { "<localleader>lv", "<plug>(vimtex-view)", mode = "n" },
+        { "<localleader>ll", "<plug>(vimtex-compile)", mode = "n", desc = 'Compile' },
+        { "<localleader>lo", "<plug>(vimtex-compile-output)", mode = "n" },
+        { "<localleader>lg", "<plug>(vimtex-status)", mode = "n" },
+        { "<localleader>lG", "<plug>(vimtex-status-all)", mode = "n" },
+        { "<localleader>lc", "<plug>(vimtex-clean)", mode = "n" },
+        { "<localleader>lC", "<plug>(vimtex-clean-full)", mode = "n" },
+    },
     config = function()
     vim.g.tex_flavor = "latex"
     vim.g.vimtex_quickfix_mode = 1
@@ -1079,7 +1055,7 @@ require("lazy").setup({
     vim.g.vimtex_syntax_enabled = 0
     vim.g.vimtex_syntax_conceal_disable = 1
     -- neovim ---(highlight)---> pdf by 'lv'
-    function open_sumatra_pdf()
+    function Open_sumatra_pdf()
         local pdf_file = vim.fn.expand('%:r') .. '.pdf'
         if vim.fn.filereadable(pdf_file) == 0 then
           pdf_file = ""
@@ -1089,7 +1065,7 @@ require("lazy").setup({
     end
     vim.api.nvim_create_autocmd({"BufReadPost"}, {
       pattern = {"*.tex", "*.latex"},
-      callback = open_sumatra_pdf,
+      callback = Open_sumatra_pdf,
     })
     -- Disable conceal
     vim.g.vimtex_syntax_conceal = {
@@ -1104,17 +1080,7 @@ require("lazy").setup({
         math_symbols = 0,
         sections = 0,
         styles = 0,
-    },
-    neomap("n", "<localleader>li", "<plug>(vimtex-info)", key_opts_ns)
-    neomap("n", "<localleader>lt", "<plug>(vimtex-toc-open)", key_opts_ns)
-    neomap("n", "<localleader>lT", "<plug>(vimtex-toc-toggle)", key_opts_ns)
-    neomap("n", "<localleader>lv", "<plug>(vimtex-view)", key_opts_ns)
-    neomap("n", "<localleader>ll", "<plug>(vimtex-compile)", key_opts_ns)
-    neomap("n", "<localleader>lo", "<plug>(vimtex-compile-output)", key_opts_ns)
-    neomap("n", "<localleader>lg", "<plug>(vimtex-status)", key_opts_ns)
-    neomap("n", "<localleader>lG", "<plug>(vimtex-status-all)", key_opts_ns)
-    neomap("n", "<localleader>lc", "<plug>(vimtex-clean)", key_opts_ns)
-    neomap("n", "<localleader>lC", "<plug>(vimtex-clean-full)", key_opts_ns)
+    }
     end,
   },
 -- }}}
@@ -1188,6 +1154,7 @@ require("lazy").setup({
   {
     "ntpeters/vim-better-whitespace",
     event = "InsertEnter",
+	keys = { { "<leader>si", mode = { "n" }, ":StripWhitespace<CR>", desc = "WhiteSpace" } },
     config = function()
     vim.g.better_whitespace_guicolor='red'
     vim.g.strip_whitespace_on_save=0
@@ -1195,7 +1162,6 @@ require("lazy").setup({
                 'diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'markdown',
                 'startify', 'dashboard'
     }
-    neomap("n", "<leader>si", ":StripWhitespace<CR>", key_opts_ns)
     end,
   },
 -- }}}
@@ -1203,13 +1169,11 @@ require("lazy").setup({
   {
     "lfv89/vim-interestingwords",
     keys = {
-            { "<leader>k", mode = { "n" } },
-            { "<leader>k", mode = { "v" } },
-           },
+        { "<leader>k", ":call InterestingWords('n')<cr>", mode = { "n" }, desc = 'Toggle Color Word(n)' },
+        { "<leader>k", ":call InterestingWords('v')<cr>", mode = { "v" }, desc = 'Toggle Color Word(v)' },
+        { "<leader>K", ":call UncolorAllWords()<cr>", mode = { "n" }, desc = 'Uncolor all Word' },
+    },
     config = function()
-    neomap("n", "<leader>k", ":call InterestingWords('n')<cr>", key_opts_ns)
-    neomap("v", "<leader>k", ":call InterestingWords('v')<cr>", key_opts_ns)
-    neomap("n", "<leader>K", ":call UncolorAllWords()<cr>", key_opts_ns)
     vim.g.interestingWordsGUIColors = {
                 '#78d3cc', '#f0c53f', '#ff8784', '#c5c7f1',
                 '#c2d735', '#72b5e4', '#ea8336', '#e43542',
@@ -1294,9 +1258,6 @@ require("lazy").setup({
     config = function()
     require('hlchunk').setup({
         chunk = {
-            enable = true,
-            use_treesitter = true,
-            notify = true, -- notify if some situation(like disable chunk mod double time)
             exclude_filetypes = {
                 aerial = true,
                 dashboard = true,
@@ -1308,87 +1269,26 @@ require("lazy").setup({
                 "*.m",
                 "*.py",
             },
-            chars = {
-                horizontal_line = "─",
-                vertical_line = "│",
-                left_top = "╭",
-                left_bottom = "╰",
-                right_arrow = ">",
-            },
-            style = {
-                { fg = "#806d9c" },
-            },
         },
-
         indent = {
-            enable = true,
-            use_treesitter = false,
-			chars = { "│", "¦", "┆", "┊", },
-            style = {
-                { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui") }
-            },
+            chars = { "│", "¦", "┆", "┊", },
         },
-
-        line_num = {
-            enable = true,
-            use_treesitter = false,
-            style = "#806d9c",
-        },
-
         blank = {
             enable = false,
-            chars = {
-                "․",
-            },
-            style = {
-                vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("Whitespace")), "fg", "gui"),
-            },
         },
     })
     end,
   },
 -- }}}
 -- {{{ windwp/nvim-autopairs
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function()
-    require("nvim-autopairs").setup {}
-        local disable_filetype = { "TelescopePrompt" }
-        local disable_in_macro = false  -- disable when recording or executing a macro
-        local disable_in_visualblock = false -- disable when insert after visual block mode
-        local ignored_next_char = [=[[%w%%%'%[%"%.]]=]
-        local enable_moveright = true
-        local enable_afterquote = true  -- add bracket pairs after quote
-        local enable_check_bracket_line = true  --- check bracket in same line
-        local enable_bracket_in_quote = true --
-        local break_undo = true -- switch for basic rule break undo sequence
-        local check_ts = false
-        local map_cr = true
-        local map_bs = true  -- map the <BS> key
-        local map_c_h = false  -- Map the <C-h> key to delete a pair
-        local map_c_w = false -- map <c-w> to delete a pair if possible
-    end,
-  },
+  { "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 -- }}}
 -- {{{ karb94/neoscroll.nvim
   {
     "karb94/neoscroll.nvim",
     event = "BufReadPre",
     config = function()
-    require('neoscroll').setup({
-        mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-                    '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-        hide_cursor = true,          -- Hide cursor while scrolling
-        stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-        use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-        respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-        cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-        easing_function = nil,       -- Default easing function
-        pre_hook = nil,              -- Function to run before the scrolling animation starts
-        post_hook = nil,             -- Function to run after the scrolling animation ends
-        performance_mode = false,    -- Disable "Performance Mode" on all buffers.
-    })
+    require('neoscroll').setup()
     local t = {}
     t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '45'}}
     t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '45'}}
@@ -1407,6 +1307,12 @@ require("lazy").setup({
   {
     "dstein64/nvim-scrollview",
     event = "BufReadPre",
+    keys = {
+        { "]v", "<Cmd>ScrollViewNext<cr>",  mode = { "n" } },
+        { "[v", "<Cmd>ScrollViewPrev<cr>",  mode = { "n" } },
+        { "[V", "<Cmd>ScrollViewFirst<cr>", mode = { "n" } },
+        { "]V", "<Cmd>ScrollViewLast<cr>",  mode = { "n" } },
+    },
     config = function()
     require("scrollview").setup {
       excluded_filetypes = { 'dashboard', 'neo-tree','mason','floaterm' },
@@ -1425,12 +1331,15 @@ require("lazy").setup({
           -- "textwidth",
           -- "trail",
       },
-      -- diagnostics_error_symbol = '󰨓',
-      -- diagnostics_warn_symbol  = '󰨓',
-      -- diagnostics_hint_symbol  = '󰨓',
-      -- diagnostics_info_symbol  = '󰨓',
       -- cursor_symbol = "•"
+
+      diagnostics_error_symbol = '',  --󰨓
+      diagnostics_warn_symbol  = '',  --󰨓
+      diagnostics_hint_symbol  = '',  --󰨓
+      diagnostics_info_symbol  = '',  --󰨓
     }
+    -- just diplay error icon
+    vim.g.scrollview_diagnostics_severities = {vim.diagnostic.severity.ERROR}
 
     require("scrollview.contrib.gitsigns").setup {
       add_priority = 100,
@@ -1441,11 +1350,6 @@ require("lazy").setup({
       -- delete_symbol = '_',
     }
     vim.api.nvim_set_hl(0, "ScrollViewHover", { link = "Search" })
-
-    neomap('n', ']v', '<Cmd>ScrollViewNext<cr>',  key_opts_ns)
-    neomap('n', '[v', '<Cmd>ScrollViewPrev<cr>',  key_opts_ns)
-    neomap('n', '[V', '<Cmd>ScrollViewFirst<cr>', key_opts_ns)
-    neomap('n', ']V', '<Cmd>ScrollViewLast<cr>',  key_opts_ns)
     end,
   },
 -- }}}
@@ -1484,7 +1388,8 @@ require("lazy").setup({
         end,
     })
     --mapping
-    vim.cmd[[nnoremap <leader>/ /\<<C-R>=expand("<cword>")<CR>\><left><left>]]
+    -- vim.cmd[[nnoremap <leader>/ /\<<C-R>=expand("<cword>")<CR>\><left><left>]]
+    neomap('n', "<leader>/", [[:/\<<C-R>=expand("<cword>")<CR>\><left><left>]], { desc = 'Search <Pattern>' })
     --color
     vim.api.nvim_command("hi default link HlSearchNear IncSearch")
     vim.api.nvim_command("hi default link HlSearchLens WildMenu")
@@ -1503,16 +1408,16 @@ require("lazy").setup({
   {
     "b3nj5m1n/kommentary",
     keys = {
-            { "<leader>cc", mode = { "n", "v" } },
-            { "<leader>ci", mode = { "n", "v" } },
-        },
+        { "<leader>cc", "<Plug>kommentary_line_increase",   mode = { "n" }, desc = '[C]omment' },
+        { "<leader>cc", "<Plug>kommentary_visual_increase", mode = { "x" }, desc = '[C]omment' },
+        { "<leader>ci", "<Plug>kommentary_line_decrease",   mode = { "n" }, desc = 'Uncomment' },
+        { "<leader>ci", "<Plug>kommentary_visual_decrease", mode = { "x" }, desc = 'Uncomment' },
+    },
     config = function()
-    require("kommentary")
+    require('kommentary.config').configure_language({"lua"}, {
+      prefer_single_line_comments = true,
+    })
     vim.g.kommentary_create_default_mappings = false
-    neomap("n", "<leader>cc", "<Plug>kommentary_line_increase", {})
-    neomap("x", "<leader>cc", "<Plug>kommentary_visual_increase", {})
-    neomap("n", "<leader>ci", "<Plug>kommentary_line_decrease", {})
-    neomap("x", "<leader>ci", "<Plug>kommentary_visual_decrease", {})
     end,
   },
 -- }}}
@@ -1533,27 +1438,13 @@ require("lazy").setup({
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     cmd = { "Neotree" },
-	keys = {
-		{
-			'<Leader>e',
-			'<cmd>Neotree filesystem left toggle dir=./<CR>',
-			desc = 'Explorer NeoTree Toggle',
-		},
-		{
-			'<F7>',
-			'<cmd>Neotree filesystem left toggle dir=c:/Users/ThinkPad/Desktop/<CR>',
-			desc = 'Desktop',
-		},
-	},
-  	dependencies = {
-        {
-            "nvim-lua/plenary.nvim",
-            lazy = true,
-        },
-        {
-            "MunifTanjim/nui.nvim",
-            lazy = true,
-        },
+    keys = {
+        { '<Leader>e', '<cmd>Neotree filesystem left toggle dir=./<CR>', desc = 'NeoTre[e]' },
+        { '<F7>', '<cmd>Neotree filesystem left toggle dir=c:/Users/ThinkPad/Desktop/<CR>', desc = 'Desktop' },
+    },
+    dependencies = {
+        { "nvim-lua/plenary.nvim" },
+        { "MunifTanjim/nui.nvim" },
         { "kyazdani42/nvim-web-devicons" },
     },
     init = function()
@@ -1665,16 +1556,16 @@ require("lazy").setup({
   {
     "ellisonleao/weather.nvim",
     cmd = "Weather",
+    keys = {
+        { "<localleader>we", ":Weather<CR>",   mode = { "n" }, desc = '1 day' },
+        { "<localleader>wd", ":Weather3day<CR>",   mode = { "n" }, desc = '3 day' },
+    },
     config = function()
     require("weather").setup({
         city = "Xi'an",
         win_height = 10,
         win_width = 50,
     })
-    end,
-    init = function()
-    neomap("n", "<localleader>we", ":Weather<CR>", key_opts_ns)
-    neomap("n", "<localleader>wd", ":Weather3day<CR>", key_opts_ns)
     end,
   },
 -- }}}
@@ -1683,8 +1574,8 @@ require("lazy").setup({
     "echasnovski/mini.align",
     version = false,
     keys = {
-        { mode = { 'x' }, '<leader>a', desc = 'Align' },
-        { mode = { 'x' }, '<leader>A', desc = 'Interactive align' },
+        { mode = { 'x' }, '<leader>a', desc = '[A]lign' },
+        { mode = { 'x' }, '<leader>A', desc = 'Interactive [A]lign' },
     },
     config = function()
         require('mini.align').setup({
@@ -1699,11 +1590,11 @@ require("lazy").setup({
 -- {{{ kylechui/nvim-surround
   { "kylechui/nvim-surround",
     keys = {
-            { mode = "n", "ys" },
-            { mode = "n", "cs" },
-            { mode = "n", "ds" },
-            { mode = "x", "<C-s>" },
-        },
+        { mode = "n", "ys" },
+        { mode = "n", "cs" },
+        { mode = "n", "ds" },
+        { mode = "x", "<C-s>" },
+    },
     config = function()
     require("nvim-surround").setup({
         keymaps = {
@@ -1720,15 +1611,15 @@ require("lazy").setup({
   {
     "folke/flash.nvim",
     keys = {
-           { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-           { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-           { "f", mode = { "n" } },
-           { "F", mode = { "n" } },
-           { "t", mode = { "n" } },
-           { "T", mode = { "n" } },
-           -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-           -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-           -- { "<C-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+        { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+        { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+        { "f", mode = { "n" } },
+        { "F", mode = { "n" } },
+        { "t", mode = { "n" } },
+        { "T", mode = { "n" } },
+        -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+        -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+        -- { "<C-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
 	opts = {
         jump = {
@@ -1777,16 +1668,7 @@ require("lazy").setup({
     end
     require("catppuccin").setup({
         transparent_background = transparent_TREM,
-        show_end_of_buffer = false, -- show the '~' characters after the end of buffers
         term_colors = true,
-        dim_inactive = {
-            enabled = false,
-            shade = "dark",
-            percentage = 0.15,
-        },
-        no_italic = false, -- Force no italic
-        no_bold = false, -- Force no bold
-        no_underline = false, -- Force no underline
         styles = {
             comments = {},
             conditionals = { "italic" },
@@ -1850,12 +1732,8 @@ require("lazy").setup({
 -- {{{ norcalli/nvim-colorizer.lua
   {
     "norcalli/nvim-colorizer.lua",
-	keys = {
-		{ "<leader>co", mode = { "n" }, "<cmd>ColorizerToggle<cr>", desc = "Toggle color highlighter" },
-	},
-    config = function()
-    require'colorizer'.setup()
-    end,
+	keys = { { "<leader>co", mode = { "n" }, "<cmd>ColorizerToggle<cr>", desc = "Toggle Colorizer" } },
+    config = function() require'colorizer'.setup() end,
   },
 -- }}}
 -- {{{ nvim-orgmode/orgmode
@@ -1914,7 +1792,7 @@ require("lazy").setup({
     end,
     init = function()
     vim.cmd([[au FileType org setlocal nofoldenable]]) -- 关闭打开org默认folding
-    neomap("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", key_opts_ns)
+    neomap("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", { desc = 'Todo' })
     end,
   },
 -- }}}
@@ -1922,9 +1800,7 @@ require("lazy").setup({
   {
     "backdround/global-note.nvim",
     cmd = { "GlobalNote" },
-	keys = {
-		{ "<leader>n", mode = { "n" }, "<cmd>GlobalNote<cr>", desc = "Todo list" },
-	},
+	keys = { { "<leader>n", mode = { "n" }, "<cmd>GlobalNote<cr>", desc = "Todo list" } },
     config = function()
         local global_note = require("global-note")
         global_note.setup({
@@ -1966,9 +1842,7 @@ require("lazy").setup({
             "TSInstallSync",
             "TSInstallFromGrammar",
     },
-    dependencies = {
-            { "HiPhish/nvim-ts-rainbow2" },
-    },
+    dependencies = { "HiPhish/nvim-ts-rainbow2" },
     config = function()
     local rainbow = require 'ts-rainbow'
     local treesitter_list = { "python", "fortran", "c", "vim", "lua", "latex", "markdown", "org", "matlab", "json", "toml", "yaml", "ini" }
@@ -2002,6 +1876,16 @@ require("lazy").setup({
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
+            { "L3MON4D3/LuaSnip",
+              config = function()
+              require("luasnip/loaders/from_vscode").lazy_load({ paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"}})
+              end,
+              init = function()
+              neomap("n", "<leader>rsm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", { desc = 'Snippets: [M]atlab' })
+              neomap("n", "<leader>rsp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", { desc = 'Snippets: [P]ython' })
+              neomap("n", "<leader>rso", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { desc = 'Snippets: [O]rg' })
+              end,
+            },
             { "hrsh7th/cmp-nvim-lsp" },
             { "hrsh7th/cmp-buffer" },
             { "hrsh7th/cmp-path" },
@@ -2010,10 +1894,7 @@ require("lazy").setup({
             { "mstanciu552/cmp-matlab" },
             { "lukas-reineke/cmp-under-comparator" },
             { "ray-x/cmp-treesitter" },
-            {
-              "saadparwaiz1/cmp_luasnip",
-                dependencies = { "L3MON4D3/LuaSnip" },
-            },
+            { "saadparwaiz1/cmp_luasnip" },
             { "onsails/lspkind.nvim",
                 branch = "master",
                 commit = "c68b3a0",
@@ -2126,6 +2007,7 @@ require("lazy").setup({
             },
         },
         config = function()
+            require 'luasnip'.config.setup {}
             local cmp = require('cmp')
             local lspkind = require('lspkind')
             local source_mapping = {
@@ -2190,27 +2072,29 @@ require("lazy").setup({
                     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),  -- ["<C-u>"]
                     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),  -- ["<C-d>"]
                     ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
-                    ['<CR>'] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true, },
+                    ['<CR>'] = cmp.mapping.confirm { select = true },
+
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
-                        elseif require("luasnip").expand_or_jumpable() then
-                            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
                         else
                             fallback()
                         end
-                    end, { "i", "s", "c" }
+                    end, { "i", "s" }
                     ),
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item()
-                        elseif require("luasnip").jumpable(-1) then
-                            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s", "c" }
-                    ),
+
+                    -- move in snippet (expansion locations)
+                    ['<C-l>'] = cmp.mapping(function()
+                      if require 'luasnip'.expand_or_locally_jumpable() then
+                        require 'luasnip'.expand_or_jump()
+                      end
+                    end, { 'i', 's' }),
+                    ['<C-h>'] = cmp.mapping(function()
+                      if require 'luasnip'.locally_jumpable(-1) then
+                        require 'luasnip'.jump(-1)
+                      end
+                    end, { 'i', 's' }),
+
                 }),
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
@@ -2222,14 +2106,14 @@ require("lazy").setup({
                         vim_item.menu = source_mapping[entry.source.name]
                         -- vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
                         -- vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-                        function trim(text)
+                        function Trim(text)
                             local max = 40
                             if text and text:len() > max then
                                 text = text:sub(1,max) .. "..."
                             end
                             return text
                         end
-                        vim_item.abbr = trim(vim_item.abbr)
+                        vim_item.abbr = Trim(vim_item.abbr)
                         -- vim_item.abbr = vim_item.abbr:match("[^(]+")
                         return vim_item
                     end,
@@ -2259,11 +2143,11 @@ require("lazy").setup({
     },
     -- }}}
 -- {{{ neovim/nvim-lspconfig
+-- from "nvim-lua/kickstart.nvim"
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-        { 'hrsh7th/cmp-nvim-lsp' },
         {
           "williamboman/mason.nvim",
           build = ":MasonUpdate",
@@ -2274,152 +2158,154 @@ require("lazy").setup({
         { "williamboman/mason-lspconfig.nvim" },
     },
     config = function()
-    -- local lsp_list = { "pylsp", "vimls", "lua_ls", "matlab_ls" }
-    local lsp_list = { "pylsp" }
-    require("mason-lspconfig").setup({
-        ensure_installed = lsp_list
-    })
-    for _, lsp in pairs(lsp_list) do
-      if lsp == 'diagnosticls' then
-        require('lspconfig')[lsp].setup {
-          on_attach = on_attach,
-          capabilities = capabilities,
-          flags = {
-            debounce_text_changes = 150,
-          }
-        }
-      else
-        require('lspconfig')[lsp].setup {
-          on_attach = on_attach,
-          capabilities = capabilities,
-          flags = {
-            debounce_text_changes = 150,
-          }
-        }
+      vim.api.nvim_create_autocmd('LspAttach', {
+          group = vim.api.nvim_create_augroup('UserLspConfig', { clear = true }),
+
+          callback = function(event)
+              local map = function(mode, keys, func, desc)
+                  vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+              end
+
+              map('n', 'gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+              -- map('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+              map('n', 'gD', vim.lsp.buf.type_definition, '[G]oto [D]eclaration')
+              map('n', 'K', vim.lsp.buf.hover, 'Hover Documentation')
+              map('n', 'gh', vim.lsp.buf.signature_help, '[G]oto signature [H]elp')
+              map('n', 'gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+              map('n', 'gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+              map('n', '<leader>lr', vim.lsp.buf.rename, '[R]ename')
+              map('n', '<leader>la', vim.lsp.buf.code_action, 'Code [A]ction')
+              map('n', '<leader>lf', vim.lsp.buf.format, '[F]ormat')
+              -- Diagnostic keymaps
+              map('n', '[d', vim.diagnostic.goto_prev, 'Previous [D]iagnostic')
+              map('n', ']d', vim.diagnostic.goto_next, 'Next [D]iagnostic ')
+              map('n', '<leader>lq', vim.diagnostic.setqflist, 'Diagnostic [Q]uickfix')
+          end,
+      })
+
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+          border = "single",
+      })
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+          border = "single",
+      })
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+      -- { "pylsp", "vimls", "lua_ls", "matlab_ls" }
+      local servers = {
+          -- clangd = {},
+          -- gopls = {},
+          -- pylsp: 补全第三方库
+          -- 修改 C:\Users\ThinkPad\AppData\Local\nvim-data\mason\packages\python-lsp-server\venv\pyvenv.cfg
+          -- 设置 'include-system-site-packages = true'
+          -- pylsp = {
+          --     settings = {
+          --         pylsp = {
+          --             plugins = {
+          --                 jedi_completion = {
+          --                     enabled = true,
+          --                     fuzzy = true,
+          --                     include_params = true, -- this line enables snippets
+          --                     cache_for = { 'numpy','matplotlib' },
+          --                 },
+          --                 pycodestyle = {
+          --                     maxLineLength = 150,
+          --                 },
+          --             },
+          --         },
+          --     },
+          -- },
+          pyright = {},
+          lua_ls = {
+              -- cmd = {...},
+              -- filetypes { ...},
+              -- capabilities = {},
+              settings = {
+                  Lua = {
+                      runtime = { version = 'LuaJIT' },
+                      workspace = {
+                          checkThirdParty = false,
+                          -- Tells lua_ls where to find all the Lua files that you have loaded
+                          -- for your neovim configuration.
+                          -- library = {
+                          -- '${3rd}/luv/library',
+                          -- unpack(vim.api.nvim_get_runtime_file('', true)),
+                          -- },
+                          -- If lua_ls is really slow on your computer, you can try this instead:
+                          library = { vim.env.VIMRUNTIME },
+                      },
+                      completion = {
+                          callSnippet = 'Replace',
+                      },
+                      -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+                      diagnostics = { disable = { 'missing-fields' } },
+                  },
+              },
+          },
+      }
+
+      require('mason').setup()
+
+      local ensure_installed = vim.tbl_keys(servers or {})
+      require("mason-lspconfig").setup({
+          ensure_installed = ensure_installed
+      })
+
+      require('mason-lspconfig').setup {
+          handlers = {
+              function(server_name)
+                  local server = servers[server_name] or {}
+                  -- This handles overriding only values explicitly passed
+                  -- by the server configuration above. Useful when disabling
+                  -- certain features of an LSP (for example, turning off formatting for tsserver)
+                  server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+                  require('lspconfig')[server_name].setup(server)
+              end,
+          },
+      }
+
+      -- diagnostic config
+      local signs = { Error = '', Warn  = '', Hint  = '', Info  = '' }
+      for type, icon in pairs(signs) do
+          local hl = 'DiagnosticSign' .. type
+          vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
-    end
-
-    -- diagnostic config
-	local signs = {
-		Error = '',
-		Warn = '',
-		Hint = '',
-		Info = '',--
-	}
-	for type, icon in pairs(signs) do
-		local hl = 'DiagnosticSign' .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-	end
-    vim.diagnostic.config({
-		virtual_text = {
-			prefix = '●', -- , , , ●
-		},
-        underline = false,
-        signs = true,
-        update_in_insert = false, -- default is false
-        severity_sort = true, -- default is false
-        float = {
-            focusable = true,
-            style = 'minimal',
-            border = 'rounded',
-            show_header = true,
-            source = 'always',
-            -- source = 'if_many',
-            header = "",
-            prefix = "",
-        },
-    })
-    local diagnostics_active = true
-    local toggle_diagnostics = function()
-      diagnostics_active = not diagnostics_active
-      if diagnostics_active then
-        vim.diagnostic.show()
-      else
-        vim.diagnostic.hide()
+      vim.diagnostic.config({
+          virtual_text = {
+              prefix = '●', -- , , , ●
+          },
+          underline = false,
+          signs = true,
+          update_in_insert = false, -- default is false
+          severity_sort = true, -- default is false
+          float = {
+              focusable = true,
+              style = 'minimal',
+              border = 'rounded',
+              show_header = true,
+              source = 'always',
+              -- source = 'if_many',
+              header = "",
+              prefix = "",
+          },
+      })
+      local diagnostics_active = true
+      local toggle_diagnostics = function()
+          diagnostics_active = not diagnostics_active
+          if diagnostics_active then
+              vim.diagnostic.show()
+          else
+              vim.diagnostic.hide()
+          end
       end
-    end
-    neomap('n', '<F6>', toggle_diagnostics)
-    neomap('n', '<F5>', '<cmd>lua vim.diagnostic.open_float()<CR>', key_opts_ns)
-    --neomap('n', '<leader>d[', '<cmd>lua vim.diagnostic.goto_prev()<CR>', key_opts_ns)
-    --neomap('n', '<leader>d]', '<cmd>lua vim.diagnostic.goto_next()<CR>', key_opts_ns)
-    --neomap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', key_opts_ns)
-    -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
 
-    -- LSP format
-    neomap('n', '<leader>=', function() vim.lsp.buf.format { async = true } end, key_opts_ns)
+      neomap('n', '<F6>', toggle_diagnostics, { desc = 'Toggle diagnostics' })
+      neomap('n', '<F5>', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+      -- neomap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-    -- Use LspAttach autocommand to only map the following keys
-    -- after the language server attaches to the current buffer
-    vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-      callback = function(ev) -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf }
-        neomap('n', 'gd', vim.lsp.buf.definition, opts)
-        neomap('n', 'gD', vim.lsp.buf.type_definition, opts)
-        neomap('n', 'K', vim.lsp.buf.hover, opts)
-        neomap('n', 'gr', vim.lsp.buf.references, opts)
-        neomap('n', 'gi', vim.lsp.buf.implementation, opts)
-        neomap('n', '<space>r', vim.lsp.buf.rename, opts)
-        neomap({ "n", "i" }, '<c-h>', vim.lsp.buf.signature_help, opts)
-        -- neomap({ 'n', 'v' }, ';', vim.lsp.buf.code_action, opts)
-        -- neomap('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        -- neomap('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        -- neomap('n', '<space>wl', function()
-        --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        -- end, opts)
-      end,
-    })
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-      border = "single",
-    })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-      border = "single",
-    })
-    ------------ lsp language config ------------
-    -- pylsp
-    -- change C:\Users\ThinkPad\AppData\Local\nvim-data\mason\packages\python-lsp-server\venv\pyvenv.cfg:
-    -- include-system-site-packages = true
-    -- for completions 3rd party modules
-    require('lspconfig').pylsp.setup {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-        settings = {
-            pylsp = {
-                plugins = {
-                    jedi_completion = {
-                        enabled = true,
-                        fuzzy = true,
-                        include_params = true, -- this line enables snippets
-                        cache_for = { 'numpy','matplotlib' },
-                    },
-                    pycodestyle = {
-                        maxLineLength = 150,
-                    },
-                },
-            },
-        },
-    }
-    if vim.fn.executable('lua-language-server')==1 then
-        require('lspconfig').lua_ls.setup {
-            capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { 'vim' }
-                    },
-                    workspace = {
-                        library = vim.api.nvim_get_runtime_file("", true),
-                        checkThirdParty = false,
-                    },
-                    telemetry = { enable = false },
-                    format = { enable = false },
-                    semantic = { enable = false },
-                },
-            },
-        }
-    end
+      -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
     end,
   },
 -- }}}
@@ -2427,88 +2313,20 @@ require("lazy").setup({
   {
     "ray-x/lsp_signature.nvim",
     event = 'LspAttach',
-    version = '0.2.0',  -- tag >= 0.3.0 will error
-    dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
-        require'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
-        require'lsp_signature'.on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
-    end,
-    opts = function()
-        cfg = {
-            debug = false, -- set to true to enable debug logging
-            log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
-            -- default is  ~/.cache/nvim/lsp_signature.log
-            verbose = false, -- show debug line number
-
-            bind = true, -- This is mandatory, otherwise border config won't get registered.
-            -- If you want to hook lspsaga or other signature handler, pls set to false
-            doc_lines = 10, -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
-            -- set to 0 if you DO NOT want any API comments be shown
-            -- This setting only take effect in insert mode, it does not affect signature help in normal
-            -- mode, 10 by default
-
-            max_height = 12, -- max height of signature floating_window
-            max_width = 80, -- max_width of signature floating_window
-            noice = false, -- set to true if you using noice to render markdown
-            wrap = true, -- allow doc/signature text wrap inside floating_window, useful if your lsp return doc/sig is too long
-
-            floating_window = true, -- show hint in a floating window, set to false for virtual text only mode
-            floating_window_above_cur_line = true, -- try to place the floating above the current line when possible Note:
-            -- will set to true when fully tested, set to false will use whichever side has more space
-            -- this setting will be helpful if you do not want the PUM and floating win overlap
-
-            floating_window_off_x = 1, -- adjust float windows x position.
-            floating_window_off_y = 0, -- adjust float windows y position. e.g -2 move window up 2 lines; 2 move down 2 lines
-
-            close_timeout = 4000, -- close floating window after ms when laster parameter is entered
-            fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
-            hint_enable = true, -- virtual hint enable
-            hint_prefix = "🧐 ",--🐼,🧐🤔
-            hint_scheme = "String",
-            hi_parameter = "lsp_signature_highlight",  -- "Cursor" "IncSearch" "Visual" "Search"
-            handler_opts = {
-                border = "rounded"   -- double, rounded, single, shadow, none, or a table of borders
-            },
-
-            always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
-
-            auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
-            extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
-            zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
-
-            padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
-
-            transparency = nil, -- disabled by default, allow floating win transparent value 1~100
-            shadow_blend = 36, -- if you using shadow as border use this set the opacity
-            shadow_guibg = 'Black', -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
-            timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
-            toggle_key = nil, -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
-
-            select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
-            move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
+        local cfg = {
+            hint_prefix = "📌 ",--🐼,🧐🤔
         }
-    end,
-  },
--- }}}
--- {{{ L3MON4D3/LuaSnip
-  { "L3MON4D3/LuaSnip",
-    event = "InsertEnter",
-    config = function()
-    require("luasnip/loaders/from_vscode").lazy_load({ paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"}})
-    end,
-    init = function()
-    neomap("n", "<leader>rsm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", key_opts_ns)
-    neomap("n", "<leader>rsp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", key_opts_ns)
-    neomap("n", "<leader>rso", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", key_opts_ns)
+        -- require'lsp_signature'.setup(cfg)
+        -- require'lsp_signature'.on_attach(cfg, bufnr)
+        require'lsp_signature'.on_attach(cfg)
     end,
   },
 -- }}}
 -- {{{ Eandrju/cellular-automaton.nvim
   {
     "Eandrju/cellular-automaton.nvim",
-    keys = {
-        { "<localleader>,", "<cmd>CellularAutomaton make_it_rain<CR>", mode = "n", desc = "make it rain" },
-    }
+    keys = { { "<localleader>,", "<cmd>CellularAutomaton make_it_rain<CR>", mode = "n", desc = "make it rain" } }
   },
 -- }}}
 -- {{{ HaoHao-Ting/vim-matlab-formatter
@@ -2517,7 +2335,7 @@ require("lazy").setup({
     cmd = "MatlabFormatter",
     config = function()
     if vim.bo.filetype == 'matlab' then
-      neomap('n', '<leader>=', ':MatlabFormatter<CR>', key_opts_ns)
+      neomap('n', '<leader>lf', ':MatlabFormatter<CR>', { desc = "Matlab [F]ormat" })
     end
     end,
   },
@@ -2527,21 +2345,21 @@ require("lazy").setup({
 	"lewis6991/gitsigns.nvim",
     event = "BufRead",
     keys = {
-      { "<leader>gp", mode = { "n" }, "<cmd>Gitsigns preview_hunk<cr>", desc = "Preview Hunk" },
-      { "<leader>gd", mode = { "n" }, "<cmd>Gitsigns diffthis<cr>", desc = "Diff" },
+        { "<leader>gp", mode = { "n" }, "<cmd>Gitsigns preview_hunk<cr>", desc = "[P]review Hunk" },
+        { "<leader>gd", mode = { "n" }, "<cmd>Gitsigns diffthis<cr>", desc = "[D]iff" },
 
-      { "<leader>gl", mode = { "n" }, "<cmd>Gitsigns blame_line<cr>", desc = "Blame" },
+        { "<leader>gl", mode = { "n" }, "<cmd>Gitsigns blame_line<cr>", desc = "B[l]ame" },
 
-      { "<leader>gj", mode = { "n" }, "<cmd>Gitsigns next_hunk<cr>", desc = "Next Hunk" },
-      { "<leader>gk", mode = { "n" }, "<cmd>Gitsigns prev_hunk<cr>", desc = "Prev Hunk" },
+        { "<leader>gj", mode = { "n" }, "<cmd>Gitsigns next_hunk<cr>", desc = "Next Hunk" },
+        { "<leader>gk", mode = { "n" }, "<cmd>Gitsigns prev_hunk<cr>", desc = "Prev Hunk" },
 
-      { "<leader>cg", mode = { "n" }, "<cmd>Gitsigns toggle_word_diff<cr>", desc = "Toggle word_diff" },
+        { "<leader>gr", mode = { "n" }, "<cmd>Gitsigns reset_hunk<cr>", desc = "[r]eset Hunk" },
+        { "<leader>gR", mode = { "n" }, "<cmd>Gitsigns reset_buffer<cr>", desc = "[R]eset Buffer" },
 
-      { "<leader>gr", mode = { "n" }, "<cmd>Gitsigns reset_hunk<cr>", desc = "Reset Hunk" },
-      { "<leader>gR", mode = { "n" }, "<cmd>Gitsigns reset_buffer<cr>", desc = "Reset Buffer" },
+        { "<leader>gt", mode = { "n" }, "<cmd>Gitsigns toggle_word_diff<cr>", desc = "[T]oggle word_diff" },
 
-      -- { "<leader>gs", mode = { "n", "v" }, "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
-      -- { "<leader>gu", mode = { "n", "v" }, "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
+        -- { "<leader>gs", mode = { "n", "v" }, "<cmd>Gitsigns stage_hunk<cr>", desc = "Stage Hunk" },
+        -- { "<leader>gu", mode = { "n", "v" }, "<cmd>Gitsigns undo_stage_hunk<cr>", desc = "Undo Stage Hunk" },
     },
 	config = function()
 		local gitsigns = require("gitsigns")
@@ -2578,9 +2396,7 @@ require("lazy").setup({
 -- {{{ nguyenvukhang/nvim-toggler
   {
     "nguyenvukhang/nvim-toggler",
-    keys = {
-            { "<leader>i", mode = { "n", "v" }, desc = "Toggle word" },
-        },
+    keys = { { "<leader>i", function() require('nvim-toggler').toggle() end, mode = { "n", "v" }, desc = "Toggle word" } },
 	config = function()
     require('nvim-toggler').setup({
       inverses = {
@@ -2592,7 +2408,6 @@ require("lazy").setup({
         -- ['!='] = '==',
       },
       remove_default_keybinds = true, -- removes the default <leader>i keymap
-      neomap({ 'n', 'v' }, '<leader>i', require('nvim-toggler').toggle),
       remove_default_inverses = true, -- removes the default set of inverses
     })
 	end,
@@ -2603,137 +2418,47 @@ require("lazy").setup({
     "folke/which-key.nvim",
     event = { "VeryLazy" },
     config = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-      require("which-key").setup({
-      plugins = {
-        marks = true,
-        registers = true,
-        spelling = {
-          enabled = false,
-          suggestions = 20,
+    require("which-key").setup({
+        plugins = {
+            spelling = {
+                enabled = false,
+            },
         },
-        presets = {
-          operators = true,
-          motions = true,
-          text_objects = true,
-          windows = true,
-          nav = true,
-          z = true,
-          g = true,
+        icons = {
+            breadcrumb = "»",
+            separator = "",-- ➜
+            group = "+",
         },
-      },
-      operators = { gc = "Comments" },
-      motions = {
-        count = true,
-      },
-      icons = {
-        breadcrumb = "»",
-        separator = "",-- ➜
-        group = "+",
-      },
-      popup_mappings = {
-        scroll_down = '<c-f>',
-        scroll_up = '<c-b>',
-      },
-      window = {
-        border = "none",  -- none, single, shadow
-        position = "bottom",
-        margin = { 1, 0, 1, 0 },
-        padding = { 1, 2, 1, 2 },
-        winblend = 0,
-        zindex = 1000,
-      },
-      layout = {
-        height = { min = 4, max = 25 },
-        width = { min = 20, max = 50 },
-        spacing = 3,
-        align = "center",  --left, center, right
-      },
-      ignore_missing = false,
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "^:", "^ ", "^call ", "^lua " },
-      show_help = true,
-      triggers = "auto",
-      triggers_blacklist = {
-        i = { "j", "k" },
-        v = { "j", "k" },
-      },
-      })
-    end,
-    opts = function()
-    local L_all = require('which-key')
-    L_all.register({
-    ['a'] = {'Align'},
-    ['b'] = {'Columns Num'},
-    ['c'] = {
-        name = 'Comment',
-        ['c'] = {'Comment' },
-        ['i'] = {'Uncomment' },
-    },
-    ['e'] = {'Tree'},
-    g = {
-        name = "Git",
-        g = {"LazyGit" },
-    },
-    f = {
-        name = "Leaderf",
-    },
-    ['z'] = {'Replace Word'},
-    ['q'] = {'Close Buffer'},
-    ['w'] = {'Python Send'},
-    ['u'] = {'Undotree'},
-    ['k'] = {'Color Word'},
-    ['K'] = {'Uncolor Word'},
-    ['y'] = {'Copy Path(file)'},
-    ['/'] = {'Search <Pattern>'},
-    ['\\'] = {'Smart split'},
-    ['<Tab>'] = {'Tabnew'},
-    [','] = {'Calculator'},
-    ['='] = {'LSP format'},
-    ['r'] = {
-        name = 'VIMRC & Snippets',
-        ['c'] = {'Edit VIMRC' },
-        ['r'] = {'Reload VIMRC' },
-        ['s'] = {
-            name = 'Snippets',
-            ['m'] = {'Matlab-Snippets' },
-            ['o'] = {'Org-Snippets' },
-            ['p'] = {'Python-Snippets' },
+        popup_mappings = {
+            scroll_down = '<c-f>',
+            scroll_up = '<c-b>',
         },
-    },
-    ['s'] = {
-        name = 'Tools',
-        ['s'] = {'Todo' },
-        ['c'] = {'Spell Word' },
-        ['n'] = {'Next Wrong Word' },
-        ['p'] = {'previou Wrong Word' },
-        ['t'] = {'Startify' },
-        ['i'] = {'WhiteSpace' },
-        ['?'] = {'Word Candidate' },
-    },
-    ['t'] = {
-        name = 'Terminal',
-        ['o'] = {'Term New' },
-        ['t'] = {'Term Toggle' },
-        ['n'] = {'Term Next' },
-        ['r'] = {'Term Rg' },
-        ['p'] = {'IPyhon' },
-        ['a'] = {'Term(Admin)' },
-    },
-    ['o'] = {
-        name = 'Org',
-    },
-    }, { prefix = '<leader>' })
+        layout = {
+            align = "center",  --left, center, right
+        },
+    })
 
-    local LL_others = require('which-key')
-    LL_others.register({
-    ['e'] = {'yazi'},
-    w = {
-        name = "Weather Forecast",
-        d = {"3 day" },
-        e = {"1 day" },
-    },
-    }, { prefix = ',' })
+    require('which-key').register {
+        ['<leader>c']  = { name = '[C]omment' },
+        ['<leader>d']  = { name = '[D]iff' },
+        ['<leader>f']  = { name = 'Leader[F]' },
+        ['<leader>g']  = { name = '[G]it' },
+        ['<leader>s']  = { name = '[S]pell' },
+        ['<leader>o']  = { name = '[O]rg' },
+        ['<leader>w']  = { name = 'Python Send' },
+        ['<leader>l']  = { name = '[L]SP', _ = 'which_key_ignore' },
+
+        ['<leader>r']  = { name = 'VIM[R]C & [S]nippets' },
+        ['<leader>rs'] = { name = '[S]nippets' },
+
+        ['<leader>t']  = { name = '[T]erminal' },
+        ['<leader>tn'] = { name = 'Term [N]ext' },
+        ['<leader>tp'] = { name = 'I[P]yhon' },
+        ['<leader>ta'] = { name = 'Term([A]dmin)' },
+
+        ['<localleader>l'] = { name = '[L]atex' },
+        ['<localleader>w'] = { name = '[W]eather Forecast' },
+    }
     end,
   },
 -- }}}
@@ -2757,12 +2482,6 @@ augroup matlab_filetype
     au FileType matlab set fileencoding=cp936
 augroup END
 
-augroup python_related
-    au!
-    au BufNewFile,BufRead *.py set fileformat=unix
-    au BufNewFile,BufRead *.rpy set syntax=python
-augroup END
-
 " 文本超过一定长度时自动换行
 augroup tex_md_width
     au!
@@ -2784,18 +2503,10 @@ augroup Buffer_quit
     au BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
 augroup END
 
-" Highlihgt yank
-" set background=light " 放到这里的目的,为了tokyonight-day显示复制颜色(HighlightedyankRegion)
 highlight HighlightedyankRegion ctermbg=237 guibg=#c34043
 augroup highlight_yank
     au!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="HighlightedyankRegion", timeout=120}
-augroup END
-
-" << plasticboyvim-markdown >>
-augroup markdown_type
-    au!
-    au FileType markdown setl conceallevel=2
 augroup END
 
 " << Plugin - table-mode >>
@@ -2808,6 +2519,31 @@ augroup markdown_table
     au FileType markdown TableModeEnable
 augroup END
 ]]
+
+-- nvim_create_augroups(autocmds)
+local function nvim_create_augroups(definitions)
+    for group_name, definition in pairs(definitions) do
+        vim.api.nvim_command("augroup " .. group_name)
+        vim.api.nvim_command "autocmd!"
+        for _, def in ipairs(definition) do
+            local command = table.concat(vim.tbl_flatten { "autocmd", def }, " ")
+            vim.api.nvim_command(command)
+        end
+        vim.api.nvim_command "augroup END"
+    end
+end
+
+nvim_create_augroups({
+    custom_filetypes = {
+        { "BufNewFile,BufRead", "*.rpy", "set syntax=python" },
+        { "BufNewFile,BufRead", "*.py", "set fileformat=unix" },
+
+        { "BufRead", "*.md", "set conceallevel=2" },
+    },
+    save_shada = {
+        { "VimLeave", "*", "wshada!" },
+    },  -- save marks
+})
 -- }}}
 
 -- {{{ colorscheme
@@ -2927,7 +2663,7 @@ end
 -- diff color (original neovim)
 vim.api.nvim_command("hi DiffAdd    guifg=#00cc00 guibg=#005500 gui=none")  -- 新增的行
 vim.api.nvim_command("hi DiffDelete guifg=#cc0000 guibg=#550000 gui=none")  -- 删除的行
-vim.api.nvim_command("hi DiffChange guifg=#000000 guibg=#b0b0b0 gui=none")  -- 变化的行
+vim.api.nvim_command("hi DiffChange guifg=#000000 guibg=#7A7A7A gui=none")  -- 变化的行
 vim.api.nvim_command("hi DiffText   guifg=#00cc00 guibg=#005500 gui=none")  -- 变化的文字
 -- lsp_signature.nvim color
 vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
@@ -2972,7 +2708,7 @@ elseif vim.g.goneovim then-- gonevim
     vim.opt.pumblend = 10
     vim.opt.winblend = 10
     neomap("n", "<m-CR>", ":GonvimMaximize<CR>", key_opts_ns)
-    neomap("n", "<leader>rg", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/.goneovim/settings.toml<CR>", key_opts_ns)
+    neomap("n", "<leader>rg", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/.goneovim/settings.toml<CR>", { desc = '[G]oneovim Config' })
 elseif vim.g.nvy then-- nvy
 else-- terminal
     -- vim.api.nvim_command("hi Normal guibg=NONE")
