@@ -1787,9 +1787,12 @@ require("lazy").setup({
                org_change_date = 'cid',
                org_todo = 'cit',
                org_agenda_show_help = 'g?',  -- show help
+               org_toggle_checkbox = '<cr>',
            },
        },
     })
+    vim.api.nvim_set_hl(0, "@org.checkbox", { fg = "#f23f42" })
+    vim.api.nvim_set_hl(0, "@org.checkbox.checked", { fg = "#0AC40A" })
     end,
     init = function()
     vim.cmd([[au FileType org setlocal nofoldenable]]) -- 关闭打开org默认folding
