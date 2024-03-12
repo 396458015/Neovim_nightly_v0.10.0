@@ -1757,7 +1757,7 @@ require("lazy").setup({
                   --headlines = {"🌸","🌱","💧","✨","💗" },   -- others
                   checkboxes = {
                       cancelled = { '', 'OrgCancelled' },
-                      half = { '', 'OrgTSCheckboxHalfChecked' },
+                      half = { '', 'OrgTSCheckboxHalfChecked' },  --   
                       done = { '', 'OrgDone' },--✓
                       todo = { '', 'OrgTODO' },--×
                   },
@@ -1792,6 +1792,7 @@ require("lazy").setup({
        },
     })
     vim.api.nvim_set_hl(0, "@org.checkbox", { fg = "#f23f42" })
+    vim.api.nvim_set_hl(0, "@org.checkbox.halfchecked", { fg = "#0AC40A" })
     vim.api.nvim_set_hl(0, "@org.checkbox.checked", { fg = "#0AC40A" })
     end,
     init = function()
