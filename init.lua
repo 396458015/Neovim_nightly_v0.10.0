@@ -554,7 +554,7 @@ require("lazy").setup({
                             desc    = 'Find File',
                             desc_hl = 'String',
                             key     = 'f',
-                            keymap  = 'SPC f g',
+                            keymap  = 'SPC f f',
                             key_hl  = 'Number',
                             action  = 'Leaderf file'
                         },
@@ -754,9 +754,10 @@ require("lazy").setup({
     event = { "BufReadPre", "BufNewFile" },
     cmd = { "Leaderf" },
     keys = {
-        { "<leader>fp", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File by [P]ath" },
-        { "<leader>ff", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "[F]uzzy word" },
-        { "<leader>fg", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "File" },
+        { "<leader>fs", mode = { "n" }, ":LeaderfFile :/<left><left>", desc = "File by Path" },
+        { "<leader>fp", mode = { "n" }, "<cmd>Leaderf rg<cr>", desc = "Fuzzy word" },
+        { "<leader>ff", mode = { "n" }, "<cmd>Leaderf file<cr>", desc = "[F]ile" },
+        { "<leader>fg", mode = { "n" }, "<cmd>Leaderf git<cr>", desc = "[G]it" },
         { "<leader>fl", mode = { "n" }, "<cmd>Leaderf line<cr>", desc = "[L]ine" },
         { "<leader>fc", mode = { "n" }, "<cmd>Leaderf colorscheme<cr>", desc = "[C]olorscheme" },
         { "<leader>fh", mode = { "n" }, "<cmd>Leaderf searchHistory<cr>", desc = "Search [H]istory" },
