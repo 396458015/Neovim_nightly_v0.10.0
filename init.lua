@@ -1805,7 +1805,7 @@ require("lazy").setup({
     end,
     init = function()
     vim.cmd([[au FileType org setlocal nofoldenable]]) -- 关闭打开org默认folding
-    neomap("n", "<leader>ss", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", { desc = 'Todo' })
+    neomap("n", "<leader>od", ":Neotree C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/<CR>", { desc = 'Org [D]irectories' })
     end,
   },
 -- }}}
