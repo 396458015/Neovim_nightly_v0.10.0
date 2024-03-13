@@ -1752,9 +1752,8 @@ require("lazy").setup({
               indent = true,
               symbols = {
                   list = "•",
-                  headlines = {"◉", "◎", "○", "✺", "▶", "⤷" }, -- neorg level1:◉⦿
-                  --headlines = { "◉", "○", "✸", "✿" },        -- orgmode
-                  --headlines = {"🌸","🌱","💧","✨","💗" },   -- others
+                  headlines = { "⦿", "●", "◈", "◆", "◇", "▶", "○", "⤷" },  -- neorg level1: ◉⦿
+                  --  { "◉", "○", "✸", "✺", "♦", "▶", "◇", "⤷" }, {"🌸","🌱","💧","✨","💗" }, ♠, ♣, ♦, ❀, ▼
                   checkboxes = {
                       cancelled = { '', 'OrgCancelled' },
                       half = { '', 'OrgTSCheckboxHalfChecked' },  --   
@@ -1794,6 +1793,15 @@ require("lazy").setup({
     vim.api.nvim_set_hl(0, "@org.checkbox", { fg = "#f23f42" })
     vim.api.nvim_set_hl(0, "@org.checkbox.halfchecked", { fg = "#0AC40A" })
     vim.api.nvim_set_hl(0, "@org.checkbox.checked", { fg = "#0AC40A" })
+    -- org-colors-doom-molokai
+    vim.api.nvim_set_hl(0, "@org.headline.level1", { fg = "#fb2874" })
+    vim.api.nvim_set_hl(0, "@org.headline.level2", { fg = "#fd971f" })
+    vim.api.nvim_set_hl(0, "@org.headline.level3", { fg = "#9c91e4" })
+    vim.api.nvim_set_hl(0, "@org.headline.level4", { fg = "#268bd2" })
+    vim.api.nvim_set_hl(0, "@org.headline.level5", { fg = "#e74c3c" })
+    vim.api.nvim_set_hl(0, "@org.headline.level6", { fg = "#b6e63e" })
+    vim.api.nvim_set_hl(0, "@org.headline.level7", { fg = "#66d9ef" })
+    vim.api.nvim_set_hl(0, "@org.headline.level8", { fg = "#e2c770" })
     end,
     init = function()
     vim.cmd([[au FileType org setlocal nofoldenable]]) -- 关闭打开org默认folding
