@@ -60,7 +60,7 @@ neomap("n", "<Tab>", "@=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>", key_op
 -------------------- copy path(file) --------------------
 -- path without filename
 -- neomap("n", "<leader>y", [[:let @+=('cd ' .. expand('%:p:h'))<CR>:echo "File path in clipboard"<CR>]], { desc = 'Copy Path(file)' }) -- 路径没有引号
-neomap("n", "<leader>y", [[:let @+=('cd ' .. "'" .. expand('%:p:h') .. "'")<CR>:echo "File path in clipboard"<CR>]], { desc = '[Y]ank Path(file)' }) -- 路径有引号
+neomap("n", "<leader>y", [[:let @+=('cd ' .. "'" .. expand('%:p:h') .. "'")<CR>:echo "File path in clipboard"<CR>]], { desc = '[Y]ank Path (file)' }) -- 路径有引号
 -- if "expand('%:p')", path with filename
 -------------------- spell checking --------------------
 -- 设置拼写检查开关
