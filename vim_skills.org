@@ -941,3 +941,19 @@ end
   },
 -- }}}
    #+END_SRC
+
+
+** orgmode
+   #+BEGIN_SRC lua
+-- {{{ nvim-telescope/telescope.nvim
+-- org-colors-doom-one
+    vim.api.nvim_set_hl(0, "@org.headline.level1", { fg = "#51afef" })
+    vim.api.nvim_set_hl(0, "@org.headline.level2", { fg = "#c678dd" })
+    vim.api.nvim_set_hl(0, "@org.headline.level3", { fg = "#98be65" })
+    vim.api.nvim_set_hl(0, "@org.headline.level4", { fg = "#da8548" })
+    vim.api.nvim_set_hl(0, "@org.headline.level5", { fg = "#5699af" })
+    vim.api.nvim_set_hl(0, "@org.headline.level6", { fg = "#a9a1e1" })
+    vim.api.nvim_set_hl(0, "@org.headline.level7", { fg = "#46d9ff" })
+    vim.api.nvim_set_hl(0, "@org.headline.level8", { fg = "#ff6c6b" })
+-- }}}
+   #+END_SRC
