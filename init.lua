@@ -299,7 +299,7 @@ filetype indent on
 filetype plugin on
 set foldcolumn=2
 ]]
-if vim.fn.has("nvim-0.9.0") == 1 then
+if vim.fn.has("nvim-0.9.5") == 1 then
   vim.opt.splitkeep = "screen"
   vim.opt.shortmess:append({ C = true })
 end
@@ -820,20 +820,20 @@ require("lazy").setup({
 
     -- Bottom mode & Change statusline color (not popup mode)
     vim.g.Lf_WindowPosition = 'bottom'
-    vim.api.nvim_command("hi link Lf_hl_stlName StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlMode StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlSeparator0 StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlSeparator1 StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlSeparator2 StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlSeparator3 StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlSeparator4 StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlSeparator5 StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlLineInfo Statusline")
-    vim.api.nvim_command("hi link Lf_hl_stlRegexMode StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlFullPathMode StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlFuzzyMode StatuslineNC")
-    vim.api.nvim_command("hi link Lf_hl_stlBlank Statusline")
-    vim.api.nvim_command("hi link Lf_hl_stlTotal Statusline")
+    vim.api.nvim_set_hl(0, "Lf_hl_stlName", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlMode", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlSeparator0", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlSeparator1", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlSeparator2", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlSeparator3", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlSeparator4", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlSeparator5", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlLineInfo", { link = "Statusline" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlRegexMode", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlFullPathMode", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlFuzzyMode", { link = "StatuslineNC" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlBlank", { link = "Statusline" })
+    vim.api.nvim_set_hl(0, "Lf_hl_stlTotal", { link = "Statusline" })
 
     if vim.fn.has('gui_running') == 1 then
         if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
@@ -877,9 +877,9 @@ require("lazy").setup({
     cmd = { "FloatermNew", "FloatermSend" },
     config = function()
         if vim.o.background == 'dark' then
-            vim.api.nvim_command("hi FloatermBorder guibg=#303446 guifg=#89a0c3")
+            vim.api.nvim_set_hl(0, "FloatermBorder", { fg = "#89a0c3", bg = "#303446" })
         elseif vim.o.background == 'light' then
-            vim.api.nvim_command("hi FloatermBorder guibg=#e1e2e7 guifg=#40a02b")
+            vim.api.nvim_set_hl(0, "FloatermBorder", { fg = "#40a02b", bg = "#e1e2e7" })
         end
     end,
     init = function()
@@ -1392,16 +1392,11 @@ require("lazy").setup({
     -- vim.cmd[[nnoremap <leader>/ /\<<C-R>=expand("<cword>")<CR>\><left><left>]]
     neomap('n', "<leader>/", [[:/\<<C-R>=expand("<cword>")<CR>\><left><left>]], { desc = 'Search <Pattern>' })
     --color
-    vim.api.nvim_command("hi default link HlSearchNear IncSearch")
-    vim.api.nvim_command("hi default link HlSearchLens WildMenu")
-    vim.api.nvim_command("hi default link HlSearchLensNear IncSearch")
-    vim.api.nvim_command("hi default link HlSearchFloat IncSearch")
     if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
-        vim.api.nvim_command("hi IncSearch guibg=#d73a4a")
+        vim.api.nvim_set_hl(0, "IncSearch", { fg = "#000000", bg = "#d73a4a", bold = true })
     elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
-        vim.api.nvim_command("hi IncSearch guibg=#e78284")
+        vim.api.nvim_set_hl(0, "IncSearch", { fg = "#000000", bg = "#e78284", bold = true })
     end
-    vim.api.nvim_command("hi IncSearch guifg=black")
     end,
   },
 -- }}}
@@ -1542,14 +1537,8 @@ require("lazy").setup({
             },
         },
     })
-    -- change neo-tree background color (transparency)
-    vim.api.nvim_command("hi NeoTreeNormal guibg=none ctermbg=none guifg=none")
-    vim.api.nvim_command("hi NeoTreeStatusLine guibg=none ctermbg=none guifg=none")
-    vim.api.nvim_command("hi NeoTreeStatusLineNC guibg=none ctermbg=none guifg=none")
-    vim.api.nvim_command("hi NeoTreeNormalNC guibg=none ctermbg=none guifg=none")
-    vim.api.nvim_command("hi NeoTreeVertSplit guibg=none ctermbg=none guifg=none")
     -- change color for NeoTreeIndent to light blue
-    vim.api.nvim_command("hi NeoTreeIndentMarker guifg=#3FC5FF")
+    vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = "#3FC5FF" })
     end,
   },
 -- }}}
@@ -2638,57 +2627,54 @@ vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = fgdark, bg = "#58B5A8" })
 vim.api.nvim_set_hl(0, "CmpItemKindTypeParameter", { fg = fgdark, bg = "#58B5A8" })
 
 -- Diagnostics Highlights
-vim.api.nvim_command( "hi DiagnosticError guifg=#ff3939")
-vim.api.nvim_command( "hi DiagnosticWarn  guifg=#ffa500")
-vim.api.nvim_command( "hi DiagnosticHint  guifg=#1d6a70")
-vim.api.nvim_command( "hi DiagnosticInfo  guifg=#FFCC66")
+vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff3939" })
+vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "#ffa500" })
+vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "#1d6a70" })
+vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = "#FFCC66" })
 
-vim.api.nvim_command( "hi DiagnosticsDefaultError guibg=NONE" )
-vim.api.nvim_command( "hi DiagnosticVirtualTextError guifg=#ff3939 ctermbg=NONE gui=italic guibg=NONE" )
-vim.api.nvim_command( "hi DiagnosticVirtualTextWarn  guifg=#ffa500 ctermbg=NONE gui=italic guibg=NONE" )
-vim.api.nvim_command( "hi DiagnosticVirtualTextHint  guifg=#1d6a70 ctermbg=NONE gui=italic guibg=NONE" )
-vim.api.nvim_command( "hi DiagnosticVirtualTextInfo  guifg=#FFCC66 ctermbg=NONE gui=italic guibg=NONE" )
+vim.api.nvim_set_hl(0, "DiagnosticsDefaultError", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#ff3939", bg = "NONE", italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#ffa500", bg = "NONE", italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = "#1d6a70", bg = "NONE", italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = "#FFCC66", bg = "NONE", italic = true })
 
-vim.api.nvim_command( "hi DiagnosticFloatingError guifg=#ff3939 ctermbg=NONE gui=italic" )
-vim.api.nvim_command( "hi DiagnosticFloatingWarn  guifg=#ffa500 ctermbg=NONE gui=italic" )
-vim.api.nvim_command( "hi DiagnosticFloatingHint  guifg=#1d6a70 ctermbg=NONE gui=italic" )
-vim.api.nvim_command( "hi DiagnosticFloatingInfo  guifg=#FFCC66 ctermbg=NONE gui=italic" )
+vim.api.nvim_set_hl(0, "DiagnosticFloatingError", { fg = "#ff3939", bg = "NONE", italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = "#ffa500", bg = "NONE", italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = "#1d6a70", bg = "NONE", italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo", { fg = "#FFCC66", bg = "NONE", italic = true })
 
-vim.api.nvim_command( "hi DiagnosticSignError guifg=#ff3939" )
-vim.api.nvim_command( "hi DiagnosticSignWarn  guifg=#ffa500" )
-vim.api.nvim_command( "hi DiagnosticSignHint  guifg=#1d6a70" )
-vim.api.nvim_command( "hi DiagnosticSignInfo  guifg=#FFCC66" )
+vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#ff3939" })
+vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { fg = "#ffa500" })
+vim.api.nvim_set_hl(0, "DiagnosticSignHint", { fg = "#1d6a70" })
+vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { fg = "#FFCC66" })
 
 -- dark & light colorscheme
 if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     -- search color
-    vim.api.nvim_command("hi Search guibg=#228b22 guifg=#ccd0da")
+    vim.api.nvim_set_hl(0, "Search", { fg = "#ccd0da", bg = "#228b22" })
     -- cuc cul color
-    vim.cmd('hi CursorLine gui=NONE guibg=#3C4452')
-    vim.cmd('hi Cursorcolumn gui=NONE guibg=#3C4452')
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = "#3C4452" })
+    vim.api.nvim_set_hl(0, "Cursorcolumn", { bg = "#3C4452" })
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     -- search color
-    vim.api.nvim_command("hi Search guibg=#40a02b guifg=#e1e2e7")
+    vim.api.nvim_set_hl(0, "Search", { fg = "#e1e2e7", bg = "#40a02b" })
     -- cuc cul color
-    vim.cmd('hi CursorLine gui=NONE guibg=#c6cbd9')
-    vim.cmd('hi Cursorcolumn gui=NONE guibg=#c6cbd9')
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = "#c6cbd9" })
+    vim.api.nvim_set_hl(0, "Cursorcolumn", { bg = "#c6cbd9" })
 end
 -- diff color (original neovim)
-vim.api.nvim_command("hi DiffAdd    guifg=#00cc00 guibg=#005500 gui=none")  -- 新增的行
-vim.api.nvim_command("hi DiffDelete guifg=#cc0000 guibg=#550000 gui=none")  -- 删除的行
-vim.api.nvim_command("hi DiffChange guifg=#000000 guibg=#7A7A7A gui=none")  -- 变化的行
-vim.api.nvim_command("hi DiffText   guifg=#00cc00 guibg=#005500 gui=none")  -- 变化的文字
+vim.api.nvim_set_hl(0, "DiffAdd",    { fg = "#00cc00", bg = "#005500" })
+vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#cc0000", bg = "#550000" })
+vim.api.nvim_set_hl(0, "DiffChange", { fg = "#000000", bg = "#7A7A7A" })
+vim.api.nvim_set_hl(0, "DiffText",   { fg = "#00cc00", bg = "#005500" })
 -- lsp_signature.nvim color
-vim.api.nvim_command("hi lsp_signature_highlight guifg=black guibg=#f68e26")
+vim.api.nvim_set_hl(0, "lsp_signature_highlight", { fg = "#000000", bg = "#f68e26" })
 -- mg979/vim-visual-multi theme
 if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.g.VM_theme = 'iceblue'
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     vim.g.VM_theme = 'lightblue2'
 end
--- which-key background color (transparency)
-vim.api.nvim_command("hi WhichKeyFloat ctermbg=black ctermfg=black guibg=0")
-vim.api.nvim_command("hi WhichKeyBorder ctermbg=black ctermfg=black guibg=0")
 -- }}}
 
 -- {{{ GUI&TERM
