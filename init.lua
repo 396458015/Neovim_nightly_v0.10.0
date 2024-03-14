@@ -365,7 +365,7 @@ require("lazy").setup({
 -- {{{ Dir = weather3day.nvim-main
   {
     dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/weather3day.nvim-main", --modified
-    cmd = "Weather3day",
+    keys = { { "<localleader>wd", ":Weather3day<CR>",   mode = { "n" }, desc = '3 day' } },
     init = function()
     vim.g.weather_city = "Xi'an"--weather3day plug
     end,
@@ -1545,11 +1545,7 @@ require("lazy").setup({
 -- {{{ ellisonleao/weather.nvim
   {
     "ellisonleao/weather.nvim",
-    cmd = "Weather",
-    keys = {
-        { "<localleader>we", ":Weather<CR>",   mode = { "n" }, desc = '1 day' },
-        { "<localleader>wd", ":Weather3day<CR>",   mode = { "n" }, desc = '3 day' },
-    },
+    keys = { { "<localleader>we", ":Weather<CR>",   mode = { "n" }, desc = '1 day' } },
     config = function()
     require("weather").setup({
         city = "Xi'an",
