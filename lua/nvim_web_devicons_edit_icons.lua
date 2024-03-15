@@ -87,7 +87,7 @@ DevIcons.set_icon {
     ["json"]   =  {icon = "", color = "#cbcb41", cterm_color = "108", name = "Json"   },
     ["toml"]   =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Toml"   },
     ["yml"]    =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Yml"    },
-    ["yaml"]   =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Yaml"   },
+    ["yaml"]   =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Yaml"   },
     ["ini"]    =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Ini"    },
     ["conf"]   =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Conf"   },
     ["lock"]   =  {icon = "", color = "#f80000", cterm_color = "108", name = "Lock"   },
