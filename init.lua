@@ -892,16 +892,18 @@ require("lazy").setup({
         vim.g.floaterm_shell="C:/PROGRA~1/PowerShell/7/pwsh.exe"
         -- 从':terminal '中打开外部nvim中的文件的命令。
         vim.g.floaterm_opener = 'edit'  -- 'edit', 'split', 'vsplit', 'tabe', 'drop'
-        neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>", { desc = 'Term New' })
+        neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>", { desc = 'New Term' })
         -- neomap("n","<localleader>e",":FloatermNew! --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --slower
         -- neomap("n","<localleader>e",":FloatermNew --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --faster
         neomap("n","<localleader>e",":FloatermNew --position=center --width=0.99 --height=0.99 --autoclose=1 yazi<CR>", { desc = 'yazi' }) --faster
-        neomap("n","<leader>tt",":FloatermToggle<CR>", { desc = 'Term Toggle' })
-        neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>")
+        neomap("n","<leader>tt",":FloatermToggle<CR>", { desc = '[T]oggle Term' })
+        neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>" , { desc = '[R]g' })
         neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
-
-        neomap("n","<leader>tj",":FloatermNext<CR>")
-        neomap("n","<leader>tk",":FloatermPrev<CR>")
+        -- Lazygit. 首先在系统安装'jesseduffield/lazygit'
+        -- lazygit的配置文件'C:\Users\ThinkPad\AppData\Roaming\lazygit\config.yml'
+        neomap("n","<leader>gg",":FloatermNew --position=center --width=0.99 --height=0.99 --autoclose=1 Lazygit<CR>", { desc = 'Lazy[G]it' }) --faster
+        neomap("n","<leader>tj",":FloatermNext<CR>", { desc = 'Next Term' } )
+        neomap("n","<leader>tk",":FloatermPrev<CR>", { desc = 'Prev Term' } )
 
         vim.cmd[[
         augroup Compiler_code
@@ -943,19 +945,6 @@ require("lazy").setup({
         " 关闭管理员账号: net user administrator /active:no
         " 设置管理员密码(1234): net user administrator 1234
         ]]
-    end,
-  },
--- }}}
--- {{{ kdheepak/lazygit.nvim
-    -- 首先在系统安装lazygit,'jesseduffield/lazygit'
-    -- lazygit的配置文件'C:\Users\ThinkPad\AppData\Roaming\lazygit\config.yml'
-    -- 查询仓库路径 'C:\Users\ThinkPad\AppData\Roaming\lazygit\state.yml'
-  {
-    "kdheepak/lazygit.nvim",
-	keys = { { "<leader>gg", mode = { "n" }, "<cmd>LazyGit<cr>", desc = "Lazy[G]it" } },
-    dependencies = { "nvim-lua/plenary.nvim" },
-    init = function()
-    vim.g.lazygit_use_neovim_remote = 0
     end,
   },
 -- }}}
