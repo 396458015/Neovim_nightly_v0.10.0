@@ -1298,10 +1298,10 @@ require("lazy").setup({
     "dstein64/nvim-scrollview",
     event = "BufReadPre",
     keys = {
-        { "]v", "<Cmd>ScrollViewNext<cr>",  mode = { "n" } },
-        { "[v", "<Cmd>ScrollViewPrev<cr>",  mode = { "n" } },
-        { "[V", "<Cmd>ScrollViewFirst<cr>", mode = { "n" } },
-        { "]V", "<Cmd>ScrollViewLast<cr>",  mode = { "n" } },
+        { "]]", "<Cmd>ScrollViewNext<cr>",  mode = { "n" }, desc = "Next sign" },
+        { "[[", "<Cmd>ScrollViewPrev<cr>",  mode = { "n" }, desc = "Prev sign" },
+        { "[\\", "<Cmd>ScrollViewFirst<cr>", mode = { "n" }, desc = "First sign" },
+        { "]\\", "<Cmd>ScrollViewLast<cr>",  mode = { "n" }, desc = "Last sign" },
     },
     config = function()
     require("scrollview").setup {
