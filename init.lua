@@ -792,16 +792,16 @@ require("lazy").setup({
     vim.g.Lf_StlSeparator = { left = "", right = "" }  -- left = "", right = ""
     vim.g.Lf_JumpToExistingWindow = 0
     vim.g.Lf_PreviewResult = {
-        File = 1,
-        Buffer = 0,
-        Mru = 0,
-        Tag = 0,
-        BufTag = 1,
-        Function = 1,
-        Line = 1,
+        File        = 1,
+        Buffer      = 0,
+        Mru         = 0,
+        Tag         = 0,
+        BufTag      = 1,
+        Function    = 1,
+        Line        = 1,
         Colorscheme = 0,
-        Rg = 1,
-        Gtags = 0,
+        Rg          = 1,
+        Gtags       = 0,
     }-- 0:不自动预览; 1:自动预览
     vim.g.Lf_NeedCacheTime = 0.1  -- cache the files list,if time > 0.1s.
     vim.g.Lf_CacheDirectory = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/cache/leaderf_mru_cache"
@@ -1741,7 +1741,7 @@ require("lazy").setup({
     },
     config = function()
     local orgmode = require('orgmode')
-    orgmode.setup_ts_grammar()
+    -- orgmode.setup_ts_grammar()
     orgmode.setup({
        org_agenda_files = { 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/**' },
        org_default_notes_file = 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Org/index.org',
