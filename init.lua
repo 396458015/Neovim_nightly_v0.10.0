@@ -1832,7 +1832,7 @@ require("lazy").setup({
     dependencies = { "HiPhish/nvim-ts-rainbow2" },
     config = function()
     local rainbow = require 'ts-rainbow'
-    local treesitter_list = { "python", "fortran", "c", "vim", "lua", "latex", "markdown", "org", "matlab", "json", "toml", "yaml", "ini" }
+    local treesitter_list = { "python", "fortran", "c", "vim", "lua", "latex", "markdown", "org", "matlab", "json", "toml", "yaml", "typst", "ini" }
     require 'nvim-treesitter.install'.compilers = { "clang" }
     require'nvim-treesitter.configs'.setup {
       ensure_installed = treesitter_list,
