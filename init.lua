@@ -1818,43 +1818,25 @@ require("lazy").setup({
 -- {{{ nvim-treesitter/nvim-treesitter
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    build = ':TSUpdate',
     event = { 'BufReadPost', 'BufNewFile' },
-    cmd = {
-            "TSInstall",
-            "TSUninstall",
-            "TSUpdate",
-            "TSUpdateSync",
-            "TSInstallInfo",
-            "TSInstallSync",
-            "TSInstallFromGrammar",
+    dependencies = {
+        "HiPhish/nvim-ts-rainbow2",
     },
-    dependencies = { "HiPhish/nvim-ts-rainbow2" },
-    config = function()
-    local rainbow = require 'ts-rainbow'
-    local treesitter_list = { "python", "fortran", "c", "vim", "lua", "latex", "markdown", "org", "matlab", "json", "toml", "yaml", "typst", "ini" }
-    require 'nvim-treesitter.install'.compilers = { "clang" }
-    require'nvim-treesitter.configs'.setup {
-      ensure_installed = treesitter_list,
+    opts = {
+      ensure_installed = { "bash", "python", "fortran", "c", "vim", "vimdoc", "query", "lua", "bibtex", "markdown", "org", "matlab", "json", "toml", "yaml", "typst", "ini"  },
+      auto_install = true,
       highlight = {
         enable = true,
-        additional_vim_regex_highlighting = treesitter_list,
+        additional_vim_regex_highlighting = true,
       },
-      incremental_selection = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
-      rainbow = {
-          enable = true,
-          query = {
-             'rainbow-parens',
-          },
-          extended_mode = true,
-          strategy = rainbow.strategy.global,
-      },
-    }
+      indent = { enable = true },
+      rainbow = { enable = true },
+    },
+    config = function(_, opts)
+      require('nvim-treesitter.install').prefer_git = true
+      ---@diagnostic disable-next-line: missing-fields
+      require('nvim-treesitter.configs').setup(opts)
     end,
   },
 -- }}}
