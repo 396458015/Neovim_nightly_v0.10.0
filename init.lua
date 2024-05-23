@@ -1827,6 +1827,12 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     build = ':TSUpdate',
     event = { 'BufReadPost', 'BufNewFile', 'BufReadPre' },
+    dependencies = {
+        "hiphish/rainbow-delimiters.nvim",
+        config = function()
+            require("rainbow-delimiters.setup").setup({})
+        end,
+    },
     opts = {
       ensure_installed = { "bash", "python", "fortran", "c", "vim", "vimdoc", "query", "lua", "bibtex", "markdown", "org", "matlab", "json", "toml", "yaml", "typst", "ini"  },
       auto_install = true,
