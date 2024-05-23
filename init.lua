@@ -705,24 +705,24 @@ require("lazy").setup({
 -- }}}
 -- {{{ sustech-data/wildfire.nvim
   {
-  	"sustech-data/wildfire.nvim",
+    "sustech-data/wildfire.nvim",
     keys = { "<CR>" },
-  	dependencies = { "nvim-treesitter/nvim-treesitter" },
-  	config = function()
-  		require("wildfire").setup({
-  			surrounds = {
-  				{ "(", ")" },
-  				{ "{", "}" },
-  				{ "<", ">" },
-  				{ "[", "]" },
-  			},
-  			keymaps = {
-                  init_selection = "<CR>",
-                  node_incremental = "<CR>",
-                  node_decremental = "<BS>",
-  			},
-  		})
-  	end,
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+        require("wildfire").setup({
+            surrounds = {
+                { "(", ")" },
+                { "{", "}" },
+                { "<", ">" },
+                { "[", "]" },
+            },
+            keymaps = {
+                init_selection = "<CR>",
+                node_incremental = "<CR>",
+                node_decremental = "<BS>",
+            },
+        })
+    end,
   },
 -- }}}
 -- {{{ AndrewRadev/linediff.vim
