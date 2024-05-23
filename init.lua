@@ -1321,15 +1321,22 @@ require("lazy").setup({
           -- "textwidth",
           -- "trail",
       },
-      -- cursor_symbol = "•"
+
+      -- cursor_symbol = "•",
 
       diagnostics_error_symbol = '',  --󰨓
       diagnostics_warn_symbol  = '',  --󰨓
       diagnostics_hint_symbol  = '',  --󰨓
       diagnostics_info_symbol  = '',  --󰨓
     }
-    -- just diplay error icon
-    vim.g.scrollview_diagnostics_severities = {vim.diagnostic.severity.ERROR}
+
+    -- 自定义显示的diagnostics icon
+    vim.g.scrollview_diagnostics_severities = {
+      vim.diagnostic.severity.ERROR,
+      -- vim.diagnostic.severity.WARN,
+      -- vim.diagnostic.severity.INFO,
+      -- vim.diagnostic.severity.HINT,
+    }
 
     require("scrollview.contrib.gitsigns").setup {
       add_priority = 100,
