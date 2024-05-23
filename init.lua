@@ -1819,9 +1819,12 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter",
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile', 'BufReadPre' },
     dependencies = {
-        "HiPhish/nvim-ts-rainbow2",
+        "hiphish/rainbow-delimiters.nvim",
+    config = function()
+      require("rainbow-delimiters.setup").setup({})
+    end,
     },
     opts = {
       ensure_installed = { "bash", "python", "fortran", "c", "vim", "vimdoc", "query", "lua", "bibtex", "markdown", "org", "matlab", "json", "toml", "yaml", "typst", "ini"  },
@@ -1831,7 +1834,6 @@ require("lazy").setup({
         additional_vim_regex_highlighting = true,
       },
       indent = { enable = true },
-      rainbow = { enable = true },
     },
     config = function(_, opts)
       require('nvim-treesitter.install').prefer_git = true
