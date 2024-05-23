@@ -1094,7 +1094,6 @@ require("lazy").setup({
       '                                                                   ',
       '                                                                   ',
       '                                                                   ',
-      '                                                                   ',
       '            ,                                                      ',
       '           / ,,_  ."|                                              ',
       '         [[| /]]]]/_."                                             ',
@@ -1248,6 +1247,7 @@ require("lazy").setup({
     config = function()
     require('hlchunk').setup({
         chunk = {
+            enable = true,
             exclude_filetypes = {
                 aerial = true,
                 dashboard = true,
@@ -1261,11 +1261,11 @@ require("lazy").setup({
             },
         },
         indent = {
+            enable = true,
             chars = { "│", "¦", "┆", "┊", },
         },
-        blank = {
-            enable = false,
-        },
+        line_num = { enable = false },
+        blank = { enable = false },
     })
     end,
   },
