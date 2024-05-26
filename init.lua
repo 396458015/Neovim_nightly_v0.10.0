@@ -1278,7 +1278,7 @@ require("lazy").setup({
     "karb94/neoscroll.nvim",
     event = "BufReadPre",
     config = function()
-    require('neoscroll').setup()
+    require('neoscroll').setup({})
     local t = {}
     t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '45'}}
     t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '45'}}
@@ -1704,7 +1704,7 @@ require("lazy").setup({
             neotree = true,
             treesitter = true,
             treesitter_context = true,
-            ts_rainbow2 = true,
+            rainbow_delimiters = true,
             which_key = true,
         },
     })
