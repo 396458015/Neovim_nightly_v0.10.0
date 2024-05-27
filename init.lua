@@ -1195,8 +1195,8 @@ require("lazy").setup({
     end,
   },
 -- }}}
--- {{{ itchyny/vim-cursorword
-  { "itchyny/vim-cursorword", event = "BufReadPre" },
+-- {{{ sontungexpt/stcursorword
+  { "sontungexpt/stcursorword", event = "BufReadPre", config = true },
 -- }}}
 -- {{{ alvarosevilla95/luatab.nvim
   {
