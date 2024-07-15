@@ -2413,27 +2413,27 @@ require("lazy").setup({
         },
     })
 
-    require('which-key').register {
-        ['<leader>c']  = { name = '[C]omment' },
-        ['<leader>d']  = { name = '[D]iff' },
-        ['<leader>f']  = { name = 'Leader[F]' },
-        ['<leader>g']  = { name = '[G]it' },
-        ['<leader>s']  = { name = '[S]pell' },
-        ['<leader>o']  = { name = '[O]rg' },
-        ['<leader>w']  = { name = 'Python Send' },
-        ['<leader>l']  = { name = '[L]SP', _ = 'which_key_ignore' },
+    require("which-key").add({
+      { "<leader>c",  desc = "[C]omment", icon = "" },
+      { "<leader>d",  desc = "[D]iff", icon = "" },
+      { "<leader>f",  desc = "Leader[F]", icon = "" },
+      { "<leader>g",  desc = "[G]it", icon = "" },
+      { "<leader>s",  desc = "[S]pell" },
+      { "<leader>o",  desc = "[O]rg", icon = "" },
+      { "<leader>w",  desc = "Python Send", icon = "" },
+      { "<leader>l",  desc = "[L]SP", icon = "ﲳ" },
 
-        ['<leader>r']  = { name = 'VIM[R]C & [S]nippets' },
-        ['<leader>rs'] = { name = '[S]nippets' },
+      { "<leader>r",  desc = "VIM[R]C & [S]nippets", icon = "" },
+      { "<leader>rs", desc = "[S]nippets", icon = "" },
 
-        ['<leader>t']  = { name = '[T]erminal' },
-        ['<leader>tn'] = { name = 'Term [N]ext' },
-        ['<leader>tp'] = { name = 'I[P]yhon' },
-        ['<leader>ta'] = { name = 'Term([A]dmin)' },
+      { "<leader>t",  desc = "[T]erminal", icon = "" },
+      { "<leader>tn", desc = "Term [N]ext", icon = "" },
+      { "<leader>tp", desc = "I[P]yhon", icon = "" },
+      { "<leader>ta", desc = "Term([A]dmin)", icon = "" },
 
-        ['<localleader>l'] = { name = '[L]atex' },
-        ['<localleader>w'] = { name = '[W]eather Forecast' },
-    }
+      { "<localleader>l",  desc = "[L]atex", icon = "ﭨ" },
+      { "<localleader>w",  desc = "[W]eather Forecast", icon = ""},
+    })
     end,
   },
 -- }}}
