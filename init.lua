@@ -2422,38 +2422,38 @@ require("lazy").setup({
     })
 
     require("which-key").add({
-      { "<leader>c",      desc = "[C]omment",            icon = { icon = "", color = "red" } },
-      { "<leader>d",      desc = "[D]iff",               icon = { icon = "", color = "orange" } },
-      { "<leader>f",      desc = "Leader[F]",            icon = { icon = "", color = "cyan" } },
-      { "<leader>g",      desc = "[G]it",                icon = { icon = "", color = "orange" } },
-      { "<leader>s",      desc = "[S]pell",              icon = { icon = "", color = "red" } },
-      { "<leader>o",      desc = "[O]rg",                icon = { icon = "", color = "green" } },
-      { "<leader>w",      desc = "Python Send",          icon = { icon = "", color = "yellow" } },
-      { "<leader>l",      desc = "[L]SP",                icon = { icon = "ﲳ", color = "orange" } },
+        { "<leader>c",      desc = "[C]omment",            icon = { icon = "", color = "red" } },
+        { "<leader>d",      desc = "[D]iff",               icon = { icon = "", color = "orange" } },
+        { "<leader>f",      desc = "Leader[F]",            icon = { icon = "", color = "cyan" } },
+        { "<leader>g",      desc = "[G]it",                icon = { icon = "", color = "orange" } },
+        { "<leader>s",      desc = "[S]pell",              icon = { icon = "", color = "red" } },
+        { "<leader>o",      desc = "[O]rg",                icon = { icon = "", color = "green" } },
+        { "<leader>w",      desc = "Python Send",          icon = { icon = "", color = "yellow" } },
+        { "<leader>l",      desc = "[L]SP",                icon = { icon = "ﲳ", color = "orange" } },
 
-      { "<leader>r",      desc = "VIM[R]C & [S]nippets", icon = { icon = "", color = "green" } },
-      { "<leader>rs",     desc = "[S]nippets",           icon = { icon = "", color = "yellow" } },
+        { "<leader>r",      desc = "VIM[R]C & [S]nippets", icon = { icon = "", color = "green" } },
+        { "<leader>rs",     desc = "[S]nippets",           icon = { icon = "", color = "yellow" } },
 
-      { "<leader>t",      desc = "[T]erminal",           icon = { icon = "", color = "grey" } },
-      { "<leader>tn",     desc = "Term [N]ext",          icon = { icon = "", color = "grey" } },
-      { "<leader>tp",     desc = "I[P]yhon",             icon = { icon = "", color = "yellow" } },
-      { "<leader>ta",     desc = "Term([A]dmin)",        icon = { icon = "", color = "yellow" } },
+        { "<leader>t",      desc = "[T]erminal",           icon = { icon = "", color = "grey" } },
+        { "<leader>tn",     desc = "Term [N]ext",          icon = { icon = "", color = "grey" } },
+        { "<leader>tp",     desc = "I[P]yhon",             icon = { icon = "", color = "yellow" } },
+        { "<leader>ta",     desc = "Term([A]dmin)",        icon = { icon = "", color = "yellow" } },
 
-      { "<localleader>l", desc = "[L]atex",              icon = { icon = "ﭨ", color = "green" } },
-      { "<localleader>w", desc = "[W]eather Forecast",   icon = { icon = "", color = "blue" } },
+        { "<localleader>l", desc = "[L]atex",              icon = { icon = "ﭨ", color = "green" } },
+        { "<localleader>w", desc = "[W]eather Forecast",   icon = { icon = "", color = "blue" } },
 
       -- set function icon
-      { "<leader>,",      desc = "Calculator",   icon = { icon = "", color = "cyan" } }, -- bug
-      { "<leader>\\",     desc = "Smart split",  icon = { icon = "", color = "yellow" } },
-      { "<leader>z",      desc = "Replace Word", icon = { icon = "", color = "red" } },
-      { "<leader>b",      desc = "Columns Num",  icon = { icon = "", color = "blue" } },
-      { "<leader>q",      desc = "[Q]uit/Kill Buffer",  icon = { icon = "", color = "purple" } },
-      { "<leader>y",      desc = "[Y]ank Path (file)",  icon = { icon = "", color = "cyan" } },
-      { "<leader><Tab>",  desc = "[Tab]new",  icon = { icon = "󰓩", color = "yellow" } },
+        { "<leader>,",      desc = "Calculator",   icon = { icon = "", color = "cyan" } }, -- bug
+        { "<leader>\\",     desc = "Smart split",  icon = { icon = "", color = "yellow" } },
+        { "<leader>z",      desc = "Replace Word", icon = { icon = "", color = "red" } },
+        { "<leader>b",      desc = "Columns Num",  icon = { icon = "", color = "blue" } },
+        { "<leader>q",      desc = "[Q]uit/Kill Buffer",  icon = { icon = "", color = "purple" } },
+        { "<leader>y",      desc = "[Y]ank Path (file)",  icon = { icon = "", color = "cyan" } },
+        { "<leader><Tab>",  desc = "[Tab]new",  icon = { icon = "󰓩", color = "yellow" } },
 
-      { "<localleader>e",  desc = "Yazi",  icon = { icon = "󰙅", color = "orange" } },
-      { "<localleader>T",  desc = "[T]ag",  icon = { icon = "ﰠ", color = "purple" } },
-      { "<localleader>F",  desc = "[F]unction",  icon = { icon = "ƒ", color = "cyan" } },
+        { "<localleader>e",  desc = "Yazi",  icon = { icon = "󰙅", color = "orange" } },
+        { "<localleader>T",  desc = "[T]ag",  icon = { icon = "ﰠ", color = "purple" } },
+        { "<localleader>F",  desc = "[F]unction",  icon = { icon = "ƒ", color = "cyan" } },
     })
     end,
   },
