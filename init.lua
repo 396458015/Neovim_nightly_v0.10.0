@@ -2403,7 +2403,7 @@ require("lazy").setup({
             breadcrumb = "»",
             separator = "",-- ➜
             group = "+",
-            -- set plugin icon
+            -- set plugin icon (color: azure, blue, cyan, green, grey, orange, purple, red, yellow)
             rules = {
                 { plugin = "neo-tree.nvim",           icon = "󰙅", color = "orange" },
                 { plugin = "global-note.nvim",        icon = "", color = "green" }, -- 󰝖
