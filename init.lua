@@ -2401,8 +2401,8 @@ require("lazy").setup({
         },
         icons = {
             breadcrumb = "»",
-            separator = "",-- ➜
-            group = "+",
+            separator = "",  -- ➜
+            group = "", -- + 󰙅  
             -- set plugin icon (color: azure, blue, cyan, green, grey, orange, purple, red, yellow)
             rules = {
                 { plugin = "neo-tree.nvim",           icon = "󰙅", color = "orange" },
@@ -2453,7 +2453,7 @@ require("lazy").setup({
 
         { "<localleader>e",  desc = "Yazi",  icon = { icon = "󰙅", color = "orange" } },
         { "<localleader>T",  desc = "[T]ag",  icon = { icon = "ﰠ", color = "purple" } },
-        { "<localleader>F",  desc = "[F]unction",  icon = { icon = "ƒ", color = "cyan" } },
+        { "<localleader>F",  desc = "[F]unction",  icon = { icon = "", color = "cyan" } },
     })
     end,
   },
