@@ -2446,7 +2446,7 @@ require("lazy").setup({
         { "<leader>,",      desc = "Calculator",   icon = { icon = "", color = "cyan" } }, -- bug
         { "<leader>\\",     desc = "Smart split",  icon = { icon = "", color = "yellow" } },
         { "<leader>z",      desc = "Replace Word", icon = { icon = "", color = "red" } },
-        { "<leader>b",      desc = "Columns Num",  icon = { icon = "", color = "blue" } },
+        { "<leader>b",      desc = "Columns Num",  icon = { icon = "", color = "cyan" } },
         { "<leader>q",      desc = "[Q]uit/Kill Buffer",  icon = { icon = "", color = "purple" } },
         { "<leader>y",      desc = "[Y]ank Path (file)",  icon = { icon = "", color = "cyan" } },
         { "<leader><Tab>",  desc = "[Tab]new",  icon = { icon = "󰓩", color = "yellow" } },
