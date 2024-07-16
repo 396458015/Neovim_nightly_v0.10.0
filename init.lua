@@ -2407,7 +2407,7 @@ require("lazy").setup({
             rules = {
                 { plugin = "neo-tree.nvim",           icon = "󰙅", color = "orange" },
                 { plugin = "global-note.nvim",        icon = "", color = "green" }, -- 󰝖
-                { plugin = "vim-interestingwords",    icon = "", color = "purple" },
+                { plugin = "vim-interestingwords",    icon = "", color = "red" },
                 { plugin = "undotree",                icon = "", color = "red" },
                 { plugin = "cellular-automaton.nvim", icon = "", color = "red" },
             },
