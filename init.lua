@@ -559,7 +559,7 @@ require("lazy").setup({
                             action  = 'Leaderf file'
                         },
                         {
-                            icon    = '  ',--
+                            icon    = '  ',-- 
                             icon_hl = 'Title',
                             desc    = 'Recently Files',
                             desc_hl = 'String',
@@ -2402,7 +2402,7 @@ require("lazy").setup({
         icons = {
             breadcrumb = "»",
             separator = "",  -- ➜
-            group = "", -- + 󰙅  
+            group = "", -- + 󰙅    
             -- set plugin icon (color: azure, blue, cyan, green, grey, orange, purple, red, yellow)
             rules = {
                 { plugin = "neo-tree.nvim",           icon = "󰙅", color = "orange" },
@@ -2454,6 +2454,7 @@ require("lazy").setup({
         { "<localleader>e",  desc = "Yazi",  icon = { icon = "󰙅", color = "orange" } },
         { "<localleader>T",  desc = "[T]ag",  icon = { icon = "ﰠ", color = "purple" } },
         { "<localleader>F",  desc = "[F]unction",  icon = { icon = "", color = "cyan" } },
+        { "<localleader>r",  desc = "[R]ecently Files",  icon = { icon = "", color = "green" } },
     })
     end,
   },
