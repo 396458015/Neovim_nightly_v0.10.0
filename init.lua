@@ -2413,8 +2413,8 @@ require("lazy").setup({
             },
         },
         keys = {
-            scroll_down = '<c-f>',
-            scroll_up = '<c-b>',
+            scroll_down = '<c-d>',
+            scroll_up = '<c-u>',
         },
         layout = {
             align = "center",  --left, center, right
@@ -2425,6 +2425,7 @@ require("lazy").setup({
         { "<leader>c",      desc = "[C]omment",            icon = { icon = "", color = "red" } },
         { "<leader>d",      desc = "[D]iff",               icon = { icon = "", color = "orange" } },
         { "<leader>f",      desc = "Leader[F]",            icon = { icon = "", color = "cyan" } },
+        { "<leader>fr",     desc = "[R]ecently Files",     icon = { icon = "", color = "green" } },
         { "<leader>g",      desc = "[G]it",                icon = { icon = "", color = "orange" } },
         { "<leader>s",      desc = "[S]pell",              icon = { icon = "", color = "red" } },
         { "<leader>o",      desc = "[O]rg",                icon = { icon = "", color = "green" } },
