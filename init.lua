@@ -1831,7 +1831,7 @@ require("lazy").setup({
         "hiphish/rainbow-delimiters.nvim",
     },
     opts = {
-      ensure_installed = { "bash", "python", "fortran", "c", "vim", "vimdoc", "query", "lua", "bibtex", "markdown", "org", "matlab", "json", "toml", "yaml", "typst", "ini"  },
+      ensure_installed = { "bash", "python", "fortran", "c", "vim", "vimdoc", "query", "lua", "bibtex", "markdown", "org", "matlab", "json", "toml", "yaml", "typst", "ini", "bibtex", "latex" },
       auto_install = true,
       highlight = {
         enable = true,
