@@ -20,12 +20,8 @@ local key_opts_ns   = { noremap = true, silent = true }
 local key_opts_n    = { noremap = true }
 local key_opts_s    = { silent = true }
 neomap("", ";", ":", key_opts_n)
-neomap("n", "s", "<nop>", key_opts_ns)
-neomap("x", "s", "<nop>", key_opts_ns)
-neomap("n", "r", "<nop>", key_opts_ns)
-neomap("x", "r", "<nop>", key_opts_ns)
-neomap("n", "<Space>", "<nop>", key_opts_ns)
-neomap("n", ",", "<nop>", key_opts_ns)
+neomap({ "n", "x" }, "s", "<nop>", key_opts_ns)
+neomap({ "n", "x" }, "r", "<nop>", key_opts_ns)
 -- x,c仅复制,不更改寄存器.(d为剪切)
 neomap("n", "x", "\"_x", key_opts_ns)
 neomap("v", "x", "\"_x", key_opts_ns)
