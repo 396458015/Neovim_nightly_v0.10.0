@@ -2354,9 +2354,15 @@ require("lazy").setup({
 			attach_to_untracked = false,
 		})
     -- signs color
-    vim.api.nvim_set_hl(0, "GitSignsAdd",    { fg = "#a6d189", bg = "None" })
-    vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#e78284", bg = "None" })
-    vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#26deff", bg = "None" })
+        if vim.o.background == 'dark' then
+            vim.api.nvim_set_hl(0, "GitSignsAdd",    { fg = "#a6d189", bg = "None" })
+            vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#e78284", bg = "None" })
+            vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#26deff", bg = "None" })
+        elseif vim.o.background == 'light' then
+            vim.api.nvim_set_hl(0, "GitSignsAdd",    { fg = "#40a02b", bg = "None" })
+            vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#d20f39", bg = "None" })
+            vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#04a5e5", bg = "None" })
+        end
     -- word_diff color
     vim.api.nvim_set_hl(0, "GitSignsAddInline",    { fg = "#00cc00", bg = "#005500" })
     vim.api.nvim_set_hl(0, "GitSignsDeleteInline", { fg = "#cc0000", bg = "#550000" })
@@ -2536,21 +2542,15 @@ nvim_create_augroups({
 if vim.fn.has('gui_running') == 1 then
 -- random colorscheme
     local colorscheme_list = {
--- light
-        -- 'catppuccin-latte',
--- dark
-        'catppuccin-frappe',
-        -- 'catppuccin-macchiato',
-        -- 'catppuccin-mocha',
+        -- 'catppuccin-latte',  -- light
+        'catppuccin-frappe',  -- dark: macchiato, mocha
     }
     local randomIndex_CS = math.random(1,#colorscheme_list)
     vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
 else
     local colorscheme_list = {
--- light
-        -- 'catppuccin-latte',
--- dark
-        'catppuccin-frappe',
+        'catppuccin-latte',  -- light
+        -- 'catppuccin-frappe',  -- dark: macchiato, mocha
     }
     local randomIndex_CS = math.random(1,#colorscheme_list)
     vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
@@ -2562,15 +2562,19 @@ end
 -- {{{ highlihgt (origin neovim & plugins)
 -- cmp color
 local fgdark = "#2E3440"
-vim.api.nvim_set_hl(0, "PmenuSel", { fg = nil,       bg = "#3c4452"}) -- cmp 选中行背景颜色
-vim.api.nvim_set_hl(0, "Pmenu",    { fg = "#949cbb", bg = nil}) -- cmp documentation font color
-
+vim.api.nvim_set_hl(0, "Pmenu",    { fg = "#5b678f", bg = nil}) -- cmp documentation font color
 if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatch",      { fg = "#82AAFF", bg = nil, bold = true })  -- #9CDCFE
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#b5585f", bg = nil, bold = true })
+    vim.api.nvim_set_hl(0, "PmenuSel", { fg = nil, bg = "#3c4452"}) -- cmp 选中行背景颜色
+    vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = fgdark, bg = "#7E8294" }) -- #9CDCFE
+    vim.api.nvim_set_hl(0, "CmpItemKindFile",     { fg = fgdark, bg = "#7E8294" })  -- #9CDCFE
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatch",      { fg = "#2E3440", bg = nil, bold = true })
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#d73a4a", bg = nil, bold = true })
+    vim.api.nvim_set_hl(0, "PmenuSel", { fg = nil, bg = "#ccd0da"}) -- cmp 选中行背景颜色
+    vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = fgdark, bg = "#acb0be" }) -- #9CDCFE
+    vim.api.nvim_set_hl(0, "CmpItemKindFile",     { fg = fgdark, bg = "#acb0be" })  -- #9CDCFE
 end
 
 vim.api.nvim_set_hl(0, "CmpItemAbbr",           { fg = "#949cbb", bg = nil })  -- #abb2bf
@@ -2594,9 +2598,6 @@ vim.api.nvim_set_hl(0, "CmpItemKindStruct",   { fg = fgdark, bg = "#A377BF" })
 vim.api.nvim_set_hl(0, "CmpItemKindClass",    { fg = fgdark, bg = "#A377BF" })
 vim.api.nvim_set_hl(0, "CmpItemKindModule",   { fg = fgdark, bg = "#A377BF" })
 vim.api.nvim_set_hl(0, "CmpItemKindOperator", { fg = fgdark, bg = "#A377BF" })
-
-vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = fgdark, bg = "#7E8294" }) -- #9CDCFE
-vim.api.nvim_set_hl(0, "CmpItemKindFile",     { fg = fgdark, bg = "#7E8294" })  -- #9CDCFE
 
 vim.api.nvim_set_hl(0, "CmpItemKindUnit",    { fg = fgdark, bg = "#D4A959" })
 vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = fgdark, bg = "#D4A959" })
