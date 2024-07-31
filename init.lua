@@ -969,6 +969,7 @@ require("lazy").setup({
         -- enable these if you are using the latest version of yazi
         -- use_ya_for_events_reading = true,
         -- use_yazi_client_id_flag = true,
+        floating_window_scaling_factor = 0.94,
         keymaps = {
             show_help = '<f1>',
             open_file_in_vertical_split = '<c-v>',
