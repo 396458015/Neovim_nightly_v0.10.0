@@ -971,6 +971,13 @@ require("lazy").setup({
         -- use_yazi_client_id_flag = true,
         keymaps = {
             show_help = '<f1>',
+            open_file_in_vertical_split = '<c-v>',
+            open_file_in_horizontal_split = '<c-x>',
+            open_file_in_tab = '<c-t>',
+            grep_in_directory = '<nop>',
+            replace_in_directory = '<nop>',
+            cycle_open_buffers = '<nop>',
+            copy_relative_path_to_selected_files = '<nop>',
         },
     },
   },
@@ -1498,6 +1505,7 @@ require("lazy").setup({
                 ["<cr>"] = "open",
 
                 ["<C-v>"] = "open_vsplit",
+                ["<c-x>"] = "open_split",
                 ["<C-t>"] = "open_tabnew",
 
                 ["a"] = "add",
