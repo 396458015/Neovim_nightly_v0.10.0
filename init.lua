@@ -899,7 +899,7 @@ require("lazy").setup({
         neomap("n","<leader>to",":FloatermNew --position=center --width=0.9 --height=0.9<CR>", { desc = 'New Term' })
         -- neomap("n","<localleader>e",":FloatermNew! --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --slower
         -- neomap("n","<localleader>e",":FloatermNew --position=center --width=0.9 --height=0.9 --autoclose=1 lfcd<CR>") --faster
-        neomap("n","<localleader>e",":FloatermNew --position=center --width=0.99 --height=0.99 --autoclose=1 yazi<CR>", { desc = 'Yazi' }) --faster
+        -- neomap("n","<localleader>e",":FloatermNew --position=center --width=0.99 --height=0.99 --autoclose=1 yazi<CR>", { desc = 'Yazi' }) --faster
         neomap("n","<leader>tt",":FloatermToggle<CR>", { desc = '[T]oggle Term' })
         neomap("n","<leader>tr",":FloatermNew<CR>rg.exe<Space>" , { desc = '[R]g' })
         neomap('n', '<M-o>', ':FloatermNew SumatraPdf <C-r><C-l><CR>', {})
@@ -952,6 +952,28 @@ require("lazy").setup({
     end,
   },
 -- }}}
+  {
+    "mikavilpas/yazi.nvim",
+    keys = {
+    -- 👇 in this section, choose your own keymappings!
+        -- { "<leader>-", function() require("yazi").yazi() end, desc = "Open the file manager" },
+    -- Open in the current working directory
+        { "<A-f>", function() require("yazi").yazi(nil, vim.fn.getcwd()) end, desc = "Open the file manager in nvim's working directory" },
+    -- NOTE: requires a version of yazi that includes
+    -- https://github.com/sxyazi/yazi/pull/1305 from 2024-07-18
+        -- { '<c-up>', function() require('yazi').toggle() end, desc = "Resume the last yazi session" },
+    },
+    opts = {
+        -- if you want to open yazi instead of netrw, see below for more info
+        open_for_directories = false,
+        -- enable these if you are using the latest version of yazi
+        -- use_ya_for_events_reading = true,
+        -- use_yazi_client_id_flag = true,
+        keymaps = {
+            show_help = '<f1>',
+        },
+    },
+  },
 -- {{{ iamcco/markdown-preview.nvim
   {
     "iamcco/markdown-preview.nvim",
@@ -1475,8 +1497,8 @@ require("lazy").setup({
                 ["<2-leftmouse>"] = "open",
                 ["<cr>"] = "open",
 
-                ["s"] = "open_vsplit",
-                ["t"] = "open_tabnew",
+                ["<C-v>"] = "open_vsplit",
+                ["<C-t>"] = "open_tabnew",
 
                 ["a"] = "add",
                 ["A"] = "add_directory",
@@ -2454,7 +2476,6 @@ require("lazy").setup({
             { "<leader>y",      desc = "[Y]ank Path (file)",  icon = { icon = "", color = "cyan" } },
             { "<leader><Tab>",  desc = "[Tab]new",  icon = { icon = "󰓩", color = "yellow" } },
 
-            { "<localleader>e",  desc = "Yazi",  icon = { icon = "󰙅", color = "orange" } },
             { "<localleader>T",  desc = "[T]ag",  icon = { icon = "ﰠ", color = "purple" } },
             { "<localleader>F",  desc = "[F]unction",  icon = { icon = "", color = "cyan" } },
             { "<localleader>r",  desc = "[R]ecently Files",  icon = { icon = "", color = "green" } },
