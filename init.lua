@@ -536,7 +536,7 @@ require("lazy").setup({
                     },
                     center = {
                         {
-                            icon    = '  ',
+                            icon    = '  ',  -- 
                             icon_hl = 'Title',
                             desc    = 'New File',
                             desc_hl = 'String',
@@ -1894,6 +1894,7 @@ require("lazy").setup({
               neomap("n", "<leader>rsm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", { desc = 'Snippets: [M]atlab' })
               neomap("n", "<leader>rsp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", { desc = 'Snippets: [P]ython' })
               neomap("n", "<leader>rso", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { desc = 'Snippets: [O]rg' })
+              neomap("n", "<leader>rsl", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/Code/User/snippets/latex.json<CR>", { desc = 'Snippets: [L]aTeX' })
               end,
             },
             { "hrsh7th/cmp-nvim-lsp" },

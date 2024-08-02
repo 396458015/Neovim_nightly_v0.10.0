@@ -8,9 +8,11 @@
 
    4.lazygit (copy file)  
 
+   5.starship (edit)  
+
 ## terminal emulator
 
-   5.alacritty (copy file)  
+   6.alacritty (copy file)  
 
-   6.wezterm (edit)  
+   7.wezterm (edit)  
 
