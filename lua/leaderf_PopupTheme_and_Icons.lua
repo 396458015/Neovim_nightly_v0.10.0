@@ -190,6 +190,7 @@ vim.g.Lf_DevIconsExtensionSymbols = {
     ["pkg"]   =   "",
     ["bat"]   =   "",
     ["xmind"] =   "",
+    ["ps1"]   =   "󰨊",
 }
 vim.g.Lf_DevIconsPalette = {
     dark = {
@@ -319,9 +320,8 @@ vim.g.Lf_DevIconsPalette = {
         ["pkg"]    =  { guifg = "#10bb10", ctermfg = "15" },
         ["bat"]    =  { guifg = "#C1F12E", ctermfg = "15" },
         ["xmind"]  =  { guifg = "#f4b8e4", ctermfg = "15" },
-    }
-}
-vim.g.Lf_DevIconsPalette = {
+        ["ps1"]    =  { guifg = "#4273ca", ctermfg = "15" },
+    },
     light = {
         ["txt"]    =  { guifg = "#6eac42", ctermfg = "15" },
         ["md"]     =  { guifg = "#47a2df", ctermfg = "15" },
@@ -449,5 +449,6 @@ vim.g.Lf_DevIconsPalette = {
         ["pkg"]    =  { guifg = "#10bb10", ctermfg = "15" },
         ["bat"]    =  { guifg = "#C1F12E", ctermfg = "15" },
         ["xmind"]  =  { guifg = "#f4b8e4", ctermfg = "15" },
+        ["ps1"]    =  { guifg = "#4273ca", ctermfg = "15" },
     }
 }
