@@ -2,7 +2,7 @@ local DevIcons = require("nvim-web-devicons")
 DevIcons.set_icon {
     ["txt"]    =  {icon = "", color = "#89e051", cterm_color = "108", name = "Txt"    },
     ["md"]     =  {icon = "", color = "#ffffff", cterm_color = "108", name = "Md"     },
-    ["tex"]    =  {icon = "ﭨ", color = "#46c8a8", cterm_color = "108", name = "Tex"    },
+    ["tex"]    =  {icon = "", color = "#56a34a", cterm_color = "108", name = "Tex"    }, -- ﭨ
     ["org"]    =  {icon = "", color = "#5dbd7e", cterm_color = "108", name = "Org"    },
     ["norg"]   =  {icon = "", color = "#5dbd7e", cterm_color = "108", name = "Norg"   },
     ["zip"]    =  {icon = "", color = "#f4b8e4", cterm_color = "108", name = "Zip"    },
