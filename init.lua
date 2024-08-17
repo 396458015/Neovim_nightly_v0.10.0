@@ -952,6 +952,7 @@ require("lazy").setup({
     end,
   },
 -- }}}
+-- {{{ sxyazi/yazi
   {
     "mikavilpas/yazi.nvim",
     keys = {
@@ -982,6 +983,7 @@ require("lazy").setup({
         },
     },
   },
+-- }}}
 -- {{{ iamcco/markdown-preview.nvim
   {
     "iamcco/markdown-preview.nvim",
