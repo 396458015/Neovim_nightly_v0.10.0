@@ -283,6 +283,7 @@ local vim_opts = {
     wildmode = "longest:full,full",  -- Command-line completion mode
     wrap = true,
     writebackup = false,
+    inccommand="nosplit"
     -- shell = "C:/PROGRA~1/PowerShell/7/pwsh.exe" -- pwsh7,启动速度200+ms
 }
 for k, v in pairs(vim_opts) do
