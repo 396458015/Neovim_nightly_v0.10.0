@@ -1431,8 +1431,10 @@ require("lazy").setup({
     --color
     if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
         vim.api.nvim_set_hl(0, "IncSearch", { fg = "#000000", bg = "#d73a4a", bold = true })
+        vim.api.nvim_set_hl(0, "CurSearch", { fg = "#000000", bg = "#d73a4a", bold = true }) -- set hlslens color
     elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
         vim.api.nvim_set_hl(0, "IncSearch", { fg = "#000000", bg = "#e78284", bold = true })
+        vim.api.nvim_set_hl(0, "CurSearch", { fg = "#000000", bg = "#e78284", bold = true }) -- set hlslens color
     end
     end,
   },
