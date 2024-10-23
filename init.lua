@@ -2587,6 +2587,9 @@ nvim_create_augroups({
 -- }}}
 
 -- {{{ colorscheme
+local is_alacritty = vim.loop.os_getenv("alacritty")
+local is_wezterm   = vim.loop.os_getenv("wezterm")
+
 if vim.fn.has('gui_running') == 1 then
 -- random colorscheme
     local colorscheme_list = {
@@ -2596,15 +2599,14 @@ if vim.fn.has('gui_running') == 1 then
     local randomIndex_CS = math.random(1,#colorscheme_list)
     vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
 else
-    local colorscheme_list = {
-        'catppuccin-latte',  -- light
-        -- 'catppuccin-frappe',  -- dark: macchiato, mocha
-    }
-    local randomIndex_CS = math.random(1,#colorscheme_list)
-    vim.cmd('colorscheme ' .. colorscheme_list[randomIndex_CS])
+    if is_alacritty then
+        vim.cmd('colorscheme catppuccin-frappe')
+    elseif is_wezterm then
+        vim.cmd('colorscheme catppuccin-latte')
+    else
+        vim.cmd('colorscheme catppuccin-frappe')
+    end
 end
--- vim.cmd('colorscheme catppuccin-frappe')
--- vim.cmd('colorscheme catppuccin-latte')
 -- }}}
 
 -- {{{ highlihgt (origin neovim & plugins)
