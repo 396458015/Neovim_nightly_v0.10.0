@@ -322,6 +322,7 @@ vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe
 -- }}}
 
 -- {{{ Lazy.nvim
+-- {{{ Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -355,6 +356,7 @@ require("lazy").setup({
       }
     end,
   },
+-- }}}
 -- Local plugins
 -- {{{ Dir = vim-speeddating-master
   { dir = "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Local_Plugins/vim-speeddating-master", ft = { "markdown" } }, --modified
