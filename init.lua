@@ -1279,34 +1279,36 @@ require("lazy").setup({
     end,
   },
 -- }}}
--- {{{ shellRaining/hlchunk.nvim
+-- {{{ folke/snacks.nvim
   {
-    "shellRaining/hlchunk.nvim",
-    event = "BufRead",
-    config = function()
-    require('hlchunk').setup({
-        chunk = {
-            enable = true,
-            exclude_filetypes = {
-                aerial = true,
-                dashboard = true,
-                startify = true,
-            },
-            support_filetypes = {
-                "*.lua",
-                "*.js",
-                "*.m",
-                "*.py",
-            },
-        },
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
         indent = {
-            enable = true,
-            chars = { "│", "¦", "┆", "┊", },
+            enabled = true,
+            indent = {
+                char = "¦", -- | ¦ ┆ ┊ │ 
+                hl = "LineNr",
+            },
+            animate = { enabled = false },
+            scope = { enabled = true, hl = "LineNr", char = "│" },
+            chunk = {
+                enabled = true,
+                char = {
+                    corner_top = "╭",
+                    corner_bottom = "╰",
+                    horizontal = "─",
+                    vertical = "│",
+                    arrow = ">",
+                },
+            },
+            blank = {
+                char = ' ',
+            },
         },
-        line_num = { enable = false },
-        blank = { enable = false },
-    })
-    end,
+    },
   },
 -- }}}
 -- {{{ windwp/nvim-autopairs
@@ -1743,6 +1745,7 @@ require("lazy").setup({
         integrations = {
             cmp = true,
             -- telescope = true,
+            snacks = true,
             dashboard = true,
             flash = true,
             markdown = true,
