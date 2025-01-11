@@ -2208,10 +2208,10 @@ require("lazy").setup({
             -- default = { 'lsp', 'path', 'snippets', 'buffer', 'cmp_matlab', 'dictionary' },
             default = { 'lsp', 'path', 'snippets', 'buffer', 'cmp_matlab' },
 
-            -- per_filetype = {
-            --     lua = { 'lsp', 'path', 'snippets' },
-            --     python = { 'lsp', 'path', 'snippets' },
-            -- },
+            per_filetype = {
+                lua = { 'lsp', 'path', 'snippets' },
+                python = { 'lsp', 'path', 'snippets' },
+            },
 
             cmdline = function()
               local type = vim.fn.getcmdtype()
