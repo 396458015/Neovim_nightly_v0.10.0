@@ -256,6 +256,7 @@ local vim_opts = {
     shiftround = true,
     shiftwidth = 4,  -- Size of an indent
     showcmd = true,
+    showcmdloc = "statusline",
     showmatch = true,  -- 显示括号配对情况
     sidescroll = 5,
     sidescrolloff = 15,
@@ -471,6 +472,9 @@ require("lazy").setup({
                 },
             },
             lualine_x = {
+                {
+                    '%S',
+                },
                 {
                     search_result,
                 },
@@ -978,7 +982,8 @@ require("lazy").setup({
             show_help = '<f1>',
             open_file_in_vertical_split = '<c-v>',
             open_file_in_horizontal_split = '<c-x>',
-            open_file_in_tab = '<c-t>',
+            -- open_file_in_tab = '<c-t>',
+            open_file_in_tab = '<cr>',
             grep_in_directory = '<nop>',
             replace_in_directory = '<nop>',
             cycle_open_buffers = '<nop>',
@@ -1743,8 +1748,7 @@ require("lazy").setup({
         },
         custom_highlights = {},
         integrations = {
-            cmp = true,
-            -- telescope = true,
+            -- blink_cmp = true,
             snacks = true,
             dashboard = true,
             flash = true,
@@ -1895,284 +1899,14 @@ require("lazy").setup({
     end,
   },
 -- }}}
--- {{{ hrsh7th/nvim-cmp
-    {
-        "hrsh7th/nvim-cmp",
-        event = { "InsertEnter", "CmdlineEnter" },
-        dependencies = {
-            { "L3MON4D3/LuaSnip",
-              config = function()
-              require("luasnip/loaders/from_vscode").lazy_load({ paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"}})
-              end,
-              init = function()
-              neomap("n", "<leader>rsm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", { desc = 'Snippets: [M]atlab' })
-              neomap("n", "<leader>rsp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", { desc = 'Snippets: [P]ython' })
-              neomap("n", "<leader>rso", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { desc = 'Snippets: [O]rg' })
-              neomap("n", "<leader>rsl", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/Code/User/snippets/latex.json<CR>", { desc = 'Snippets: [L]aTeX' })
-              end,
-            },
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "hrsh7th/cmp-buffer" },
-            { "hrsh7th/cmp-path" },
-            { "hrsh7th/cmp-emoji" },
-            { "hrsh7th/cmp-calc" },
-            { "mstanciu552/cmp-matlab" },
-            { "lukas-reineke/cmp-under-comparator" },
-            { "ray-x/cmp-treesitter" },
-            { "saadparwaiz1/cmp_luasnip" },
-            { "onsails/lspkind.nvim",
-                branch = "master",
-                commit = "c68b3a0",
-                config = function()
-                    local lspkind_icons = require('lspkind').presets['default']
-                    lspkind_icons['Constructor']   = '  '-- 
-                    lspkind_icons['Field']         = '  '-- ⌘ 
-                    lspkind_icons['Interface']     = ' ﰮ '
-                    lspkind_icons['Unit']          = '  '
-                    lspkind_icons['Snippet']       = '  '-- ✂️   
-                    lspkind_icons['Reference']     = '  '
-                    lspkind_icons['Struct']        = ' פּ '-- 
-                    lspkind_icons['Event']         = '  '
-                    lspkind_icons['TypeParameter'] = '  '
-                    lspkind_icons['Text']          = '  '
-                    lspkind_icons['Method']        = '  '
-                    lspkind_icons['Function']      = ' ƒ '-- ƒ
-                    lspkind_icons['Variable']      = '  '
-                    lspkind_icons['Class']         = ' ﴯ '
-                    lspkind_icons['Module']        = '  '
-                    lspkind_icons['Property']      = ' ﰠ '
-                    lspkind_icons['Value']         = '  '
-                    lspkind_icons['Enum']          = '  '
-                    lspkind_icons['Keyword']       = '  '
-                    lspkind_icons['Color']         = '  '
-                    lspkind_icons['File']          = '  '
-                    lspkind_icons['Folder']        = '  '
-                    lspkind_icons['EnumMember']    = '  '
-                    lspkind_icons['Constant']      = '  '
-                    lspkind_icons['Operator']      = '  '
-                    -- treesitter
-                    lspkind_icons['String']          = '  ' -- 
-                    lspkind_icons['KeywordOperator'] = '  '
-                    lspkind_icons['Error']           = '  '
-                    lspkind_icons['Comment']         = ' 󰆉 ' -- 
-                    lspkind_icons['Boolean']         = '  ' -- 
-                    lspkind_icons['Conditional']     = '  '
-                    lspkind_icons['KeywordReturn']   = ' 󰌑 '
-                    lspkind_icons['Repeat']          = ' 󰑖 '
-                    lspkind_icons['ConstantBuiltin'] = '  ' -- 
-                    lspkind_icons['Number']          = '  '
-                    lspkind_icons['Float']           = '  '
-                    lspkind_icons['FunctionCall']    = '  '
-                    lspkind_icons['KeywordFunction'] = '  '
-                    lspkind_icons['StringEscape']    = ' 󱔁 '
-                    lspkind_icons['Spell']           = ' 暈'
-                    lspkind_icons["KeywordConditional"]  = '  '
-                    lspkind_icons["KeywordRepeat"]       = ' 凌' -- 北
-                    lspkind_icons['Orgtsblock']          = ' ⬛'
-                    lspkind_icons['Orgtsheadlinelevel1'] = ' ◉ '
-                    lspkind_icons['Orgtsheadlinelevel2'] = ' ◉ '
-                    lspkind_icons['Orgtsheadlinelevel3'] = ' ◉ '
-                    lspkind_icons['Orgtsheadlinelevel4'] = ' ◉ '
-                    lspkind_icons['Orgtsheadlinelevel5'] = ' ◉ '
-                    lspkind_icons['Orgtsheadlinelevel6'] = ' ◉ '
-                    lspkind_icons['Orgtsheadlinelevel7'] = ' ◉ '
-                    lspkind_icons['Orgtsheadlinelevel8'] = ' ◉ '
-                    lspkind_icons['Orgtscheckbox']        = '  '
-                    lspkind_icons['Orgtscheckboxchecked'] = '  '
-                end,
-            },
-            { "dmitmel/cmp-cmdline-history" },
-            {
-                "hrsh7th/cmp-cmdline",
-                config = function()
-                    local cmp = require'cmp'
-                    require("cmp").setup.cmdline({ "/", "?" }, {
-                        mapping = require("cmp").mapping.preset.cmdline({
-                            ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
-                        }),
-                        sources = require("cmp").config.sources({
-                            { name = "buffer", keyword_length = 1 },
-                            { name = 'cmdline_history' },
-                        }),
-                    })
-                    require("cmp").setup.cmdline(":", {
-                        mapping = require("cmp").mapping.preset.cmdline({
-                            ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
-                        }),
-                        sources = require("cmp").config.sources({
-                            { name = "path", keyword_length = 1 },
-                            { name = "cmdline", keyword_length = 1 },
-                            { name = 'cmdline_history' },
-                        }),
-                    })
-                end,
-            },
-            {
-                "uga-rosa/cmp-dictionary",
-                branch = "main",
-                commit = "93f3e2c",
-                config = function()
-                    require("cmp_dictionary").setup({
-                        dic = {
-                            --["*"] = { "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Directionary-8813.dic" },
-                            ["*"] = { "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Directionary-69903.dic" },
-                        },
-                        exact = 2,
-                        first_case_insensitive = true,
-                        document = false,
-                        document_command = "wn %s -over",
-                        async = true,     --If you are using a very large dictionary and the body operation is blocked, try 'true'
-                        max_items = -1,   --This is the maximum number of candidates that this source will return to the nvim-cmp body. -1 means no limit.
-                        capacity = 5,
-                        debug = false,
-                    })
-                    --require("cmp_dictionary").update() -- THIS
-                    vim.cmd("CmpDictionaryUpdate")
-                end,
-            },
-        },
-        config = function()
-            require 'luasnip'.config.setup {}
-            local cmp = require('cmp')
-            local lspkind = require('lspkind')
-            local source_mapping = {
-                nvim_lsp        = ' ﲳ ', --[LSP]
-                path            = '  ', --[PATH] 🖫
-                luasnip         = '  ',
-                buffer          = ' ﬘ ', --[BUF]
-                calc            = '  ', --[CALC] 
-                emoji           = ' ﭂ ', --[EMOJI] 😄
-                cmp_matlab      = '[]', --[MAT] [M]
-                dictionary      = '  ', --[Dict] 
-                treesitter      = '  ', --[TS] 
-                orgmode         = '  ', --[Org]
-                cmdline         = ' ﰩ ', -- ﯦ    ﰩ ﳺ
-                cmdline_history = '  ',
-                -- latex_symbols = '[TEX]',
-                -- nuspell       = '[SPELL]',
-                -- spell         = '暈[SPELL]',
-            }
-            cmp.setup({
-                completion = {
-                    completeopt = "menu,menuone,noinsert",
-                },
-                window = {
-                    completion = {
-                        side_padding = 0,
-                        col_offset = -4,
-                        -- border = "rounded",
-                        -- border = { "╭", " ", "╮", "│", "╯", "─", "╰", "│" },
-                        border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
-                        scrollbar = true,
-                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
-                        -- winhighlight = "FloatBorder:FloatBorder,CursorLine:CursorLine",
-                    },
-                    documentation = {
-                        max_width = 50,
-                        -- border = "rounded",
-                        border = { "┌", " ", "┐", "│", "┘", " ", "└", "│" },
-                        scrollbar = true,
-                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
-                        -- winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-                    },
-                },
-                snippet = {
-                    expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
-                    end,
-                },
-                sorting = {
-                    priority_weight = 2,
-                    comparators = {
-                        require("cmp-under-comparator").under,
-                        cmp.config.compare.kind,
-                        cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
-                    },
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-                    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),  -- ["<C-u>"]
-                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),  -- ["<C-d>"]
-                    ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
-                    ['<CR>'] = cmp.mapping.confirm { select = true },
 
-                    ["<Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }
-                    ),
-
-                    -- move in snippet (expansion locations)
-                    ['<C-l>'] = cmp.mapping(function()
-                      if require 'luasnip'.expand_or_locally_jumpable() then
-                        require 'luasnip'.expand_or_jump()
-                      end
-                    end, { 'i', 's' }),
-                    ['<C-h>'] = cmp.mapping(function()
-                      if require 'luasnip'.locally_jumpable(-1) then
-                        require 'luasnip'.jump(-1)
-                      end
-                    end, { 'i', 's' }),
-
-                }),
-                formatting = {
-                    fields = { "kind", "abbr", "menu" },
-                    -- fields = { "abbr", "kind", "menu" },
-                    maxwidth = 60,
-                    maxheight = 10,
-                    format = function(entry, vim_item)
-                        vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
-                        vim_item.menu = source_mapping[entry.source.name]
-                        -- vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
-                        -- vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-                        function Trim(text)
-                            local max = 40
-                            if text and text:len() > max then
-                                text = text:sub(1,max) .. "..."
-                            end
-                            return text
-                        end
-                        vim_item.abbr = Trim(vim_item.abbr)
-                        -- vim_item.abbr = vim_item.abbr:match("[^(]+")
-                        return vim_item
-                    end,
-                },
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'path' },
-                    { name = 'luasnip' },
-                    { name = 'buffer' },
-                    { name = 'calc' },
-                    { name = 'emoji' },
-                    { name = 'cmp_matlab' },
-                    { name = "dictionary", keyword_length = 2 },
-                    { name = "treesitter" },
-                    { name = "orgmode" },
-                    --{ name = "latex_symbols" },
-                }),
-                experimental = {
-                    ghost_text = {
-                        hl_group = 'Comment',
-                    },
-                    -- ghost_text = false,
-                    native_menu = false,
-                },
-            })
-        end,
-    },
-    -- }}}
 -- {{{ neovim/nvim-lspconfig
 -- from "nvim-lua/kickstart.nvim"
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+        { 'saghen/blink.cmp' },
         {
           "williamboman/mason.nvim",
           build = ":MasonUpdate",
@@ -2216,7 +1950,8 @@ require("lazy").setup({
       })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())  -- nvim-cmp
+      capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())  -- blink.cmp
 
       -- { "pylsp", "vimls", "lua_ls", "matlab_ls" }
       local servers = {
@@ -2243,6 +1978,7 @@ require("lazy").setup({
           --     },
           -- },
           pyright = {},
+          -- pylsp = {},
           lua_ls = {
               -- cmd = {...},
               -- filetypes { ...},
@@ -2330,24 +2066,299 @@ require("lazy").setup({
       neomap('n', '<F5>', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
       -- neomap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-      -- vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end -- 取消代码诊断信息显示
     end,
   },
 -- }}}
--- {{{ ray-x/lsp_signature.nvim
+-- {{{ Saghen/blink.cmp
   {
-    "ray-x/lsp_signature.nvim",
-    event = 'LspAttach',
-    config = function()
-        local cfg = {
-            hint_prefix = "📌 ",--🐼,🧐🤔
-        }
-        -- require'lsp_signature'.setup(cfg)
-        -- require'lsp_signature'.on_attach(cfg, bufnr)
-        require'lsp_signature'.on_attach(cfg)
-    end,
+    'saghen/blink.cmp',
+    event = { "InsertEnter", "CmdlineEnter" },
+    dependencies = {
+        -- { "saghen/blink.compat", opts = { impersontate_nvim_cmp = true, } },
+        { "saghen/blink.compat", opts = {} },
+        { "L3MON4D3/LuaSnip",
+            config = function()
+                require("luasnip/loaders/from_vscode").lazy_load({ paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"}})
+            end,
+            init = function()
+                neomap("n", "<leader>rsm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/add_snippets/Maxl_matlab.json<CR>", { desc = 'Snippets: [M]atlab' })
+                neomap("n", "<leader>rsp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/add_snippets/Maxl_python.json<CR>", { desc = 'Snippets: [P]ython' })
+                neomap("n", "<leader>rso", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/add_snippets/Maxl_org.json<CR>", { desc = 'Snippets: [O]rg' })
+                neomap("n", "<leader>rsl", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/Code/User/snippets/latex.json<CR>", { desc = 'Snippets: [L]aTeX' })
+            end,
+        },
+        { "mstanciu552/cmp-matlab" },
+        {
+          "uga-rosa/cmp-dictionary",
+          branch = "main",
+          commit = "93f3e2c",
+          config = function()
+              require("cmp_dictionary").setup({
+                  dic = {
+                      ["*"] = { "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Directionary-8813.dic" },
+                      -- ["*"] = { "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Directionary-69903.dic" },
+                  },
+                  exact = 2,
+                  first_case_insensitive = true,
+                  document = false,
+                  document_command = "wn %s -over",
+                  async = true,     --If you are using a very large dictionary and the body operation is blocked, try 'true'
+                  max_items = -1,   --This is the maximum number of candidates that this source will return to the nvim-cmp body. -1 means no limit.
+                  capacity = 5,
+                  debug = false,
+              })
+              --require("cmp_dictionary").update() -- THIS
+              vim.cmd("CmpDictionaryUpdate")
+          end,
+        },
+    },
+    version = 'v0.*',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+        keymap = {
+            -- preset = 'default',
+            ['<Tab>'] = { 'accept', 'fallback' },
+            ['<Cr>'] = { 'accept', 'fallback' },
+            -- ["<Esc>"] = { "hide", "fallback" },
+
+            ['<C-k>'] = { 'select_prev', 'fallback' },
+            ['<C-j>'] = { 'select_next', 'fallback' },
+
+            ['<C-l>'] = { 'snippet_forward', 'fallback' },
+            ['<C-h>'] = { 'snippet_backward', 'fallback' },
+
+            ['<C-f>'] = { 'select_prev', 'fallback' },
+            ['<C-b>'] = { 'select_next', 'fallback' },
+
+            ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+            ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+
+            ['<C-p>'] = { 'show', 'show_documentation', 'hide_documentation' },
+
+            -- disable a keymap from the preset
+            -- ['<C-e>'] = {},
+
+            cmdline = {
+                ['<C-k>'] = { 'select_prev', 'fallback' },
+                ['<C-j>'] = { 'select_next', 'fallback' },
+                ['<Tab>'] = { 'accept', 'fallback' },
+            },
+        },
+
+        enabled = function() return vim.bo.buftype ~= "prompt" and vim.b.completion ~= false end,
+
+        snippets = { preset = 'luasnip' },
+        -- snippets = {
+        --     expand = function(snippet) require('luasnip').lsp_expand(snippet) end,
+        --     active = function(filter)
+        --         if filter and filter.direction then
+        --             return require('luasnip').jumpable(filter.direction)
+        --         end
+        --         return require('luasnip').in_snippet()
+        --     end,
+        --     jump = function(direction) require('luasnip').jump(direction) end,
+        -- },
+        completion = {
+            accept = {
+                auto_brackets = { enabled = true },
+            },
+            menu = {
+                -- border = 'single',
+                -- border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+                border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
+                min_width = 15,
+                max_height = 15,
+                draw = {
+                    columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+                },
+            },
+            documentation = {
+              auto_show = true,
+              auto_show_delay_ms = 200,
+              update_delay_ms = 50,
+              treesitter_highlighting = true,
+              window = {
+                min_width = 10,
+                max_width = 60,
+                max_height = 20,
+                -- border = 'single', -- padded
+                border = { "┌", " ", "┐", "│", "┘", " ", "└", "│" },
+                winblend = 0,
+                winhighlight = 'Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None',
+                scrollbar = true,
+                direction_priority = {
+                  -- menu_north = { 'e', 'w', 'n', 's' },
+                  -- menu_south = { 'e', 'w', 's', 'n' },
+                  menu_north = { 'e' },
+                  menu_south = { 'e' },
+                },
+              },
+            },
+            ghost_text = {
+              enabled = false,
+            },
+        },
+        signature = {  --🐼,🧐🤔📌
+              enabled = true,
+              window = { border = 'single' },
+        },
+        sources = {
+            -- default = { 'lsp', 'path', 'snippets', 'buffer', 'cmp_matlab', 'dictionary' },
+            default = { 'lsp', 'path', 'snippets', 'buffer', 'cmp_matlab' },
+
+            -- per_filetype = {
+            --     lua = { 'lsp', 'path', 'snippets' },
+            --     python = { 'lsp', 'path', 'snippets' },
+            -- },
+
+            cmdline = function()
+              local type = vim.fn.getcmdtype()
+              -- Search forward and backward
+              if type == '/' or type == '?' then return { 'buffer' } end
+              -- Commands
+              if type == ':' then return { 'cmdline' } end
+              return {}
+            end,
+
+            providers = {
+                lsp = {
+                    name = 'LSP',
+                    module = 'blink.cmp.sources.lsp',
+
+                    enabled = true, -- Whether or not to enable the provider
+                    transform_items = nil, -- Function to transform the items before they're returned
+                    should_show_items = true, -- Whether or not to show the items
+                    max_items = nil, -- Maximum number of items to display in the menu
+                    min_keyword_length = 0, -- Minimum number of characters in the keyword to trigger the provider
+                    fallbacks = {}, -- If any of these providers return 0 items, it will fallback to this provider
+                    score_offset = 0, -- Boost/penalize the score of the items
+                    override = nil, -- Override the source's functions
+                },
+                path = {
+                    name = 'Path',
+                    module = 'blink.cmp.sources.path',
+                    score_offset = 3,
+                    opts = {
+                        trailing_slash = false,
+                        label_trailing_slash = true,
+                        get_cwd = function(context) return vim.fn.expand(('#%d:p:h'):format(context.bufnr)) end,
+                        show_hidden_files_by_default = false,
+                    }
+                },
+                snippets = {
+                    name = 'Snippets',
+                    module = 'blink.cmp.sources.snippets',
+                    score_offset = -3,
+
+                    -- For `snippets.preset == 'default'`
+                    -- opts = {
+                    --     friendly_snippets = true,
+                    --     search_paths = { 'C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/' },
+                    --     global_snippets = { 'all' },
+                    --     extended_filetypes = {},
+                    --     ignored_filetypes = {},
+                    --     get_filetype = function(context)
+                    --         return vim.bo.filetype
+                    --     end,
+                    --     -- Set to '+' to use the system clipboard, or '"' to use the unnamed register
+                    --     clipboard_register = nil,
+                    -- },
+
+                    -- For `snippets.preset == 'luasnip'`
+                    opts = {
+                        -- Whether to use show_condition for filtering snippets
+                        use_show_condition = true,
+                        -- Whether to show autosnippets in the completion list
+                        show_autosnippets = true,
+                    },
+                },
+
+                buffer = {
+                    name = 'Buffer',
+                    module = 'blink.cmp.sources.buffer',
+                    fallbacks = { 'lsp' },
+                    opts = {
+                        -- default to all visible buffers
+                        get_bufnrs = function()
+                            return vim
+                                .iter(vim.api.nvim_list_wins())
+                                :map(function(win) return vim.api.nvim_win_get_buf(win) end)
+                                :filter(function(buf) return vim.bo[buf].buftype ~= 'nofile' end)
+                                :totable()
+                        end,
+                    },
+                },
+                cmp_matlab = {
+                    name = 'cmp_matlab',
+                    module = 'blink.compat.source',
+                    score_offset = -3,
+                    opts = {},
+                    transform_items = function(ctx, items)
+                        local kind = require("blink.cmp.types").CompletionItemKind.Function
+                        for i, _ in ipairs(items) do
+                            items[i].kind = kind
+                        end
+                        return items
+                    end,
+                },
+                dictionary = {
+                    name = 'dictionary',
+                    module = 'blink.compat.source',
+                    score_offset = -3,
+                    opts = {},
+                    transform_items = function(ctx, items)
+                        local kind = require("blink.cmp.types").CompletionItemKind.Text
+                        for i, _ in ipairs(items) do
+                            items[i].kind = kind
+                        end
+                        return items
+                    end,
+                },
+            },
+        },
+        appearance = {
+            use_nvim_cmp_as_default = true,
+            nerd_font_variant = 'mono',
+            kind_icons = {
+                Text = '  ',  --󰉿
+                Method = '  ',  --󰊕
+                Function = '  ',  --󰊕 ƒ
+                Constructor = '  ',  --󰒓
+
+                Field = '  ',  --󰜢
+                Variable = '  ',  --󰜢
+                Property = ' ﰠ ',  --󰖷
+
+                Class = ' ﴯ ',  --󱡠
+                Interface = ' ﰮ ',  --󱡠
+                Struct = ' פּ ',  --󱡠
+                Module = '  ',  --󰅩
+
+                Unit = '  ',  --󰪚
+                Value = '  ',  --󰦨
+                Enum = '  ',  --󰦨
+                EnumMember = '  ',  --󰦨
+
+                Keyword = '  ',  --󰻾
+                Constant = '  ',  --󰏿
+
+                Snippet = '  ',  --󱄽 
+                Color = '  ',  --󰏘
+                File = '  ',  --󰈔
+                Reference = '  ',  --󰬲
+                Folder = '  ',  --󰉋
+                Event = '  ',  --󱐋
+                Operator = '  ',  --󰪚
+                TypeParameter = '  ',  --󰬛
+            },
+        },
+    },
+    opts_extend = { "sources.default" }
   },
 -- }}}
+
 -- {{{ Eandrju/cellular-automaton.nvim
   {
     "Eandrju/cellular-automaton.nvim",
@@ -2623,7 +2634,7 @@ if vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'dark' then
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#b5585f", bg = nil, bold = true })
     vim.api.nvim_set_hl(0, "PmenuSel", { fg = nil, bg = "#3c4452"}) -- cmp 选中行背景颜色
     vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = fgdark, bg = "#7E8294" }) -- #9CDCFE
-    vim.api.nvim_set_hl(0, "CmpItemKindFile",     { fg = fgdark, bg = "#7E8294" })  -- #9CDCFE
+    vim.api.nvim_set_hl(0, "CmpItemKindFile",     { fg = fgdark, bg = "#93a9ed" })  -- #9CDCFE
 elseif vim.fn.exists('&bg') and vim.fn.eval('&bg') == 'light' then
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatch",      { fg = "#2E3440", bg = nil, bold = true })
     vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#d73a4a", bg = nil, bold = true })
@@ -2656,7 +2667,7 @@ vim.api.nvim_set_hl(0, "CmpItemKindOperator", { fg = fgdark, bg = "#A377BF" })
 
 vim.api.nvim_set_hl(0, "CmpItemKindUnit",    { fg = fgdark, bg = "#D4A959" })
 vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = fgdark, bg = "#D4A959" })
-vim.api.nvim_set_hl(0, "CmpItemKindFolder",  { fg = fgdark, bg = "#D4A959" })
+vim.api.nvim_set_hl(0, "CmpItemKindFolder",  { fg = fgdark, bg = "#8ec07c" })
 
 vim.api.nvim_set_hl(0, "CmpItemKindMethod",     { fg = fgdark, bg = "#6C8ED4" })
 vim.api.nvim_set_hl(0, "CmpItemKindValue",      { fg = fgdark, bg = "#6C8ED4" })
