@@ -1,7 +1,7 @@
 local DevIcons = require("nvim-web-devicons")
 DevIcons.set_icon {
     ["txt"]    =  {icon = "", color = "#89e051", cterm_color = "108", name = "Txt"    },
-    ["md"]     =  {icon = "", color = "#ffffff", cterm_color = "108", name = "Md"     },
+    ["md"]     =  {icon = "", color = "#dddddd", cterm_color = "108", name = "Md"     },
     ["tex"]    =  {icon = "", color = "#56a34a", cterm_color = "108", name = "Tex"    }, -- ﭨ
     ["org"]    =  {icon = "", color = "#5dbd7e", cterm_color = "108", name = "Org"    },
     ["norg"]   =  {icon = "", color = "#5dbd7e", cterm_color = "108", name = "Norg"   },
@@ -85,14 +85,14 @@ DevIcons.set_icon {
     ["css"]    =  {icon = "", color = "#61afef", cterm_color = "108", name = "Css"    },
     ["scss"]   =  {icon = "", color = "#f55385", cterm_color = "108", name = "Scss"   },
     ["json"]   =  {icon = "", color = "#cbcb41", cterm_color = "108", name = "Json"   },
-    ["toml"]   =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Toml"   },
+    ["toml"]   =  {icon = "󱄽", color = "#fab387", cterm_color = "108", name = "Toml"   },
     ["yml"]    =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Yml"    },
     ["yaml"]   =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Yaml"   },
     ["ini"]    =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Ini"    },
     ["conf"]   =  {icon = "", color = "#6d8086", cterm_color = "108", name = "Conf"   },
     ["lock"]   =  {icon = "", color = "#f80000", cterm_color = "108", name = "Lock"   },
     ["nix"]    =  {icon = "", color = "#7ebae4", cterm_color = "108", name = "Nix"    },
-    ["m"]      =  {icon = "", color = "#c04c0b", cterm_color = "108", name = "M"      },
+    ["m"]      =  {icon = "", color = "#d6440b", cterm_color = "108", name = "M"      },
     ["for"]    =  {icon = "", color = "#bd93f9", cterm_color = "108", name = "For"    },
     ["lnk"]    =  {icon = "", color = "#e3459f", cterm_color = "108", name = "Lnk"    },
     ["opju"]   =  {icon = "ﴝ", color = "#f66d54", cterm_color = "108", name = "Opju"   },
