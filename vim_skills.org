@@ -957,3 +957,282 @@ end
     vim.api.nvim_set_hl(0, "@org.headline.level8", { fg = "#ff6c6b" })
 -- }}}
    #+END_SRC
+
+
+** nvim-cmp
+   #+BEGIN_SRC lua
+-- {{{ hrsh7th/nvim-cmp
+    {
+        "hrsh7th/nvim-cmp",
+        event = { "InsertEnter", "CmdlineEnter" },
+        dependencies = {
+            { "L3MON4D3/LuaSnip",
+              config = function()
+              require("luasnip/loaders/from_vscode").lazy_load({ paths = {"C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets"}})
+              end,
+              init = function()
+              neomap("n", "<leader>rsm", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/add_snippets/matlab.json<CR>", { desc = 'Snippets: [M]atlab' })
+              neomap("n", "<leader>rsp", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/python/Maxl_python.json<CR>", { desc = 'Snippets: [P]ython' })
+              neomap("n", "<leader>rso", ":<C-U>e C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/friendly-snippets/snippets/org.json<CR>", { desc = 'Snippets: [O]rg' })
+              neomap("n", "<leader>rsl", ":<C-U>e C:/Users/ThinkPad/AppData/Roaming/Code/User/snippets/latex.json<CR>", { desc = 'Snippets: [L]aTeX' })
+              end,
+            },
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "hrsh7th/cmp-buffer" },
+            { "hrsh7th/cmp-path" },
+            { "hrsh7th/cmp-emoji" },
+            { "hrsh7th/cmp-calc" },
+            { "mstanciu552/cmp-matlab" },
+            { "lukas-reineke/cmp-under-comparator" },
+            { "ray-x/cmp-treesitter" },
+            { "saadparwaiz1/cmp_luasnip" },
+            { "onsails/lspkind.nvim",
+                branch = "master",
+                commit = "c68b3a0",
+                config = function()
+                    local lspkind_icons = require('lspkind').presets['default']
+                    lspkind_icons['Constructor']   = '  '-- 
+                    lspkind_icons['Field']         = '  '-- ⌘ 
+                    lspkind_icons['Interface']     = ' ﰮ '
+                    lspkind_icons['Unit']          = '  '
+                    lspkind_icons['Snippet']       = '  '-- ✂️   
+                    lspkind_icons['Reference']     = '  '
+                    lspkind_icons['Struct']        = ' פּ '-- 
+                    lspkind_icons['Event']         = '  '
+                    lspkind_icons['TypeParameter'] = '  '
+                    lspkind_icons['Text']          = '  '
+                    lspkind_icons['Method']        = '  '
+                    lspkind_icons['Function']      = ' ƒ '-- ƒ
+                    lspkind_icons['Variable']      = '  '
+                    lspkind_icons['Class']         = ' ﴯ '
+                    lspkind_icons['Module']        = '  '
+                    lspkind_icons['Property']      = ' ﰠ '
+                    lspkind_icons['Value']         = '  '
+                    lspkind_icons['Enum']          = '  '
+                    lspkind_icons['Keyword']       = '  '
+                    lspkind_icons['Color']         = '  '
+                    lspkind_icons['File']          = '  '
+                    lspkind_icons['Folder']        = '  '
+                    lspkind_icons['EnumMember']    = '  '
+                    lspkind_icons['Constant']      = '  '
+                    lspkind_icons['Operator']      = '  '
+                    -- treesitter
+                    lspkind_icons['String']          = '  ' -- 
+                    lspkind_icons['KeywordOperator'] = '  '
+                    lspkind_icons['Error']           = '  '
+                    lspkind_icons['Comment']         = ' 󰆉 ' -- 
+                    lspkind_icons['Boolean']         = '  ' -- 
+                    lspkind_icons['Conditional']     = '  '
+                    lspkind_icons['KeywordReturn']   = ' 󰌑 '
+                    lspkind_icons['Repeat']          = ' 󰑖 '
+                    lspkind_icons['ConstantBuiltin'] = '  ' -- 
+                    lspkind_icons['Number']          = '  '
+                    lspkind_icons['Float']           = '  '
+                    lspkind_icons['FunctionCall']    = '  '
+                    lspkind_icons['KeywordFunction'] = '  '
+                    lspkind_icons['StringEscape']    = ' 󱔁 '
+                    lspkind_icons['Spell']           = ' 暈'
+                    lspkind_icons["KeywordConditional"]  = '  '
+                    lspkind_icons["KeywordRepeat"]       = ' 凌' -- 北
+                    lspkind_icons['Orgtsblock']          = ' ⬛'
+                    lspkind_icons['Orgtsheadlinelevel1'] = ' ◉ '
+                    lspkind_icons['Orgtsheadlinelevel2'] = ' ◉ '
+                    lspkind_icons['Orgtsheadlinelevel3'] = ' ◉ '
+                    lspkind_icons['Orgtsheadlinelevel4'] = ' ◉ '
+                    lspkind_icons['Orgtsheadlinelevel5'] = ' ◉ '
+                    lspkind_icons['Orgtsheadlinelevel6'] = ' ◉ '
+                    lspkind_icons['Orgtsheadlinelevel7'] = ' ◉ '
+                    lspkind_icons['Orgtsheadlinelevel8'] = ' ◉ '
+                    lspkind_icons['Orgtscheckbox']        = '  '
+                    lspkind_icons['Orgtscheckboxchecked'] = '  '
+                end,
+            },
+            { "dmitmel/cmp-cmdline-history" },
+            {
+                "hrsh7th/cmp-cmdline",
+                config = function()
+                    local cmp = require'cmp'
+                    require("cmp").setup.cmdline({ "/", "?" }, {
+                        mapping = require("cmp").mapping.preset.cmdline({
+                            ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
+                        }),
+                        sources = require("cmp").config.sources({
+                            { name = "buffer", keyword_length = 1 },
+                            { name = 'cmdline_history' },
+                        }),
+                    })
+                    require("cmp").setup.cmdline(":", {
+                        mapping = require("cmp").mapping.preset.cmdline({
+                            ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
+                        }),
+                        sources = require("cmp").config.sources({
+                            { name = "path", keyword_length = 1 },
+                            { name = "cmdline", keyword_length = 1 },
+                            { name = 'cmdline_history' },
+                        }),
+                    })
+                end,
+            },
+            {
+                "uga-rosa/cmp-dictionary",
+                branch = "main",
+                commit = "93f3e2c",
+                config = function()
+                    require("cmp_dictionary").setup({
+                        dic = {
+                            --["*"] = { "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Directionary-8813.dic" },
+                            ["*"] = { "C:/Users/ThinkPad/AppData/Local/nvim-data/Maxl/Directionary-69903.dic" },
+                        },
+                        exact = 2,
+                        first_case_insensitive = true,
+                        document = false,
+                        document_command = "wn %s -over",
+                        async = true,     --If you are using a very large dictionary and the body operation is blocked, try 'true'
+                        max_items = -1,   --This is the maximum number of candidates that this source will return to the nvim-cmp body. -1 means no limit.
+                        capacity = 5,
+                        debug = false,
+                    })
+                    --require("cmp_dictionary").update() -- THIS
+                    vim.cmd("CmpDictionaryUpdate")
+                end,
+            },
+        },
+        config = function()
+            require 'luasnip'.config.setup {}
+            local cmp = require('cmp')
+            local lspkind = require('lspkind')
+            local source_mapping = {
+                nvim_lsp        = ' ﲳ ', --[LSP]
+                path            = '  ', --[PATH] 🖫
+                luasnip         = '  ',
+                buffer          = ' ﬘ ', --[BUF]
+                calc            = '  ', --[CALC] 
+                emoji           = ' ﭂ ', --[EMOJI] 😄
+                cmp_matlab      = '[]', --[MAT] [M]
+                dictionary      = '  ', --[Dict] 
+                treesitter      = '  ', --[TS] 
+                orgmode         = '  ', --[Org]
+                cmdline         = ' ﰩ ', -- ﯦ    ﰩ ﳺ
+                cmdline_history = '  ',
+                -- latex_symbols = '[TEX]',
+                -- nuspell       = '[SPELL]',
+                -- spell         = '暈[SPELL]',
+            }
+            cmp.setup({
+                completion = {
+                    completeopt = "menu,menuone,noinsert",
+                },
+                window = {
+                    completion = {
+                        side_padding = 0,
+                        col_offset = -4,
+                        -- border = "rounded",
+                        -- border = { "╭", " ", "╮", "│", "╯", "─", "╰", "│" },
+                        border = { "╭", " ", "╮", "│", "╯", " ", "╰", "│" },
+                        scrollbar = true,
+                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+                        -- winhighlight = "FloatBorder:FloatBorder,CursorLine:CursorLine",
+                    },
+                    documentation = {
+                        max_width = 50,
+                        -- border = "rounded",
+                        border = { "┌", " ", "┐", "│", "┘", " ", "└", "│" },
+                        scrollbar = true,
+                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+                        -- winhighlight = "Normal:CmpPmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+                    },
+                },
+                snippet = {
+                    expand = function(args)
+                        require('luasnip').lsp_expand(args.body)
+                    end,
+                },
+                sorting = {
+                    priority_weight = 2,
+                    comparators = {
+                        require("cmp-under-comparator").under,
+                        cmp.config.compare.kind,
+                        cmp.config.compare.sort_text,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
+                    },
+                },
+                mapping = cmp.mapping.preset.insert({
+                    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+                    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+                    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),  -- ["<C-u>"]
+                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),  -- ["<C-d>"]
+                    ["<C-c>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close(), },
+                    ['<CR>'] = cmp.mapping.confirm { select = true },
+
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
+                        else
+                            fallback()
+                        end
+                    end, { "i", "s" }
+                    ),
+
+                    -- move in snippet (expansion locations)
+                    ['<C-l>'] = cmp.mapping(function()
+                      if require 'luasnip'.expand_or_locally_jumpable() then
+                        require 'luasnip'.expand_or_jump()
+                      end
+                    end, { 'i', 's' }),
+                    ['<C-h>'] = cmp.mapping(function()
+                      if require 'luasnip'.locally_jumpable(-1) then
+                        require 'luasnip'.jump(-1)
+                      end
+                    end, { 'i', 's' }),
+
+                }),
+                formatting = {
+                    fields = { "kind", "abbr", "menu" },
+                    -- fields = { "abbr", "kind", "menu" },
+                    maxwidth = 60,
+                    maxheight = 10,
+                    format = function(entry, vim_item)
+                        vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
+                        vim_item.menu = source_mapping[entry.source.name]
+                        -- vim_item.kind = string.format('%s %s', lspkind.symbolic(vim_item.kind, {mode = "symbol"}), vim_item.kind)
+                        -- vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
+                        function Trim(text)
+                            local max = 40
+                            if text and text:len() > max then
+                                text = text:sub(1,max) .. "..."
+                            end
+                            return text
+                        end
+                        vim_item.abbr = Trim(vim_item.abbr)
+                        -- vim_item.abbr = vim_item.abbr:match("[^(]+")
+                        return vim_item
+                    end,
+                },
+                sources = cmp.config.sources({
+                    { name = 'nvim_lsp' },
+                    { name = 'path' },
+                    { name = 'luasnip' },
+                    { name = 'buffer' },
+                    { name = 'calc' },
+                    { name = 'emoji' },
+                    { name = 'cmp_matlab' },
+                    { name = "dictionary", keyword_length = 2 },
+                    { name = "treesitter" },
+                    { name = "orgmode" },
+                    --{ name = "latex_symbols" },
+                }),
+                experimental = {
+                    ghost_text = {
+                        hl_group = 'Comment',
+                    },
+                    -- ghost_text = false,
+                    native_menu = false,
+                },
+            })
+        end,
+    },
+    -- }}}
+   #+END_SRC
+
+
